@@ -1,0 +1,3 @@
+[submodule "pokecrystal"]
+	path = pokecrystal
+	url = git@github.com:pclalv/pokecrystal.git
