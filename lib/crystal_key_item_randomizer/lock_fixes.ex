@@ -3,8 +3,29 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
     if ! reachability[:ss_locked?] do
       swaps
     else
-      
+      cond do
+        required?(swaps[:S_S_TICKET]) ->
+          fix_ss_lock_required(swaps)
+        true ->
+          fix_ss_lock_maybe_required(swaps)
+      end
     end
+  end
+
+  defp fix_ss_lock_required(swaps) do
+    required_item = swaps[:S_S_TICKET]
+    new_s_s_ticket_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
+    new_item_that_gives_required_item = swaps
+    |> Enum.find({_key, val} -> val == new_s_s_ticket_item end)
+    |> elem(0)
+
+    swaps
+    |> Map.puts(:S_S_TICKET, new_s_s_ticket_item)
+    |> Map.puts(new_item_that_gives_required_item, required_item)
+  end
+
+  defp fix_ss_lock_maybe_required(swaps) do
+    
   end
 
   def fix_kanto_lock(swaps, reachability) do
