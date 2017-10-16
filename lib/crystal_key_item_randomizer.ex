@@ -1,6 +1,6 @@
 defmodule CrystalKeyItemRandomizer do
   @moduledoc """
-  Documentation for CrystalKeyItemRandomizer.
+  Randomizes the key items of Pokemon Crystal at the assembly level.
   """
 
   @required_items [
@@ -74,12 +74,22 @@ defmodule CrystalKeyItemRandomizer do
     :OLD_ROD,
   ]
 
+  @surf_blocked_items [
+    :RED_SCALE,
+    :HM_FLY,
+    :SECRETPOTION,
+    :HM_WATERFALL, # surf blocked unless we opt to remove the guy
+                   # blocking mahogany town/route 44 junction
+  ]
+
   def required_items, do: @required_items
   def maybe_required_items, do: @maybe_required_items
   def non_required_items, do: @non_required_items
   def kanto_items, do: @kanto_items
   def pre_sudowoodo_items, do: @pre_sudowoodo_items
   def pre_tree_items, do: @pre_tree_items
+  def surf_blocked_items, do: @surf_blocked_items
+
   def key_items, do: @required_items ++ @maybe_required_items ++ @non_required_items
 
   @doc """
@@ -90,6 +100,40 @@ defmodule CrystalKeyItemRandomizer do
       iex> CrystalKeyItemRandomizer.run
   """
   def run do
-    
+    copy_item_constants_file()
+    generate_key_item_swaps() |> ensure_reachable()
+  end
+
+  def ensure_reachable(swaps) do
+    reachability = CrystalKeyItemRandomizer.Reachability.analyze(swaps)
+
+    swaps
+    |> CrystalKeyItemRandomizer.LockFixes.fix_ss_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_kanto_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_sudowoodo_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_surf_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_tree_lock(reachability)
+    |> ensure_reachable(reachability)
+  end
+
+  defp ensure_reachable(swaps, reachability) do
+    if Map.values(reachability) |> ! Enum.any? do
+      swaps
+    else
+      ensure_reachable(swaps)
+    end
+  end
+
+  defp generate_key_item_swaps do
+    Enum.shuffle(CrystalKeyItemRandomizer.key_items)
+    |> Enum.zip(CrystalKeyItemRandomizer.key_items)
+    |> Enum.into(%{})
+  end
+
+  defp copy_item_constants_file do
+    File.copy!(
+      './pokecrystal/constants/item_constants.asm',
+      './pokecrystal/constants/item_constants.asm.tmp'
+    )
   end
 end
