@@ -59,9 +59,9 @@ defmodule CrystalKeyItemRandomizer.Reachability do
 
   defp sudowoodo_locked?(swaps) do
     cond do
-      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?(fn(pre_sudowoodo_item) -> swaps[pre_sudowoodo_item] == :SQUIRTBOTTLE end) ->
+      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE)) ->
         false
-      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?(fn(pre_sudowoodo_item) -> swaps[pre_sudowoodo_item] == :PASS end) ->
+      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?( &(swaps[&1] == :PASS)) ->
         if in_kanto?(swaps, :SQUIRTBOTTLE) || in_kanto?(swaps, :S_S_TICKET) do
           false
         else
@@ -74,26 +74,19 @@ defmodule CrystalKeyItemRandomizer.Reachability do
 
   defp surf_locked?(swaps) do
     CrystalKeyItemRandomizer.surf_blocked_items\
-    |> Enum.any?(fn(surf_blocked_item) -> surf_blocked_item == :HM_SURF end)
+    |> Enum.any?( &(swaps[&1] == :HM_SURF) )
   end
 
   defp tree_locked?(swaps) do
     !Enum.any?(
       CrystalKeyItemRandomizer.pre_tree_items,
-      fn
-        (pre_tree_item) ->
-          swaps[pre_tree_item] == :HM_CUT || swaps[pre_tree_item] == :SQUIRTBOTTLE
-      end
+      &( swaps[&1] == :HM_CUT || swaps[&1] == :SQUIRTBOTTLE )
     )
   end
 
   defp in_kanto?(swaps, item) do
     CrystalKeyItemRandomizer.kanto_items
-    |> Enum.any?(fn(kanto_item) -> swaps[kanto_item] == item end)
-  end
-
-  defp in_johto?(swaps, item) do
-    !in_kanto?(swaps, item)
+    |> Enum.any?( &(swaps[&1] == item) )
   end
 
   defp required?(item) do

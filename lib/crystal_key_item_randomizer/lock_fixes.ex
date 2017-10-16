@@ -59,7 +59,7 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
   def fix_sudowoodo_lock(swaps, _reachability) do
     old_replacement_item = :SQUIRTBOTTLE
     old_original_item = CrystalKeyItemRandomizer.sudowoodo_blocked_items
-    |> Enum.find(fn(sudowoodo_blocked_item) -> swaps[sudowoodo_blocked_item] == old_replacement_item end)
+    |> Enum.find( &(swaps[&1] == old_replacement_item) )
 
     new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.sudowoodo_blocked_items -- [:S_S_TICKET]
     |> Enum.random
@@ -74,7 +74,7 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
   def fix_surf_lock(swaps, _reachability) do
     old_replacement_item = :HM_SURF
     old_original_item = CrystalKeyItemRandomizer.surf_blocked_items
-    |> Enum.find(fn(surf_blocked_item) -> swaps[surf_blocked_item] == old_replacement_item end)
+    |> Enum.find( &(swaps[&1] == old_replacement_item) )
 
     new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.surf_blocked_items -- [:S_S_TICKET]
     |> Enum.random
