@@ -29,10 +29,10 @@ defmodule CrystalKeyItemRandomizer do
 
     # non-HMs
     :BICYCLE,
-    :BLUE_CARD,
     :CLEAR_BELL,   # not sure - possibly required for progress?
 
     # useless
+    :BLUE_CARD,    # useless
     :COIN_CASE,    # useless
     :GOOD_ROD,     # useless
     :ITEMFINDER,   # useless
@@ -110,8 +110,8 @@ defmodule CrystalKeyItemRandomizer do
     swaps
     |> CrystalKeyItemRandomizer.LockFixes.fix_ss_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_kanto_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_sudowoodo_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_surf_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_sudowoodo_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_tree_lock(reachability)
     |> ensure_reachable(reachability)
   end
