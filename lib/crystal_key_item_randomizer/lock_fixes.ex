@@ -1,83 +1,110 @@
 defmodule CrystalKeyItemRandomizer.LockFixes do
-  def fix_ss_lock(swaps, reachability) do
-    if ! reachability[:ss_locked?] do
-      swaps
-    else
-      cond do
-        required?(swaps[:S_S_TICKET]) ->
-          fix_ss_lock_required(swaps)
-        true ->
-          fix_ss_lock_maybe_required(swaps)
-      end
-    end
-  end
+  @doc """
 
-  defp fix_ss_lock_required(swaps) do
-    required_item = swaps[:S_S_TICKET]
-    new_s_s_ticket_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
-    new_item_that_gives_required_item = swaps
-    |> Enum.find({_key, val} -> val == new_s_s_ticket_item end)
+  Fix ss-locked swaps by taking whatever required key item replaced
+  the `S_S_TICKET` and switching it with some non-required item.
+
+  """
+
+  def fix_ss_lock(swaps, %{ss_locked?: locked}) when not locked, do: swaps
+  def fix_ss_lock(swaps, _reachability) do
+    old_original_item = :S_S_TICKET
+    old_replacement_item = swaps[old_original_item]
+
+    new_replacement_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
+    new_original_item = swaps
+    |> Enum.find(fn{_key, val} -> val == new_replacement_item end)
     |> elem(0)
 
     swaps
-    |> Map.puts(:S_S_TICKET, new_s_s_ticket_item)
-    |> Map.puts(new_item_that_gives_required_item, required_item)
+    |> Map.put(old_original_item, new_replacement_item)
+    |> Map.put(new_original_item, old_replacement_item)
   end
 
-  defp fix_ss_lock_maybe_required(swaps) do
-    
+  @doc """
+
+  Fix kanto-locked swaps by putting either the `PASS` or the
+  `S_S_TICKET` in Johto.
+
+  """
+
+  def fix_kanto_lock(swaps, %{kanto_locked?: locked}) when not locked, do: swaps
+  def fix_kanto_lock(swaps, _reachability) do
+    old_replacement_item = Enum.random([:PASS, :S_S_TICKET])
+    old_original_item = swaps
+    |> Enum.find(fn{_key, val} -> val == old_replacement_item end)
+    |> elem(0)
+
+    # choose a random non-required item to stick in kanto
+    new_replacement_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
+    new_original_item = swaps
+    |> Enum.find(fn{_key, val} -> val == new_replacement_item end)
+    |> elem(0)
+
+    swaps
+    |> Map.put(old_original_item, new_replacement_item)
+    |> Map.put(new_original_item, old_replacement_item)
   end
 
-  def fix_kanto_lock(swaps, reachability) do
-    if ! reachability[:kanto_locked?] do
-      swaps
-    else
-      
-    end
+  @doc """
+
+  Fix sudowoodo-locked swaps by making the `SQUIRTBOTTLE` available.
+
+  """
+
+  # in the future, it would be nice to implement more complicated
+  # fixes; say, if the `PASS` is available, then put the
+  # `SQUIRTBOTTLE` in kanto
+  def fix_sudowoodo_lock(swaps, %{sudowoodo_locked?: locked}) when not locked, do: swaps
+  def fix_sudowoodo_lock(swaps, _reachability) do
+    old_replacement_item = :SQUIRTBOTTLE
+    old_original_item = CrystalKeyItemRandomizer.sudowoodo_blocked_items
+    |> Enum.find(fn(sudowoodo_blocked_item) -> swaps[sudowoodo_blocked_item] == old_replacement_item end)
+
+    new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.sudowoodo_blocked_items -- [:S_S_TICKET]
+    |> Enum.random
+    new_replacement_item = swaps[new_original_item]
+
+    swaps
+    |> Map.put(old_original_item, new_replacement_item)
+    |> Map.put(new_original_item, old_replacement_item)
   end
 
-  def fix_sudowoodo_lock(swaps, reachability) do
-    if ! reachability[:sudowoodo_locked?] do
-      swaps
-    else
-      
-    end
+  def fix_surf_lock(swaps, %{surf_locked?: locked}) when not locked, do: swaps
+  def fix_surf_lock(swaps, _reachability) do
+    old_replacement_item = :HM_SURF
+    old_original_item = CrystalKeyItemRandomizer.surf_blocked_items
+    |> Enum.find(fn(surf_blocked_item) -> swaps[surf_blocked_item] == old_replacement_item end)
+
+    new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.surf_blocked_items -- [:S_S_TICKET]
+    |> Enum.random
+    new_replacement_item = swaps[new_original_item]
+
+    swaps
+    |> Map.put(old_original_item, new_replacement_item)
+    |> Map.put(new_original_item, old_replacement_item)
   end
 
-  def fix_surf_lock(swaps, reachability) do
-    if ! reachability[:surf_locked?] do
-      swaps
-    else
-      surf_item_to_change = CrystalKeyItemRandomizer.surf_blocked_items
-      |> Enum.find(fn(surf_blocked_item) -> swaps[surf_blocked_item] == :HM_SURF end)
+  @doc """
 
-      item_that_will_give_surf = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.surf_blocked_items -- [:S_S_TICKET]
-      |> Enum.random
+  Fix tree-locked swaps by making either `HM_CUT` or `SQUIRTBOTTLE`
+  available as a pre-tree item.
 
-      swaps
-      |> Map.puts(surf_item_to_change, swaps[item_that_will_give_surf])
-      |> Map.puts(item_that_will_give_surf, :HM_SURF)
-    end
-  end
+  """
 
-  def fix_tree_lock(swaps, reachability) do
-    if ! reachability[:tree_locked?] do
-      swaps
-    else
-      # pick a pre-tree item
-      # swap its replacement it with either HM_CUT or SQUIRTBOTTLE
+  # in the future, it would be nice for this function to recognize
+  # `CARD_KEY` and `CLEAR_BELL` as maybe pre-tree items.
+  def fix_tree_lock(swaps, %{tree_locked?: locked}) when not locked, do: swaps
+  def fix_tree_lock(swaps, _reachability) do
+    old_original_item = Enum.random(CrystalKeyItemRandomizer.pre_tree_items)
+    old_replacement_item = swaps[old_original_item]
+    new_replacement_item = Enum.random([:HM_CUT, :SQUIRTBOTTLE])
+    new_original_item = swaps
+    |> Enum.find(fn {_key, val} -> val == new_replacement_item end)
+    |> elem(0)
 
-      pre_tree_item_to_change = Enum.random(CrystalKeyItemRandomizer.pre_tree_items)
-      old_replacement_item = swaps[pre_tree_item_to_change]
-      new_replacement_item = Enum.random([:HM_CUT, :SQUIRTBOTTLE])
-      new_replacement_item_swap = swaps
-      |> Enum.reject(fn {key, _val} -> key == pre_tree_item_to_change end)
-      |> Enum.find(fn {_key, val} -> val == new_replacement_item end)
-      |> elem(0)
-
-      swaps
-      |> Map.puts(pre_tree_item_to_change, new_replacement_item)
-      |> Map.puts(new_replacement_item_swap, old_replacement_item)
-    end
+    swaps
+    |> Map.put(old_original_item, new_replacement_item)
+    |> Map.put(new_original_item, old_replacement_item)
   end
 end

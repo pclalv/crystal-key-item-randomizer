@@ -39,7 +39,9 @@ defmodule CrystalKeyItemRandomizer do
     :MACHINE_PART, # useless; train will be available from the get go
     :MYSTERY_EGG,  # useless; blocking battle will be disabled
     :OLD_ROD,      # useless
-    # :RAINBOW_WING, # useless; randomizing this is a bad idea...
+    # :RAINBOW_WING, # useless; randomizing this is a bad idea because
+    #                # of how much of a pain it is to catch all three
+    #                # beasts
     :RED_SCALE,    # useless
     :SILVER_WING,  # useless
     :SUPER_ROD,    # useless
@@ -89,8 +91,9 @@ defmodule CrystalKeyItemRandomizer do
   def pre_sudowoodo_items, do: @pre_sudowoodo_items
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
+  def sudowoodo_blocked_items, do: key_items() -- pre_sudowoodo_items()
 
-  def key_items, do: @required_items ++ @maybe_required_items ++ @non_required_items
+  def key_items, do: required_items() ++ maybe_required_items() ++ non_required_items()
 
   @doc """
   Run.
@@ -101,11 +104,19 @@ defmodule CrystalKeyItemRandomizer do
   """
   def run do
     copy_item_constants_file()
-    generate_key_item_swaps() |> ensure_reachable()
+
+    CrystalKeyItemRandomizer.key_items
+    |> Enum.shuffle
+    |> Enum.zip(CrystalKeyItemRandomizer.key_items)
+|> Enum.into(%{})
+    # CrystalKeyItemRandomizer.sudowoodo_locked_swaps
+    |> ensure_reachable
   end
 
   def ensure_reachable(swaps) do
     reachability = CrystalKeyItemRandomizer.Reachability.analyze(swaps)
+    IO.puts("in ensure_reachable")
+    IO.inspect(reachability)
 
     swaps
     |> CrystalKeyItemRandomizer.LockFixes.fix_ss_lock(reachability)
@@ -117,17 +128,11 @@ defmodule CrystalKeyItemRandomizer do
   end
 
   defp ensure_reachable(swaps, reachability) do
-    if Map.values(reachability) |> ! Enum.any? do
-      swaps
-    else
+    if reachability |> Map.from_struct |> Map.values |> Enum.any? do
       ensure_reachable(swaps)
+    else
+      swaps
     end
-  end
-
-  defp generate_key_item_swaps do
-    Enum.shuffle(CrystalKeyItemRandomizer.key_items)
-    |> Enum.zip(CrystalKeyItemRandomizer.key_items)
-    |> Enum.into(%{})
   end
 
   defp copy_item_constants_file do

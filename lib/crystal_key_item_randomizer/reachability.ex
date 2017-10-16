@@ -33,22 +33,22 @@ defmodule CrystalKeyItemRandomizer.Reachability do
   end
 
   defp kanto_locked?(swaps) do
-    cond do
-      in_johto?(swaps, :PASS) && in_johto?(swaps, :S_S_TICKET) ->
-        # if both of these items are available in johto, then it
-        # doesn't matter if a required item is in kanto.
-        false
-      any_required_item_in_kanto?(swaps) ->
-        true
-      # the following three cases check maybe-required items.
-      in_kanto?(swaps, :BASEMENT_KEY) && required?(swaps[:CARD_KEY]) ->
-        true
-      in_kanto?(swaps, :CARD_KEY) && required?(swaps[:CLEAR_BELL]) ->
-        true
-      in_kanto?(swaps, :LOST_ITEM) && required?(swaps[:PASS]) ->
-        true
-      true ->
-        false
+    if in_kanto?(swaps, :PASS) && in_kanto?(swaps, :S_S_TICKET) do
+      cond do
+        any_required_item_in_kanto?(swaps) ->
+          true
+        # the following three cases check maybe-required items.
+        in_kanto?(swaps, :BASEMENT_KEY) && required?(swaps[:CARD_KEY]) ->
+          true
+        in_kanto?(swaps, :CARD_KEY) && required?(swaps[:CLEAR_BELL]) ->
+          true
+        in_kanto?(swaps, :LOST_ITEM) && required?(swaps[:PASS]) ->
+          true
+        true ->
+          false
+      end
+    else
+      false
     end
   end
 
@@ -62,7 +62,7 @@ defmodule CrystalKeyItemRandomizer.Reachability do
       CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?(fn(pre_sudowoodo_item) -> swaps[pre_sudowoodo_item] == :SQUIRTBOTTLE end) ->
         false
       CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?(fn(pre_sudowoodo_item) -> swaps[pre_sudowoodo_item] == :PASS end) ->
-        if in_kanto?(:SQUIRTBOTTLE) || in_kanto?(:S_S_TICKET) do
+        if in_kanto?(swaps, :SQUIRTBOTTLE) || in_kanto?(swaps, :S_S_TICKET) do
           false
         else
           true
