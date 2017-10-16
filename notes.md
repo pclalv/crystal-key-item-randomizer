@@ -9,9 +9,3 @@
       2. figure out how to reassign item identities; thereby, the
          patch will be to reassign item identities instead of moving
          around scripts.
-
-# dependencies
-
-* flash
-* cut
-* 
