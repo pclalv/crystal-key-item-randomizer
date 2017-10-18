@@ -265,12 +265,4 @@ defmodule CrystalKeyItemRandomizer do
       swaps
     end
   end
-
-  defp item_constant(item) do
-    if item |> String.starts_with?("HM_") do
-      "add_hm #{item |> String.replace_prefix("HM_", "")}"
-    else
-      "const #{item}"
-    end
-  end
 end
