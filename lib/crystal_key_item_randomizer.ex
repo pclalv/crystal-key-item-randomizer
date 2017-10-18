@@ -3,158 +3,158 @@ defmodule CrystalKeyItemRandomizer do
   Randomizes the key items of Pokemon Crystal at the assembly level.
   """
 
-  @required_items [
-    %Item{
+  @required_items %{
+    HM_SURF: %CrystalKeyItemRandomizer.Item{
       name: :HM_SURF,
       location: :DanceTheatre,
       macro: :verbosegiveitem,
     },
-    %Item{
+    HM_STRENGTH: %CrystalKeyItemRandomizer.Item{
       name: :HM_STRENGTH,
       location: :OlivineCafe,
       macro: :verbosegiveitem
     },
-    %Item{
+    HM_WHIRLPOOL: %CrystalKeyItemRandomizer.Item{
       name: :HM_WHIRLPOOL,
-      location: :TeamRockBaseB2F,
+      location: :TeamRocketBaseB2F,
       macro: :verbosegiveitem,
     },
-    %Item{
+    HM_WATERFALL: %CrystalKeyItemRandomizer.Item{
       name: :HM_WATERFALL,
       location: :IcePath1F,
       macro: :itemball,
     },
-    %Item{
+    SECRETPOTION: %CrystalKeyItemRandomizer.Item{
       name: :SECRETPOTION,
       location: :CianwoodPharmacy,
       macro: :giveitem,
     },
-  ]
+  }
 
   # only one of HM_CUT/SQUIRTBOTTLE is required
-  @maybe_required_items [
-    %Item{
+  @maybe_required_items %{
+    BASEMENT_KEY: %CrystalKeyItemRandomizer.Item{
       name: :BASEMENT_KEY,
       location: :RadioTower5F,
       macro: :verbosegiveitem,
     },
-    %Item{
+    CARD_KEY: %CrystalKeyItemRandomizer.Item{
       name: :CARD_KEY,
       location: :UndergroundWarehouse,
       macro: :verbosegiveitem,
     },
-    %Item{
+    HM_CUT: %CrystalKeyItemRandomizer.Item{
       name: :HM_CUT,
       location: :IlexForest,
       macro: :verbosegiveitem,
     },
-    %Item{
+    LOST_ITEM: %CrystalKeyItemRandomizer.Item{
       name: :LOST_ITEM,
       location: :PokemonFanClub,
       macro: :giveitem,
     },
-    %Item{
+    PASS: %CrystalKeyItemRandomizer.Item{
       name: :PASS,
       location: :CopycatsHouse2F,
       macro: :verbosegiveitem,
     },
-    %Item{
+    S_S_TICKET: %CrystalKeyItemRandomizer.Item{
       name: :S_S_TICKET,
       location: :ElmsLab,
       macro: :verbosegiveitem,
     },
-    %Item{
+    SQUIRTBOTTLE: %CrystalKeyItemRandomizer.Item{
       name: :SQUIRTBOTTLE,
       location: :GoldenrodFlowerShop,
       macro: :verbosegiveitem,
     },
-  ]
+  }
 
-  @non_required_item_locations [
+  @non_required_items %{
     # HMs
-    %Item{
+    HM_FLASH: %CrystalKeyItemRandomizer.Item{
       name: :HM_FLASH,
       location: :SproutTower3F,
       macro: :verbosegiveitem,
     },
-    %Item{
+    HM_FLY: %CrystalKeyItemRandomizer.Item{
       name: :HM_FLY,
       location: :CianwoodCity,
       macro: :verbosegiveitem,
     },
 
     # non-HMs
-    %Item{
+    BICYCLE: %CrystalKeyItemRandomizer.Item{
       name: :BICYCLE,
       location: :GoldenrodBikeShop,
       macro: :giveitem,
     },
-    %Item{
+    CLEAR_BELL: %CrystalKeyItemRandomizer.Item{
       name: :CLEAR_BELL,
       location: :RadioTower5F,
       macro: :verbosegiveitem,
     },   # not sure - possibly required for progress?
 
     # useless
-    %Item{
+    BLUE_CARD: %CrystalKeyItemRandomizer.Item{
       name: :BLUE_CARD,
       location: :RadioTower2F,
       macro: :verbosegiveitem,
     },    # useless
-    %Item{
+    COIN_CASE: %CrystalKeyItemRandomizer.Item{
       name: :COIN_CASE,
       location: :WarehouseEntrance,
       macro: :itemball,
     },    # useless
-    %Item{
+    GOOD_ROD: %CrystalKeyItemRandomizer.Item{
       name: :GOOD_ROD,
       location: :OlivineGoodRodHouse,
       macro: :verbosegiveitem,
     },     # useless
-    %Item{
+    ITEMFINDER: %CrystalKeyItemRandomizer.Item{
       name: :ITEMFINDER,
       location: :EcruteakItemfinderHouse,
       macro: :verbosegiveitem,
     },   # useless
-    %Item{
+    MACHINE_PART: %CrystalKeyItemRandomizer.Item{
       name: :MACHINE_PART,
-      location: :foo,
-      macro: :"dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM,", 
+      location: :CeruleanGym,
+      macro: :"dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM,",
     }, # useless; train will be available from the get go
-    %Item{
+    MYSTERY_EGG: %CrystalKeyItemRandomizer.Item{
       name: :MYSTERY_EGG,
       location: :MrPokemonsHouse,
       macro: :giveitem,
     },  # useless; blocking battle will be disabled
-    %Item{
+    OLD_ROD: %CrystalKeyItemRandomizer.Item{
       name: :OLD_ROD,
       location: :Route32PokeCenter1F,
       macro: :verbosegiveitem,
     },      # useless
-    # %Item{
+    # RAINBOW_WING: %CrystalKeyItemRandomizer.Item{
     #   name: :RAINBOW_WING,
     #   location: :TinTower1F,
     #   macro: :verbosegiveitem,
     # }, # useless; randomizing this is a bad idea because of how much
     #    # of a pain it is to catch all three beasts
-    %Item{
+    RED_SCALE: %CrystalKeyItemRandomizer.Item{
       name: :RED_SCALE,
       location: :LakeofRage,
       macro: :giveitem,
     },    # useless
-    %Item{
+    SILVER_WING: %CrystalKeyItemRandomizer.Item{
       name: :SILVER_WING,
       location: :PewterCity,
       macro: :verbosegiveitem,
     },  # useless
-    %Item{
+    SUPER_ROD: %CrystalKeyItemRandomizer.Item{
       name: :SUPER_ROD,
       location: :Route12SuperRodHouse,
       macro: :verbosegiveitem,
     },    # useless
-  ]
+  }
 
-  @kanto_item_locations [
+  @kanto_items [
     :LOST_ITEM,
     :MACHINE_PART,
     :PASS,
@@ -194,8 +194,8 @@ defmodule CrystalKeyItemRandomizer do
   def required_items, do: @required_items
   def maybe_required_items, do: @maybe_required_items
   def non_required_items, do: @non_required_items
-  def key_items, do: required_items() ++ maybe_required_items() ++ non_required_items()
-  def key_item_names, do: key_items |> Enum.into([], &(&1[:name]))
+  def key_items, do: required_items |> Map.merge(maybe_required_items) |> Map.merge(non_required_items)
+  def key_item_names, do: key_items |> Map.keys
 
   def kanto_items, do: @kanto_items
   def pre_sudowoodo_items, do: @pre_sudowoodo_items
@@ -205,9 +205,10 @@ defmodule CrystalKeyItemRandomizer do
   def item_attributes, do: @item_attributes
   def ugly_pretty_names, do: @ugly_pretty_names
 
-  @item_attributes_path "./pokecrystal/items/item_attributes.asm"
+  @maps_dir "./pokecrystal/maps"
 
-  def item_attributes_path, do: @item_attributes_path
+  def maps_dir, do: @maps_dir
+
 
   @doc """
   Run the randomization.
@@ -217,82 +218,31 @@ defmodule CrystalKeyItemRandomizer do
       iex> CrystalKeyItemRandomizer.run
   """
   def run do
-    CrystalKeyItemRandomizer.key_items
+    CrystalKeyItemRandomizer.key_item_names
     |> Enum.shuffle
-    |> Enum.zip(CrystalKeyItemRandomizer.key_items)
+    |> Enum.zip(CrystalKeyItemRandomizer.key_item_names)
     |> Enum.into(%{})
+    |> IO.inspect
     |> ensure_reachable
-    |> Enum.into(%{}, fn {k, v} -> {k, to_string(v)} end)
     |> IO.inspect
     |> update_maps
   end
 
   def update_maps(swaps) do
     swaps
-    |> write_out_item_constants
+    |> Enum.each(&swap(&1))
   end
 
-  def write_out_item_constants(swaps) do
-    new_item_constants = File.read!(item_constants_path)
-    # hack because i don't know how negative regex matching would work
-    |> String.replace("BASEMENT_KEY", "BASEMENT_KEY;original", global: false)
-    |> String.replace("BICYCLE", "BICYCLE;original", global: false)
-    |> String.replace("BLUE_CARD", "BLUE_CARD;original", global: false)
-    |> String.replace("CARD_KEY", "CARD_KEY;original", global: false)
-    |> String.replace("CLEAR_BELL", "CLEAR_BELL;original", global: false)
-    |> String.replace("COIN_CASE", "COIN_CASE;original", global: false)
-    |> String.replace("GOOD_ROD", "GOOD_ROD;original", global: false)
-    |> String.replace("add_hm CUT", "add_hm CUT;original", global: false)
-    |> String.replace("add_hm FLASH", "add_hm FLASH;original", global: false)
-    |> String.replace("add_hm FLY", "add_hm FLY;original", global: false)
-    |> String.replace("add_hm STRENGTH", "add_hm STRENGTH;original", global: false)
-    |> String.replace("add_hm SURF", "add_hm SURF;original", global: false)
-    |> String.replace("add_hm WATERFALL", "add_hm WATERFALL;original", global: false)
-    |> String.replace("add_hm WHIRLPOOL", "add_hm WHIRLPOOL;original", global: false)
-    |> String.replace("ITEMFINDER", "ITEMFINDER;original", global: false)
-    |> String.replace("LOST_ITEM", "LOST_ITEM;original", global: false)
-    |> String.replace("MACHINE_PART", "MACHINE_PART;original", global: false)
-    |> String.replace("MYSTERY_EGG", "MYSTERY_EGG;original", global: false)
-    |> String.replace("OLD_ROD", "OLD_ROD;original", global: false)
-    |> String.replace("PASS", "PASS;original", global: false)
-    |> String.replace("RED_SCALE", "RED_SCALE;original", global: false)
-    |> String.replace("SECRETPOTION", "SECRETPOTION;original", global: false)
-    |> String.replace("SILVER_WING", "SILVER_WING;original", global: false)
-    |> String.replace("SQUIRTBOTTLE", "SQUIRTBOTTLE;original", global: false)
-    |> String.replace("SUPER_ROD", "SUPER_ROD;original", global: false)
-    |> String.replace("S_S_TICKET", "S_S_TICKET;original", global: false)
-    # now we can replace the original with the swapped
-    |> String.replace(~r/\w+\sBASEMENT_KEY;original/, item_constant(swaps[:BASEMENT_KEY]), global: false)
-    |> String.replace(~r/\w+\sBICYCLE;original/, item_constant(swaps[:BICYCLE]), global: false)
-    |> String.replace(~r/\w+\sBLUE_CARD;original/, item_constant(swaps[:BLUE_CARD]), global: false)
-    |> String.replace(~r/\w+\sCARD_KEY;original/, item_constant(swaps[:CARD_KEY]), global: false)
-    |> String.replace(~r/\w+\sCLEAR_BELL;original/, item_constant(swaps[:CLEAR_BELL]), global: false)
-    |> String.replace(~r/\w+\sCOIN_CASE;original/, item_constant(swaps[:COIN_CASE]), global: false)
-    |> String.replace(~r/\w+\sGOOD_ROD;original/, item_constant(swaps[:GOOD_ROD]), global: false)
-    |> String.replace(~r/\w+\sCUT;original/, item_constant(swaps[:HM_CUT]), global: false)
-    |> String.replace(~r/\w+\sFLASH;original/, item_constant(swaps[:HM_FLASH]), global: false)
-    |> String.replace(~r/\w+\sFLY;original/, item_constant(swaps[:HM_FLY]), global: false)
-    |> String.replace(~r/\w+\sSTRENGTH;original/, item_constant(swaps[:HM_STRENGTH]), global: false)
-    |> String.replace(~r/\w+\sSURF;original/, item_constant(swaps[:HM_SURF]), global: false)
-    |> String.replace(~r/\w+\sWATERFALL;original/, item_constant(swaps[:HM_WATERFALL]), global: false)
-    |> String.replace(~r/\w+\sWHIRLPOOL;original/, item_constant(swaps[:HM_WHIRLPOOL]), global: false)
-    |> String.replace(~r/\w+\sITEMFINDER;original/, item_constant(swaps[:ITEMFINDER]), global: false)
-    |> String.replace(~r/\w+\sLOST_ITEM;original/, item_constant(swaps[:LOST_ITEM]), global: false)
-    |> String.replace(~r/\w+\sMACHINE_PART;original/, item_constant(swaps[:MACHINE_PART]), global: false)
-    |> String.replace(~r/\w+\sMYSTERY_EGG;original/, item_constant(swaps[:MYSTERY_EGG]), global: false)
-    |> String.replace(~r/\w+\sOLD_ROD;original/, item_constant(swaps[:OLD_ROD]), global: false)
-    |> String.replace(~r/\w+\sPASS;original/, item_constant(swaps[:PASS]), global: false)
-    |> String.replace(~r/\w+\sRED_SCALE;original/, item_constant(swaps[:RED_SCALE]), global: false)
-    |> String.replace(~r/\w+\sSECRETPOTION;original/, item_constant(swaps[:SECRETPOTION]), global: false)
-    |> String.replace(~r/\w+\sSILVER_WING;original/, item_constant(swaps[:SILVER_WING]), global: false)
-    |> String.replace(~r/\w+\sSQUIRTBOTTLE;original/, item_constant(swaps[:SQUIRTBOTTLE]), global: false)
-    |> String.replace(~r/\w+\sSUPER_ROD;original/, item_constant(swaps[:SUPER_ROD]), global: false)
-    |> String.replace(~r/\w+\sS_S_TICKET;original/, item_constant(swaps[:S_S_TICKET]), global: false)
+  def swap({original, replacement}) do
+    original_item = CrystalKeyItemRandomizer.key_items[original]
+    map_path = "#{CrystalKeyItemRandomizer.maps_dir}/#{original_item.location}.asm"
 
-    File.write!(item_constants_path, new_item_constants)
+    updated_map = File.read!(map_path)
+    |> String.replace("#{original_item.macro} #{original}", "#{original_item.macro} #{replacement}")
 
-    swaps
+    File.write!(map_path, updated_map)
   end
+
 
   def ensure_reachable(swaps) do
     reachability = CrystalKeyItemRandomizer.Reachability.analyze(swaps)
