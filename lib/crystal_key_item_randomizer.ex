@@ -27,7 +27,7 @@ defmodule CrystalKeyItemRandomizer do
     SECRETPOTION: %CrystalKeyItemRandomizer.Item{
       name: :SECRETPOTION,
       location: :CianwoodPharmacy,
-      macro: :giveitem,
+      macro: :verbosegiveitem,
     },
   }
 
@@ -51,7 +51,7 @@ defmodule CrystalKeyItemRandomizer do
     LOST_ITEM: %CrystalKeyItemRandomizer.Item{
       name: :LOST_ITEM,
       location: :PokemonFanClub,
-      macro: :giveitem,
+      macro: :verbosegiveitem,
     },
     PASS: %CrystalKeyItemRandomizer.Item{
       name: :PASS,
@@ -87,7 +87,7 @@ defmodule CrystalKeyItemRandomizer do
     BICYCLE: %CrystalKeyItemRandomizer.Item{
       name: :BICYCLE,
       location: :GoldenrodBikeShop,
-      macro: :giveitem,
+      macro: :verbosegiveitem,
     },
     CLEAR_BELL: %CrystalKeyItemRandomizer.Item{
       name: :CLEAR_BELL,
@@ -124,7 +124,7 @@ defmodule CrystalKeyItemRandomizer do
     MYSTERY_EGG: %CrystalKeyItemRandomizer.Item{
       name: :MYSTERY_EGG,
       location: :MrPokemonsHouse,
-      macro: :giveitem,
+      macro: :verbosegiveitem,
     },  # useless; blocking battle will be disabled
     OLD_ROD: %CrystalKeyItemRandomizer.Item{
       name: :OLD_ROD,
@@ -140,7 +140,7 @@ defmodule CrystalKeyItemRandomizer do
     RED_SCALE: %CrystalKeyItemRandomizer.Item{
       name: :RED_SCALE,
       location: :LakeofRage,
-      macro: :giveitem,
+      macro: :verbosegiveitem,
     },    # useless
     SILVER_WING: %CrystalKeyItemRandomizer.Item{
       name: :SILVER_WING,
