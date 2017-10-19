@@ -202,8 +202,6 @@ defmodule CrystalKeyItemRandomizer do
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
   def sudowoodo_blocked_items, do: key_item_names -- pre_sudowoodo_items
-  def item_attributes, do: @item_attributes
-  def ugly_pretty_names, do: @ugly_pretty_names
 
   @maps_dir "./pokecrystal/maps"
 
