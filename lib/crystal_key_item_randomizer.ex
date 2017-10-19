@@ -245,7 +245,6 @@ defmodule CrystalKeyItemRandomizer do
     File.write!(map_path, updated_map)
   end
 
-
   def ensure_reachable(swaps) do
     reachability = CrystalKeyItemRandomizer.Reachability.analyze(swaps)
     IO.puts("in ensure_reachable")
