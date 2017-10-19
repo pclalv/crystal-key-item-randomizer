@@ -216,6 +216,8 @@ defmodule CrystalKeyItemRandomizer do
       iex> CrystalKeyItemRandomizer.run
   """
   def run do
+    System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")
+
     CrystalKeyItemRandomizer.key_item_names
     |> Enum.shuffle
     |> Enum.zip(CrystalKeyItemRandomizer.key_item_names)
@@ -224,6 +226,8 @@ defmodule CrystalKeyItemRandomizer do
     |> ensure_reachable
     |> IO.inspect
     |> update_maps
+
+    System.cmd("make", [], cd: "./pokecrystal/")
   end
 
   def update_maps(swaps) do
