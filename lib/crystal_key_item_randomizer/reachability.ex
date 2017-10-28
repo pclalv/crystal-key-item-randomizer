@@ -13,9 +13,9 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     }
   end
 
+  # the seed is ss-locked if the `S_S_TICKET` is replaced by any
+  # required key item.
   defp ss_locked?(swaps) do
-    # the goal of the randomizer is to beat the elite 4; elm only gives
-    # you the SS Ticket after you beat the elite 4.
     replacement = swaps[:S_S_TICKET]
 
     cond do
@@ -32,6 +32,8 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     end
   end
 
+  # the seed is kanto-locked if kanto is inaccessible but any required
+  # key item is in kanto.
   defp kanto_locked?(swaps) do
     if in_kanto?(swaps, :PASS) && in_kanto?(swaps, :S_S_TICKET) do
       cond do
@@ -57,6 +59,9 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     |> Enum.any?(fn(required_item) -> in_kanto?(swaps, required_item) end)
   end
 
+  # the seed is goldenrod-locked if the player reaches goldenrod and
+  # can neither make progress by clearing sudowoodo or by traveling to
+  # kanto.
   defp goldenrod_locked?(swaps) do
     cond do
       CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE)) ->
@@ -72,11 +77,13 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     end
   end
 
+  # the seed is surf-locked if any surf-blocked item is replaced by `HM_SURF`.
   defp surf_locked?(swaps) do
     CrystalKeyItemRandomizer.surf_blocked_items\
     |> Enum.any?( &(swaps[&1] == :HM_SURF) )
   end
 
+  # the seed is tree-locked if none of the pre-tree items are HM_CUT or the SQUIRTBOTTLE.
   defp tree_locked?(swaps) do
     !Enum.any?(
       CrystalKeyItemRandomizer.pre_tree_items,
