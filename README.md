@@ -1,6 +1,6 @@
 # CrystalKeyItemRandomizer
 
-**TODO: Add description**
+A key item randomizer for Pokemon Crystal.
 
 ## Installation
 
