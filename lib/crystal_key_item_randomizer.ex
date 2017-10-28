@@ -225,17 +225,12 @@ defmodule CrystalKeyItemRandomizer do
     |> IO.inspect
     |> ensure_reachable
     |> IO.inspect
-    |> update_maps
+    |> Enum.each(&apply_swap(&1)) # TODO: make this more idiomatic?
 
     System.cmd("make", [], cd: "./pokecrystal/")
   end
 
-  def update_maps(swaps) do
-    swaps
-    |> Enum.each(&swap(&1))
-  end
-
-  def swap({original, replacement}) do
+  def apply_swap({original, replacement}) do
     original_item = CrystalKeyItemRandomizer.key_items[original]
     map_path = "#{CrystalKeyItemRandomizer.maps_dir}/#{original_item.location}.asm"
 
