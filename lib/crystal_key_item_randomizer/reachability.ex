@@ -1,5 +1,5 @@
 defmodule CrystalKeyItemRandomizer.Reachability do
-  @locks [:ss_locked?, :kanto_locked?, :sudowoodo_locked?, :surf_locked?, :tree_locked?]
+  @locks [:ss_locked?, :kanto_locked?, :goldenrod_locked?, :surf_locked?, :tree_locked?]
   @enforce_keys @locks
   defstruct @locks
 
@@ -7,7 +7,7 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     %CrystalKeyItemRandomizer.Reachability{
       ss_locked?: ss_locked?(swaps),
       kanto_locked?: kanto_locked?(swaps),
-      sudowoodo_locked?: sudowoodo_locked?(swaps),
+      goldenrod_locked?: goldenrod_locked?(swaps),
       surf_locked?: surf_locked?(swaps),
       tree_locked?: tree_locked?(swaps),
     }
@@ -57,11 +57,11 @@ defmodule CrystalKeyItemRandomizer.Reachability do
     |> Enum.any?(fn(required_item) -> in_kanto?(swaps, required_item) end)
   end
 
-  defp sudowoodo_locked?(swaps) do
+  defp goldenrod_locked?(swaps) do
     cond do
-      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE)) ->
+      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE)) ->
         false
-      CrystalKeyItemRandomizer.pre_sudowoodo_items |> Enum.any?( &(swaps[&1] == :PASS)) ->
+      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :PASS)) ->
         if in_kanto?(swaps, :SQUIRTBOTTLE) || in_kanto?(swaps, :S_S_TICKET) do
           false
         else

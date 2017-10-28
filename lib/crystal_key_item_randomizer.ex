@@ -162,7 +162,7 @@ defmodule CrystalKeyItemRandomizer do
     :SUPER_ROD,
   ]
 
-  @pre_sudowoodo_items [
+  @pre_goldenrod_items [
     :HM_CUT,
     :HM_FLASH,
     # :BASEMENT_KEY, # pretty sure we can't get to this
@@ -198,10 +198,10 @@ defmodule CrystalKeyItemRandomizer do
   def key_item_names, do: key_items |> Map.keys
 
   def kanto_items, do: @kanto_items
-  def pre_sudowoodo_items, do: @pre_sudowoodo_items
+  def pre_goldenrod_items, do: @pre_goldenrod_items
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
-  def sudowoodo_blocked_items, do: key_item_names -- pre_sudowoodo_items
+  def goldenrod_blocked_items, do: key_item_names -- pre_goldenrod_items
 
   @maps_dir "./pokecrystal/maps"
 
@@ -254,7 +254,7 @@ defmodule CrystalKeyItemRandomizer do
     |> CrystalKeyItemRandomizer.LockFixes.fix_ss_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_kanto_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_surf_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_sudowoodo_lock(reachability)
+    |> CrystalKeyItemRandomizer.LockFixes.fix_goldenrod_lock(reachability)
     |> CrystalKeyItemRandomizer.LockFixes.fix_tree_lock(reachability)
     |> ensure_reachable(reachability)
   end

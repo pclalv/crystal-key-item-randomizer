@@ -48,20 +48,20 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
 
   @doc """
 
-  Fix sudowoodo-locked swaps by making the `SQUIRTBOTTLE` available.
+  Fix goldenrod-locked swaps by making the `SQUIRTBOTTLE` available.
 
   """
 
   # in the future, it would be nice to implement more complicated
   # fixes; say, if the `PASS` is available, then put the
   # `SQUIRTBOTTLE` in kanto
-  def fix_sudowoodo_lock(swaps, %{sudowoodo_locked?: locked}) when not locked, do: swaps
-  def fix_sudowoodo_lock(swaps, _reachability) do
+  def fix_goldenrod_lock(swaps, %{goldenrod_locked?: locked}) when not locked, do: swaps
+  def fix_goldenrod_lock(swaps, _reachability) do
     old_replacement_item = :SQUIRTBOTTLE
-    old_original_item = CrystalKeyItemRandomizer.sudowoodo_blocked_items
+    old_original_item = CrystalKeyItemRandomizer.goldenrod_blocked_items
     |> Enum.find( &(swaps[&1] == old_replacement_item) )
 
-    new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.sudowoodo_blocked_items -- [:S_S_TICKET]
+    new_original_item = CrystalKeyItemRandomizer.key_items -- CrystalKeyItemRandomizer.goldenrod_blocked_items -- [:S_S_TICKET]
     |> Enum.random
     new_replacement_item = swaps[new_original_item]
 
