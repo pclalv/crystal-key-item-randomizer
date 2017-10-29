@@ -12,9 +12,8 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
     old_replacement_item = swaps[old_original_item]
 
     new_replacement_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
-    new_original_item = swaps
+    {new_original_item, _} = swaps
     |> Enum.find(fn{_key, val} -> val == new_replacement_item end)
-    |> elem(0)
 
     swaps
     |> Map.put(old_original_item, new_replacement_item)
@@ -31,15 +30,13 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
   def fix_kanto_lock(swaps, %{kanto_locked?: locked}) when not locked, do: swaps
   def fix_kanto_lock(swaps, _reachability) do
     old_replacement_item = Enum.random([:PASS, :S_S_TICKET])
-    old_original_item = swaps
+    {old_original_item, _} = swaps
     |> Enum.find(fn{_key, val} -> val == old_replacement_item end)
-    |> elem(0)
 
     # choose a random non-required item to stick in kanto
     new_replacement_item = Enum.random(CrystalKeyItemRandomizer.non_required_items)
-    new_original_item = swaps
+    {new_original_item, _} = swaps
     |> Enum.find(fn{_key, val} -> val == new_replacement_item end)
-    |> elem(0)
 
     swaps
     |> Map.put(old_original_item, new_replacement_item)
@@ -99,9 +96,8 @@ defmodule CrystalKeyItemRandomizer.LockFixes do
     old_original_item = Enum.random(CrystalKeyItemRandomizer.pre_tree_items)
     old_replacement_item = swaps[old_original_item]
     new_replacement_item = Enum.random([:HM_CUT, :SQUIRTBOTTLE])
-    new_original_item = swaps
+    {new_original_item, _} = swaps
     |> Enum.find(fn {_key, val} -> val == new_replacement_item end)
-    |> elem(0)
 
     swaps
     |> Map.put(old_original_item, new_replacement_item)
