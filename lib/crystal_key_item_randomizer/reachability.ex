@@ -64,13 +64,42 @@ defmodule CrystalKeyItemRandomizer.Reachability do
   # kanto.
   defp goldenrod_locked?(swaps) do
     cond do
-      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE)) ->
+      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :SQUIRTBOTTLE) ) ->
         false
-      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :PASS)) ->
-        if in_kanto?(swaps, :SQUIRTBOTTLE) || in_kanto?(swaps, :S_S_TICKET) do
-          false
-        else
-          true
+      CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.any?( &(swaps[&1] == :PASS) ) ->
+        cond do
+          swaps[:SUPER_ROD] == :SQUIRTBOTTLE ->
+            false
+          swaps[:SUPER_ROD] == :S_S_TICKET ->
+            cond do
+              # `HM_SURF` will allow the player to do lots of stuff,
+              # including kanto key item sidequests.
+              [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :HM_SURF) ) ->
+                false
+              # `BASEMENT_KEY` allows the player to get the `CARD_KEY`
+              # and then maybe the `CLEAR_BELL`.
+              #
+              # TODO: not sure about the implications of receiving
+              # `BASEMENT_KEY` at this point in the game. i'm
+              # concerned that the player would not be able to get the
+              # original `BASEMENT_KEY`. so, if that item is required,
+              # then we're still blocked here, and checking right now
+              # might be the only way of knowing...
+              [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :BASEMENT_KEY) ) ->
+                required?(swaps[:BASEMENT_KEY])
+              # TODO: not sure about the implications of receiving
+              # CARD_KEY at this point in the game. does getting
+              # CARD_KEY early preclude the player from triggering
+              # some rocket/radio tower events?  are any of those
+              # events important? possibly there'd be the same problem
+              # of not being able to get the `BASEMENT_KEY`.
+              [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :CARD_KEY) ) ->
+                required?(swaps[:BASEMENT_KEY])
+              true ->
+                true
+            end
+          true ->
+            true
         end
       true ->
         false
