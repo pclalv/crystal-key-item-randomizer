@@ -60,7 +60,7 @@ defmodule CrystalKeyItemRandomizer.Reachability do
   end
 
   # the seed is goldenrod-locked if the player reaches goldenrod and
-  # can neither make progress by clearing sudowoodo or by traveling to
+  # can make progress neither by clearing sudowoodo nor by traveling to
   # kanto.
   defp goldenrod_locked?(swaps) do
     cond do
@@ -85,16 +85,16 @@ defmodule CrystalKeyItemRandomizer.Reachability do
               # original `BASEMENT_KEY`. so, if that item is required,
               # then we're still blocked here, and checking right now
               # might be the only way of knowing...
-              [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :BASEMENT_KEY) ) ->
-                required?(swaps[:BASEMENT_KEY])
+              # [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :BASEMENT_KEY) ) ->
+              # required?(swaps[:BASEMENT_KEY])
               # TODO: not sure about the implications of receiving
               # CARD_KEY at this point in the game. does getting
               # CARD_KEY early preclude the player from triggering
               # some rocket/radio tower events?  are any of those
               # events important? possibly there'd be the same problem
               # of not being able to get the `BASEMENT_KEY`.
-              [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :CARD_KEY) ) ->
-                required?(swaps[:BASEMENT_KEY])
+              # [:HM_STRENGTH, :HM_SURF, :GOOD_ROD] |> Enum.any?( & (swaps[&1] == :CARD_KEY) ) ->
+              #   required?(swaps[:BASEMENT_KEY])
               true ->
                 true
             end
