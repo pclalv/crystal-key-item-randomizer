@@ -187,8 +187,9 @@ defmodule CrystalKeyItemRandomizer do
     :RED_SCALE,
     :HM_FLY,
     :SECRETPOTION,
-    :HM_WATERFALL, # surf blocked unless we opt to remove the guy
-                   # blocking mahogany town/route 44 junction
+    :HM_WATERFALL # surf blocked unless we opt to remove the guy
+                  # blocking mahogany town/route 44 junction
+    | (for item <- @kanto_items, item != :SUPER_ROD, do: item)
   ]
 
   def required_items, do: @required_items
