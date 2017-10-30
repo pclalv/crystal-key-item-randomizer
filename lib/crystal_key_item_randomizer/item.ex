@@ -1,5 +1,4 @@
 defmodule CrystalKeyItemRandomizer.Item do
-  @fields [:name, :location, :macro,]
-  @enforce_keys @fields
-  defstruct @fields
+  @enforce_keys [:name, :location,]
+  defstruct [:name, :location, macro: :verbosegiveitem]
 end

@@ -7,17 +7,14 @@ defmodule CrystalKeyItemRandomizer do
     HM_SURF: %CrystalKeyItemRandomizer.Item{
       name: :HM_SURF,
       location: :DanceTheatre,
-      macro: :verbosegiveitem,
     },
     HM_STRENGTH: %CrystalKeyItemRandomizer.Item{
       name: :HM_STRENGTH,
       location: :OlivineCafe,
-      macro: :verbosegiveitem
     },
     HM_WHIRLPOOL: %CrystalKeyItemRandomizer.Item{
       name: :HM_WHIRLPOOL,
       location: :TeamRocketBaseB2F,
-      macro: :verbosegiveitem,
     },
     HM_WATERFALL: %CrystalKeyItemRandomizer.Item{
       name: :HM_WATERFALL,
@@ -27,7 +24,6 @@ defmodule CrystalKeyItemRandomizer do
     SECRETPOTION: %CrystalKeyItemRandomizer.Item{
       name: :SECRETPOTION,
       location: :CianwoodPharmacy,
-      macro: :verbosegiveitem,
     },
   }
 
@@ -36,37 +32,30 @@ defmodule CrystalKeyItemRandomizer do
     BASEMENT_KEY: %CrystalKeyItemRandomizer.Item{
       name: :BASEMENT_KEY,
       location: :RadioTower5F,
-      macro: :verbosegiveitem,
     },
     CARD_KEY: %CrystalKeyItemRandomizer.Item{
       name: :CARD_KEY,
       location: :UndergroundWarehouse,
-      macro: :verbosegiveitem,
     },
     HM_CUT: %CrystalKeyItemRandomizer.Item{
       name: :HM_CUT,
       location: :IlexForest,
-      macro: :verbosegiveitem,
     },
     LOST_ITEM: %CrystalKeyItemRandomizer.Item{
       name: :LOST_ITEM,
       location: :PokemonFanClub,
-      macro: :verbosegiveitem,
     },
     PASS: %CrystalKeyItemRandomizer.Item{
       name: :PASS,
       location: :CopycatsHouse2F,
-      macro: :verbosegiveitem,
     },
     S_S_TICKET: %CrystalKeyItemRandomizer.Item{
       name: :S_S_TICKET,
       location: :ElmsLab,
-      macro: :verbosegiveitem,
     },
     SQUIRTBOTTLE: %CrystalKeyItemRandomizer.Item{
       name: :SQUIRTBOTTLE,
       location: :GoldenrodFlowerShop,
-      macro: :verbosegiveitem,
     },
   }
 
@@ -75,31 +64,26 @@ defmodule CrystalKeyItemRandomizer do
     HM_FLASH: %CrystalKeyItemRandomizer.Item{
       name: :HM_FLASH,
       location: :SproutTower3F,
-      macro: :verbosegiveitem,
     },
     HM_FLY: %CrystalKeyItemRandomizer.Item{
       name: :HM_FLY,
       location: :CianwoodCity,
-      macro: :verbosegiveitem,
     },
 
     # non-HMs
     BICYCLE: %CrystalKeyItemRandomizer.Item{
       name: :BICYCLE,
       location: :GoldenrodBikeShop,
-      macro: :verbosegiveitem,
     },
     CLEAR_BELL: %CrystalKeyItemRandomizer.Item{
       name: :CLEAR_BELL,
       location: :RadioTower5F,
-      macro: :verbosegiveitem,
     },   # not sure - possibly required for progress?
 
     # useless
     BLUE_CARD: %CrystalKeyItemRandomizer.Item{
       name: :BLUE_CARD,
       location: :RadioTower2F,
-      macro: :verbosegiveitem,
     },    # useless
     COIN_CASE: %CrystalKeyItemRandomizer.Item{
       name: :COIN_CASE,
@@ -109,12 +93,10 @@ defmodule CrystalKeyItemRandomizer do
     GOOD_ROD: %CrystalKeyItemRandomizer.Item{
       name: :GOOD_ROD,
       location: :OlivineGoodRodHouse,
-      macro: :verbosegiveitem,
     },     # useless
     ITEMFINDER: %CrystalKeyItemRandomizer.Item{
       name: :ITEMFINDER,
       location: :EcruteakItemfinderHouse,
-      macro: :verbosegiveitem,
     },   # useless
     MACHINE_PART: %CrystalKeyItemRandomizer.Item{
       name: :MACHINE_PART,
@@ -124,33 +106,27 @@ defmodule CrystalKeyItemRandomizer do
     MYSTERY_EGG: %CrystalKeyItemRandomizer.Item{
       name: :MYSTERY_EGG,
       location: :MrPokemonsHouse,
-      macro: :verbosegiveitem,
     },  # useless; blocking battle will be disabled
     OLD_ROD: %CrystalKeyItemRandomizer.Item{
       name: :OLD_ROD,
       location: :Route32PokeCenter1F,
-      macro: :verbosegiveitem,
     },      # useless
     # RAINBOW_WING: %CrystalKeyItemRandomizer.Item{
     #   name: :RAINBOW_WING,
     #   location: :TinTower1F,
-    #   macro: :verbosegiveitem,
     # }, # useless; randomizing this is a bad idea because of how much
     #    # of a pain it is to catch all three beasts
     RED_SCALE: %CrystalKeyItemRandomizer.Item{
       name: :RED_SCALE,
       location: :LakeofRage,
-      macro: :verbosegiveitem,
     },    # useless
     SILVER_WING: %CrystalKeyItemRandomizer.Item{
       name: :SILVER_WING,
       location: :PewterCity,
-      macro: :verbosegiveitem,
     },  # useless
     SUPER_ROD: %CrystalKeyItemRandomizer.Item{
       name: :SUPER_ROD,
       location: :Route12SuperRodHouse,
-      macro: :verbosegiveitem,
     },    # useless
   }
 
