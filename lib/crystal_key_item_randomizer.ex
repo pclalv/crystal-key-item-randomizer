@@ -160,6 +160,10 @@ defmodule CrystalKeyItemRandomizer do
   ]
 
   @surf_blocked_items [
+    :CARD_KEY,     # surf-blocked because the player can't
+    :BASEMENT_KEY, # trigger the rocket radio tower takeover
+    :CLEAR_BELL,   # without defeating the red gyarados
+
     :RED_SCALE,
     :HM_FLY,
     :SECRETPOTION,
