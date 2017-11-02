@@ -1,14 +1,36 @@
 # Todo
 
-- fix `SUPER_ROD` text. also fix the thing where he talks about the
-  rod.
-- restore the trainer that blocks progress on route 32 until beating falkner
+## Serious
+
+## Reachability
+
+- cut-locked?
+    - if one of the non-super rod kanto key items is required, but CUT
+      is itself one of those items...
+        - then you have to go thru rock tunnel.
+            - that's fine.
+
+## Fun
+
+- consider randomizer which non-required item the copycat is looking
+  for.
+
+## pokecyrstal
+
 - if you fight sudowoodo before you visit the flower shop, you can't
   get the flower shop item.
     - what do? i guess the simplest thing is not check if sudowoodo
       has been fought.
     - maybe the flower shop "teacher" should just not even care if
       you've talked to floria.
+    - probably fixed
+
+## Playtesting
+
+- see what happens if you get the `BASEMENT_KEY` early
+    - you fight rival, but rockets and the radio tower manager are missing...
+    - see above under `Serious`
+- see what happens if you get the `CARD_KEY` early
 
 # Elixir
 

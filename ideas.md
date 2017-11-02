@@ -1,8 +1,4 @@
-# reachability analysis
-
-*randomize first, then fix unreachables*
-
-- define invalid seeds
+# reachability conditions
     - ss-locked
         - when `S_S_TICKET` is replaced with a required item or a
           maybe required key item that blocks a key item (see subcases
@@ -32,18 +28,70 @@
                   `GOOD_ROD` are replaced with either `HM_SURF`,
                   `BASEMENT_KEY`, or `CARD_KEY`
     - surf-locked
-        - when `RED_SCALE` or `HM_FLY` or `SECRETPOTION` or
-          `HM_WATERFALL` is replaced with `HM_SURF`
-        - what about radio tower? that's triggered by beating pryce,
-          and pryce can't be beaten until after the player beats the
-          red gyarados.
-            - can the goldenrod underground be accessed with the
-              `CARD_KEY` at any time? if so, then `HM_SURF` could be
-              down there in place of the `CLEAR_BELL`.
-            - seems like underground can be done at any time, but
-              radio tower depends on mahogany town/lake of rage
-              events.
+        - when any of the following is replaced with `HM_SURF`:
+            - `BASEMENT_KEY`
+            - `CARD_KEY`
+            - `CLEAR_BELL`
+            - `RED_SCALE`
+            - `HM_FLY`
+            - `SECRETPOTION`
+            - `HM_WATERFALL`
+            - any kanto key item that is not the `SUPER_ROD`
+        - see `@surf_blocked_items`
     - tree-locked
         - when neither `HM_CUT` nor `SQUIRTBOTTLE` are acquired by the
           time the player reaches ilex forest
-            - see `PRE_TREE_ITEMS`
+            - see `@pre_tree_items`
+
+# crazy stuff
+
+- trigger rockets radio tower trakeover if you get the `BASEMENT_KEY` early
+    - those sprites only appear if
+      `EVENT_RADIO_TOWER_ROCKET_TAKEOVER`. would trigger by inserting
+      line immediately after the line that gives the `BASEMENT_KEY`
+        - this could be complicated for, say, `HM_WATERFALL`.
+        - it'd be `jumpstd radiotowerrockets`. `goldenrodrockets` is
+          just what we call the state where two additional rockets
+          are standing around goldenrod after you've beaten 6 gyms
+          but before you've beaten 7 gyms.
+            - what would happen if you trigger radio tower rockets
+              after getting the `BASEMENT_KEY`, but then
+              `CARD_KEY` happens to be, say, where `HM_WATERFALL`
+              is?
+                - could be a lock
+            - when should this be triggered?
+    - otherwise, `BASEMENT_KEY`, `CARD_KEY`, and `CLEAR_BELL` are surf-locked
+        - maybe the doors opened by `BASEMENT_KEY` and `CARD_KEY`
+          should check `VAR_BADGES` too?
+            - this goes against the spirit of open-ended exploration
+              that i'm trying to achieve.
+        - if any of those become `HM_SURF` then you'll be blocked,
+          because `EVENT_RADIO_TOWER_ROCKET_TAKEOVER` is only set
+          after defeating 7 gym leaders, which requires defeating all
+          6 before pryce, and then claire OR pryce, (but most likely
+          pryce, short of allowing the player to visit blackthorn at
+          any time), which would require having beaten the red
+          gyarados, which requires surf.
+        - sort of? my romhack allows you to trigger rockets after
+          collecting kanto gym badges. there are certain cases where
+          you'll be able to (theoretically) trigger the rockets with
+          kanto gym leaders.
+            - surge
+                - requires `HM_CUT` or `HM_SURF`
+                    - in order to cut the bush or bypass it with surf
+            - sabrina
+                - nothing required?
+            - erika
+                - requires `HM_CUT`
+            - misty
+                - nothing required?
+            - brock
+                - requires `HM_CUT` and `HM_SURF`
+                    - in order to get to pewter via diglett's tunnel
+            - blue
+                - ???
+            - blaine
+                - requires `HM_CUT` and `HM_SURF`
+                    - in order to get to seafoam via diglett's tunnel
+            - janine
+                - nothing required?
