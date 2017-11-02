@@ -140,14 +140,20 @@ defmodule CrystalKeyItemRandomizer do
     :SUPER_ROD,
   ]
 
+  # `CARD_KEY` is not included in pre_goldenrod_items given the
+  # current state of the underlying assembly! this is because even if
+  # you have the `BASEMENT_KEY`, the basement will be devoid of any
+  # rockets
+
+  # `CLEAR_BELL` is not included because i believe that the same goes
+  # for the `CARD_KEY`/radio tower upper floors; even if it's not
+  # true, i bet it'd make things more complicated, so i'm just
+  # considering the `CLEAR_BELL` inaccessible for now.
   @pre_goldenrod_items [
     :HM_CUT,
     :HM_FLASH,
-    # :BASEMENT_KEY, # pretty sure we can't get to this
     :BICYCLE,
     :BLUE_CARD,
-    # :CARD_KEY,     # pretty sure we can't get to this
-    # :CLEAR_BELL,   # pretty sure we can't get to this
     :COIN_CASE,
     :MYSTERY_EGG,
     :OLD_ROD,
