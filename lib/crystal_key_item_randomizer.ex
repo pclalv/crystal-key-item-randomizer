@@ -3,25 +3,27 @@ defmodule CrystalKeyItemRandomizer do
   Randomizes the key items of Pokemon Crystal at the assembly level.
   """
 
+  alias CrystalKeyItemRandomizer.Item
+
   @required_items %{
-    HM_SURF: %CrystalKeyItemRandomizer.Item{
+    HM_SURF: %Item{
       name: :HM_SURF,
       location: :DanceTheatre,
     },
-    HM_STRENGTH: %CrystalKeyItemRandomizer.Item{
+    HM_STRENGTH: %Item{
       name: :HM_STRENGTH,
       location: :OlivineCafe,
     },
-    HM_WHIRLPOOL: %CrystalKeyItemRandomizer.Item{
+    HM_WHIRLPOOL: %Item{
       name: :HM_WHIRLPOOL,
       location: :TeamRocketBaseB2F,
     },
-    HM_WATERFALL: %CrystalKeyItemRandomizer.Item{
+    HM_WATERFALL: %Item{
       name: :HM_WATERFALL,
       location: :IcePath1F,
       macro: :itemball,
     },
-    SECRETPOTION: %CrystalKeyItemRandomizer.Item{
+    SECRETPOTION: %Item{
       name: :SECRETPOTION,
       location: :CianwoodPharmacy,
     },
@@ -29,31 +31,31 @@ defmodule CrystalKeyItemRandomizer do
 
   # only one of HM_CUT/SQUIRTBOTTLE is required
   @maybe_required_items %{
-    BASEMENT_KEY: %CrystalKeyItemRandomizer.Item{
+    BASEMENT_KEY: %Item{
       name: :BASEMENT_KEY,
       location: :RadioTower5F,
     },
-    CARD_KEY: %CrystalKeyItemRandomizer.Item{
+    CARD_KEY: %Item{
       name: :CARD_KEY,
       location: :UndergroundWarehouse,
     },
-    HM_CUT: %CrystalKeyItemRandomizer.Item{
+    HM_CUT: %Item{
       name: :HM_CUT,
       location: :IlexForest,
     },
-    LOST_ITEM: %CrystalKeyItemRandomizer.Item{
+    LOST_ITEM: %Item{
       name: :LOST_ITEM,
       location: :PokemonFanClub,
     },
-    PASS: %CrystalKeyItemRandomizer.Item{
+    PASS: %Item{
       name: :PASS,
       location: :CopycatsHouse2F,
     },
-    S_S_TICKET: %CrystalKeyItemRandomizer.Item{
+    S_S_TICKET: %Item{
       name: :S_S_TICKET,
       location: :ElmsLab,
     },
-    SQUIRTBOTTLE: %CrystalKeyItemRandomizer.Item{
+    SQUIRTBOTTLE: %Item{
       name: :SQUIRTBOTTLE,
       location: :GoldenrodFlowerShop,
     },
@@ -61,70 +63,70 @@ defmodule CrystalKeyItemRandomizer do
 
   @non_required_items %{
     # HMs
-    HM_FLASH: %CrystalKeyItemRandomizer.Item{
+    HM_FLASH: %Item{
       name: :HM_FLASH,
       location: :SproutTower3F,
     },
-    HM_FLY: %CrystalKeyItemRandomizer.Item{
+    HM_FLY: %Item{
       name: :HM_FLY,
       location: :CianwoodCity,
     },
 
     # non-HMs
-    BICYCLE: %CrystalKeyItemRandomizer.Item{
+    BICYCLE: %Item{
       name: :BICYCLE,
       location: :GoldenrodBikeShop,
     },
-    CLEAR_BELL: %CrystalKeyItemRandomizer.Item{
+    CLEAR_BELL: %Item{
       name: :CLEAR_BELL,
       location: :RadioTower5F,
     },   # not sure - possibly required for progress?
 
     # useless
-    BLUE_CARD: %CrystalKeyItemRandomizer.Item{
+    BLUE_CARD: %Item{
       name: :BLUE_CARD,
       location: :RadioTower2F,
     },    # useless
-    COIN_CASE: %CrystalKeyItemRandomizer.Item{
+    COIN_CASE: %Item{
       name: :COIN_CASE,
       location: :WarehouseEntrance,
       macro: :itemball,
     },    # useless
-    GOOD_ROD: %CrystalKeyItemRandomizer.Item{
+    GOOD_ROD: %Item{
       name: :GOOD_ROD,
       location: :OlivineGoodRodHouse,
     },     # useless
-    ITEMFINDER: %CrystalKeyItemRandomizer.Item{
+    ITEMFINDER: %Item{
       name: :ITEMFINDER,
       location: :EcruteakItemfinderHouse,
     },   # useless
-    MACHINE_PART: %CrystalKeyItemRandomizer.Item{
+    MACHINE_PART: %Item{
       name: :MACHINE_PART,
       location: :CeruleanGym,
       macro: :"dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM,",
     }, # useless; train will be available from the get go
-    MYSTERY_EGG: %CrystalKeyItemRandomizer.Item{
+    MYSTERY_EGG: %Item{
       name: :MYSTERY_EGG,
       location: :MrPokemonsHouse,
     },  # useless; blocking battle will be disabled
-    OLD_ROD: %CrystalKeyItemRandomizer.Item{
+    OLD_ROD: %Item{
       name: :OLD_ROD,
       location: :Route32PokeCenter1F,
     },      # useless
-    # RAINBOW_WING: %CrystalKeyItemRandomizer.Item{
+    # RAINBOW_WING: %Item{
     #   name: :RAINBOW_WING,
     #   location: :TinTower1F,
     # }, # useless; randomizing this is a bad idea because of how much
     #    # of a pain it is to catch all three beasts
-    RED_SCALE: %CrystalKeyItemRandomizer.Item{
+    RED_SCALE: %Item{
       name: :RED_SCALE,
       location: :LakeofRage,
     },    # useless
-    SILVER_WING: %CrystalKeyItemRandomizer.Item{
+    SILVER_WING: %Item{
       name: :SILVER_WING,
       location: :PewterCity,
     },  # useless
-    SUPER_ROD: %CrystalKeyItemRandomizer.Item{
+    SUPER_ROD: %Item{
       name: :SUPER_ROD,
       location: :Route12SuperRodHouse,
     },    # useless
