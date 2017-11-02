@@ -196,6 +196,37 @@ defmodule CrystalKeyItemRandomizer do
 
   def maps_dir, do: @maps_dir
 
+  # STUFF FOR TESTING
+  @goldenrod_locked_swaps %{
+    BASEMENT_KEY: :HM_CUT,
+    BICYCLE: :CLEAR_BELL,
+    BLUE_CARD: :MACHINE_PART,
+    CARD_KEY: :HM_STRENGTH,
+    CLEAR_BELL: :HM_FLY,
+    COIN_CASE: :GOOD_ROD,
+    GOOD_ROD: :ITEMFINDER,
+    HM_CUT: :BASEMENT_KEY,
+    HM_FLASH: :MYSTERY_EGG,
+    HM_FLY: :HM_FLASH,
+    HM_STRENGTH: :HM_WHIRLPOOL,
+    HM_SURF: :LOST_ITEM,
+    HM_WATERFALL: :SECRETPOTION,
+    HM_WHIRLPOOL: :SUPER_ROD,
+    ITEMFINDER: :BLUE_CARD,
+    LOST_ITEM: :COIN_CASE,
+    MACHINE_PART: :HM_SURF,
+    MYSTERY_EGG: :S_S_TICKET,
+    OLD_ROD: :CARD_KEY,
+    PASS: :HM_WATERFALL,
+    RED_SCALE: :OLD_ROD,
+    SECRETPOTION: :SQUIRTBOTTLE,
+    SILVER_WING: :SILVER_WING,
+    SQUIRTBOTTLE: :PASS,
+    SUPER_ROD: :RED_SCALE,
+    S_S_TICKET: :BICYCLE
+  }
+  def goldenrod_locked_swaps, do: @goldenrod_locked_swaps
+  # STUFF FOR TESTING
 
   @doc """
   Run the randomization.
