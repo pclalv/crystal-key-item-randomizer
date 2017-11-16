@@ -1,3 +1,64 @@
+# goals
+
+* qualitative
+    - recreate the experience of a LTTP randomizer with pokemon
+      crystal
+
+* quantitative
+    - how to quantify
+        - open-endedness?
+            - what can the player do, and when?
+                - new bark: 0
+                    - any
+                        - go to cherrygrove
+                - cherrygrove: 0
+                    - any
+                        - go to violet
+                - violet
+                    - SQUIRTBOTTLE
+                        - go to goldenrod
+                        - go to ecruteak
+                    - any
+                        - go to azalea
+                - azalea
+                    - any
+                        - go to goldenrod
+                - goldenrod
+                    - SQUIRTBOTTLE
+                        - go to ecruteak
+                    - HM_CUT
+                        - go to azalea
+                    - PASS
+                        - go to saffron
+                    - BASEMENT_KEY
+                        - go to underground/basement
+                    - CARD_KEY
+                        - go to radio tower
+                        - but really, you can't do `CARD_KEY` before
+                          getting the `BASEMENT_KEY` because otherwise
+                          you won't be able to get the `BASEMENT_KEY`
+                - ecruteak
+                    - go to olivine
+                    - go to mahogany
+                - olivine
+                    - go to cianwood
+                    - go to vermilion
+                - mahogany
+                    - go to lake of rage
+                    - go to rocket hideout
+                    - (?) go to blackthorn
+                - blackthorn
+                    - go to new bark
+                - saffron
+                    - go to cerulean
+                    - go to lavender
+                    - go to vermilion
+                    - go to goldenrod
+                - vermilion
+                    - go to saffron
+                    - (?) go to pewter
+        - choice?
+
 # reachability conditions
     - ss-locked
         - when `S_S_TICKET` is replaced with a required item or a
@@ -45,7 +106,7 @@
 
 # crazy stuff
 
-- trigger rockets radio tower trakeover if you get the `BASEMENT_KEY` early
+- trigger rockets radio tower takeover if you get the `BASEMENT_KEY` early
     - those sprites only appear if
       `EVENT_RADIO_TOWER_ROCKET_TAKEOVER`. would trigger by inserting
       line immediately after the line that gives the `BASEMENT_KEY`
