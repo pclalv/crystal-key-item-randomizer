@@ -140,6 +140,13 @@ defmodule CrystalKeyItemRandomizer do
     :SUPER_ROD,
   ]
 
+  @pre_tree_items [
+    :HM_CUT,
+    :HM_FLASH,
+    :MYSTERY_EGG,
+    :OLD_ROD,
+  ]
+
   # `CARD_KEY` is not included in pre_goldenrod_items given the
   # current state of the underlying assembly! this is because even if
   # you have the `BASEMENT_KEY`, the basement will be devoid of any
@@ -150,21 +157,11 @@ defmodule CrystalKeyItemRandomizer do
   # true, i bet it'd make things more complicated, so i'm just
   # considering the `CLEAR_BELL` inaccessible for now.
   @pre_goldenrod_items [
-    :HM_CUT,
-    :HM_FLASH,
     :BICYCLE,
     :BLUE_CARD,
     :COIN_CASE,
-    :MYSTERY_EGG,
-    :OLD_ROD,
-    :SQUIRTBOTTLE,
-  ]
-
-  @pre_tree_items [
-    :HM_CUT,
-    :HM_FLASH,
-    :MYSTERY_EGG,
-    :OLD_ROD,
+    :SQUIRTBOTTLE
+    | @pre_tree_items
   ]
 
   @surf_blocked_items [
