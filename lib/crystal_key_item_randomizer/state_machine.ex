@@ -87,6 +87,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         BlackthornGym: true,
       } = gyms_reached,
       8 = badge_count,
+      misc,
       swaps
     } ->
       {:done, swaps}
@@ -116,6 +117,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{PowerPlant: false} = locations_reached,
       %{EcruteakGym: true} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -123,6 +125,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | PowerPlant: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -138,6 +141,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       } = locations_reached,
       gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -150,6 +154,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         },
         gyms_reached,
         badge_count,
+        misc,
         swaps,
       }
 
@@ -159,6 +164,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{SaffronCity: true} = locations_reached,
       %{SaffronGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -172,6 +178,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         },
         %{gyms_reached | SaffronGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -182,6 +189,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{BlackthornCity: true} = locations_reached,
       %{EcruteakGym: true, BlackthornGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -189,6 +197,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         %{gyms_reached | BlackthornGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -201,6 +210,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       # %{GoldenrodRocketsCleared: true, CanUseStrength: true} = conditions
       %{GoldenrodGym: true} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -208,6 +218,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | BlackthornCity: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -227,6 +238,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
       gyms_reached,
       7 = badge_count,
+      misc,
       swaps
     } ->
       {
@@ -234,6 +246,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -242,6 +255,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{UndergroundWarehouse: false} = locations_reached,
       gyms_reached,
       7 = badge_count,
+      misc,
       swaps
     } ->
       {
@@ -249,6 +263,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | UndergroundWarehouse: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -257,6 +272,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{RadioTower5F: false, UndergroundWarehouse: false} = locations_reached,
       gyms_reached,
       7 = badge_count,
+      misc,
       swaps
     } ->
       {
@@ -264,6 +280,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | RadioTower5F: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -272,6 +289,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{LakeOfRage: false, MahoganyTown: true} = locations_reached,
       %{EcruteakGym: true, MahoganyGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -279,6 +297,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | LakeOfRage: true},
         %{gyms_reached | MahoganyGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -289,6 +308,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{CianwoodCity: false} = locations_reached,
       %{EcruteakGym: true, CianwoodGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -296,6 +316,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | CianwoodCity: true},
         %{gyms_reached | CianwoodGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -305,6 +326,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{OlivineCity: true} = locations_reached,
       %{OlivineGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -312,6 +334,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         %{gyms_reached | OlivineGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -327,6 +350,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{EcruteakCity: true} = locations_reached,
       %{EcruteakGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -340,6 +364,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         %{gyms_reached | EcruteakGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -349,6 +374,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
       gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -361,6 +387,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         },
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -370,6 +397,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{GoldenrodCity: true, SaffronCity: false} = locations_reached,
       gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -377,6 +405,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | SaffronCity: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -386,6 +415,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{GoldenrodCity: true} = locations_reached,
       %{GoldenrodGym: false} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -399,6 +429,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         %{gyms_reached | GoldenrodGym: true},
         badge_count + 1,
+        misc,
         swaps
       }
 
@@ -408,6 +439,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{GoldenrodCity: false} = locations_reached,
       gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -415,6 +447,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | GoldenrodCity: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -424,6 +457,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{GoldenrodCity: false} = locations_reached,
       %{AzaleaGym: true} = gyms_reached,
       badge_count,
+      misc,
       swaps
     } ->
       {
@@ -431,6 +465,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | GoldenrodCity: true},
         gyms_reached,
         badge_count,
+        misc,
         swaps
       }
 
@@ -439,7 +474,9 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
         initial_locations_reached,
         initial_gyms_reached,
+        initial_conditions,
         initial_badge_count,
+        {PowerPlantFixed: false},
         swaps
       }
 
