@@ -9,6 +9,16 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   #   gyms_reached      %{},
   #   swaps             %{}
   # }
+  #
+  #
+  # conditions ?
+  # %{
+  #   CanUseCut: true
+  #   CanUseSurf: false,
+  #   CanUseStrength: false
+  #   CanUseWaterfall: false,
+  #     ... etc
+  # }
   alias CrystalKeyItemRandomizer.Item
 
   @accessible_locations [
@@ -43,6 +53,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     RadioTower5F: false,
     UndergroundWarehouse: false,
     LakeOfRage: false,
+    PowerPlant: false,
   }
   def all_gyms, do: @all_gyms
   def accessible_gyms, do: @accessible_gyms
@@ -51,6 +62,21 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def initial_badge_count, do: 2
 
   reductions do
+    # {
+    #   items_obtained,
+    #   locations_reached,
+    #   gyms_reached,
+    #   badge_count,
+    #   swaps
+    # } ->
+    #   {
+    #     items_obtained,
+    #     locations_reached,
+    #     gyms_reached,
+    #     badge_count,
+    #     swaps
+    #   }
+
     # FINAL STATE
     {
       %{HM_WATERFALL: true} = items_obtained,
@@ -67,12 +93,43 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # KANTO
 
+    # how to continue this? perhaps with the `conditions` refactoring?
+    #
+    # {
+    #   %{HM_SURF: true, MACHINE_PART: true} = items_obtained,
+    #   locations_reached,
+    #   %{EcruteakGym: true} = gyms_reached,
+    #   badge_count,
+    #   swaps
+    # } ->
+    #   {
+    #     items_obtained,
+    #     locations_reached,
+    #     gyms_reached,
+    #     badge_count,
+    #     swaps
+    #   }
+
+    # start MACHINE_PART sidequest
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{PowerPlant: false} = locations_reached,
+      %{EcruteakGym: true} = gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:MACHINE_PART] => true},
+        %{locations_reached | PowerPlant: true},
+        gyms_reached,
+        badge_count,
+        swaps
+      }
+
     # S_S_TICKET and reaching Vermilion also allows you to progress to
     # Ecruteak, Olivine and Mahogany
     {
-      %{
-        S_S_TICKET: true,
-      } = items_obtained,
+      %{S_S_TICKET: true} = items_obtained,
       %{
         VermilionCity: true,
         EcruteakCity: false,
@@ -156,7 +213,15 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # TODO: figure out if you MUST clear the UndergroundWarehouse
     # before using the CARD_KEY to conquer the RadioTower and obtain
-    # the CLEAR_BELL
+    # the CLEAR_BELL.
+    #
+    # idea is that even after clearing the RadioTower maybe you can
+    # still explore the UndergroundWarehouse and collect the
+    # CARD_KEY. proabably not, though, as the director gives you the
+    # CARD_KEY and will likely not be present in the
+    # UndergroundWarehouse after beating the CARD_KEY-blocked areas of
+    # the RadioTower. one workaround would be to turn the CARD_KEY
+    # into an itemball.
     {
       %{CARD_KEY: true} = items_obtained,
       %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
@@ -204,7 +269,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     {
       %{HM_SURF: true} = items_obtained,
-      %{LakeOfRage: false} = locations_reached,
+      %{LakeOfRage: false, MahoganyTown: true} = locations_reached,
       %{EcruteakGym: true, MahoganyGym: false} = gyms_reached,
       badge_count,
       swaps
@@ -217,7 +282,8 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # HM_SURF and reaching Ecruteak Gym allows you to progress to Cianwood and its Gym
+    # HM_SURF and reaching Ecruteak Gym allows you to progress to
+    # Cianwood and its Gym.
     {
       %{HM_SURF: true} = items_obtained,
       %{CianwoodCity: false} = locations_reached,
@@ -308,7 +374,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     } ->
       {
         items_obtained,
-        %{SaffronCity: true} = locations_reached,
+        %{locations_reached | SaffronCity: true},
         gyms_reached,
         badge_count,
         swaps
@@ -346,10 +412,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     } ->
       {
         items_obtained,
-        %{
-          locations_reached |
-          GoldenrodCity: true
-        },
+        %{locations_reached | GoldenrodCity: true},
         gyms_reached,
         badge_count,
         swaps
