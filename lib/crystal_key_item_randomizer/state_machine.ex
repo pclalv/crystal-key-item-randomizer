@@ -94,22 +94,109 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # KANTO
 
-    # how to continue this? perhaps with the `conditions` refactoring?
-    #
-    # {
-    #   %{HM_SURF: true, MACHINE_PART: true} = items_obtained,
-    #   locations_reached,
-    #   %{EcruteakGym: true} = gyms_reached,
-    #   badge_count,
-    #   swaps
-    # } ->
-    #   {
-    #     items_obtained,
-    #     locations_reached,
-    #     gyms_reached,
-    #     badge_count,
-    #     swaps
-    #   }
+    # there's no way that ViridianGym is useful in this randomizer.
+    # not even sure what the condition for this event is honestly
+    {
+      items_obtained,
+      %{ViridianCity: false, CinnabarIsland: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | ViridianCity: true},
+        %{gyms_reached | ViridianGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
+      }
+
+    {
+      items_obtained,
+      %{CinnabarIsland: false, PewterCity: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | CinnabarIsland: true},
+        %{gyms_reached | CinnabarGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
+      }
+
+    {
+      items_obtained,
+      %{PewterCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        %{items_obtained | swaps[:SILVER_WING] => true},
+        %{locations_reached | PewterCity: true},
+        %{gyms_reached | PewterGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
+      }
+
+    {
+      %{LOST_ITEM: true} = items_obtained,
+      %{PokemonFanClub: true, CopycatsHouse2F: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        %{items_obtained | swaps[:PASS] => true},
+        %{locations_reached | CopycatsHouse2F: true},
+        gyms_reached,
+        badge_count,
+        misc,
+        swaps
+      }
+
+    {
+      items_obtained,
+      %{PokemonFanClub: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps
+    } ->
+     {
+       %{items_obtained | swaps[:LOST_ITEM] => true},
+       %{locations_reached | PokemonFanClub: true},
+       gyms_reached,
+       badge_count,
+       misc,
+       swaps
+     }
+
+    {
+      %{HM_SURF: true, MACHINE_PART: true} = items_obtained,
+      %{PowerPlant: true} = locations_reached,
+      %{EcruteakGym: true} = gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: false} = misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        gyms_reached,
+        badge_count,
+        %{misc | PowerPlantFixed: true},
+        swaps
+      }
 
     # start MACHINE_PART sidequest
     {
