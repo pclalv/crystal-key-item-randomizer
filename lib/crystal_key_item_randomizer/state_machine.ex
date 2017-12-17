@@ -182,6 +182,31 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # Reach Vermilion, get the badge and reach all of the neighboring cities
+    {
+      items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{
+          locations_reached |
+          CeruleanCity: true,
+          LavenderTown: true,
+          CeladonCity: true,
+          SaffronCity: true,
+          FuchsiaCity: true,
+        },
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
     # JOHTO
 
     {
