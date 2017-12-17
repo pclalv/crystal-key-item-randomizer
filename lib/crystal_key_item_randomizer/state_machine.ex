@@ -154,6 +154,39 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # TODO: figure out if you MUST clear the UndergroundWarehouse
+    # before using the CARD_KEY to conquer the RadioTower and obtain
+    # the CLEAR_BELL
+    {
+      %{CARD_KEY: true} = items_obtained,
+      %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
+      gyms_reached,
+      7 = badge_count,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:CLEAR_BELL] => true},
+        locations_reached,
+        gyms_reached,
+        badge_count,
+        swaps
+      }
+
+    {
+      %{BASEMENT_KEY: true} = items_obtained,
+      %{UndergroundWarehouse: false} = locations_reached,
+      gyms_reached,
+      7 = badge_count,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:CARD_KEY] => true},
+        %{locations_reached | UndergroundWarehouse: true},
+        gyms_reached,
+        badge_count,
+        swaps
+      }
+
     {
       items_obtained,
       %{RadioTower5F: false, UndergroundWarehouse: false} = locations_reached,
@@ -162,13 +195,8 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       swaps
     } ->
       {
-        %{
-          items_obtained |
-          swaps[:CLEAR_BELL] => true,
-          swaps[:CARD_KEY] => true,
-          swaps[:BASEMENT_KEY] => true
-        },
-        %{locations_reached | RadioTower5F: true, UndergroundWarehouse: true},
+        %{items_obtained | swaps[:BASEMENT_KEY] => true},
+        %{locations_reached | RadioTower5F: true},
         gyms_reached,
         badge_count,
         swaps
