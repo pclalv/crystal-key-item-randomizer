@@ -113,7 +113,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           LavenderTown: true,
           CeladonCity: true,
         },
-        %{gyms_reached | SaffronGym: true}
+        %{gyms_reached | SaffronGym: true},
         badge_count + 1,
         swaps
       }
