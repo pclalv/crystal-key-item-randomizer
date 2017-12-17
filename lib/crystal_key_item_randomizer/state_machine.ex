@@ -622,9 +622,8 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
         initial_locations_reached,
         initial_gyms_reached,
-        initial_conditions,
         initial_badge_count,
-        {PowerPlantFixed: false},
+        %{PowerPlantFixed: false},
         swaps
       }
   end
