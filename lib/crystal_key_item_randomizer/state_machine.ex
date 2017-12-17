@@ -551,7 +551,6 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # TODO: TEST ME!
     # S_S_TICKET and reaching Vermilion also allows you to progress to
     # Ecruteak, Olivine and Mahogany
     {
