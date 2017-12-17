@@ -479,6 +479,5 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         {PowerPlantFixed: false},
         swaps
       }
-
   end
 end
