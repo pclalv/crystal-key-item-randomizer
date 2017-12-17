@@ -499,6 +499,24 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
+    {
+      %{SECRETPOTION: true} = items_obtained,
+      %{OlivineCity: true} = locations_reached,
+      %{OlivineGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | OlivineGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
     # HM_SURF and reaching Ecruteak Gym allows you to progress to
     # Cianwood and its Gym.
     {
@@ -532,24 +550,6 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         %{locations_reached | VermilionCity: true},
         gyms_reached,
         badge_count,
-        misc,
-        swaps
-      }
-
-    # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
-    {
-      %{SECRETPOTION: true} = items_obtained,
-      %{OlivineCity: true} = locations_reached,
-      %{OlivineGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        locations_reached,
-        %{gyms_reached | OlivineGym: true},
-        badge_count + 1,
         misc,
         swaps
       }
