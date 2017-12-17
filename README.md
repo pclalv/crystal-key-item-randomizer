@@ -9,7 +9,7 @@ A key item randomizer for Pokemon Crystal.
   and it is no longer necessary to return the Mystery Egg to Professor
   Elm.
 - The trainer on Route 31 no blocks progress if the player has not
-  received the Togepi egg from Elm's aid.
+  received the Togepi egg from Elm's aide.
 - The Magnet Train is always running; it is no longer necessary to fix
   the Kanto Power Plant in order to restore train service, and the
   player may travel between Johto and Kanto by train as soon as they
@@ -33,4 +33,4 @@ provides access to a key item that is required.
   by Sudowoodo.
 - `HM03` will not be found in any location that is only reachable
   after acquiring `HM03`.
-- The `RAINBOW WING` is not randaomized.
+- The `RAINBOW WING` is not randomized.
