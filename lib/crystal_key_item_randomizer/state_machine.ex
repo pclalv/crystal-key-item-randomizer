@@ -40,10 +40,12 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def accessible_locations, do: @accessible_locations
   #def initial_locations_reached, do: for location <- all_locations, do: {location, Enum.member?(accessible_locations, location)}, into: %{}
   def initial_locations_reached, do: %{
-    NewBarkTown: true,
-    CherrygroveCity: true,
-    VioletCity: true,
-    AzaleaTown: true,
+    # johto
+    # we never check these four
+    # NewBarkTown: true,
+    # CherrygroveCity: true,
+    # VioletCity: true,
+    # AzaleaTown: true,
     GoldenrodCity: false,
     EcruteakCity: false,
     OlivineCity: false,
