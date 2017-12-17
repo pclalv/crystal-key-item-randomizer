@@ -164,9 +164,10 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     # FIXME: this doesn't account for the case where SQUIRTBOTTLE
     # provides initial access to Goldenrod
     # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
+    # after you reach Ecruteak, you beat the gym and get some items
     {
-      %{SQUIRTBOTTLE: true} = items_obtained,
-      %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
+      items_obtained,
+      %{EcruteakCity: true} = locations_reached,
       %{EcruteakGym: false} = gyms_reached,
       badge_count,
       swaps
@@ -179,14 +180,30 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           swaps[:HM_STRENGTH] => true,
           swaps[:GOOD_ROD] => true
         },
+        locations_reached,
+        %{gyms_reached | EcruteakGym: true},
+        badge_count + 1,
+        swaps
+      }
+
+    # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
+    {
+      %{SQUIRTBOTTLE: true} = items_obtained,
+      %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        items_obtained,
         %{
           locations_reached |
           EcruteakCity: true,
           OlivineCity: true,
           MahoganyTown: true
         },
-        %{gyms_reached | EcruteakGym: true},
-        badge_count + 1,
+        gyms_reached,
+        badge_count,
         swaps
       }
 
