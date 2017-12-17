@@ -634,65 +634,65 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # # Reach Vermilion, reach gym with HM_SURF, get the badge
-    # {
-    #   %{HM_SURF: true} = items_obtained,
-    #   %{VermilionCity: true} = locations_reached,
-    #   %{VermilionGym: false, EcruteakGym: true} = gyms_reached,
-    #   badge_count,
-    #   misc,
-    #   swaps
-    # } ->
-    #   {
-    #     items_obtained,
-    #     locations_reached,
-    #     %{gyms_reached | VermilionGym: true},
-    #     badge_count + 1,
-    #     misc,
-    #     swaps
-    #   }
+    # Reach Vermilion, reach gym with HM_SURF, get the badge
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, EcruteakGym: true} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
 
-    # # Reach Vermilion, reach gym with HM_CUT, get the badge
-    # {
-    #   %{HM_CUT: true} = items_obtained,
-    #   %{VermilionCity: true} = locations_reached,
-    #   %{VermilionGym: false, AzaleaGym: true} = gyms_reached,
-    #   badge_count,
-    #   misc,
-    #   swaps
-    # } ->
-    #   {
-    #     items_obtained,
-    #     locations_reached,
-    #     %{gyms_reached | VermilionGym: true},
-    #     badge_count + 1,
-    #     misc,
-    #     swaps
-    #   }
+    # Reach Vermilion, reach gym with HM_CUT, get the badge
+    {
+      %{HM_CUT: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, AzaleaGym: true} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
 
-    # # Reach Vermilion, and reach all of the neighboring cities
-    # {
-    #   items_obtained,
-    #   %{VermilionCity: true} = locations_reached,
-    #   gyms_reached,
-    #   badge_count,
-    #   %{ArrivedInKanto: false} = misc,
-    #   swaps
-    # } ->
-    #   {
-    #     items_obtained,
-    #     %{
-    #       locations_reached |
-    #       CeruleanCity: true,
-    #       LavenderTown: true,
-    #       CeladonCity: true,
-    #       SaffronCity: true,
-    #       FuchsiaCity: true,
-    #     },
-    #     gyms_reached,
-    #     badge_count,
-    #     %{misc | ArrivedInKanto: true},
-    #     swaps
-    #   }
+    # Reach Vermilion, and reach all of the neighboring cities
+    {
+      items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{ArrivedInKanto: false} = misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{
+          locations_reached |
+          CeruleanCity: true,
+          LavenderTown: true,
+          CeladonCity: true,
+          SaffronCity: true,
+          FuchsiaCity: true,
+        },
+        gyms_reached,
+        badge_count,
+        %{misc | ArrivedInKanto: true},
+        swaps
+      }
   end
 end
