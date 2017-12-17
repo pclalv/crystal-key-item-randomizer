@@ -343,16 +343,17 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # TODO: is defeating the Rockets a prereq to getting HM_WATERFALL?
     {
       %{HM_STRENGTH: true} = items_obtained,
-      %{RadioTower5F: true, UndergroundWarehouse: true, BlackthornCity: false} = locations_reached,
+      %{BlackthornCity: false} = locations_reached,
       # if we roll `locations_reached` and `gyms_reached` together
       # into something like `conditions` then we can make this more
       # readable, i.e.
       # %{GoldenrodRocketsCleared: true, CanUseStrength: true} = conditions
       %{GoldenrodGym: true} = gyms_reached,
       badge_count,
-      misc,
+      %{RocketsDefeated: true} = misc,
       swaps
     } ->
       {
@@ -380,7 +381,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
       gyms_reached,
       7 = badge_count,
-      misc,
+      %{RocketsDefeated: false} = misc,
       swaps
     } ->
       {
@@ -388,7 +389,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         locations_reached,
         gyms_reached,
         badge_count,
-        misc,
+        %{misc | RocketsDefeated: true},
         swaps
       }
 
@@ -635,7 +636,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         initial_locations_reached,
         initial_gyms_reached,
         initial_badge_count,
-        %{PowerPlantFixed: false},
+        %{PowerPlantFixed: false, RocketsDefeated: false, ArrivedInKanto: false},
         swaps
       }
   end
