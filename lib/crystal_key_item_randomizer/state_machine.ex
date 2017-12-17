@@ -256,6 +256,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         misc,
         swaps,
       }
+
     # Reach Fuchsia, get the badge and acquire the SUPER_ROD
     {
       items_obtained,
@@ -274,13 +275,31 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # Reach Saffron, get the badge and reach all of the neighboring cities
+    # Reach Saffron, get the badge
     {
       items_obtained,
       %{SaffronCity: true} = locations_reached,
       %{SaffronGym: false} = gyms_reached,
       badge_count,
       misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | SaffronGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # Reach Saffron, reach all of the neighboring cities
+    {
+      items_obtained,
+      %{SaffronCity: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{ArrivedInKanto: false} = misc,
       swaps
     } ->
       {
@@ -293,19 +312,55 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           CeladonCity: true,
           FuchsiaCity: true,
         },
-        %{gyms_reached | SaffronGym: true},
+        gyms_reached,
+        badge_count,
+        %{misc | ArrivedInKanto: true},
+        swaps
+      }
+
+    # Reach Vermilion, reach gym with HM_SURF, get the badge
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, EcruteakGym: true} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
         badge_count + 1,
         misc,
         swaps
       }
 
-    # Reach Vermilion, get the badge and reach all of the neighboring cities
+    # Reach Vermilion, reach gym with HM_CUT, get the badge
+    {
+      %{HM_CUT: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, AzaleaGym: true} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # Reach Vermilion, and reach all of the neighboring cities
     {
       items_obtained,
       %{VermilionCity: true} = locations_reached,
-      %{VermilionGym: false} = gyms_reached,
+      gyms_reached,
       badge_count,
-      misc,
+      %{ArrivedInKanto: false} = misc,
       swaps
     } ->
       {
@@ -318,9 +373,9 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           SaffronCity: true,
           FuchsiaCity: true,
         },
-        %{gyms_reached | VermilionGym: true},
-        badge_count + 1,
-        misc,
+        gyms_reached,
+        badge_count,
+        %{misc | ArrivedInKanto: true},
         swaps
       }
 
