@@ -207,6 +207,22 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # PASS + Goldenrod -> Saffron
+    {
+      %{PASS: true} = items_obtained,
+      %{GoldenrodCity: true, SaffronCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{SaffronCity: true} = locations_reached,
+        gyms_reached,
+        badge_count,
+        swaps
+      }
+
     # after you reach Goldenrod, you beat the gym and get some items
     {
       items_obtained,
