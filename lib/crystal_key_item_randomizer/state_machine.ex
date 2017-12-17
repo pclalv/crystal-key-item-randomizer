@@ -161,10 +161,13 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # FIXME: this doesn't account for the case where SQUIRTBOTTLE
-    # provides initial access to Goldenrod
-    # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
     # after you reach Ecruteak, you beat the gym and get some items
+    #
+    # FIXME:
+    # kinda weird that i consider the olivine items to be acquired in
+    # ecruteak, but it simplifies the whole thing of keeping track of
+    # locations_reached, which otherwise would need to include
+    # ItemfinderHouse and OlivineCafe
     {
       items_obtained,
       %{EcruteakCity: true} = locations_reached,
