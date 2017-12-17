@@ -320,6 +320,24 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # S_S_TICKET can take you from Olivine to Vermilion
+    {
+      %{S_S_TICKET: true} = items_obtained,
+      %{OlivineCity: true, VermilionCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | VermilionCity: true},
+        gyms_reached,
+        badge_count,
+        misc,
+        swaps
+      }
+
     # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
     {
       %{SECRETPOTION: true} = items_obtained,
