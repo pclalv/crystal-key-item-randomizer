@@ -482,6 +482,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # reach LakeOfRage, clear it and the Rocket Hideout, beat Pryce
     {
       %{HM_SURF: true} = items_obtained,
       %{LakeOfRage: false, MahoganyTown: true} = locations_reached,
