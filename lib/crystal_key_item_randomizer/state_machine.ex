@@ -138,6 +138,10 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     {
       %{HM_STRENGTH: true} = items_obtained,
       %{RadioTower5F: true, UndergroundWarehouse: true, BlackthornCity: false} = locations_reached,
+      # if we roll `locations_reached` and `gyms_reached` together
+      # into something like `conditions` then we can make this more
+      # readable, i.e.
+      # %{GoldenrodRocketsCleared: true, CanUseStrength: true} = conditions
       %{GoldenrodGym: true} = gyms_reached,
       badge_count,
       swaps
