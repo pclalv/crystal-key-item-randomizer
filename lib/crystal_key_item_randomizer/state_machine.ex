@@ -53,6 +53,16 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     RadioTower5F: false,
     UndergroundWarehouse: false,
     LakeOfRage: false,
+    # kanto
+    PewterCity: false,
+    ViridianCity: false,
+    CeruleanCity: false,
+    VermilionCity: false,
+    CeladonCity: false,
+    SaffronCity: false,
+    LavenderTown: false,
+    FuchsiaCity: false,
+    CinnabarIsland: false,
     PowerPlant: false,
   }
   def all_gyms, do: @all_gyms
