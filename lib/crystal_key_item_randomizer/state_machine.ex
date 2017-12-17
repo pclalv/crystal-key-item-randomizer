@@ -76,6 +76,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def initial_badge_count, do: 2
 
   reductions do
+    # in-progress state:
     # {
     #   items_obtained,
     #   locations_reached,
@@ -83,15 +84,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     #   badge_count,
     #   misc,
     #   swaps
-    # } ->
-    #   {
-    #     items_obtained,
-    #     locations_reached,
-    #     gyms_reached,
-    #     badge_count,
-    #     misc,
-    #     swaps
-    #   }
+    # }
 
     # FINAL STATE
     {
