@@ -67,21 +67,33 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # KANTO
 
-    # S_S_TICKET + PASS, and reaching Vermilion also allows you to progress to
+    # S_S_TICKET and reaching Vermilion also allows you to progress to
     # Ecruteak, Olivine and Mahogany
     {
       %{
         S_S_TICKET: true,
-        PASS: true,
       } = items_obtained,
-      %{} = locations_reached,
+      %{
+        VermilionCity: true,
+        EcruteakCity: false,
+        OlivineCity: false,
+        MahoganyTown: false
+      } = locations_reached,
       gyms_reached,
       badge_count,
       swaps
-      
     } ->
       {
-        
+        items_obtained,
+        %{
+          locations_reached |
+          EcruteakCity: true,
+          OlivineCity: true,
+          MahoganyTown: true
+        },
+        gyms_reached,
+        badge_count,
+        swaps,
       }
 
     # Reach Saffron; get the badge and reach all of the neighboring cities
