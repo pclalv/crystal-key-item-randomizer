@@ -650,6 +650,8 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
+    # TODO: test this step by adding SQUIRTBOTTLE as beginning item
+    # and commenting out the HM_CUT route
     # SQUIRTBOTTLE is another way of getting to Goldenrod
     {
       %{SQUIRTBOTTLE: true} = items_obtained,
