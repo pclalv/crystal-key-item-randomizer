@@ -157,8 +157,25 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         misc,
         swaps,
       }
+    # Reach Fuchsia, get the badge and acquire the SUPER_ROD
+    {
+      items_obtained,
+      %{FuchsiaCity: true} = locations_reached,
+      %{FuchsiaGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:SUPER_ROD] => true},
+        locations_reached,
+        %{gyms_reached | FuchsiaGym: false},
+        badge_count,
+        misc,
+        swaps
+      }
 
-    # Reach Saffron; get the badge and reach all of the neighboring cities
+    # Reach Saffron, get the badge and reach all of the neighboring cities
     {
       items_obtained,
       %{SaffronCity: true} = locations_reached,
@@ -175,6 +192,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           VermilionCity: true,
           LavenderTown: true,
           CeladonCity: true,
+          FuchsiaCity: true,
         },
         %{gyms_reached | SaffronGym: true},
         badge_count + 1,
