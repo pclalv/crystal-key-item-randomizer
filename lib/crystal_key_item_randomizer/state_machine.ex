@@ -190,14 +190,11 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # FIXME: this doesn't account for the case where SQUIRTBOTTLE
-    # provides initial access to Goldenrod
-
-    # HM_CUT allows you to progress to Goldenrod and obtain some key items
+    # after you reach Goldenrod, you beat the gym and get some items
     {
-      %{HM_CUT: true} = items_obtained,
-      %{GoldenrodCity: false} = locations_reached,
-      %{AzaleaGym: true, GoldenrodGym: false} = gyms_reached,
+      items_obtained,
+      %{GoldenrodCity: true} = locations_reached,
+      %{GoldenrodGym: false} = gyms_reached,
       badge_count,
       swaps
     } ->
@@ -209,9 +206,44 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           swaps[:COIN_CASE] => true,
           swaps[:BLUE_CARD] => true
         },
-        %{locations_reached | GoldenrodCity: true},
+        locations_reached,
         %{gyms_reached | GoldenrodGym: true},
         badge_count + 1,
+        swaps
+      }
+
+    # SQUIRTBOTTLE is another way of getting to Goldenrod
+    {
+      %{SQUIRTBOTTLE: true} = items_obtained,
+      %{GoldenrodCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{
+          locations_reached |
+          GoldenrodCity: true
+        },
+        gyms_reached,
+        badge_count,
+        swaps
+      }
+
+    # HM_CUT + AzaleaGym allows you to progress to Goldenrod
+    {
+      %{HM_CUT: true} = items_obtained,
+      %{GoldenrodCity: false} = locations_reached,
+      %{AzaleaGym: true} = gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | GoldenrodCity: true},
+        gyms_reached,
+        badge_count,
         swaps
       }
 
