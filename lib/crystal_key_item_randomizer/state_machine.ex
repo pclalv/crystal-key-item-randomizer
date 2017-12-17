@@ -48,77 +48,60 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def accessible_gyms, do: @accessible_gyms
   def initial_gyms_reached, do: for gym <- all_gyms, do: {gym, Enum.member?(accessible_gyms, gym)}, into: %{}
   def all_items, do: CrystalKeyItemRandomizer.key_items |> Map.keys
+  def initial_badge_count, do: 2
 
   reductions do
     {
-      :in_progress,
       %{HM_WATERFALL: true} = items_obtained,
       locations_reached,
       %{
         GoldenrodGym: true,
         EcruteakGym: true,
         BlackthornGym: true,
-        # optional gyms; simplest case
-        VioletGym: true,
-        AzaleaGym: true,
-        OlivineGym: true,
-        CianwoodGym: true,
-        MahoganyGym: true
       } = gyms_reached,
+      8 = badge_count,
       swaps
     } ->
       {:done, swaps}
 
     {
-      :in_progress,
       %{HM_SURF: true} = items_obtained,
       %{BlackthornCity: true} = locations_reached,
       %{EcruteakGym: true, BlackthornGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         items_obtained,
         locations_reached,
         %{gyms_reached | BlackthornGym: true},
+        badge_count + 1,
         swaps
       }
 
     {
-      :in_progress,
       %{HM_STRENGTH: true} = items_obtained,
       %{RadioTower5F: true, UndergroundWarehouse: true, BlackthornCity: false} = locations_reached,
       %{GoldenrodGym: true} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{items_obtained | swaps[:HM_WATERFALL] => true},
         %{locations_reached | BlackthornCity: true},
         gyms_reached,
+        badge_count,
         swaps
       }
 
     {
-      :in_progress,
       items_obtained,
       %{RadioTower5F: false, UndergroundWarehouse: false} = locations_reached,
-      %{
-        # simplest case
-        # would be more robust to check for any 7 gyms
-        VioletGym: true,
-        AzaleaGym: true,
-        GoldenrodGym: true,
-        EcruteakGym: true,
-        OlivineGym: true,
-        CianwoodGym: true,
-        MahoganyGym: true,
-        BlackthornGym: false,
-      } = gyms_reached,
+      gyms_reached,
+      7 = badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{
           items_obtained |
           swaps[:CLEAR_BELL] => true,
@@ -127,66 +110,68 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         },
         %{locations_reached | RadioTower5F: true, UndergroundWarehouse: true},
         gyms_reached,
+        badge_count,
         swaps
       }
 
     {
-      :in_progress,
       %{HM_SURF: true} = items_obtained,
       %{LakeOfRage: false} = locations_reached,
       %{EcruteakGym: true, MahoganyGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{items_obtained | swaps[:RED_SCALE] => true, swaps[:HM_WHIRLPOOL] => true},
         %{locations_reached | LakeOfRage: true},
         %{gyms_reached | MahoganyGym: true},
+        badge_count + 1,
         swaps
       }
 
     # HM_SURF and reaching Ecruteak Gym allows you to progress to Cianwood and its Gym
     {
-      :in_progress,
       %{HM_SURF: true} = items_obtained,
       %{CianwoodCity: false} = locations_reached,
       %{EcruteakGym: true, CianwoodGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{items_obtained | swaps[:HM_FLY] => true, swaps[:SECRETPOTION] => true},
         %{locations_reached | CianwoodCity: true},
         %{gyms_reached | CianwoodGym: true},
+        badge_count + 1,
         swaps
       }
 
     # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
     {
-      :in_progress,
       %{SECRETPOTION: true} = items_obtained,
       %{OlivineCity: true} = locations_reached,
       %{OlivineGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         items_obtained,
         locations_reached,
         %{gyms_reached | OlivineGym: true},
+        badge_count + 1,
         swaps
       }
 
+    # FIXME: this doesn't account for the case where SQUIRTBOTTLE
+    # provides initial access to Goldenrod
     # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
     {
-      :in_progress,
       %{SQUIRTBOTTLE: true} = items_obtained,
       %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
       %{EcruteakGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{
           items_obtained |
           swaps[:HM_SURF] => true,
@@ -201,19 +186,22 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
           MahoganyTown: true
         },
         %{gyms_reached | EcruteakGym: true},
+        badge_count + 1,
         swaps
       }
 
+    # FIXME: this doesn't account for the case where SQUIRTBOTTLE
+    # provides initial access to Goldenrod
+
     # HM_CUT allows you to progress to Goldenrod and obtain some key items
     {
-      :in_progress,
       %{HM_CUT: true} = items_obtained,
       %{GoldenrodCity: false} = locations_reached,
       %{AzaleaGym: true, GoldenrodGym: false} = gyms_reached,
+      badge_count,
       swaps
     } ->
       {
-        :in_progress,
         %{
           items_obtained |
           swaps[:SQUIRTBOTTLE] => true,
@@ -223,15 +211,16 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         },
         %{locations_reached | GoldenrodCity: true},
         %{gyms_reached | GoldenrodGym: true},
+        badge_count + 1,
         swaps
       }
 
     { :begin, swaps } ->
       {
-        :in_progress,
         (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
         initial_locations_reached,
         initial_gyms_reached,
+        initial_badge_count,
         swaps
       }
 
