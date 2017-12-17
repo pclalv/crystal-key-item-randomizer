@@ -51,6 +51,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def initial_badge_count, do: 2
 
   reductions do
+    # FINAL STATE
     {
       %{HM_WATERFALL: true} = items_obtained,
       locations_reached,
@@ -63,6 +64,49 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       swaps
     } ->
       {:done, swaps}
+
+    # KANTO
+
+    # S_S_TICKET + PASS, and reaching Vermilion also allows you to progress to
+    # Ecruteak, Olivine and Mahogany
+    {
+      %{
+        S_S_TICKET: true,
+        PASS: true,
+      } = items_obtained,
+      %{} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps
+      
+    } ->
+      {
+        
+      }
+
+    # Reach Saffron; get the badge and reach all of the neighboring cities
+    {
+      items_obtained,
+      %{SaffronCity: true} = locations_reached,
+      %{SaffronGym: false} = gyms_reached,
+      badge_count,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{
+          locations_reached |
+          CeruleanCity: true,
+          VermilionCity: true,
+          LavenderTown: true,
+          CeladonCity: true,
+        },
+        %{gyms_reached | SaffronGym: true}
+        badge_count + 1,
+        swaps
+      }
+
+    # JOHTO
 
     {
       %{HM_SURF: true} = items_obtained,
