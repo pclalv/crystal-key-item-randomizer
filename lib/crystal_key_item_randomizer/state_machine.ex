@@ -79,6 +79,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     #   locations_reached,
     #   gyms_reached,
     #   badge_count,
+    #   misc,
     #   swaps
     # } ->
     #   {
@@ -86,6 +87,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     #     locations_reached,
     #     gyms_reached,
     #     badge_count,
+    #     misc,
     #     swaps
     #   }
 
