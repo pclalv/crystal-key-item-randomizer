@@ -103,164 +103,98 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # JOHTO
 
+    { :begin, swaps } ->
+      {
+        (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
+        initial_locations_reached,
+        initial_gyms_reached,
+        initial_badge_count,
+        %{PowerPlantFixed: false, RocketsDefeated: false, ArrivedInKanto: false},
+        swaps
+      }
+
+    # HM_CUT + AzaleaGym allows you to progress to Goldenrod
     {
-      %{HM_SURF: true} = items_obtained,
-      %{BlackthornCity: true} = locations_reached,
-      %{EcruteakGym: true, BlackthornGym: false} = gyms_reached,
+      %{HM_CUT: true} = items_obtained,
+      %{GoldenrodCity: false} = locations_reached,
+      %{AzaleaGym: true} = gyms_reached,
       badge_count,
       misc,
       swaps
     } ->
       {
         items_obtained,
-        locations_reached,
-        %{gyms_reached | BlackthornGym: true},
-        badge_count + 1,
+        %{locations_reached | GoldenrodCity: true},
+        gyms_reached,
+        badge_count,
         misc,
         swaps
       }
 
-    # TODO: is defeating the Rockets a prereq to getting HM_WATERFALL?
+    # SQUIRTBOTTLE is another way of getting to Goldenrod
     {
-      %{HM_STRENGTH: true} = items_obtained,
-      %{BlackthornCity: false} = locations_reached,
-      # can make this more readable, i.e.
-      # %{GoldenrodRocketsCleared: true, CanUseStrength: true} = conditions
-      %{GoldenrodGym: true} = gyms_reached,
+      %{SQUIRTBOTTLE: true} = items_obtained,
+      %{GoldenrodCity: false} = locations_reached,
+      gyms_reached,
       badge_count,
-      %{RocketsDefeated: true} = misc,
-      swaps
-    } ->
-      {
-        %{items_obtained | swaps[:HM_WATERFALL] => true},
-        %{locations_reached | BlackthornCity: true},
-        gyms_reached,
-        badge_count,
-        misc,
-        swaps
-      }
-
-    # TODO: figure out if you MUST clear the UndergroundWarehouse
-    # before using the CARD_KEY to conquer the RadioTower and obtain
-    # the CLEAR_BELL.
-    #
-    # idea is that even after clearing the RadioTower maybe you can
-    # still explore the UndergroundWarehouse and collect the
-    # CARD_KEY. proabably not, though, as the director gives you the
-    # CARD_KEY and will likely not be present in the
-    # UndergroundWarehouse after beating the CARD_KEY-blocked areas of
-    # the RadioTower. one workaround would be to turn the CARD_KEY
-    # into an itemball.
-    {
-      %{CARD_KEY: true} = items_obtained,
-      %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
-      gyms_reached,
-      7 = badge_count,
-      %{RocketsDefeated: false} = misc,
-      swaps
-    } ->
-      {
-        %{items_obtained | swaps[:CLEAR_BELL] => true},
-        locations_reached,
-        gyms_reached,
-        badge_count,
-        %{misc | RocketsDefeated: true},
-        swaps
-      }
-
-    {
-      %{BASEMENT_KEY: true} = items_obtained,
-      %{UndergroundWarehouse: false} = locations_reached,
-      gyms_reached,
-      7 = badge_count,
       misc,
       swaps
     } ->
       {
-        %{items_obtained | swaps[:CARD_KEY] => true},
-        %{locations_reached | UndergroundWarehouse: true},
+        items_obtained,
+        %{locations_reached | GoldenrodCity: true},
         gyms_reached,
         badge_count,
         misc,
         swaps
       }
 
+    # after you reach Goldenrod, you beat the gym and get some items
     {
       items_obtained,
-      %{RadioTower5F: false, UndergroundWarehouse: false} = locations_reached,
-      gyms_reached,
-      7 = badge_count,
+      %{GoldenrodCity: true} = locations_reached,
+      %{GoldenrodGym: false} = gyms_reached,
+      badge_count,
       misc,
       swaps
     } ->
       {
-        %{items_obtained | swaps[:BASEMENT_KEY] => true},
-        %{locations_reached | RadioTower5F: true},
+        %{
+          items_obtained |
+          swaps[:SQUIRTBOTTLE] => true,
+          swaps[:BICYCLE] => true,
+          swaps[:COIN_CASE] => true,
+          swaps[:BLUE_CARD] => true
+        },
+        locations_reached,
+        %{gyms_reached | GoldenrodGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # PASS + Goldenrod -> Saffron
+    {
+      %{PASS: true} = items_obtained,
+      %{GoldenrodCity: true, SaffronCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | SaffronCity: true},
         gyms_reached,
         badge_count,
         misc,
         swaps
       }
 
-    # reach LakeOfRage, clear it and the Rocket Hideout, beat Pryce
+    # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
     {
-      %{HM_SURF: true} = items_obtained,
-      %{LakeOfRage: false, MahoganyTown: true} = locations_reached,
-      %{EcruteakGym: true, MahoganyGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        %{items_obtained | swaps[:RED_SCALE] => true, swaps[:HM_WHIRLPOOL] => true},
-        %{locations_reached | LakeOfRage: true},
-        %{gyms_reached | MahoganyGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
-    {
-      %{SECRETPOTION: true} = items_obtained,
-      %{OlivineCity: true} = locations_reached,
-      %{OlivineGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        locations_reached,
-        %{gyms_reached | OlivineGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # HM_SURF and reaching Ecruteak Gym allows you to progress to
-    # Cianwood and its Gym.
-    {
-      %{HM_SURF: true} = items_obtained,
-      %{CianwoodCity: false} = locations_reached,
-      %{EcruteakGym: true, CianwoodGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        %{items_obtained | swaps[:HM_FLY] => true, swaps[:SECRETPOTION] => true},
-        %{locations_reached | CianwoodCity: true},
-        %{gyms_reached | CianwoodGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # S_S_TICKET can take you from Olivine to Vermilion
-    {
-      %{S_S_TICKET: true} = items_obtained,
-      %{OlivineCity: true, VermilionCity: false} = locations_reached,
+      %{SQUIRTBOTTLE: true} = items_obtained,
+      %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
       gyms_reached,
       badge_count,
       misc,
@@ -268,7 +202,12 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     } ->
       {
         items_obtained,
-        %{locations_reached | VermilionCity: true},
+        %{
+          locations_reached |
+          EcruteakCity: true,
+          OlivineCity: true,
+          MahoganyTown: true
+        },
         gyms_reached,
         badge_count,
         misc,
@@ -305,10 +244,10 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps
       }
 
-    # SQUIRTBOTTLE allows you to progress to Ecruteak, Olivine and Mahogany
+    # S_S_TICKET can take you from Olivine to Vermilion
     {
-      %{SQUIRTBOTTLE: true} = items_obtained,
-      %{EcruteakCity: false, OlivineCity: false, MahoganyTown: false} = locations_reached,
+      %{S_S_TICKET: true} = items_obtained,
+      %{OlivineCity: true, VermilionCity: false} = locations_reached,
       gyms_reached,
       badge_count,
       misc,
@@ -316,103 +255,164 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     } ->
       {
         items_obtained,
-        %{
-          locations_reached |
-          EcruteakCity: true,
-          OlivineCity: true,
-          MahoganyTown: true
-        },
+        %{locations_reached | VermilionCity: true},
         gyms_reached,
         badge_count,
         misc,
         swaps
       }
 
-    # PASS + Goldenrod -> Saffron
+    # HM_SURF and reaching Ecruteak Gym allows you to progress to
+    # Cianwood and its Gym.
     {
-      %{PASS: true} = items_obtained,
-      %{GoldenrodCity: true, SaffronCity: false} = locations_reached,
-      gyms_reached,
+      %{HM_SURF: true} = items_obtained,
+      %{CianwoodCity: false} = locations_reached,
+      %{EcruteakGym: true, CianwoodGym: false} = gyms_reached,
       badge_count,
       misc,
       swaps
     } ->
       {
-        items_obtained,
-        %{locations_reached | SaffronCity: true},
-        gyms_reached,
-        badge_count,
-        misc,
-        swaps
-      }
-
-    # after you reach Goldenrod, you beat the gym and get some items
-    {
-      items_obtained,
-      %{GoldenrodCity: true} = locations_reached,
-      %{GoldenrodGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        %{
-          items_obtained |
-          swaps[:SQUIRTBOTTLE] => true,
-          swaps[:BICYCLE] => true,
-          swaps[:COIN_CASE] => true,
-          swaps[:BLUE_CARD] => true
-        },
-        locations_reached,
-        %{gyms_reached | GoldenrodGym: true},
+        %{items_obtained | swaps[:HM_FLY] => true, swaps[:SECRETPOTION] => true},
+        %{locations_reached | CianwoodCity: true},
+        %{gyms_reached | CianwoodGym: true},
         badge_count + 1,
         misc,
         swaps
       }
 
-    # SQUIRTBOTTLE is another way of getting to Goldenrod
+    # SECRETPOTION and reaching Olivine allows you to beat Olivine Gym
     {
-      %{SQUIRTBOTTLE: true} = items_obtained,
-      %{GoldenrodCity: false} = locations_reached,
+      %{SECRETPOTION: true} = items_obtained,
+      %{OlivineCity: true} = locations_reached,
+      %{OlivineGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | OlivineGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # reach LakeOfRage, clear it and the Rocket Hideout, beat Pryce
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{LakeOfRage: false, MahoganyTown: true} = locations_reached,
+      %{EcruteakGym: true, MahoganyGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:RED_SCALE] => true, swaps[:HM_WHIRLPOOL] => true},
+        %{locations_reached | LakeOfRage: true},
+        %{gyms_reached | MahoganyGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    {
+      items_obtained,
+      %{RadioTower5F: false, UndergroundWarehouse: false} = locations_reached,
       gyms_reached,
-      badge_count,
+      7 = badge_count,
       misc,
       swaps
     } ->
       {
-        items_obtained,
-        %{locations_reached | GoldenrodCity: true},
+        %{items_obtained | swaps[:BASEMENT_KEY] => true},
+        %{locations_reached | RadioTower5F: true},
         gyms_reached,
         badge_count,
         misc,
         swaps
       }
 
-    # HM_CUT + AzaleaGym allows you to progress to Goldenrod
     {
-      %{HM_CUT: true} = items_obtained,
-      %{GoldenrodCity: false} = locations_reached,
-      %{AzaleaGym: true} = gyms_reached,
-      badge_count,
+      %{BASEMENT_KEY: true} = items_obtained,
+      %{UndergroundWarehouse: false} = locations_reached,
+      gyms_reached,
+      7 = badge_count,
       misc,
       swaps
     } ->
       {
-        items_obtained,
-        %{locations_reached | GoldenrodCity: true},
+        %{items_obtained | swaps[:CARD_KEY] => true},
+        %{locations_reached | UndergroundWarehouse: true},
         gyms_reached,
         badge_count,
         misc,
         swaps
       }
 
-    { :begin, swaps } ->
+    # TODO: figure out if you MUST clear the UndergroundWarehouse
+    # before using the CARD_KEY to conquer the RadioTower and obtain
+    # the CLEAR_BELL.
+    #
+    # idea is that even after clearing the RadioTower maybe you can
+    # still explore the UndergroundWarehouse and collect the
+    # CARD_KEY. proabably not, though, as the director gives you the
+    # CARD_KEY and will likely not be present in the
+    # UndergroundWarehouse after beating the CARD_KEY-blocked areas of
+    # the RadioTower. one workaround would be to turn the CARD_KEY
+    # into an itemball.
+    {
+      %{CARD_KEY: true} = items_obtained,
+      %{RadioTower5F: true, UndergroundWarehouse: true} = locations_reached,
+      gyms_reached,
+      7 = badge_count,
+      %{RocketsDefeated: false} = misc,
+      swaps
+    } ->
       {
-        (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
-        initial_locations_reached,
-        initial_gyms_reached,
-        initial_badge_count,
-        %{PowerPlantFixed: false, RocketsDefeated: false, ArrivedInKanto: false},
+        %{items_obtained | swaps[:CLEAR_BELL] => true},
+        locations_reached,
+        gyms_reached,
+        badge_count,
+        %{misc | RocketsDefeated: true},
+        swaps
+      }
+
+    # TODO: is defeating the Rockets a prereq to getting HM_WATERFALL?
+    {
+      %{HM_STRENGTH: true} = items_obtained,
+      %{BlackthornCity: false} = locations_reached,
+      # can make this more readable, i.e.
+      # %{GoldenrodRocketsCleared: true, CanUseStrength: true} = conditions
+      %{GoldenrodGym: true} = gyms_reached,
+      badge_count,
+      %{RocketsDefeated: true} = misc,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:HM_WATERFALL] => true},
+        %{locations_reached | BlackthornCity: true},
+        gyms_reached,
+        badge_count,
+        misc,
+        swaps
+      }
+
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{BlackthornCity: true} = locations_reached,
+      %{EcruteakGym: true, BlackthornGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | BlackthornGym: true},
+        badge_count + 1,
+        misc,
         swaps
       }
 
