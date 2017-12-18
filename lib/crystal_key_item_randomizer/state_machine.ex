@@ -418,123 +418,123 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     # # KANTO
 
-    # there's no way that ViridianGym is useful in this randomizer.
-    # not even sure what the condition for this event is honestly
+    # Reach Vermilion, and reach all of the neighboring cities
     {
       items_obtained,
-      %{ViridianCity: false, CinnabarIsland: true} = locations_reached,
+      %{VermilionCity: true} = locations_reached,
       gyms_reached,
       badge_count,
-      %{PowerPlantFixed: true} = misc,
-      swaps,
-    } ->
-      {
-        items_obtained,
-        %{locations_reached | ViridianCity: true},
-        %{gyms_reached | ViridianGym: true},
-        badge_count + 1,
-        misc,
-        swaps,
-      }
-
-    {
-      items_obtained,
-      %{CinnabarIsland: false, PewterCity: true} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{PowerPlantFixed: true} = misc,
-      swaps,
-    } ->
-      {
-        items_obtained,
-        %{locations_reached | CinnabarIsland: true},
-        %{gyms_reached | CinnabarGym: true},
-        badge_count + 1,
-        misc,
-        swaps,
-      }
-
-    {
-      items_obtained,
-      %{PewterCity: false} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{PowerPlantFixed: true} = misc,
-      swaps,
-    } ->
-      {
-        %{items_obtained | swaps[:SILVER_WING] => true},
-        %{locations_reached | PewterCity: true},
-        %{gyms_reached | PewterGym: true},
-        badge_count + 1,
-        misc,
-        swaps,
-      }
-
-    {
-      %{LOST_ITEM: true} = items_obtained,
-      %{PokemonFanClub: true, CopycatsHouse2F: false} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{PowerPlantFixed: true} = misc,
-      swaps,
-    } ->
-      {
-        %{items_obtained | swaps[:PASS] => true},
-        %{locations_reached | CopycatsHouse2F: true},
-        gyms_reached,
-        badge_count,
-        misc,
-        swaps
-      }
-
-    {
-      items_obtained,
-      %{PokemonFanClub: false} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{PowerPlantFixed: true} = misc,
-      swaps
-    } ->
-     {
-       %{items_obtained | swaps[:LOST_ITEM] => true},
-       %{locations_reached | PokemonFanClub: true},
-       gyms_reached,
-       badge_count,
-       misc,
-       swaps
-     }
-
-    {
-      %{HM_SURF: true, MACHINE_PART: true} = items_obtained,
-      %{PowerPlant: true} = locations_reached,
-      %{EcruteakGym: true} = gyms_reached,
-      badge_count,
-      %{PowerPlantFixed: false} = misc,
+      %{ArrivedInKanto: false} = misc,
       swaps
     } ->
       {
         items_obtained,
-        locations_reached,
+        %{
+          locations_reached |
+          CeruleanCity: true,
+          LavenderTown: true,
+          CeladonCity: true,
+          SaffronCity: true,
+          FuchsiaCity: true,
+        },
         gyms_reached,
         badge_count,
-        %{misc | PowerPlantFixed: true},
+        %{misc | ArrivedInKanto: true},
         swaps
       }
 
-    # start MACHINE_PART sidequest
+    # Reach Vermilion, reach gym with HM_CUT, get the badge
     {
-      %{HM_SURF: true} = items_obtained,
-      %{PowerPlant: false} = locations_reached,
-      %{EcruteakGym: true} = gyms_reached,
+      %{HM_CUT: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, AzaleaGym: true} = gyms_reached,
       badge_count,
       misc,
       swaps
     } ->
       {
-        %{items_obtained | swaps[:MACHINE_PART] => true},
-        %{locations_reached | PowerPlant: true},
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # Reach Vermilion, reach gym with HM_SURF, get the badge
+    {
+      %{HM_SURF: true} = items_obtained,
+      %{VermilionCity: true} = locations_reached,
+      %{VermilionGym: false, EcruteakGym: true} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | VermilionGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # Reach Saffron, reach all of the neighboring cities
+    {
+      items_obtained,
+      %{SaffronCity: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{ArrivedInKanto: false} = misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        %{
+          locations_reached |
+          CeruleanCity: true,
+          VermilionCity: true,
+          LavenderTown: true,
+          CeladonCity: true,
+          FuchsiaCity: true,
+        },
         gyms_reached,
+        badge_count,
+        %{misc | ArrivedInKanto: true},
+        swaps
+      }
+
+    # Reach Saffron, get the badge
+    {
+      items_obtained,
+      %{SaffronCity: true} = locations_reached,
+      %{SaffronGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        %{gyms_reached | SaffronGym: true},
+        badge_count + 1,
+        misc,
+        swaps
+      }
+
+    # Reach Fuchsia, get the badge and acquire the SUPER_ROD
+    {
+      items_obtained,
+      %{FuchsiaCity: true} = locations_reached,
+      %{FuchsiaGym: false} = gyms_reached,
+      badge_count,
+      misc,
+      swaps
+    } ->
+      {
+        %{items_obtained | swaps[:SUPER_ROD] => true},
+        locations_reached,
+        %{gyms_reached | FuchsiaGym: true},
         badge_count,
         misc,
         swaps
@@ -569,126 +569,126 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         swaps,
       }
 
-    # Reach Fuchsia, get the badge and acquire the SUPER_ROD
-    {
-      items_obtained,
-      %{FuchsiaCity: true} = locations_reached,
-      %{FuchsiaGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        %{items_obtained | swaps[:SUPER_ROD] => true},
-        locations_reached,
-        %{gyms_reached | FuchsiaGym: true},
-        badge_count,
-        misc,
-        swaps
-      }
-
-    # Reach Saffron, get the badge
-    {
-      items_obtained,
-      %{SaffronCity: true} = locations_reached,
-      %{SaffronGym: false} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        locations_reached,
-        %{gyms_reached | SaffronGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # Reach Saffron, reach all of the neighboring cities
-    {
-      items_obtained,
-      %{SaffronCity: true} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{ArrivedInKanto: false} = misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        %{
-          locations_reached |
-          CeruleanCity: true,
-          VermilionCity: true,
-          LavenderTown: true,
-          CeladonCity: true,
-          FuchsiaCity: true,
-        },
-        gyms_reached,
-        badge_count,
-        %{misc | ArrivedInKanto: true},
-        swaps
-      }
-
-    # Reach Vermilion, reach gym with HM_SURF, get the badge
+    # start MACHINE_PART sidequest
     {
       %{HM_SURF: true} = items_obtained,
-      %{VermilionCity: true} = locations_reached,
-      %{VermilionGym: false, EcruteakGym: true} = gyms_reached,
+      %{PowerPlant: false} = locations_reached,
+      %{EcruteakGym: true} = gyms_reached,
       badge_count,
       misc,
       swaps
     } ->
       {
-        items_obtained,
-        locations_reached,
-        %{gyms_reached | VermilionGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # Reach Vermilion, reach gym with HM_CUT, get the badge
-    {
-      %{HM_CUT: true} = items_obtained,
-      %{VermilionCity: true} = locations_reached,
-      %{VermilionGym: false, AzaleaGym: true} = gyms_reached,
-      badge_count,
-      misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        locations_reached,
-        %{gyms_reached | VermilionGym: true},
-        badge_count + 1,
-        misc,
-        swaps
-      }
-
-    # Reach Vermilion, and reach all of the neighboring cities
-    {
-      items_obtained,
-      %{VermilionCity: true} = locations_reached,
-      gyms_reached,
-      badge_count,
-      %{ArrivedInKanto: false} = misc,
-      swaps
-    } ->
-      {
-        items_obtained,
-        %{
-          locations_reached |
-          CeruleanCity: true,
-          LavenderTown: true,
-          CeladonCity: true,
-          SaffronCity: true,
-          FuchsiaCity: true,
-        },
+        %{items_obtained | swaps[:MACHINE_PART] => true},
+        %{locations_reached | PowerPlant: true},
         gyms_reached,
         badge_count,
-        %{misc | ArrivedInKanto: true},
+        misc,
         swaps
+      }
+
+    {
+      %{HM_SURF: true, MACHINE_PART: true} = items_obtained,
+      %{PowerPlant: true} = locations_reached,
+      %{EcruteakGym: true} = gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: false} = misc,
+      swaps
+    } ->
+      {
+        items_obtained,
+        locations_reached,
+        gyms_reached,
+        badge_count,
+        %{misc | PowerPlantFixed: true},
+        swaps
+      }
+
+    {
+      items_obtained,
+      %{PokemonFanClub: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps
+    } ->
+     {
+       %{items_obtained | swaps[:LOST_ITEM] => true},
+       %{locations_reached | PokemonFanClub: true},
+       gyms_reached,
+       badge_count,
+       misc,
+       swaps
+     }
+
+    {
+      %{LOST_ITEM: true} = items_obtained,
+      %{PokemonFanClub: true, CopycatsHouse2F: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        %{items_obtained | swaps[:PASS] => true},
+        %{locations_reached | CopycatsHouse2F: true},
+        gyms_reached,
+        badge_count,
+        misc,
+        swaps
+      }
+
+    {
+      items_obtained,
+      %{PewterCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        %{items_obtained | swaps[:SILVER_WING] => true},
+        %{locations_reached | PewterCity: true},
+        %{gyms_reached | PewterGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
+      }
+
+    {
+      items_obtained,
+      %{CinnabarIsland: false, PewterCity: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | CinnabarIsland: true},
+        %{gyms_reached | CinnabarGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
+      }
+
+    # there's no way that ViridianGym is useful in this randomizer.
+    # not even sure what the condition for this event is honestly
+    {
+      items_obtained,
+      %{ViridianCity: false, CinnabarIsland: true} = locations_reached,
+      gyms_reached,
+      badge_count,
+      %{PowerPlantFixed: true} = misc,
+      swaps,
+    } ->
+      {
+        items_obtained,
+        %{locations_reached | ViridianCity: true},
+        %{gyms_reached | ViridianGym: true},
+        badge_count + 1,
+        misc,
+        swaps,
       }
   end
 end
