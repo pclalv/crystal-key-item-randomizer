@@ -1,5 +1,19 @@
-defmodule CrystalKeyItemRandomizer.StateMachines.KantoLocked do
+defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
   use Diet.Transformations
+
+  @doc ~S"""
+
+  Determines if it is possible to reach Kanto, and if it
+  not possible to reach Kanto, then determines whether or not there
+  are any required items in Kanto.
+
+  ## Examples
+
+      iex> Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.KantoLocked, nil) \
+      ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
+      {{:ok, _}, _}
+
+  """
 
   def kanto_items, do: CrystalKeyItemRandomizer.kanto_items
   def kanto_reaching_items, do: [:PASS, :S_S_TICKET]
@@ -24,15 +38,6 @@ defmodule CrystalKeyItemRandomizer.StateMachines.KantoLocked do
     #   required_items_in_kanto?,
     #   swaps
     # }
-
-    { :begin, swaps } ->
-      {
-        kanto_items,
-        maybe_required_pairs,
-        kanto_items |> Enum.any?( &(Enum.member?(kanto_reaching_items, swaps[&1])) ),
-        false, # assume that there are no required items in kanto
-        swaps
-      }
 
     # final states
 
@@ -110,8 +115,17 @@ defmodule CrystalKeyItemRandomizer.StateMachines.KantoLocked do
       {
         tail,
         maybe_required_pairs,
-        Enum.member?(required_items, swaps[head]),
         false,
+        Enum.member?(required_items, swaps[head]),
+        swaps
+      }
+
+    { :begin, swaps } ->
+      {
+        kanto_items,
+        maybe_required_pairs,
+        kanto_reaching_items |> Enum.all?( &(! Enum.member?(kanto_items, swaps[&1])) ),
+        false, # assume that there are no required items in kanto
         swaps
       }
   end
