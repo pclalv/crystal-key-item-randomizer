@@ -99,7 +99,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
       misc,
       swaps
     } ->
-      {:done, swaps}
+      {:ok, swaps}
 
     # JOHTO
 
