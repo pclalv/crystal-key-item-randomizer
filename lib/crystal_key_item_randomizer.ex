@@ -193,6 +193,12 @@ defmodule CrystalKeyItemRandomizer do
 
   def maps_dir, do: @maps_dir
 
+  def vanilla_swaps do
+    CrystalKeyItemRandomizer.key_item_names \
+    |> Enum.zip(CrystalKeyItemRandomizer.key_item_names) \
+    |> Enum.into(%{})
+  end
+
   # STUFF FOR TESTING
   @goldenrod_locked_swaps %{
     BASEMENT_KEY: :HM_CUT,
