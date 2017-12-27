@@ -61,6 +61,17 @@ defmodule CrystalKeyItemRandomizer do
     },
   }
 
+  @maybe_required_pairs [
+    # if (any of) the stuff on the left is in kanto, and the thing on
+    # the right is required, then the swap is kanto-locked
+    {:BASEMENT_KEY, :CARD_KEY},
+    {:CARD_KEY, :CLEAR_BELL},
+    # this is a bit of a special case. CARD_KEY and CLEAR_BERLL have
+    # other prereqs, but those prereqs are themselves required
+    # (e.g. HM_CUT or SQUIRTBOTTLE.)
+    {{:LOST_ITEM, :MACHINE_PART}, :PASS}
+  ]
+
   @non_required_items %{
     # HMs
     HM_FLASH: %Item{
@@ -188,6 +199,7 @@ defmodule CrystalKeyItemRandomizer do
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
   def goldenrod_blocked_items, do: key_item_names -- pre_goldenrod_items
+  def maybe_required_pairs do: @maybe_required_pairs
 
   @maps_dir "./pokecrystal/maps"
 
@@ -233,10 +245,6 @@ defmodule CrystalKeyItemRandomizer do
 
   @doc """
   Run the randomization.
-
-  ## Examples
-
-      iex> CrystalKeyItemRandomizer.run
   """
   def run do
     System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")

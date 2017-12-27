@@ -15,18 +15,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
 
   """
 
-  def kanto_items, do: CrystalKeyItemRandomizer.kanto_items
   def kanto_reaching_items, do: [:PASS, :S_S_TICKET]
-  def maybe_required_pairs, do: [
-    # if (any of) the stuff on the left is in kanto, and the thing on
-    # the right is required, then the swap is kanto-locked
-    {:BASEMENT_KEY, :CARD_KEY},
-    {:CARD_KEY, :CLEAR_BELL},
-    # this is a bit of a special case. CARD_KEY and CLEAR_BERLL have
-    # other prereqs, but those prereqs are themselves required
-    # (e.g. HM_CUT or SQUIRTBOTTLE.)
-    {{:LOST_ITEM, :MACHINE_PART}, :PASS}
-  ]
   def required_items, do: Map.keys(CrystalKeyItemRandomizer.required_items)
 
   reductions do
@@ -122,9 +111,9 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
 
     { :begin, swaps } ->
       {
-        kanto_items,
-        maybe_required_pairs,
-        kanto_reaching_items |> Enum.all?( &(! Enum.member?(kanto_items, swaps[&1])) ),
+        CrystalKeyItemRandomizer.kanto_items,
+        CrystalKeyItemRandomizer.maybe_required_pairs,
+        kanto_reaching_items |> Enum.any?( &(! Enum.member?(kanto_items, swaps[&1])) ),
         false, # assume that there are no required items in kanto
         swaps
       }
