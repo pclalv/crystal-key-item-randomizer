@@ -64,23 +64,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
 
     {
       [] = kanto_items,
-      [{{prereq1, prereq2}, maybe_required} = head | tail] = maybe_required_pairs,
-      false = can_reach_kanto?,
-      false = required_items_in_kanto?,
-      swaps
-    } ->
-      {
-        [],
-        tail,
-        false,
-        Enum.member?(required_items, swaps[maybe_required])
-          && CrystalKeyItemRandomizer.kanto_items |> Enum.any?( &(swaps[&1] == prereq1 || swaps[&1] == prereq2) ),
-        swaps
-      }
-
-    {
-      [] = kanto_items,
-      [{prereq, maybe_required} = head | tail] = maybe_required_pairs,
+      [{prereq, maybe_required} | tail] = maybe_required_pairs,
       false = can_reach_kanto?,
       false = required_items_in_kanto?,
       swaps
@@ -113,7 +97,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
       {
         CrystalKeyItemRandomizer.kanto_items,
         CrystalKeyItemRandomizer.maybe_required_pairs,
-        kanto_reaching_items |> Enum.any?( &(! Enum.member?(kanto_items, swaps[&1])) ),
+        kanto_reaching_items |> Enum.any?( &(! Enum.member?(CrystalKeyItemRandomizer.kanto_items, swaps[&1])) ),
         false, # assume that there are no required items in kanto
         swaps
       }

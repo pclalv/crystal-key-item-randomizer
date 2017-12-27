@@ -199,7 +199,15 @@ defmodule CrystalKeyItemRandomizer do
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
   def goldenrod_blocked_items, do: key_item_names -- pre_goldenrod_items
-  def maybe_required_pairs do: @maybe_required_pairs
+  def maybe_required_pairs do
+    @maybe_required_pairs |> Enum.reduce([], fn
+      {prereqs, maybe_required}, acc when is_list(prereqs) ->
+        (prereqs |> Enum.map(fn (prereq) -> {prereq, maybe_required} end)) ++ acc
+      {_, _} = pair, acc ->
+        [pair | acc]
+      end
+    )
+  end
 
   @maps_dir "./pokecrystal/maps"
 
