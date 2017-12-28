@@ -3,15 +3,16 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
 
   @doc ~S"""
 
-  Determines if it is possible to reach Kanto, and if it
-  not possible to reach Kanto, then determines whether or not there
-  are any required items in Kanto.
+  Determines if it is possible to reach Kanto, and if it is not
+  possible to reach Kanto, then determines whether or not there are
+  any required items in Kanto.
 
   ## Examples
 
-      iex> Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.KantoLocked, nil) \
-      ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-      {{:ok, _}, _}
+    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.KantoLocked, nil) \
+    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
+    ...> with {{:ok, _}, _} <- result, do: :passed
+    :passed
 
   """
 

@@ -127,7 +127,7 @@ defmodule CrystalKeyItemRandomizer.Reachability do
 
   defp required?(item) do
     Enum.member?(
-      CrystalKeyItemRandomizer.required_items,
+      CrystalKeyItemRandomizer.required_item_names,
       item
     )
   end

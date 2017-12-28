@@ -69,7 +69,7 @@ defmodule CrystalKeyItemRandomizer do
     # this is a bit of a special case. CARD_KEY and CLEAR_BERLL have
     # other prereqs, but those prereqs are themselves required
     # (e.g. HM_CUT or SQUIRTBOTTLE.)
-    {{:LOST_ITEM, :MACHINE_PART}, :PASS}
+    {[:LOST_ITEM, :MACHINE_PART], :PASS}
   ]
 
   @non_required_items %{
@@ -189,6 +189,7 @@ defmodule CrystalKeyItemRandomizer do
   ]
 
   def required_items, do: @required_items
+  def required_item_names, do: @required_items |> Map.keys
   def maybe_required_items, do: @maybe_required_items
   def non_required_items, do: @non_required_items
   def key_items, do: required_items |> Map.merge(maybe_required_items) |> Map.merge(non_required_items)
