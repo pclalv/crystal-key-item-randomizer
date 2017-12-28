@@ -102,7 +102,7 @@ defmodule CrystalKeyItemRandomizer.Reachability do
             true
         end
       true ->
-        false
+        true
     end
   end
 
