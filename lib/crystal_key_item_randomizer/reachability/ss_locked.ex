@@ -1,0 +1,51 @@
+defmodule CrystalKeyItemRandomizer.Reachability.SSLocked do
+  use Diet.Transformations
+
+  @doc ~S"""
+
+  Determines if the S_S_TICKET has been replaced by any required item.
+
+  ## Examples
+
+    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.SSLocked, nil) \
+    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
+    ...> with {{:ok, _}, _} <- result, do: :passed
+    :passed
+
+  """
+
+  reductions do
+    {
+      [] = maybe_required_pairs,
+      false = replaced_with_required_item?,
+      swaps,
+    } ->
+      { :ok, swaps }
+
+    {
+      maybe_required_pairs,
+      true = replaced_with_required_item?,
+      swaps,
+    } ->
+      { :ss_locked, swaps }
+
+    {
+      [{prereq, maybe_required} | tail] = maybe_required_pairs,
+      false = replaced_with_required_item?,
+      swaps,
+    } ->
+      {
+        tail,
+        swaps[:S_S_TICKET] == prereq \
+          && Enum.member?(CrystalKeyItemRandomizer.required_item_names, swaps[maybe_required]),
+        swaps
+      }
+
+    { :begin, swaps } ->
+      {
+        CrystalKeyItemRandomizer.maybe_required_pairs,
+        CrystalKeyItemRandomizer.required_item_names |> Enum.any?( &(swaps[:S_S_TICKET] == &1) ),
+        swaps
+      }
+  end
+end
