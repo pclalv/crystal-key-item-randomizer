@@ -98,7 +98,12 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
       {
         CrystalKeyItemRandomizer.kanto_items,
         CrystalKeyItemRandomizer.maybe_required_pairs,
-        kanto_reaching_items |> Enum.any?( &(! Enum.member?(CrystalKeyItemRandomizer.kanto_items, swaps[&1])) ),
+        kanto_reaching_items |> Enum.any?(fn item ->
+          !Enum.member?(
+            CrystalKeyItemRandomizer.kanto_items |> Enum.map( &(swaps[&1]) ),
+            item
+          )
+        end),
         false, # assume that there are no required items in kanto
         swaps
       }
