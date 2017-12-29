@@ -30,7 +30,7 @@
 - see what happens if you get the `BASEMENT_KEY` early
     - you fight rival, but rockets and the radio tower manager are missing...
 - see what happens if you get the `CARD_KEY` early
-    - 
+    - as bad as early `BASEMENT_KEY`, i bet
 
 # Elixir
 
