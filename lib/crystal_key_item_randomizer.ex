@@ -69,7 +69,8 @@ defmodule CrystalKeyItemRandomizer do
     # this is a bit of a special case. CARD_KEY and CLEAR_BERLL have
     # other prereqs, but those prereqs are themselves required
     # (e.g. HM_CUT or SQUIRTBOTTLE.)
-    {[:LOST_ITEM, :MACHINE_PART], :PASS}
+    {[:LOST_ITEM, :MACHINE_PART], :PASS},
+    {:MACHINE_PART, :SILVER_WING}
   ]
 
   @non_required_items %{
