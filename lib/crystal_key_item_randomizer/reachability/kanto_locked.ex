@@ -7,12 +7,10 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
   possible to reach Kanto, then determines whether or not there are
   any required items in Kanto.
 
-  ## Examples
+  The swaps are kanto-locked if Kanto is inaccessible but any required
+  key item is in Kanto.
 
-    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.KantoLocked, nil) \
-    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-    ...> with {{:ok, _}, _} <- result, do: :passed
-    :passed
+  ## Examples
 
   """
 

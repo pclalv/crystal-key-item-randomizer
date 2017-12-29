@@ -7,11 +7,6 @@ defmodule CrystalKeyItemRandomizer.Reachability.GoldenrodLocked do
 
   ## Examples
 
-    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.GoldenrodLocked, nil) \
-    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-    ...> with {{:ok, _}, _} <- result, do: :passed
-    :passed
-
   """
 
   reductions do

@@ -7,11 +7,6 @@ defmodule CrystalKeyItemRandomizer.Reachability.SurfLocked do
 
   ## Examples
 
-    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.SurfLocked, nil) \
-    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-    ...> with {{:ok, _}, _} <- result, do: :passed
-    :passed
-
   """
 
   reductions do

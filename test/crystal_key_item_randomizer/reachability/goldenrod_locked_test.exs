@@ -1,4 +1,13 @@
 defmodule CrystalKeyItemRandomizer.Reachability.GoldenrodLockedTest do
   use ExUnit.Case, async: true
-  doctest CrystalKeyItemRandomizer.Reachability.GoldenrodLocked
+  alias CrystalKeyItemRandomizer.Reachability.GoldenrodLocked
+  doctest GoldenrodLocked
+
+  test "works with the vanilla swaps" do
+    swaps = CrystalKeyItemRandomizer.vanilla_swaps
+    result = Diet.Stepper.new(GoldenrodLocked, nil)
+    |> Diet.Stepper.run({:begin, swaps})
+
+    assert {{:ok, ^swaps}, _} = result
+  end
 end

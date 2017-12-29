@@ -9,11 +9,6 @@ defmodule CrystalKeyItemRandomizer.Reachability.TreeLocked do
 
   ## Examples
 
-    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.TreeLocked, nil) \
-    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-    ...> with {{:ok, _}, _} <- result, do: :passed
-    :passed
-
   """
 
   reductions do

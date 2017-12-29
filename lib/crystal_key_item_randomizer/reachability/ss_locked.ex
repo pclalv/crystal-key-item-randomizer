@@ -5,13 +5,6 @@ defmodule CrystalKeyItemRandomizer.Reachability.SSLocked do
 
   Determines if the S_S_TICKET has been replaced by any required item.
 
-  ## Examples
-
-    iex> result = Diet.Stepper.new(CrystalKeyItemRandomizer.Reachability.SSLocked, nil) \
-    ...> |> Diet.Stepper.run({:begin, CrystalKeyItemRandomizer.vanilla_swaps})
-    ...> with {{:ok, _}, _} <- result, do: :passed
-    :passed
-
   """
 
   reductions do
