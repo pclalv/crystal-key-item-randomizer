@@ -1,5 +1,11 @@
 # goals
 
+* game changes
+    - consider turning `CARD_KEY` guy into an `ITEM_BALL`. that would
+      allow the player to obtain the `BASEMENT_KEY` early and go get
+      whatever's down there without having to first trigger the
+      goldenrod rockets events.
+
 * qualitative
     - recreate the experience of a LTTP randomizer with pokemon
       crystal
