@@ -59,7 +59,9 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
     } ->
       { :kanto_locked, swaps }
 
-    # checks
+    # then iteratively check maybe required item pairs. if
+    # maybe_required _is_ required and the prereq to that
+    # maybe_Required is in kanto, you're boned
 
     {
       [] = kanto_items,
@@ -76,6 +78,8 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
           && CrystalKeyItemRandomizer.kanto_items |> Enum.any?( &(swaps[&1] == prereq) ),
         swaps
       }
+
+    # first iteratively check if any required item is in kanto item
 
     {
       [head | tail] = kanto_items,
