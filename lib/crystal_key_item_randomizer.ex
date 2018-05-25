@@ -101,7 +101,7 @@ defmodule CrystalKeyItemRandomizer do
     },    # useless
     COIN_CASE: %Item{
       name: :COIN_CASE,
-      location: :WarehouseEntrance,
+      location: :GoldenrodUnderground,
       macro: :itemball,
     },    # useless
     GOOD_ROD: %Item{
