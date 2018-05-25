@@ -1,5 +1,47 @@
 # Todo
 
+- use this: `bc <<< "obase=16;ibase=16;($internal_address - 4000) + ($bank * 4000)"`
+  to compute the hex address from a symlink
+- to disappear a person at $address, set their daytime to 0, ie set
+  $address + 6 to 0.
+- https://github.com/tallakt/codepagex remember this elixir lib for
+  binary files - it supports user-defined encodings
+- hex patches:
+    - BC430: 14 -> 15
+        -`setevent EVENT_ROUTE_30_YOUNGSTER_JOEY` -> `setevent EVENT_ROUTE_30_BATTLE`
+        - disables 'important battle'
+
+# notes on inspecting the ROM
+
+*rebase on pret/master, it's actually improving a lot!*
+*don't worry about item events*
+
+```
+in maps/LakeOfRage.asm, put a label right before the script line you want to modify
+like this:
+GiveItemRedScaleLine::
+    giveitem RED_SCALE
+then when you build the ROM, look for GiveItemRedScaleLine in pokecrystal.sym
+giveitem_command == $1F and RED_SCALE == $42, so at that address you'll see 1F 42 in a hex editor
+```
+
+i'll see something like this:
+
+```yaml
+pclalvRecvRedScale:
+  hex_address_range:
+    begin: 458876
+    end: 458879
+    excl: true
+  :values: "$1f $42 $1"
+```
+
+refer to `macro/scripts/events.asm` for what these values correspond to; last value is QUANTITY
+
+`itemball` seems straightforward. `hiddenitem` as used by the machine
+part event, has `:values: "$fb $0 $80"`. i would bet that `$80` is the
+value corresponding to MACHINE_PART.
+
 ## Serious
 
 ## Reachability
