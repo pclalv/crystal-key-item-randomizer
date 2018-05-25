@@ -1,3 +1,3 @@
 [submodule "pokecrystal"]
-	path = pokecrystal
+	path = apps/lock_detector/pokecrystal
 	url = git@github.com:pclalv/pokecrystal.git
