@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizerTest do
+defmodule LockDetectorTest do
   use ExUnit.Case
-  doctest CrystalKeyItemRandomizer
+  doctest LockDetector
 end

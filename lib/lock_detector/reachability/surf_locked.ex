@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.Reachability.SurfLocked do
+defmodule LockDetector.Reachability.SurfLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -19,7 +19,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.SurfLocked do
     { :begin, swaps } ->
       {
         Enum.any?(
-          CrystalKeyItemRandomizer.surf_blocked_items,
+          LockDetector.surf_blocked_items,
           &( swaps[&1] == :HM_SURF )
         ),
         swaps

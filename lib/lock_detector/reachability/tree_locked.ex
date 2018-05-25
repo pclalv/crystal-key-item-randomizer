@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.Reachability.TreeLocked do
+defmodule LockDetector.Reachability.TreeLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -21,7 +21,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.TreeLocked do
     { :begin, swaps } ->
       {
         !Enum.any?(
-          CrystalKeyItemRandomizer.pre_tree_items,
+          LockDetector.pre_tree_items,
           &( swaps[&1] == :HM_CUT || swaps[&1] == :SQUIRTBOTTLE )
         ),
         swaps

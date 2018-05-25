@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.Reachability.GoldenrodLocked do
+defmodule LockDetector.Reachability.GoldenrodLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -63,7 +63,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.GoldenrodLocked do
         [:SQUIRTBOTTLE, :PASS] \
         |> Enum.filter(fn item ->
           Enum.member?(
-            CrystalKeyItemRandomizer.pre_goldenrod_items |> Enum.map( &(swaps[&1]) ),
+            LockDetector.pre_goldenrod_items |> Enum.map( &(swaps[&1]) ),
             item
           )
         end),

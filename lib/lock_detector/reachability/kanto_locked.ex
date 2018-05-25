@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
+defmodule LockDetector.Reachability.KantoLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -15,7 +15,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
   """
 
   def kanto_reaching_items, do: [:PASS, :S_S_TICKET]
-  def required_items, do: Map.keys(CrystalKeyItemRandomizer.required_items)
+  def required_items, do: Map.keys(LockDetector.required_items)
 
   reductions do
     # state
@@ -75,7 +75,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
         tail,
         false,
         Enum.member?(required_items, swaps[maybe_required])
-          && CrystalKeyItemRandomizer.kanto_items |> Enum.any?( &(swaps[&1] == prereq) ),
+          && LockDetector.kanto_items |> Enum.any?( &(swaps[&1] == prereq) ),
         swaps
       }
 
@@ -98,11 +98,11 @@ defmodule CrystalKeyItemRandomizer.Reachability.KantoLocked do
 
     { :begin, swaps } ->
       {
-        CrystalKeyItemRandomizer.kanto_items,
-        CrystalKeyItemRandomizer.maybe_required_pairs,
+        LockDetector.kanto_items,
+        LockDetector.maybe_required_pairs,
         kanto_reaching_items |> Enum.any?(fn item ->
           !Enum.member?(
-            CrystalKeyItemRandomizer.kanto_items |> Enum.map( &(swaps[&1]) ),
+            LockDetector.kanto_items |> Enum.map( &(swaps[&1]) ),
             item
           )
         end),

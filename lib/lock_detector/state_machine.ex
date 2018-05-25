@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.StateMachine do
+defmodule LockDetector.StateMachine do
   use Diet.Transformations
 
   # state:
@@ -19,7 +19,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   #   CanUseWaterfall: false,
   #     ... etc
   # }
-  alias CrystalKeyItemRandomizer.Item
+  alias LockDetector.Item
 
   @accessible_locations [
     :ElmsLab, :IlexForest, :MrPokemonsHouse,
@@ -36,7 +36,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
     :AzaleaGym
   ]
 
-  def all_locations, do: for {_, %Item{location: location}} <- CrystalKeyItemRandomizer.key_items, do: location
+  def all_locations, do: for {_, %Item{location: location}} <- LockDetector.key_items, do: location
   def accessible_locations, do: @accessible_locations
   #def initial_locations_reached, do: for location <- all_locations, do: {location, Enum.member?(accessible_locations, location)}, into: %{}
   def initial_locations_reached, do: %{
@@ -72,7 +72,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
   def all_gyms, do: @all_gyms
   def accessible_gyms, do: @accessible_gyms
   def initial_gyms_reached, do: for gym <- all_gyms, do: {gym, Enum.member?(accessible_gyms, gym)}, into: %{}
-  def all_items, do: CrystalKeyItemRandomizer.key_items |> Map.keys
+  def all_items, do: LockDetector.key_items |> Map.keys
   def initial_badge_count, do: 2
 
   reductions do
@@ -105,7 +105,7 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
 
     { :begin, swaps } ->
       {
-        (for item <- all_items, do: {swaps[item], Enum.member?(CrystalKeyItemRandomizer.pre_tree_items, item)}, into: %{}),
+        (for item <- all_items, do: {swaps[item], Enum.member?(LockDetector.pre_tree_items, item)}, into: %{}),
         initial_locations_reached,
         initial_gyms_reached,
         initial_badge_count,
@@ -690,5 +690,31 @@ defmodule CrystalKeyItemRandomizer.StateMachine do
         misc,
         swaps,
       }
+
+    # Errors
+    #
+    # how to use a state machine to determine error states AND
+    # diagnose the error's cause?
+    #
+    # what if i had another state machine to tell me which items were
+    # in kanto, and which required surf to be obtained, etc?
+
+    {
+      %{HM_CUT: false, SQUIRTBOTTLE: false} = items_obtained,
+      %{GoldenrodCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps,
+    } ->
+      {:tree_locked, swaps}
+
+    {
+      %{SQUIRTBOTTLE: false, PASS: false} = items_obtained,
+      %{GoldenrodCity: true, EcruteakCity: false} = locations_reached,
+      gyms_reached,
+      badge_count,
+      swaps,
+    } ->
+      {:goldenrod_locked, swaps}
   end
 end

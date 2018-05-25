@@ -1,4 +1,4 @@
-defmodule CrystalKeyItemRandomizer.Reachability.SSLocked do
+defmodule LockDetector.Reachability.SSLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -30,14 +30,14 @@ defmodule CrystalKeyItemRandomizer.Reachability.SSLocked do
       {
         tail,
         swaps[:S_S_TICKET] == prereq \
-          && Enum.member?(CrystalKeyItemRandomizer.required_item_names, swaps[maybe_required]),
+          && Enum.member?(LockDetector.required_item_names, swaps[maybe_required]),
         swaps
       }
 
     { :begin, swaps } ->
       {
-        CrystalKeyItemRandomizer.maybe_required_pairs,
-        CrystalKeyItemRandomizer.required_item_names |> Enum.any?( &(swaps[:S_S_TICKET] == &1) ),
+        LockDetector.maybe_required_pairs,
+        LockDetector.required_item_names |> Enum.any?( &(swaps[:S_S_TICKET] == &1) ),
         swaps
       }
   end

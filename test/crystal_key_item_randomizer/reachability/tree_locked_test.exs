@@ -1,10 +1,10 @@
-defmodule CrystalKeyItemRandomizer.Reachability.TreeLockedTest do
+defmodule LockDetector.Reachability.TreeLockedTest do
   use ExUnit.Case, async: true
-  alias CrystalKeyItemRandomizer.Reachability.TreeLocked
+  alias LockDetector.Reachability.TreeLocked
   doctest TreeLocked
 
   test "the vanilla swaps are ok" do
-    swaps = CrystalKeyItemRandomizer.vanilla_swaps
+    swaps = LockDetector.vanilla_swaps
     result = Diet.Stepper.new(TreeLocked, nil)
     |> Diet.Stepper.run({:begin, swaps})
 
@@ -12,7 +12,7 @@ defmodule CrystalKeyItemRandomizer.Reachability.TreeLockedTest do
   end
 
   test "a swap where neither HM_CUT nor SQUIRTBOTTLE is available early" do
-    swaps = for item <- CrystalKeyItemRandomizer.pre_tree_items, do: {item, :FOO}, into: %{}
+    swaps = for item <- LockDetector.pre_tree_items, do: {item, :FOO}, into: %{}
     result = Diet.Stepper.new(TreeLocked, nil)
     |> Diet.Stepper.run({:begin, swaps})
 

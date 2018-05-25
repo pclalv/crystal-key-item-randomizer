@@ -1,9 +1,9 @@
-defmodule CrystalKeyItemRandomizer do
+defmodule LockDetector do
   @moduledoc """
   Randomizes the key items of Pokemon Crystal at the assembly level.
   """
 
-  alias CrystalKeyItemRandomizer.Item
+  alias LockDetector.Item
 
   @required_items %{
     HM_SURF: %Item{
@@ -216,8 +216,8 @@ defmodule CrystalKeyItemRandomizer do
   def maps_dir, do: @maps_dir
 
   def vanilla_swaps do
-    CrystalKeyItemRandomizer.key_item_names \
-    |> Enum.zip(CrystalKeyItemRandomizer.key_item_names) \
+    LockDetector.key_item_names \
+    |> Enum.zip(LockDetector.key_item_names) \
     |> Enum.into(%{})
   end
 
@@ -259,9 +259,9 @@ defmodule CrystalKeyItemRandomizer do
   def run do
     System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")
 
-    CrystalKeyItemRandomizer.key_item_names
+    LockDetector.key_item_names
     |> Enum.shuffle
-    |> Enum.zip(CrystalKeyItemRandomizer.key_item_names)
+    |> Enum.zip(LockDetector.key_item_names)
     |> Enum.into(%{})
     |> IO.inspect
     |> ensure_reachable
@@ -272,8 +272,8 @@ defmodule CrystalKeyItemRandomizer do
   end
 
   def apply_swap({original, replacement}) do
-    original_item = CrystalKeyItemRandomizer.key_items[original]
-    map_path = "#{CrystalKeyItemRandomizer.maps_dir}/#{original_item.location}.asm"
+    original_item = LockDetector.key_items[original]
+    map_path = "#{LockDetector.maps_dir}/#{original_item.location}.asm"
 
     updated_map = File.read!(map_path)
     |> String.replace("#{original_item.macro} #{original}", "#{original_item.macro} #{replacement}")
@@ -282,16 +282,16 @@ defmodule CrystalKeyItemRandomizer do
   end
 
   def ensure_reachable(swaps) do
-    reachability = CrystalKeyItemRandomizer.Reachability.analyze(swaps)
+    reachability = LockDetector.Reachability.analyze(swaps)
     IO.puts("in ensure_reachable")
     IO.inspect(reachability)
 
     swaps
-    |> CrystalKeyItemRandomizer.LockFixes.fix_ss_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_kanto_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_surf_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_goldenrod_lock(reachability)
-    |> CrystalKeyItemRandomizer.LockFixes.fix_tree_lock(reachability)
+    |> LockDetector.LockFixes.fix_ss_lock(reachability)
+    |> LockDetector.LockFixes.fix_kanto_lock(reachability)
+    |> LockDetector.LockFixes.fix_surf_lock(reachability)
+    |> LockDetector.LockFixes.fix_goldenrod_lock(reachability)
+    |> LockDetector.LockFixes.fix_tree_lock(reachability)
     |> ensure_reachable(reachability)
   end
 

@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :crystal_key_item_randomizer, key: :value
+#     config :lock_detector, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:crystal_key_item_randomizer, :key)
+#     Application.get_env(:lock_detector, :key)
 #
 # You can also configure a 3rd-party app:
 #

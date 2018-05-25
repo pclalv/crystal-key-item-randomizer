@@ -1,4 +1,4 @@
-# CrystalKeyItemRandomizer
+# LockDetector
 
 A key item randomizer for Pokemon Crystal.
 
