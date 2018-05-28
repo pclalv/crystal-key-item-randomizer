@@ -14,56 +14,56 @@ defmodule LockDetector.Reachability.GoldenrodLocked do
       [] = progress_items_obtainable,
       swaps
     } ->
-      { :goldenrod_locked, swaps }
+      {:goldenrod_locked, swaps}
 
     {
       [:SQUIRTBOTTLE, :PASS] = progress_items_obtainable,
       swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:SQUIRTBOTTLE] = progress_items_obtainable,
       swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:PASS] = progress_items_obtainable,
       %{SUPER_ROD: :S_S_TICKET, HM_STRENGTH: :HM_SURF} = swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:PASS] = progress_items_obtainable,
       %{SUPER_ROD: :S_S_TICKET, HM_SURF: :HM_SURF} = swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:PASS] = progress_items_obtainable,
       %{SUPER_ROD: :S_S_TICKET, GOOD_ROD: :HM_SURF} = swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:PASS] = progress_items_obtainable,
       %{SUPER_ROD: :SQUIRTBOTTLE} = swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     {
       [:PASS] = progress_items_obtainable,
       swaps
     } ->
-      { :goldenrod_locked, swaps }
+      {:goldenrod_locked, swaps}
 
-    { :begin, swaps } ->
+    {:begin, swaps} ->
       {
-        [:SQUIRTBOTTLE, :PASS] \
+        [:SQUIRTBOTTLE, :PASS]
         |> Enum.filter(fn item ->
           Enum.member?(
-            LockDetector.pre_goldenrod_items |> Enum.map( &(swaps[&1]) ),
+            LockDetector.pre_goldenrod_items() |> Enum.map(&swaps[&1]),
             item
           )
         end),

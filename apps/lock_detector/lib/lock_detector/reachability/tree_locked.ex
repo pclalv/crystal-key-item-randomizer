@@ -12,17 +12,17 @@ defmodule LockDetector.Reachability.TreeLocked do
   """
 
   reductions do
-    { true = tree_locked, swaps } ->
-      { :tree_locked, swaps }
+    {true = tree_locked, swaps} ->
+      {:tree_locked, swaps}
 
-    { false = tree_locked, swaps } ->
-      { :ok, swaps }
+    {false = tree_locked, swaps} ->
+      {:ok, swaps}
 
-    { :begin, swaps } ->
+    {:begin, swaps} ->
       {
         !Enum.any?(
-          LockDetector.pre_tree_items,
-          &( swaps[&1] == :HM_CUT || swaps[&1] == :SQUIRTBOTTLE )
+          LockDetector.pre_tree_items(),
+          &(swaps[&1] == :HM_CUT || swaps[&1] == :SQUIRTBOTTLE)
         ),
         swaps
       }

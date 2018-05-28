@@ -15,7 +15,7 @@ defmodule LockDetector.Reachability.KantoLocked do
   """
 
   def kanto_reaching_items, do: [:PASS, :S_S_TICKET]
-  def required_items, do: Map.keys(LockDetector.required_items)
+  def required_items, do: Map.keys(LockDetector.required_items())
 
   reductions do
     # state
@@ -37,7 +37,7 @@ defmodule LockDetector.Reachability.KantoLocked do
       required_items_in_kanto?,
       swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     # if we check all of the items and there are no required items in kanto, we're good
     {
@@ -47,7 +47,7 @@ defmodule LockDetector.Reachability.KantoLocked do
       false = required_items_in_kanto?,
       swaps
     } ->
-      { :ok, swaps }
+      {:ok, swaps}
 
     # otherwise, it's kanto-locked
     {
@@ -57,7 +57,7 @@ defmodule LockDetector.Reachability.KantoLocked do
       true = required_items_in_kanto?,
       swaps
     } ->
-      { :kanto_locked, swaps }
+      {:kanto_locked, swaps}
 
     # then iteratively check maybe required item pairs. if
     # maybe_required _is_ required and the prereq to that
@@ -74,8 +74,8 @@ defmodule LockDetector.Reachability.KantoLocked do
         [],
         tail,
         false,
-        Enum.member?(required_items, swaps[maybe_required])
-          && LockDetector.kanto_items |> Enum.any?( &(swaps[&1] == prereq) ),
+        Enum.member?(required_items, swaps[maybe_required]) &&
+          LockDetector.kanto_items() |> Enum.any?(&(swaps[&1] == prereq)),
         swaps
       }
 
@@ -96,17 +96,19 @@ defmodule LockDetector.Reachability.KantoLocked do
         swaps
       }
 
-    { :begin, swaps } ->
+    {:begin, swaps} ->
       {
-        LockDetector.kanto_items,
-        LockDetector.maybe_required_pairs,
-        kanto_reaching_items |> Enum.any?(fn item ->
+        LockDetector.kanto_items(),
+        LockDetector.maybe_required_pairs(),
+        kanto_reaching_items
+        |> Enum.any?(fn item ->
           !Enum.member?(
-            LockDetector.kanto_items |> Enum.map( &(swaps[&1]) ),
+            LockDetector.kanto_items() |> Enum.map(&swaps[&1]),
             item
           )
         end),
-        false, # assume that there are no required items in kanto
+        # assume that there are no required items in kanto
+        false,
         swaps
       }
   end

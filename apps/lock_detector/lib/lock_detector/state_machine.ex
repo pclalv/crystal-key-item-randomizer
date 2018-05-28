@@ -22,13 +22,30 @@ defmodule LockDetector.StateMachine do
   alias LockDetector.Item
 
   @accessible_locations [
-    :ElmsLab, :IlexForest, :MrPokemonsHouse,
-    :Route32PokeCenter1F, :SproutTower3F
+    :ElmsLab,
+    :IlexForest,
+    :MrPokemonsHouse,
+    :Route32PokeCenter1F,
+    :SproutTower3F
   ]
 
   @all_gyms [
-    :VioletGym, :AzaleaGym, :GoldenrodGym, :EcruteakGym, :OlivineGym, :CianwoodGym, :MahoganyGym, :BlackthornGym,
-    :PewterGym, :CeruleanGym, :VermilionGym, :CeladonGym, :FuchsiaGym, :SaffronGym, :CinnabarGym, :ViridianGym
+    :VioletGym,
+    :AzaleaGym,
+    :GoldenrodGym,
+    :EcruteakGym,
+    :OlivineGym,
+    :CianwoodGym,
+    :MahoganyGym,
+    :BlackthornGym,
+    :PewterGym,
+    :CeruleanGym,
+    :VermilionGym,
+    :CeladonGym,
+    :FuchsiaGym,
+    :SaffronGym,
+    :CinnabarGym,
+    :ViridianGym
   ]
 
   @accessible_gyms [
@@ -36,43 +53,51 @@ defmodule LockDetector.StateMachine do
     :AzaleaGym
   ]
 
-  def all_locations, do: for {_, %Item{location: location}} <- LockDetector.key_items, do: location
+  def all_locations,
+    do: for({_, %Item{location: location}} <- LockDetector.key_items(), do: location)
+
   def accessible_locations, do: @accessible_locations
-  #def initial_locations_reached, do: for location <- all_locations, do: {location, Enum.member?(accessible_locations, location)}, into: %{}
-  def initial_locations_reached, do: %{
-    # johto
-    # we never check these four
-    # NewBarkTown: true,
-    # CherrygroveCity: true,
-    # VioletCity: true,
-    # AzaleaTown: true,
-    GoldenrodCity: false,
-    EcruteakCity: false,
-    OlivineCity: false,
-    CianwoodCity: false,
-    MahoganyTown: false,
-    BlackthornCity: false,
-    RadioTower5F: false,
-    UndergroundWarehouse: false,
-    LakeOfRage: false,
-    # kanto
-    PewterCity: false,
-    ViridianCity: false,
-    CeruleanCity: false,
-    VermilionCity: false,
-    PokemonFanClub: false,
-    CeladonCity: false,
-    SaffronCity: false,
-    CopycatsHouse2F: false,
-    LavenderTown: false,
-    FuchsiaCity: false,
-    CinnabarIsland: false,
-    PowerPlant: false,
-  }
+
+  # def initial_locations_reached, do: for location <- all_locations, do: {location, Enum.member?(accessible_locations, location)}, into: %{}
+  def initial_locations_reached,
+    do: %{
+      # johto
+      # we never check these four
+      # NewBarkTown: true,
+      # CherrygroveCity: true,
+      # VioletCity: true,
+      # AzaleaTown: true,
+      GoldenrodCity: false,
+      EcruteakCity: false,
+      OlivineCity: false,
+      CianwoodCity: false,
+      MahoganyTown: false,
+      BlackthornCity: false,
+      RadioTower5F: false,
+      UndergroundWarehouse: false,
+      LakeOfRage: false,
+      # kanto
+      PewterCity: false,
+      ViridianCity: false,
+      CeruleanCity: false,
+      VermilionCity: false,
+      PokemonFanClub: false,
+      CeladonCity: false,
+      SaffronCity: false,
+      CopycatsHouse2F: false,
+      LavenderTown: false,
+      FuchsiaCity: false,
+      CinnabarIsland: false,
+      PowerPlant: false
+    }
+
   def all_gyms, do: @all_gyms
   def accessible_gyms, do: @accessible_gyms
-  def initial_gyms_reached, do: for gym <- all_gyms, do: {gym, Enum.member?(accessible_gyms, gym)}, into: %{}
-  def all_items, do: LockDetector.key_items |> Map.keys
+
+  def initial_gyms_reached,
+    do: for(gym <- all_gyms, do: {gym, Enum.member?(accessible_gyms, gym)}, into: %{})
+
+  def all_items, do: LockDetector.key_items() |> Map.keys()
   def initial_badge_count, do: 2
 
   reductions do
@@ -93,7 +118,7 @@ defmodule LockDetector.StateMachine do
       %{
         GoldenrodGym: true,
         EcruteakGym: true,
-        BlackthornGym: true,
+        BlackthornGym: true
       } = gyms_reached,
       8 = badge_count,
       misc,
@@ -103,9 +128,13 @@ defmodule LockDetector.StateMachine do
 
     # JOHTO
 
-    { :begin, swaps } ->
+    {:begin, swaps} ->
       {
-        (for item <- all_items, do: {swaps[item], Enum.member?(LockDetector.pre_tree_items, item)}, into: %{}),
+        for(
+          item <- all_items,
+          do: {swaps[item], Enum.member?(LockDetector.pre_tree_items(), item)},
+          into: %{}
+        ),
         initial_locations_reached,
         initial_gyms_reached,
         initial_badge_count,
@@ -160,11 +189,11 @@ defmodule LockDetector.StateMachine do
     } ->
       {
         %{
-          items_obtained |
-          swaps[:SQUIRTBOTTLE] => true,
-          swaps[:BICYCLE] => true,
-          swaps[:COIN_CASE] => true,
-          swaps[:BLUE_CARD] => true
+          items_obtained
+          | swaps[:SQUIRTBOTTLE] => true,
+            swaps[:BICYCLE] => true,
+            swaps[:COIN_CASE] => true,
+            swaps[:BLUE_CARD] => true
         },
         locations_reached,
         %{gyms_reached | GoldenrodGym: true},
@@ -203,10 +232,10 @@ defmodule LockDetector.StateMachine do
       {
         items_obtained,
         %{
-          locations_reached |
-          EcruteakCity: true,
-          OlivineCity: true,
-          MahoganyTown: true
+          locations_reached
+          | EcruteakCity: true,
+            OlivineCity: true,
+            MahoganyTown: true
         },
         gyms_reached,
         badge_count,
@@ -231,11 +260,11 @@ defmodule LockDetector.StateMachine do
     } ->
       {
         %{
-          items_obtained |
-          swaps[:HM_SURF] => true,
-          swaps[:ITEMFINDER] => true,
-          swaps[:HM_STRENGTH] => true,
-          swaps[:GOOD_ROD] => true
+          items_obtained
+          | swaps[:HM_SURF] => true,
+            swaps[:ITEMFINDER] => true,
+            swaps[:HM_STRENGTH] => true,
+            swaps[:GOOD_ROD] => true
         },
         locations_reached,
         %{gyms_reached | EcruteakGym: true},
@@ -430,12 +459,12 @@ defmodule LockDetector.StateMachine do
       {
         items_obtained,
         %{
-          locations_reached |
-          CeruleanCity: true,
-          LavenderTown: true,
-          CeladonCity: true,
-          SaffronCity: true,
-          FuchsiaCity: true,
+          locations_reached
+          | CeruleanCity: true,
+            LavenderTown: true,
+            CeladonCity: true,
+            SaffronCity: true,
+            FuchsiaCity: true
         },
         gyms_reached,
         badge_count,
@@ -491,12 +520,12 @@ defmodule LockDetector.StateMachine do
       {
         items_obtained,
         %{
-          locations_reached |
-          CeruleanCity: true,
-          VermilionCity: true,
-          LavenderTown: true,
-          CeladonCity: true,
-          FuchsiaCity: true,
+          locations_reached
+          | CeruleanCity: true,
+            VermilionCity: true,
+            LavenderTown: true,
+            CeladonCity: true,
+            FuchsiaCity: true
         },
         gyms_reached,
         badge_count,
@@ -558,15 +587,15 @@ defmodule LockDetector.StateMachine do
       {
         items_obtained,
         %{
-          locations_reached |
-          EcruteakCity: true,
-          OlivineCity: true,
-          MahoganyTown: true
+          locations_reached
+          | EcruteakCity: true,
+            OlivineCity: true,
+            MahoganyTown: true
         },
         gyms_reached,
         badge_count,
         misc,
-        swaps,
+        swaps
       }
 
     # start MACHINE_PART sidequest
@@ -612,14 +641,14 @@ defmodule LockDetector.StateMachine do
       %{PowerPlantFixed: true} = misc,
       swaps
     } ->
-     {
-       %{items_obtained | swaps[:LOST_ITEM] => true},
-       %{locations_reached | PokemonFanClub: true},
-       gyms_reached,
-       badge_count,
-       misc,
-       swaps
-     }
+      {
+        %{items_obtained | swaps[:LOST_ITEM] => true},
+        %{locations_reached | PokemonFanClub: true},
+        gyms_reached,
+        badge_count,
+        misc,
+        swaps
+      }
 
     {
       %{LOST_ITEM: true} = items_obtained,
@@ -627,7 +656,7 @@ defmodule LockDetector.StateMachine do
       gyms_reached,
       badge_count,
       %{PowerPlantFixed: true} = misc,
-      swaps,
+      swaps
     } ->
       {
         %{items_obtained | swaps[:PASS] => true},
@@ -644,7 +673,7 @@ defmodule LockDetector.StateMachine do
       gyms_reached,
       badge_count,
       %{PowerPlantFixed: true} = misc,
-      swaps,
+      swaps
     } ->
       {
         %{items_obtained | swaps[:SILVER_WING] => true},
@@ -652,7 +681,7 @@ defmodule LockDetector.StateMachine do
         %{gyms_reached | PewterGym: true},
         badge_count + 1,
         misc,
-        swaps,
+        swaps
       }
 
     {
@@ -661,7 +690,7 @@ defmodule LockDetector.StateMachine do
       gyms_reached,
       badge_count,
       %{PowerPlantFixed: true} = misc,
-      swaps,
+      swaps
     } ->
       {
         items_obtained,
@@ -669,7 +698,7 @@ defmodule LockDetector.StateMachine do
         %{gyms_reached | CinnabarGym: true},
         badge_count + 1,
         misc,
-        swaps,
+        swaps
       }
 
     # there's no way that ViridianGym is useful in this randomizer.
@@ -680,7 +709,7 @@ defmodule LockDetector.StateMachine do
       gyms_reached,
       badge_count,
       %{PowerPlantFixed: true} = misc,
-      swaps,
+      swaps
     } ->
       {
         items_obtained,
@@ -688,7 +717,7 @@ defmodule LockDetector.StateMachine do
         %{gyms_reached | ViridianGym: true},
         badge_count + 1,
         misc,
-        swaps,
+        swaps
       }
 
     # Errors
@@ -704,7 +733,7 @@ defmodule LockDetector.StateMachine do
       %{GoldenrodCity: false} = locations_reached,
       gyms_reached,
       badge_count,
-      swaps,
+      swaps
     } ->
       {:tree_locked, swaps}
 
@@ -713,7 +742,7 @@ defmodule LockDetector.StateMachine do
       %{GoldenrodCity: true, EcruteakCity: false} = locations_reached,
       gyms_reached,
       badge_count,
-      swaps,
+      swaps
     } ->
       {:goldenrod_locked, swaps}
   end

@@ -10,17 +10,17 @@ defmodule LockDetector.Reachability.SurfLocked do
   """
 
   reductions do
-    { true = surf_locked, swaps } ->
-      { :surf_locked, swaps }
+    {true = surf_locked, swaps} ->
+      {:surf_locked, swaps}
 
-    { false = surf_locked, swaps } ->
-      { :ok, swaps }
+    {false = surf_locked, swaps} ->
+      {:ok, swaps}
 
-    { :begin, swaps } ->
+    {:begin, swaps} ->
       {
         Enum.any?(
-          LockDetector.surf_blocked_items,
-          &( swaps[&1] == :HM_SURF )
+          LockDetector.surf_blocked_items(),
+          &(swaps[&1] == :HM_SURF)
         ),
         swaps
       }

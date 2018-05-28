@@ -9,7 +9,7 @@ defmodule LockDetector.Reachability do
       kanto_locked?: kanto_locked?(swaps),
       goldenrod_locked?: goldenrod_locked?(swaps),
       surf_locked?: surf_locked?(swaps),
-      tree_locked?: tree_locked?(swaps),
+      tree_locked?: tree_locked?(swaps)
     }
   end
 
@@ -17,6 +17,7 @@ defmodule LockDetector.Reachability do
   # required key item.
   defp ss_locked?(swaps) do
     state_machine = Diet.Stepper.new(LockDetector.Reachability.SSLocked, nil)
+
     case Diet.Stepper.run(state_machine, {:begin, swaps}) do
       {{:ss_locked, ^swaps}, _} -> true
       {{:ok, ^swaps}, _} -> false
@@ -27,6 +28,7 @@ defmodule LockDetector.Reachability do
   # key item is in kanto.
   defp kanto_locked?(swaps) do
     state_machine = Diet.Stepper.new(LockDetector.Reachability.KantoLocked, nil)
+
     case Diet.Stepper.run(state_machine, {:begin, swaps}) do
       {{:kanto_locked, ^swaps}, _} -> true
       {{:ok, ^swaps}, _} -> false
@@ -35,6 +37,7 @@ defmodule LockDetector.Reachability do
 
   defp goldenrod_locked?(swaps) do
     state_machine = Diet.Stepper.new(LockDetector.Reachability.GoldenrodLocked, nil)
+
     case Diet.Stepper.run(state_machine, {:begin, swaps}) do
       {{:goldenrod_locked, ^swaps}, _} -> true
       {{:ok, ^swaps}, _} -> false
@@ -43,6 +46,7 @@ defmodule LockDetector.Reachability do
 
   defp surf_locked?(swaps) do
     state_machine = Diet.Stepper.new(LockDetector.Reachability.SurfLocked, nil)
+
     case Diet.Stepper.run(state_machine, {:begin, swaps}) do
       {{:surf_locked, ^swaps}, _} -> true
       {{:ok, ^swaps}, _} -> false
@@ -51,6 +55,7 @@ defmodule LockDetector.Reachability do
 
   defp tree_locked?(swaps) do
     state_machine = Diet.Stepper.new(LockDetector.Reachability.TreeLocked, nil)
+
     case Diet.Stepper.run(state_machine, {:begin, swaps}) do
       {{:tree_locked, ^swaps}, _} -> true
       {{:ok, ^swaps}, _} -> false

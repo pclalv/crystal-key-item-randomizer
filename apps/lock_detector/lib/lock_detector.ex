@@ -8,57 +8,57 @@ defmodule LockDetector do
   @required_items %{
     HM_SURF: %Item{
       name: :HM_SURF,
-      location: :DanceTheatre,
+      location: :DanceTheatre
     },
     HM_STRENGTH: %Item{
       name: :HM_STRENGTH,
-      location: :OlivineCafe,
+      location: :OlivineCafe
     },
     HM_WHIRLPOOL: %Item{
       name: :HM_WHIRLPOOL,
-      location: :TeamRocketBaseB2F,
+      location: :TeamRocketBaseB2F
     },
     HM_WATERFALL: %Item{
       name: :HM_WATERFALL,
       location: :IcePath1F,
-      macro: :itemball,
+      macro: :itemball
     },
     SECRETPOTION: %Item{
       name: :SECRETPOTION,
-      location: :CianwoodPharmacy,
-    },
+      location: :CianwoodPharmacy
+    }
   }
 
   # only one of HM_CUT/SQUIRTBOTTLE is required
   @maybe_required_items %{
     BASEMENT_KEY: %Item{
       name: :BASEMENT_KEY,
-      location: :RadioTower5F,
+      location: :RadioTower5F
     },
     CARD_KEY: %Item{
       name: :CARD_KEY,
-      location: :UndergroundWarehouse,
+      location: :UndergroundWarehouse
     },
     HM_CUT: %Item{
       name: :HM_CUT,
-      location: :IlexForest,
+      location: :IlexForest
     },
     LOST_ITEM: %Item{
       name: :LOST_ITEM,
-      location: :PokemonFanClub,
+      location: :PokemonFanClub
     },
     PASS: %Item{
       name: :PASS,
-      location: :CopycatsHouse2F,
+      location: :CopycatsHouse2F
     },
     S_S_TICKET: %Item{
       name: :S_S_TICKET,
-      location: :ElmsLab,
+      location: :ElmsLab
     },
     SQUIRTBOTTLE: %Item{
       name: :SQUIRTBOTTLE,
-      location: :GoldenrodFlowerShop,
-    },
+      location: :GoldenrodFlowerShop
+    }
   }
 
   @maybe_required_pairs [
@@ -77,54 +77,70 @@ defmodule LockDetector do
     # HMs
     HM_FLASH: %Item{
       name: :HM_FLASH,
-      location: :SproutTower3F,
+      location: :SproutTower3F
     },
     HM_FLY: %Item{
       name: :HM_FLY,
-      location: :CianwoodCity,
+      location: :CianwoodCity
     },
 
     # non-HMs
     BICYCLE: %Item{
       name: :BICYCLE,
-      location: :GoldenrodBikeShop,
+      location: :GoldenrodBikeShop
     },
     CLEAR_BELL: %Item{
       name: :CLEAR_BELL,
-      location: :RadioTower5F,
-    },   # not sure - possibly required for progress?
+      location: :RadioTower5F
+    },
+
+    # not sure - possibly required for progress?
 
     # useless
     BLUE_CARD: %Item{
       name: :BLUE_CARD,
-      location: :RadioTower2F,
-    },    # useless
+      location: :RadioTower2F
+    },
+
+    # useless
     COIN_CASE: %Item{
       name: :COIN_CASE,
       location: :GoldenrodUnderground,
-      macro: :itemball,
-    },    # useless
+      macro: :itemball
+    },
+
+    # useless
     GOOD_ROD: %Item{
       name: :GOOD_ROD,
-      location: :OlivineGoodRodHouse,
-    },     # useless
+      location: :OlivineGoodRodHouse
+    },
+
+    # useless
     ITEMFINDER: %Item{
       name: :ITEMFINDER,
-      location: :EcruteakItemfinderHouse,
-    },   # useless
+      location: :EcruteakItemfinderHouse
+    },
+
+    # useless
     MACHINE_PART: %Item{
       name: :MACHINE_PART,
       location: :CeruleanGym,
-      macro: :"dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM,",
-    }, # useless; train will be available from the get go
+      macro: :"dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM,"
+    },
+
+    # useless; train will be available from the get go
     MYSTERY_EGG: %Item{
       name: :MYSTERY_EGG,
-      location: :MrPokemonsHouse,
-    },  # useless; blocking battle will be disabled
+      location: :MrPokemonsHouse
+    },
+
+    # useless; blocking battle will be disabled
     OLD_ROD: %Item{
       name: :OLD_ROD,
-      location: :Route32PokeCenter1F,
-    },      # useless
+      location: :Route32PokeCenter1F
+    },
+
+    # useless
     # RAINBOW_WING: %Item{
     #   name: :RAINBOW_WING,
     #   location: :TinTower1F,
@@ -132,16 +148,22 @@ defmodule LockDetector do
     #    # of a pain it is to catch all three beasts
     RED_SCALE: %Item{
       name: :RED_SCALE,
-      location: :LakeofRage,
-    },    # useless
+      location: :LakeofRage
+    },
+
+    # useless
     SILVER_WING: %Item{
       name: :SILVER_WING,
-      location: :PewterCity,
-    },  # useless
+      location: :PewterCity
+    },
+
+    # useless
     SUPER_ROD: %Item{
       name: :SUPER_ROD,
-      location: :Route12SuperRodHouse,
-    },    # useless
+      location: :Route12SuperRodHouse
+    }
+
+    # useless
   }
 
   @kanto_items [
@@ -149,14 +171,14 @@ defmodule LockDetector do
     :MACHINE_PART,
     :PASS,
     :SILVER_WING,
-    :SUPER_ROD,
+    :SUPER_ROD
   ]
 
   @pre_tree_items [
     :HM_CUT,
     :HM_FLASH,
     :MYSTERY_EGG,
-    :OLD_ROD,
+    :OLD_ROD
   ]
 
   # `CARD_KEY` is not included in pre_goldenrod_items given the
@@ -177,38 +199,46 @@ defmodule LockDetector do
   ]
 
   @surf_blocked_items [
-    :CARD_KEY,     # surf-blocked because the player can't
-    :BASEMENT_KEY, # trigger the rocket radio tower takeover
-    :CLEAR_BELL,   # without defeating the red gyarados
-
+    # surf-blocked because the player can't
+    :CARD_KEY,
+    # trigger the rocket radio tower takeover
+    :BASEMENT_KEY,
+    # without defeating the red gyarados
+    :CLEAR_BELL,
     :RED_SCALE,
     :HM_FLY,
     :SECRETPOTION,
-    :HM_WATERFALL # surf blocked unless we opt to remove the guy
-                  # blocking mahogany town/route 44 junction
-    | (for item <- @kanto_items, item != :SUPER_ROD, do: item)
+    # surf blocked unless we opt to remove the guy
+    # blocking mahogany town/route 44 junction
+    :HM_WATERFALL
+    | for(item <- @kanto_items, item != :SUPER_ROD, do: item)
   ]
 
   def required_items, do: @required_items
-  def required_item_names, do: @required_items |> Map.keys
+  def required_item_names, do: @required_items |> Map.keys()
   def maybe_required_items, do: @maybe_required_items
   def non_required_items, do: @non_required_items
-  def key_items, do: required_items |> Map.merge(maybe_required_items) |> Map.merge(non_required_items)
-  def key_item_names, do: key_items |> Map.keys
+
+  def key_items,
+    do: required_items |> Map.merge(maybe_required_items) |> Map.merge(non_required_items)
+
+  def key_item_names, do: key_items |> Map.keys()
 
   def kanto_items, do: @kanto_items
   def pre_goldenrod_items, do: @pre_goldenrod_items
   def pre_tree_items, do: @pre_tree_items
   def surf_blocked_items, do: @surf_blocked_items
   def goldenrod_blocked_items, do: key_item_names -- pre_goldenrod_items
+
   def maybe_required_pairs do
-    @maybe_required_pairs |> Enum.reduce([], fn
+    @maybe_required_pairs
+    |> Enum.reduce([], fn
       {prereqs, maybe_required}, acc when is_list(prereqs) ->
-        (prereqs |> Enum.map(fn (prereq) -> {prereq, maybe_required} end)) ++ acc
+        (prereqs |> Enum.map(fn prereq -> {prereq, maybe_required} end)) ++ acc
+
       {_, _} = pair, acc ->
         [pair | acc]
-      end
-    )
+    end)
   end
 
   @maps_dir "./pokecrystal/maps"
@@ -216,9 +246,7 @@ defmodule LockDetector do
   def maps_dir, do: @maps_dir
 
   def vanilla_swaps do
-    LockDetector.key_item_names \
-    |> Enum.zip(LockDetector.key_item_names) \
-    |> Enum.into(%{})
+    LockDetector.key_item_names() |> Enum.zip(LockDetector.key_item_names()) |> Enum.into(%{})
   end
 
   # STUFF FOR TESTING
@@ -259,24 +287,29 @@ defmodule LockDetector do
   def run do
     System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")
 
-    LockDetector.key_item_names
-    |> Enum.shuffle
-    |> Enum.zip(LockDetector.key_item_names)
+    # TODO: make this more idiomatic?
+    LockDetector.key_item_names()
+    |> Enum.shuffle()
+    |> Enum.zip(LockDetector.key_item_names())
     |> Enum.into(%{})
-    |> IO.inspect
+    |> IO.inspect()
     |> ensure_reachable
-    |> IO.inspect
-    |> Enum.each(&apply_swap(&1)) # TODO: make this more idiomatic?
+    |> IO.inspect()
+    |> Enum.each(&apply_swap(&1))
 
     System.cmd("make", [], cd: "./pokecrystal/")
   end
 
   def apply_swap({original, replacement}) do
-    original_item = LockDetector.key_items[original]
-    map_path = "#{LockDetector.maps_dir}/#{original_item.location}.asm"
+    original_item = LockDetector.key_items()[original]
+    map_path = "#{LockDetector.maps_dir()}/#{original_item.location}.asm"
 
-    updated_map = File.read!(map_path)
-    |> String.replace("#{original_item.macro} #{original}", "#{original_item.macro} #{replacement}")
+    updated_map =
+      File.read!(map_path)
+      |> String.replace(
+        "#{original_item.macro} #{original}",
+        "#{original_item.macro} #{replacement}"
+      )
 
     File.write!(map_path, updated_map)
   end
@@ -296,7 +329,7 @@ defmodule LockDetector do
   end
 
   defp ensure_reachable(swaps, reachability) do
-    if reachability |> Map.from_struct |> Map.values |> Enum.any? do
+    if reachability |> Map.from_struct() |> Map.values() |> Enum.any?() do
       ensure_reachable(swaps)
     else
       swaps
