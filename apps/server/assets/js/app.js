@@ -19,3 +19,15 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+var romFileInput = document.getElementById("rom-file");
+romFileInput.addEventListener("change", handleFiles, false);
+function handleFiles() {
+    var romFile = this.files[0];
+    var fileReader = new FileReader();
+
+    fileReader.readAsArrayBuffer(romFile);
+
+    var bytes = new Uint8Array(fileReader.result);
+    debugger
+}
