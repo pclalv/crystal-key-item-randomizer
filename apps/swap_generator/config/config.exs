@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :lock_detector, key: :value
+#     config :swap_generator, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:lock_detector, :key)
+#     Application.get_env(:swap_generator, :key)
 #
 # You can also configure a 3rd-party app:
 #

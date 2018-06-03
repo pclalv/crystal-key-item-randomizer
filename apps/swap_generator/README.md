@@ -1,4 +1,4 @@
-# LockDetector
+# SwapGenerator
 
 A key item randomizer for Pokemon Crystal.
 

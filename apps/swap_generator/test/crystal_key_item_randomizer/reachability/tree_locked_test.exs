@@ -1,10 +1,10 @@
-defmodule LockDetector.Reachability.TreeLockedTest do
+defmodule SwapGenerator.Reachability.TreeLockedTest do
   use ExUnit.Case, async: true
-  alias LockDetector.Reachability.TreeLocked
+  alias SwapGenerator.Reachability.TreeLocked
   doctest TreeLocked
 
   test "the vanilla swaps are ok" do
-    swaps = LockDetector.vanilla_swaps()
+    swaps = SwapGenerator.vanilla_swaps()
 
     result =
       Diet.Stepper.new(TreeLocked, nil)
@@ -14,7 +14,7 @@ defmodule LockDetector.Reachability.TreeLockedTest do
   end
 
   test "a swap where neither HM_CUT nor SQUIRTBOTTLE is available early" do
-    swaps = for item <- LockDetector.pre_tree_items(), do: {item, :FOO}, into: %{}
+    swaps = for item <- SwapGenerator.pre_tree_items(), do: {item, :FOO}, into: %{}
 
     result =
       Diet.Stepper.new(TreeLocked, nil)

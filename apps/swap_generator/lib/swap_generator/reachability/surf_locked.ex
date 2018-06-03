@@ -1,4 +1,4 @@
-defmodule LockDetector.Reachability.SurfLocked do
+defmodule SwapGenerator.Reachability.SurfLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -19,7 +19,7 @@ defmodule LockDetector.Reachability.SurfLocked do
     {:begin, swaps} ->
       {
         Enum.any?(
-          LockDetector.surf_blocked_items(),
+          SwapGenerator.surf_blocked_items(),
           &(swaps[&1] == :HM_SURF)
         ),
         swaps

@@ -1,9 +1,9 @@
-defmodule LockDetector do
+defmodule SwapGenerator do
   @moduledoc """
   Randomizes the key items of Pokemon Crystal at the assembly level.
   """
 
-  alias LockDetector.Item
+  alias SwapGenerator.Item
 
   @required_items %{
     HM_SURF: %Item{
@@ -246,7 +246,7 @@ defmodule LockDetector do
   def maps_dir, do: @maps_dir
 
   def vanilla_swaps do
-    LockDetector.key_item_names() |> Enum.zip(LockDetector.key_item_names()) |> Enum.into(%{})
+    SwapGenerator.key_item_names() |> Enum.zip(SwapGenerator.key_item_names()) |> Enum.into(%{})
   end
 
   # STUFF FOR TESTING
@@ -288,9 +288,9 @@ defmodule LockDetector do
     System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")
 
     # TODO: make this more idiomatic?
-    LockDetector.key_item_names()
+    SwapGenerator.key_item_names()
     |> Enum.shuffle()
-    |> Enum.zip(LockDetector.key_item_names())
+    |> Enum.zip(SwapGenerator.key_item_names())
     |> Enum.into(%{})
     |> IO.inspect()
     |> ensure_reachable
@@ -298,16 +298,16 @@ defmodule LockDetector do
   end
 
   def ensure_reachable(swaps) do
-    reachability = LockDetector.Reachability.analyze(swaps)
+    reachability = SwapGenerator.Reachability.analyze(swaps)
     IO.puts("in ensure_reachable")
     IO.inspect(reachability)
 
     swaps
-    |> LockDetector.LockFixes.fix_ss_lock(reachability)
-    |> LockDetector.LockFixes.fix_kanto_lock(reachability)
-    |> LockDetector.LockFixes.fix_surf_lock(reachability)
-    |> LockDetector.LockFixes.fix_goldenrod_lock(reachability)
-    |> LockDetector.LockFixes.fix_tree_lock(reachability)
+    |> SwapGenerator.LockFixes.fix_ss_lock(reachability)
+    |> SwapGenerator.LockFixes.fix_kanto_lock(reachability)
+    |> SwapGenerator.LockFixes.fix_surf_lock(reachability)
+    |> SwapGenerator.LockFixes.fix_goldenrod_lock(reachability)
+    |> SwapGenerator.LockFixes.fix_tree_lock(reachability)
     |> ensure_reachable(reachability)
   end
 

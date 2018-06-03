@@ -1,4 +1,4 @@
-defmodule LockDetector.LockFixes do
+defmodule SwapGenerator.LockFixes do
   @doc """
 
   Fix ss-locked swaps by taking whatever required key item replaced
@@ -12,7 +12,7 @@ defmodule LockDetector.LockFixes do
     old_original_item = :S_S_TICKET
     old_replacement_item = swaps[old_original_item]
 
-    {new_replacement_item, _} = Enum.random(LockDetector.non_required_items())
+    {new_replacement_item, _} = Enum.random(SwapGenerator.non_required_items())
 
     {new_original_item, _} =
       swaps
@@ -40,7 +40,7 @@ defmodule LockDetector.LockFixes do
       |> Enum.find(fn {_key, val} -> val == old_replacement_item end)
 
     # choose a random non-required item to stick in kanto
-    new_replacement_item = Enum.random(LockDetector.non_required_items())
+    new_replacement_item = Enum.random(SwapGenerator.non_required_items())
 
     {new_original_item, _} =
       swaps
@@ -66,11 +66,11 @@ defmodule LockDetector.LockFixes do
     old_replacement_item = :SQUIRTBOTTLE
 
     old_original_item =
-      LockDetector.goldenrod_blocked_items()
+      SwapGenerator.goldenrod_blocked_items()
       |> Enum.find(&(swaps[&1] == old_replacement_item))
 
     new_original_item =
-      (LockDetector.key_item_names() -- LockDetector.goldenrod_blocked_items() -- [:S_S_TICKET])
+      (SwapGenerator.key_item_names() -- SwapGenerator.goldenrod_blocked_items() -- [:S_S_TICKET])
       |> Enum.random()
 
     new_replacement_item = swaps[new_original_item]
@@ -86,11 +86,11 @@ defmodule LockDetector.LockFixes do
     old_replacement_item = :HM_SURF
 
     old_original_item =
-      LockDetector.surf_blocked_items()
+      SwapGenerator.surf_blocked_items()
       |> Enum.find(&(swaps[&1] == old_replacement_item))
 
     new_original_item =
-      (LockDetector.key_item_names() -- LockDetector.surf_blocked_items() -- [:S_S_TICKET])
+      (SwapGenerator.key_item_names() -- SwapGenerator.surf_blocked_items() -- [:S_S_TICKET])
       |> Enum.random()
 
     new_replacement_item = swaps[new_original_item]
@@ -112,7 +112,7 @@ defmodule LockDetector.LockFixes do
   def fix_tree_lock(swaps, %{tree_locked?: locked}) when not locked, do: swaps
 
   def fix_tree_lock(swaps, _reachability) do
-    old_original_item = Enum.random(LockDetector.pre_tree_items())
+    old_original_item = Enum.random(SwapGenerator.pre_tree_items())
     old_replacement_item = swaps[old_original_item]
     new_replacement_item = Enum.random([:HM_CUT, :SQUIRTBOTTLE])
 

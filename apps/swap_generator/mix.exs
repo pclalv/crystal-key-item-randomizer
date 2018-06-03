@@ -1,9 +1,9 @@
-defmodule LockDetector.Mixfile do
+defmodule SwapGenerator.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :lock_detector,
+      app: :swap_generator,
       version: "0.1.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,

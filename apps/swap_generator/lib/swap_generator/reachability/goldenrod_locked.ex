@@ -1,4 +1,4 @@
-defmodule LockDetector.Reachability.GoldenrodLocked do
+defmodule SwapGenerator.Reachability.GoldenrodLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -63,7 +63,7 @@ defmodule LockDetector.Reachability.GoldenrodLocked do
         [:SQUIRTBOTTLE, :PASS]
         |> Enum.filter(fn item ->
           Enum.member?(
-            LockDetector.pre_goldenrod_items() |> Enum.map(&swaps[&1]),
+            SwapGenerator.pre_goldenrod_items() |> Enum.map(&swaps[&1]),
             item
           )
         end),

@@ -1,4 +1,4 @@
-defmodule LockDetector.StateMachine do
+defmodule SwapGenerator.StateMachine do
   use Diet.Transformations
 
   # state:
@@ -19,7 +19,7 @@ defmodule LockDetector.StateMachine do
   #   CanUseWaterfall: false,
   #     ... etc
   # }
-  alias LockDetector.Item
+  alias SwapGenerator.Item
 
   @accessible_locations [
     :ElmsLab,
@@ -54,7 +54,7 @@ defmodule LockDetector.StateMachine do
   ]
 
   def all_locations,
-    do: for({_, %Item{location: location}} <- LockDetector.key_items(), do: location)
+    do: for({_, %Item{location: location}} <- SwapGenerator.key_items(), do: location)
 
   def accessible_locations, do: @accessible_locations
 
@@ -97,7 +97,7 @@ defmodule LockDetector.StateMachine do
   def initial_gyms_reached,
     do: for(gym <- all_gyms, do: {gym, Enum.member?(accessible_gyms, gym)}, into: %{})
 
-  def all_items, do: LockDetector.key_items() |> Map.keys()
+  def all_items, do: SwapGenerator.key_items() |> Map.keys()
   def initial_badge_count, do: 2
 
   reductions do
@@ -132,7 +132,7 @@ defmodule LockDetector.StateMachine do
       {
         for(
           item <- all_items,
-          do: {swaps[item], Enum.member?(LockDetector.pre_tree_items(), item)},
+          do: {swaps[item], Enum.member?(SwapGenerator.pre_tree_items(), item)},
           into: %{}
         ),
         initial_locations_reached,

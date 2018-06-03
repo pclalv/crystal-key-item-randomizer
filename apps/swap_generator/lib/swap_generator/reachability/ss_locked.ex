@@ -1,4 +1,4 @@
-defmodule LockDetector.Reachability.SSLocked do
+defmodule SwapGenerator.Reachability.SSLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -30,14 +30,14 @@ defmodule LockDetector.Reachability.SSLocked do
       {
         tail,
         swaps[:S_S_TICKET] == prereq &&
-          Enum.member?(LockDetector.required_item_names(), swaps[maybe_required]),
+          Enum.member?(SwapGenerator.required_item_names(), swaps[maybe_required]),
         swaps
       }
 
     {:begin, swaps} ->
       {
-        LockDetector.maybe_required_pairs(),
-        LockDetector.required_item_names() |> Enum.any?(&(swaps[:S_S_TICKET] == &1)),
+        SwapGenerator.maybe_required_pairs(),
+        SwapGenerator.required_item_names() |> Enum.any?(&(swaps[:S_S_TICKET] == &1)),
         swaps
       }
   end

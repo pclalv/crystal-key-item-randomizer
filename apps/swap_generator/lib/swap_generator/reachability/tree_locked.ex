@@ -1,4 +1,4 @@
-defmodule LockDetector.Reachability.TreeLocked do
+defmodule SwapGenerator.Reachability.TreeLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -21,7 +21,7 @@ defmodule LockDetector.Reachability.TreeLocked do
     {:begin, swaps} ->
       {
         !Enum.any?(
-          LockDetector.pre_tree_items(),
+          SwapGenerator.pre_tree_items(),
           &(swaps[&1] == :HM_CUT || swaps[&1] == :SQUIRTBOTTLE)
         ),
         swaps

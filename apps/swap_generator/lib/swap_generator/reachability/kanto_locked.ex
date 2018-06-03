@@ -1,4 +1,4 @@
-defmodule LockDetector.Reachability.KantoLocked do
+defmodule SwapGenerator.Reachability.KantoLocked do
   use Diet.Transformations
 
   @doc ~S"""
@@ -15,7 +15,7 @@ defmodule LockDetector.Reachability.KantoLocked do
   """
 
   def kanto_reaching_items, do: [:PASS, :S_S_TICKET]
-  def required_items, do: Map.keys(LockDetector.required_items())
+  def required_items, do: Map.keys(SwapGenerator.required_items())
 
   reductions do
     # state
@@ -75,7 +75,7 @@ defmodule LockDetector.Reachability.KantoLocked do
         tail,
         false,
         Enum.member?(required_items, swaps[maybe_required]) &&
-          LockDetector.kanto_items() |> Enum.any?(&(swaps[&1] == prereq)),
+          SwapGenerator.kanto_items() |> Enum.any?(&(swaps[&1] == prereq)),
         swaps
       }
 
@@ -98,12 +98,12 @@ defmodule LockDetector.Reachability.KantoLocked do
 
     {:begin, swaps} ->
       {
-        LockDetector.kanto_items(),
-        LockDetector.maybe_required_pairs(),
+        SwapGenerator.kanto_items(),
+        SwapGenerator.maybe_required_pairs(),
         kanto_reaching_items
         |> Enum.any?(fn item ->
           !Enum.member?(
-            LockDetector.kanto_items() |> Enum.map(&swaps[&1]),
+            SwapGenerator.kanto_items() |> Enum.map(&swaps[&1]),
             item
           )
         end),
