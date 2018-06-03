@@ -20,8 +20,6 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-var romFileInput = document.getElementById("rom-file");
-romFileInput.addEventListener("change", handleFiles, false);
 function handleFiles() {
     var romFile = this.files[0];
     var fileReader = new FileReader();
@@ -30,4 +28,22 @@ function handleFiles() {
 
     var bytes = new Uint8Array(fileReader.result);
     debugger
+
+    var swaps = new Request("api/swap");
+
+    var swapsPromise = fetch(swaps).then(
+        function (response) {
+            return response.json();
+        },
+        function(err) {
+            console.log(err)
+        }
+    ).then(
+        function (json) {
+            console.log(json);
+        }
+    );
 }
+
+var romFileInput = document.getElementById("rom-file");
+romFileInput.addEventListener("change", handleFiles, false);

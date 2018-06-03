@@ -21,7 +21,9 @@ defmodule ServerWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ServerWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ServerWeb do
+    pipe_through :api
+
+    get("/swap", SwapController, :random)
+  end
 end
