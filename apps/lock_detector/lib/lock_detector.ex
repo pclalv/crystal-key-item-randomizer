@@ -295,23 +295,6 @@ defmodule LockDetector do
     |> IO.inspect()
     |> ensure_reachable
     |> IO.inspect()
-    |> Enum.each(&apply_swap(&1))
-
-    System.cmd("make", [], cd: "./pokecrystal/")
-  end
-
-  def apply_swap({original, replacement}) do
-    original_item = LockDetector.key_items()[original]
-    map_path = "#{LockDetector.maps_dir()}/#{original_item.location}.asm"
-
-    updated_map =
-      File.read!(map_path)
-      |> String.replace(
-        "#{original_item.macro} #{original}",
-        "#{original_item.macro} #{replacement}"
-      )
-
-    File.write!(map_path, updated_map)
   end
 
   def ensure_reachable(swaps) do

@@ -12,7 +12,7 @@ defmodule LockDetector.LockFixes do
     old_original_item = :S_S_TICKET
     old_replacement_item = swaps[old_original_item]
 
-    new_replacement_item = Enum.random(LockDetector.non_required_items())
+    {new_replacement_item, _} = Enum.random(LockDetector.non_required_items())
 
     {new_original_item, _} =
       swaps
@@ -70,7 +70,7 @@ defmodule LockDetector.LockFixes do
       |> Enum.find(&(swaps[&1] == old_replacement_item))
 
     new_original_item =
-      (LockDetector.key_items() -- LockDetector.goldenrod_blocked_items() -- [:S_S_TICKET])
+      (LockDetector.key_item_names() -- LockDetector.goldenrod_blocked_items() -- [:S_S_TICKET])
       |> Enum.random()
 
     new_replacement_item = swaps[new_original_item]
@@ -90,7 +90,7 @@ defmodule LockDetector.LockFixes do
       |> Enum.find(&(swaps[&1] == old_replacement_item))
 
     new_original_item =
-      (LockDetector.key_items() -- LockDetector.surf_blocked_items() -- [:S_S_TICKET])
+      (LockDetector.key_item_names() -- LockDetector.surf_blocked_items() -- [:S_S_TICKET])
       |> Enum.random()
 
     new_replacement_item = swaps[new_original_item]
