@@ -24,6 +24,6 @@ defmodule ServerWeb.Router do
   scope "/api", ServerWeb do
     pipe_through :api
 
-    get("/swap", SwapController, :random)
+    get("/swaps", SwapController, :random)
   end
 end

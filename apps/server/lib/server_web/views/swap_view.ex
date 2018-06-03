@@ -1,9 +1,9 @@
 defmodule ServerWeb.SwapView do
   use ServerWeb, :view
 
-  def render("show.json", %{swap: swap}), do: swap_json(swap)
+  def render("show.json", %{swaps: swaps}), do: swaps_json(swaps)
 
-  def swap_json(swap) do
-    %{swap: swap}
+  def swaps_json(swaps) do
+    %{swaps: swaps}
   end
 end

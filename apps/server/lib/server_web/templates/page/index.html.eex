@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div id="upload-download-row" class="jumbotron">
   <!-- <h2>foo</h2> -->
   <!-- <p class="lead"> -->
   <!--   This randomizer accepts a Pokemon Crystal ROM file and patches it -->

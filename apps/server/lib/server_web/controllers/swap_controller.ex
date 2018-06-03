@@ -2,7 +2,7 @@ defmodule ServerWeb.SwapController do
   use ServerWeb, :controller
 
   def random(conn, _params) do
-    swap = SwapGenerator.run()
-    render(conn, "show.json", swap: swap)
+    swaps = SwapGenerator.run()
+    render(conn, "show.json", swaps: swaps)
   end
 end
