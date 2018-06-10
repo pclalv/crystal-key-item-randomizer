@@ -1,11 +1,21 @@
 # Todo
 
+## binary patching
+- [?] patch out MYSTERY_EGG stuff
+    - should be addressed by patching out important battle
+- [X] patch out important battle
+- [X] allow early travel to kanto
+- [X] "Allow player to visit power plant for the first time with the
+  MACHINE_PART and still trigger the Cerulean rocket events"?
+  https://github.com/pret/pokecrystal/commit/d17cca0693734bc0d53f9cf515f2dbd072bcea03
+
+## frontend
+- support seeds
+
 - use this: `bc <<< "obase=16;ibase=16;($internal_address - 4000) + ($bank * 4000)"`
   to compute the hex address from a symlink
 - to disappear a person at $address, set their daytime to 0, ie set
   $address + 6 to 0.
-- https://github.com/tallakt/codepagex remember this elixir lib for
-  binary files - it supports user-defined encodings
 - hex patches:
     - BC430: 14 -> 15
         -`setevent EVENT_ROUTE_30_YOUNGSTER_JOEY` -> `setevent EVENT_ROUTE_30_BATTLE`
@@ -36,11 +46,15 @@ pclalvRecvRedScale:
   :values: "$1f $42 $1"
 ```
 
-refer to `macro/scripts/events.asm` for what these values correspond to; last value is QUANTITY
+refer to `macro/scripts/events.asm` for what these values correspond
+to; last value is QUANTITY
 
 `itemball` seems straightforward. `hiddenitem` as used by the machine
 part event, has `:values: "$fb $0 $80"`. i would bet that `$80` is the
 value corresponding to MACHINE_PART.
+
+the `dw` declaration, `declare word` null-terminates whatever value
+you pass to it.
 
 ## Serious
 
