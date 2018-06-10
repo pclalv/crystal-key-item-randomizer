@@ -129,6 +129,65 @@ window.KeyItems = new Map(Object.entries({
     }
 }));
 
+window.Events = [
+    {
+        "name": "CHECK_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME", // travel via SS Aqua without having beat the elite 4
+        "address": 771273,
+        "originalValue": 56,
+        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+    },
+    {
+        "name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // travel via train without completing the power plant sidequest
+        "location": "goldenrod",
+        "address": 1615905,
+        "originalValue": 205,
+        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+    },
+    {
+        "name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // travel via train without completing the power plant sidequest
+        "location": "saffron",
+        "address": 348399,
+        "originalValue": 205,
+        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+    },
+    {
+        "name": "CHECK_EVENT_ROUTE_30_YOUNGSTER_JOEY", // skip the "important" battle
+        "address": 771120,
+        "originalValue": 21,
+        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+    },
+    {
+        "name": "IFEQUAL_WEEKDAY_SATURDAY", // travel via SS Aqua on any day
+        "address": 477504,
+        "originalValue": 119, // .NextShipMonday
+        "replacementValue": 78 // .FirstTime
+    },
+    {
+        "name": "IFEQUAL_WEEKDAY_SUNDAY", // travel via SS Aqua on any day
+        "address": 477500,
+        "originalValue": 119, // .NextShipMonday
+        "replacementValue": 78 // .FirstTime
+    },
+    {
+        "name": "IFEQUAL_WEEKDAY_TUESDAY", // travel via SS Aqua on any day
+        "address": 477508,
+        "originalValue": 129, // .NextShipFriday
+        "replacementValue": 78 // .FirstTime
+    },
+    {
+        "name": "IFEQUAL_WEEKDAY_WEDNESDAY", // travel via SS Aqua on any day
+        "address": 477512,
+        "originalValue": 129, // .NextShipFriday
+        "replacementValue": 78 // .FirstTime
+    },
+    {
+        "name": "IFEQUAL_WEEKDAY_THURSDAY", // travel via SS Aqua on any day
+        "address": 477516,
+        "originalValue": 129, // .NextShipFriday
+        "replacementValue": 78 // .FirstTime
+    }
+];
+
 function embedDownloadLink(filename, content) {
     var parent = document.getElementById("upload-download-row");
     var element = document.createElement("a");
@@ -152,10 +211,18 @@ function applySwap(swap, rom) {
     rom[original.address] = replacement.value;
 }
 
+function applyEventPatches(rom) {
+    for (var event of Events) {
+        rom[event.address] = event.replacementValue;
+    }
+}
+
 function applySwaps(swaps, rom) {
     for (var swap of swaps) {
         applySwap(swap, rom);
     }
+
+    applyEventPatches(rom);
 
     hideUploadInput();
     embedDownloadLink("pokecrystal-key-item-randomized.gbc", rom);
