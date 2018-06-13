@@ -205,23 +205,26 @@ function hideUploadInput() {
    document.getElementById("rom-file").parentElement.style.display = "none";
 }
 
-function applySwap(swap, rom) {
-    var original = KeyItems.get(swap[0]);
-    var replacement = KeyItems.get(swap[1]);
-    rom[original.address] = replacement.value;
-}
-
 function applyEventPatches(rom) {
     for (var event of Events) {
         rom[event.address] = event.replacementValue;
     }
 }
 
-function applySwaps(swaps, rom) {
-    for (var swap of swaps) {
-        applySwap(swap, rom);
-    }
+function applySwap(rom, swap) {
+    var original = KeyItems.get(swap[0]);
+    var replacement = KeyItems.get(swap[1]);
+    rom[original.address] = replacement.value;
+}
 
+function applySwaps(rom, swaps) {
+    for (var swap of swaps) {
+        applySwap(rom, swap);
+    }
+}
+
+function patchRom(rom, swaps) {
+    applySwaps(rom, swaps);
     applyEventPatches(rom);
 
     hideUploadInput();
@@ -240,7 +243,7 @@ function requestSwapsAndPatchRomFile(event) {
         (swapsJson) => new Map(Object.entries(swapsJson.swaps)),
         console.error
     ).then(
-        (swaps) => applySwaps(swaps, romBytes),
+        (swaps) => patchRom(romBytes, swaps),
         console.error
     );
 }
