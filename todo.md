@@ -1,6 +1,10 @@
 # Todo
 
 ## binary patching
+- [ ] fix `giveitem` key items so that the player sees item is actually being given.
+    - hard way: change `giveitem` to `verbosegiveitem` and fill the
+      rest of the routine with `nop` and a final `end` to cut off any
+      inintended additional text (from, say, a local labelled routine).
 - [?] patch out MYSTERY_EGG stuff
     - should be addressed by patching out important battle
 - [X] patch out important battle
@@ -51,7 +55,7 @@ to; last value is QUANTITY
 
 `itemball` seems straightforward. `hiddenitem` as used by the machine
 part event, has `:values: "$fb $0 $80"`. i would bet that `$80` is the
-value corresponding to MACHINE_PART.
+value corresponding to `MACHINE_PART`.
 
 the `dw` declaration, `declare word` null-terminates whatever value
 you pass to it.
