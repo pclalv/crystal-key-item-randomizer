@@ -285,9 +285,6 @@ defmodule SwapGenerator do
   Run the randomization.
   """
   def run do
-    System.cmd("git", ["reset", "--hard", "HEAD"], cd: "./pokecrystal/")
-
-    # TODO: make this more idiomatic?
     SwapGenerator.key_item_names()
     |> Enum.shuffle()
     |> Enum.zip(SwapGenerator.key_item_names())
