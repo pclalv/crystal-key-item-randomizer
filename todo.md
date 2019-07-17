@@ -1,11 +1,23 @@
 # Todo
 
+- [ ] randomize pokegear cards. this is primarily motivated by wanting
+      to randomize the kanto expansion card, which allows the player
+      to wake the snorlax and progress to pewter from vermillion.
+
+## reachability
+
+- [ ] try to come up with an example that proves that badge/HM stuff
+      is important. for example, is it possible to receive surf, need
+      surf to obtain some key item (maybe from cianwood) and
+      simultaneously be blocked from getting the ecruteak badge (which
+      allows the player to use surf)?
+
 ## binary patching
 - [ ] fix `giveitem` key items so that the player sees item is actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the
       rest of the routine with `nop` and a final `end` to cut off any
       inintended additional text (from, say, a local labelled routine).
-- [?] patch out MYSTERY_EGG stuff
+- [X] patch out MYSTERY_EGG stuff
     - should be addressed by patching out important battle
 - [X] patch out important battle
 - [X] allow early travel to kanto
@@ -14,7 +26,8 @@
   https://github.com/pret/pokecrystal/commit/d17cca0693734bc0d53f9cf515f2dbd072bcea03
 
 ## frontend
-- support seeds
+
+- [X] support seeds
 
 - use this: `bc <<< "obase=16;ibase=16;($internal_address - 4000) + ($bank * 4000)"`
   to compute the hex address from a symlink
