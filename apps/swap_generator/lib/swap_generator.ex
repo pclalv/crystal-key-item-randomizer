@@ -284,7 +284,9 @@ defmodule SwapGenerator do
   @doc """
   Run the randomization.
   """
-  def run do
+  def run(seedStr) do
+    { seed, "" } = Integer.parse(seedStr)
+    :rand.seed(:exsplus, {seed, 0, 0})
     SwapGenerator.key_item_names()
     |> Enum.shuffle()
     |> Enum.zip(SwapGenerator.key_item_names())
