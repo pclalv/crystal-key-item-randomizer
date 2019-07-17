@@ -166,6 +166,9 @@ window.Events = [
     }
 ];
 
+window.MaxInt32 = 2147483647
+window.DefaultSeed = Math.floor(Math.random() * (MaxInt32 + 1));
+
 function embedDownloadLink(filename, content) {
     var parent = document.getElementById("upload-download-row");
     var element = document.createElement("a");
@@ -212,11 +215,12 @@ function patchRom(rom, swaps) {
 function requestSwapsAndPatchRomFile(event) {
     var reader = event.target;
     var romBytes = new Uint8Array(reader.result);
-    var swaps = new Request("/api/swaps");
+    var seed = document.getElementById("seed").value;
+    var swaps = new Request("/v1api/swaps/" + seed);
 
     fetch(swaps).then(
         (swapsResponse) => swapsResponse.json(),
-        console.log
+        console.error
     ).then(
         (swapsJson) => new Map(Object.entries(swapsJson.swaps)),
         console.error
@@ -237,3 +241,5 @@ function handleFiles() {
 document
     .getElementById("rom-file")
     .addEventListener("change", handleFiles, false);
+
+document.getElementById("seed").value = DefaultSeed;

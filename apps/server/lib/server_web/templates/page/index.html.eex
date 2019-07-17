@@ -1,3 +1,10 @@
+<p>Your seed: <input id="seed" type="text"/></p>
+
+<p>
+  You may input your own seed value greater than or equal to 0 and
+  less than or equal to 2147483647.
+</p>
+
 <div id="upload-download-row" class="jumbotron">
   <!-- <h2>foo</h2> -->
   <!-- <p class="lead"> -->
@@ -6,7 +13,8 @@
   <!-- </p> -->
 
   <label class="btn btn-default btn-file">
-    Select ROM File <input id="rom-file" type="file" accept=".gbc" name="f2u" style="display: none;">
+    Select ROM File <input id="rom-file" type="file" accept=".gbc"
+    style="display: none;">
   </label>
   <!-- <input type="file", accept=".gbc" name="" /> -->
 </div>
