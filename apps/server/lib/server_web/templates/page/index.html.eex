@@ -6,15 +6,8 @@
 </p>
 
 <div id="upload-download-row" class="jumbotron">
-  <!-- <h2>foo</h2> -->
-  <!-- <p class="lead"> -->
-  <!--   This randomizer accepts a Pokemon Crystal ROM file and patches it -->
-  <!--   in the browser so that the gaem's key items are all swapped around. -->
-  <!-- </p> -->
-
   <label class="btn btn-default btn-file">
-    Select ROM File <input id="rom-file" type="file" accept=".gbc"
-    style="display: none;">
+    Select ROM File
+    <input id="rom-file" type="file" accept=".gbc" style="display: none;">
   </label>
-  <!-- <input type="file", accept=".gbc" name="" /> -->
 </div>
