@@ -291,15 +291,11 @@ defmodule SwapGenerator do
     |> Enum.shuffle()
     |> Enum.zip(SwapGenerator.key_item_names())
     |> Enum.into(%{})
-    |> IO.inspect()
     |> ensure_reachable
-    |> IO.inspect()
   end
 
   def ensure_reachable(swaps) do
     reachability = SwapGenerator.Reachability.analyze(swaps)
-    IO.puts("in ensure_reachable")
-    IO.inspect(reachability)
 
     swaps
     |> SwapGenerator.LockFixes.fix_ss_lock(reachability)
