@@ -11,12 +11,22 @@
       surf to obtain some key item (maybe from cianwood) and
       simultaneously be blocked from getting the ecruteak badge (which
       allows the player to use surf)?
+- [ ] figure out if there are problems with the silver wing spot. the
+      player must wake the snorlax to reach pewter, and i believe
+      waking the snorlax is blocked on the power plant shenanigans.
 
 ## binary patching
+
 - [ ] fix `giveitem` key items so that the player sees item is actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the
       rest of the routine with `nop` and a final `end` to cut off any
-      inintended additional text (from, say, a local labelled routine).
+      unintended additional text (from, say, a local labelled routine).
+    - items:
+        - SECRETPOTION
+        - BICYCLE
+        - RED_SCALE
+        - MYSTERY_EGG
+        - LOST_ITEM
 - [X] patch out MYSTERY_EGG stuff
     - should be addressed by patching out important battle
 - [X] patch out important battle
@@ -28,6 +38,10 @@
 ## frontend
 
 - [X] support seeds
+- [ ] support seeds for real
+  - the backend doesn't really understand what a seed is.
+
+# tips
 
 - use this: `bc <<< "obase=16;ibase=16;($internal_address - 4000) + ($bank * 4000)"`
   to compute the hex address from a symlink
