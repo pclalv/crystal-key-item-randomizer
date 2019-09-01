@@ -169,6 +169,49 @@ window.Events = [
 window.MaxInt32 = 2147483647
 window.DefaultSeed = Math.floor(Math.random() * (MaxInt32 + 1));
 
+window.GiveItemLineRanges = {
+    "BICYCLE": [346197, 346206],
+    "LOST_ITEM": [1645845, 1645853],
+    "MYSTERY_EGG": [1667037, 1667050],
+    "RED_SCALE": [459756, 459767],
+    "SECRETPOTION": [647265, 647279]
+}
+
+window.GSCCharacterEncoding = new Map(Object.entries({
+    "A": 128,
+    "B": 129,
+    "C": 130,
+    "D": 131,
+    "E": 132,
+    "F": 133,
+    "G": 134,
+    "H": 135,
+    "I": 136,
+    "J": 137,
+    "K": 138,
+    "L": 139,
+    "M": 140,
+    "N": 141,
+    "O": 142,
+    "P": 143,
+    "Q": 144,
+    "R": 145,
+    "S": 146,
+    "T": 147,
+    "U": 148,
+    "V": 149,
+    "W": 150,
+    "X": 151,
+    "Y": 152,
+    "Z": 153
+}));
+
+function encodeGSCString(str) {
+    return str.split("").map(function (chr) {
+        return GSCCharacterEncoding.get(chr);
+    });
+}
+
 function embedDownloadLink(filename, content) {
     var parent = document.getElementById("upload-download-row");
     var element = document.createElement("a");
@@ -196,6 +239,11 @@ function applySwap(rom, swap) {
     var original = KeyItems.get(swap[0]);
     var replacement = KeyItems.get(swap[1]);
     rom[original.address] = replacement.value;
+
+    // if (isGiveItem(swap[0])) {
+    //     // update giveItem text...
+    //     encodeGSCString(swap[0])
+    // }
 }
 
 function applySwaps(rom, swaps) {
