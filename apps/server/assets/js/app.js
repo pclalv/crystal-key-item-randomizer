@@ -1,5 +1,9 @@
 "use strict";
 
+window.EVENT_ROUTE_30_BATTLE = 20
+window.FIRST_TIME = 78; // OlivinePortSailorAfterHOFScript.FirstTime
+window.NOP = 0;
+
 window.KeyItems = new Map(Object.entries({
     "BICYCLE": {
         "address": 345957,
@@ -108,61 +112,64 @@ window.KeyItems = new Map(Object.entries({
 }));
 
 window.Events = [
+    // EVENT_ROUTE_30_BATTLE is arbitray; we just want a value such
+    // that these checks always pass.
+    {
+        "name": "CHECK_EVENT_ROUTE_30_YOUNGSTER_JOEY", // skip the "important" battle
+        "address": 771120,
+        "originalValue": 21,
+        "replacementValue": EVENT_ROUTE_30_BATTLE
+    },
     {
         "name": "CHECK_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME", // travel via SS Aqua without having beat the elite 4
         "address": 771273,
         "originalValue": 56,
-        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+        "replacementValue": EVENT_ROUTE_30_BATTLE
     },
     {
         "name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // travel via train without completing the power plant sidequest
         "location": "goldenrod",
         "address": 1615905,
         "originalValue": 205,
-        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+        "replacementValue": EVENT_ROUTE_30_BATTLE
     },
     {
         "name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // travel via train without completing the power plant sidequest
         "location": "saffron",
         "address": 348399,
         "originalValue": 205,
-        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
+        "replacementValue": EVENT_ROUTE_30_BATTLE
     },
+    // travel via SS Aqua on any day
     {
-        "name": "CHECK_EVENT_ROUTE_30_YOUNGSTER_JOEY", // skip the "important" battle
-        "address": 771120,
-        "originalValue": 21,
-        "replacementValue": 20 // EVENT_ROUTE_30_BATTLE
-    },
-    {
-        "name": "IFEQUAL_WEEKDAY_SATURDAY", // travel via SS Aqua on any day
+        "name": "IFEQUAL_WEEKDAY_SATURDAY", 
         "address": 477504,
         "originalValue": 119, // .NextShipMonday
-        "replacementValue": 78 // .FirstTime
+        "replacementValue": FIRST_TIME
     },
     {
-        "name": "IFEQUAL_WEEKDAY_SUNDAY", // travel via SS Aqua on any day
+        "name": "IFEQUAL_WEEKDAY_SUNDAY",
         "address": 477500,
         "originalValue": 119, // .NextShipMonday
-        "replacementValue": 78 // .FirstTime
+        "replacementValue": FIRST_TIME
     },
     {
-        "name": "IFEQUAL_WEEKDAY_TUESDAY", // travel via SS Aqua on any day
+        "name": "IFEQUAL_WEEKDAY_TUESDAY",
         "address": 477508,
         "originalValue": 129, // .NextShipFriday
-        "replacementValue": 78 // .FirstTime
+        "replacementValue": FIRST_TIME
     },
     {
-        "name": "IFEQUAL_WEEKDAY_WEDNESDAY", // travel via SS Aqua on any day
+        "name": "IFEQUAL_WEEKDAY_WEDNESDAY",
         "address": 477512,
         "originalValue": 129, // .NextShipFriday
-        "replacementValue": 78 // .FirstTime
+        "replacementValue": FIRST_TIME
     },
     {
-        "name": "IFEQUAL_WEEKDAY_THURSDAY", // travel via SS Aqua on any day
+        "name": "IFEQUAL_WEEKDAY_THURSDAY",
         "address": 477516,
         "originalValue": 129, // .NextShipFriday
-        "replacementValue": 78 // .FirstTime
+        "replacementValue": FIRST_TIME
     }
 ];
 
