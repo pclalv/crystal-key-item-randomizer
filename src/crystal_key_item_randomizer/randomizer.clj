@@ -1,5 +1,4 @@
-(ns crystal-key-item-randomizer.randomizer
-  [tilakone.core :as tk :refer [_]])
+(ns crystal-key-item-randomizer.randomizer)
 
 (def required-items
   {:HM_SURF {:name :HM_SURF
@@ -75,11 +74,10 @@
    :ITEMFINDER {:name :ITEMFINDER
                 :location :EcruteakItemfinderHouse}
 
-   ;; useless; train will be available from the get go
+   ;; useless; blocking battle will be disabled
    :MYSTERY_EGG {:name :MYSTERY_EGG
                  :location :MrPokemonsHouse}
 
-   ;; useless; blocking battle will be disabled
    :OLD_ROD {:name :OLD_ROD
              :location :Route32PokeCenter1F}
 
@@ -117,7 +115,7 @@
                           :SQUIRTBOTTLE]))
 
 (def surf-blocked-items
-  (concat kanto_items [;; surf-blocked because the player can't
+  (concat kanto-items [;; surf-blocked because the player can't
                        :CARD_KEY
                        ;; trigger the rocket radio tower takeover
                        :BASEMENT_KEY
@@ -129,3 +127,16 @@
                        ;; surf blocked unless we opt to remove the guy
                        ;; blocking mahogany town/route 44 junction
                        :HM_WATERFALL]))
+
+(def all-items (sort (concat (keys required-items)
+                             (keys maybe-required-items)
+                             (keys non-required-items))))
+
+(defn ss-locked? [swaps]
+  ())
+
+(defn run []
+  (zipmap all-items (shuffle all-items)))
+
+(defn beatable? [swaps]
+  (ss-locked? swaps))

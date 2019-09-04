@@ -5,8 +5,8 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[compojure "1.6.1"]
                  [http-kit "2.3.0"]
-                 [metosin/tilakone "0.0.4"]
-                 [org.clojure/clojure "1.10.0"]]
+                 [org.clojure/clojure "1.10.0"]
+                 [reduce-fsm "0.1.4"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
