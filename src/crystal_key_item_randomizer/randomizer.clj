@@ -2,7 +2,7 @@
 
 (def required-items
   {:HM_SURF {:name :HM_SURF
-             :location :DanceTheatre}             
+             :location :DanceTheatre}
    :HM_STRENGTH {:name :HM_STRENGTH
                  :location :OlivineCafe}
    :HM_WHIRLPOOL {:name :HM_WHIRLPOOL
@@ -13,7 +13,7 @@
    :SECRETPOTION {:name :SECRETPOTION
                   :location :CianwoodPharmacy}})
 
-(def maybe-required-items 
+(def maybe-required-items
   {:BASEMENT_KEY {:name :BASEMENT_KEY
                   :location :RadioTower5F}
    :CARD_KEY {:name :CARD_KEY
@@ -98,7 +98,7 @@
                      :MYSTERY_EGG
                      :OLD_ROD])
 
-(def pre-goldenrod-items 
+(def pre-goldenrod-items
   ;; `CARD_KEY` is not included in pre_goldenrod_items given the
   ;; current state of the underlying assembly! this is because even if
   ;; you have the `BASEMENT_KEY`, the basement will be devoid of any
@@ -108,7 +108,7 @@
   ;; for the `CARD_KEY`/radio tower upper floors; even if it's not
   ;; true, i bet it'd make things more complicated, so i'm just
   ;; considering the `CLEAR_BELL` inaccessible for now.
-  
+
   (concat pre-tree-items [:BICYCLE
                           :BLUE_CARD
                           :COIN_CASE
@@ -132,11 +132,54 @@
                              (keys maybe-required-items)
                              (keys non-required-items))))
 
-(defn ss-locked? [swaps]
-  ())
+(defn any? [pred col]
+  (not (not-any? pred col)))
 
-(defn run []
-  (zipmap all-items (shuffle all-items)))
+;; is this even worth checking?
+(defn ss-locked? [swaps]
+  (let [ss-ticket-replaced-with-required-item? (any? (fn [required-item] (= (swaps :S_S_TICKET)
+                                                                            required-item)))
+        ss-ticket-replaced-with-maybe-required-item? (reduce (fn [ss-locked? {prereq maybe-required :as maybe-required-pair}]
+                                                               (and (= (swaps :S_S_TICKET)
+                                                                       prereq)
+                                                                    (contains? crystal-key-item-randomizer.randomizer/required-item-names
+                                                                               ((swap maybe-required)))))
+                                                             false
+                                                             crystal-key-item-randomizer.randomizer/maybe-required-pairs)]
+    (or ss-ticket-replaced-with-required-item?
+        ss-ticket-replaced-with-maybe-required-item?)))
+
+(defn surf-not-reachable? [swaps]
+  "Return true if HM_SURF is unreachable. HM_SURF is required because
+  without it there would be no way to obtain the badge from Cianwood,
+  which is required for the E4."
+  (any? (fn [surf-blocked-item]
+          (= :HM_SURF
+             (swaps surf-blocked-item)))
+        surf-blocked-items))
+
+(defn stuck-in-lex-forest? [swaps]
+  "Returns tree if the player cannot bypass either the cuttable tree
+  in Ilex Forest."
+  (not-any? (fn [pre-tree-item]
+              (or (= :HM_CUT
+                     (swaps pre-tree-item))))
+            pre-tree-items))
+
+(defn obtainable-by-goldenrod? [swaps item]
+  (contains? pre-goldenrod-items (swaps item)))
+
+(defn squirtbottle-obtainable? [swaps]
+  (obtainable-by-goldenrod? swaps :SQUIRTBOTTLE))
+
+(defn pass-obtainable? [swaps]
+  (foo))
+
+(defn stuck-in-goldenrod? [swaps]
+  (or (squirtbottle-obtainable? swaps)
+      (pass-obtainable? swaps)))
 
 (defn beatable? [swaps]
-  (ss-locked? swaps))
+  (or (surf-not-reachable? swaps)
+      (stuck-in-lex-forest? swaps)
+      (stuck-in-goldenrod? swaps)))
