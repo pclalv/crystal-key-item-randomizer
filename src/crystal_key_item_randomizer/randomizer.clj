@@ -168,8 +168,8 @@
         surf-blocked-items))
 
 (defn stuck-in-lex-forest? [swaps]
-  "Returns tree if the player cannot bypass either the cuttable tree
-  in Ilex Forest."
+  "Returns true if the player cannot bypass the cuttable tree in Ilex
+  Forest."
   (not-any? (fn [pre-tree-item]
               (or (= :HM_CUT
                      (swaps pre-tree-item))))
