@@ -35,8 +35,7 @@
    :LOST_ITEM {:name :LOST_ITEM
                :location :PokemonFanClub}
    :MACHINE_PART {:name :MACHINE_PART
-                  :location :CeruleanGym
-                  :macro "dwb EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM"}
+                  :location :CeruleanGym}
 
    ;; probably not required?? TODO: settle this!
    :HM_WHIRLPOOL {:name :HM_WHIRLPOOL
@@ -62,9 +61,8 @@
 (def maybe-required-pairs
   [{:BASEMENT_KEY :CARD_KEY}
    {:CARD_KEY :CLEAR_BELL}
-   {[:LOST_ITEM :MACHINE_PART] :PASS}
-   ;; TODO: wtf is this about, we don't care about SILVER_WING
-   {:MACHINE_PART :SILVER_WING}])
+   {:MACHINE_PART :LOST_ITEM}
+   {:LOST_ITEM :PASS}])
 
 (def non-required-items
   {:BICYCLE {:name :BICYCLE
