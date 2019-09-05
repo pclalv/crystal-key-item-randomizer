@@ -175,18 +175,47 @@
                      (swaps pre-tree-item))))
             pre-tree-items))
 
-(defn obtainable-by-goldenrod? [swaps item]
-  (contains? pre-goldenrod-items (swaps item)))
+(defn stuck-with-pass? [swaps]
+  ;; kanto items reachable with the pass
 
-(defn squirtbottle-obtainable? [swaps]
-  (obtainable-by-goldenrod? swaps :SQUIRTBOTTLE))
+  ;; * super rod
 
-(defn pass-obtainable? [swaps]
-  (foo))
+  ;; * machine part (theoretically - not sure if there's an event
+  ;;                 trigger for this)
+
+  ;; * lost item (ditto)
+
+  ;; * pass (unknown. you probably need surf in order to complete the
+  ;;         power plant sidequest)
+
+  ;; TODO: update this function once uncertainties are resolved.
+
+  (if (= :SQUIRTBOTTLE (swaps :SUPER_ROD))
+    false ;; player goes back to Goldenrod and beats Sudowoodo
+    ;; otherwise, player might be able to go back around via Olivine
+    ;; and make some progres.
+    (if (= :S_S_TICKET (swaps :SUPER_ROD))
+      ;; assume that HM_SURF is the only progress item.
+      (cond (= :HM_SURF (swaps :GOOD_ROD)) false
+            (= :HM_SURF (swaps :HM_STRENGTH)) false
+            (= :HM_SURF (swaps :HM_SURF)) false))))
+      
 
 (defn stuck-in-goldenrod? [swaps]
-  (or (squirtbottle-obtainable? swaps)
-      (pass-obtainable? swaps)))
+  "Returns true if the player would get stuck in Goldenrod. 
+
+   * If The player can obtain the Squirtbottle, then they're not stuck.
+
+   * If the player can obtain neither the Squirtbottle nor the Pass,
+     then they're stuck.
+
+   * If the player can obtain the Pass, then we have to dig deeper."
+  (let [obtainable-by-goldenrod (filter #(contains? pre-goldenrod-items (swaps %1))
+                                        [:SQUIRTBOTTLE :PASS])]
+        
+    (cond (empty? obtainable-by-goldenrod) true
+          (include? obtainable-by-goldenrod :SQUIRTBOTTLE) false
+          (= obtainable-by-goldenrod [:PASS]) (stuck-with-pass? swaps))))
 
 (defn beatable? [swaps]
   (or (surf-not-reachable? swaps)
