@@ -148,15 +148,15 @@
 (defn ss-locked? [swaps]
   (let [ss-ticket-replaced-with-required-item? (any? (fn [required-item] (= (swaps :S_S_TICKET)
                                                                             required-item)))
-        ss-ticket-replaced-with-maybe-required-item? (reduce (fn [ss-locked? {prereq maybe-required :as maybe-required-pair}]
-                                                               (and (= (swaps :S_S_TICKET)
-                                                                       prereq)
-                                                                    (contains? crystal-key-item-randomizer.randomizer/required-item-names
-                                                                               ((swap maybe-required)))))
-                                                             false
-                                                             crystal-key-item-randomizer.randomizer/maybe-required-pairs)]
+        replaced-with-maybe-required-item? (reduce (fn [ss-locked? {prereq maybe-required :as maybe-required-pair}
+                                                        (and (= (swaps :S_S_TICKET)
+                                                                prereq
+                                                                (contains? required-item-names
+                                                                           ((swap maybe-required)))))])
+                                                   false
+                                                   maybe-required-pairs)]
     (or ss-ticket-replaced-with-required-item?
-        ss-ticket-replaced-with-maybe-required-item?)))
+        replaced-with-maybe-required-item?)))
 
 (defn surf-not-reachable? [swaps]
   "Return true if HM_SURF is unreachable. HM_SURF is required because
