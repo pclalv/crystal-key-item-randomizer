@@ -1,34 +1,160 @@
 (ns crystal-key-item-randomizer.progression)
 
-(defn can-reach-goldenrod1? [{:keys [swaps]}]
-  (let [initial-items (->> swaps
-                           (select-keys '(:MYSTERY_EGG
-                                          :HM_FLASH   
-                                          :OLD_ROD    
-                                          :HM_CUT))
-                           (vals))
-        can-progress-to-goldenrod? (contains? initial-items :HM_CUT)])
-  (if can-progress-to-goldenrod?
-    {:swaps swaps}
+(def guaranteed-items [:MYSTERY_EGG
+                       :HM_FLASH
+                       :OLD_ROD
+                       :HM_CUT])
+
+(def goldenrod1-items [:BICYCLE
+                       :BLUE_CARD
+                       :COIN_CASE
+                       :SQUIRTBOTTLE])
+
+(def ecruteak-and-olivine-items [:HM_SURF
+                                 :ITEMFINDER
+                                 :GOOD_ROD
+                                 :HM_STRENGTH])
+
+(def surf-required-items [:HM_FLY
+                          :SECRETPOTION
+                          ;; above - Cianwood
+
+                          :RED_SCALE
+                          :HM_WHIRLPOOL
+                          ;; above - Lake of Rage/Mahogany Rockets sidequest
+
+                          :BASEMENT_KEY
+                          ;; above - Rockets in the Radio Tower
+
+                          ;; below - Ice Path after defeating Pryce
+                          :HM_WATERFALL])
+
+(defn any? [pred col]
+  (not (not-any? pred col)))
+
+(defn get-swaps [swaps originals]
+  (->> swaps
+       (select-keys originals)
+       (vals)))
+
+(defn can-reach-goldenrod1? [{:keys [swaps items-obtained]}]
+  (if (contains? initial-items :HM_CUT)
     {:swaps swaps
-     :progress-items [:HM_CUT]
-     :cannot-progress? true
-     :reason "goldenrod1: cannot progress without HM_CUT"}))
+     :items-obtained (concat items-obtained (get-swaps swaps goldenrod1-items))
+     :conditions-met [:goldenrod1]}
+    {:swaps swaps
+     :items-obtained items-obtained
+     :conditions-met []
+     :reasons ["goldenrod1: cannot reach without HM_CUT"]}))
 
-(defn can-reach-ecruteak? [{:keys [swaps progress-items cannot-progress?] :as args}]
-  (if cannot-progress?
+(defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  ;; FIXME: if you get the LOST_ITEM this early then i don't think you
+  ;; can get anything from the guy in Vermillion; see
+  ;; PokemonFanClubClefairyGuyScript.FoundClefairyDoll in
+  ;; PokemonFanClub.asm. to rectify this, we'd need to flip
+  ;; EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM when you give the
+  ;; LOST_ITEM to copycat; let's assume that's doable.
+  (if (contains? items-obtained :LOST_ITEM)
+    (let [pass-swap (swaps :PASS)
+          items-obtained' (conj items-obtained pass-swap)]
+      (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
+        {:swaps swaps
+         :items-obtained items-obtained'
+         :conditions-met (conj conditions-met :ecruteak :early-lost-item)}
+        {:swaps swaps
+         :items-obtained items-obtained'
+         :conditions-met (conj conditions-met :early-lost-item)
+         :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
+    {:swaps swaps
+     :items-obtained items-obtained
+     :conditions-met conditions-met
+     :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
+
+(defn can-reach-ecruteak-via-saffron-detour? [{:keys [swaps items-obtained conditions-met] :as args}]
+  (if (any? #(contains? items-obtained %1) '(:SQUIRTBOTTLE :S_S_TICKET))
+    {:swaps swaps
+     :items-obtained items-obtained
+     :conditions-met (conj conditions-met :ecruteak)}
+    (can-read-ecruteak-with-copycats-reward? {:swaps swaps
+                                              :items-obtained items-obtained
+                                              :conditions-met conditions-met})))
+
+(defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (not (contains? conditions-met :goldenrod1))
     args
-    (let [goldenrod1-items (->> swaps
-                                (select-kets '(:BICYCLE     
-                                               :BLUE_CARD   
-                                               :COIN_CASE   
-                                               :SQUIRTBOTTLE))
-                                (vals))]
-      (if ))))
+    (if (contains? items-obtained :SQUIRTBOTTLE)
+      {:swaps swaps
+       :items-obtained (concat items-obtained (get-swaps swaps ecruteak-and-olivine-items))
+       :conditions-met (conj conditions-met :ecruteak)}
+      (if (contains? items-obtained :PASS)
+        (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
+                                                              :items-obtained (conj items-obtained
+                                                                                    (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                                                              :conditions-met (conj conditions-met :kanto)})]
+          (if (contains? (result :conditions-met) :ecruteak)
+            (assoc result :items-obtained (concat (result :items-obtained)
+                                                  (get-swaps swaps ecruteak-and-olivine-items)))
+            result))
+        (-> args
+            (assoc :items-obtained items-obtained)
+            (assoc :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))))
 
+(defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (contains? conditions-met :can-surf)
+    args
+    (if (and (contains? conditions-met :ecruteak)
+             (contains? items-obtained :HM_SURF))
+      (-> args
+          (assoc :items-obtained (concat items-obtained (get-swaps surf-required-items)))
+          (assoc :conditions-met (conj conditions-met :can-surf)))
+      args)))
 
+(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  ;; FIXME: warn players to avoid the underground warehouse until
+  ;; they've defeated the Mahogany Rockets, even if they have the
+  ;; BASEMENT_KEY
+  (if (contains? conditions-met :underground-warehouse)
+    args
+    (if (not (contains? conditions-met :can-surf))
+      (assoc args :reasons
+             (conj reasons "underground-warehouse: cannot reach without being able to surf"))
+      (if (contains? items-obtained :BASEMENT_KEY)
+        (-> args
+            (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
+            (assoc :conditions-met (conj conditions-met :underground-warehouse)))
+        (assoc args :reasons
+               (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
+
+(defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (contains? conditions-met :defeat-team-rocket)
+    args
+    (if (not (contains? conditions-met :underground-warehouse))
+      (assoc args :reason
+             (conj raesons "defeat-team-rocket: cannot reach without having reached underground-warehouse"))
+      (if (contains? items-obtained :CARD_KEY)
+        (-> args
+            (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
+            (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
+        (assoc args :reasons
+               (conj reasons "defeat-team-rocket: cannot reach without CARD_KEY"))))))
+
+(defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (contains? conditions-met :kanto)
+    args
+    ;; FIXME
+    args))
 
 (def beatable? [swaps]
-  (->> {:swaps swaps}
-       (can-reach-goldenrod1?)
-       (can-reach-ecruteak?)))
+  (let [initial-items (get-swaps swaps guaranteed-items)
+        early-linear-progression-results (->> {:swaps swaps :items-obtained initial-items}
+                                              can-reach-goldenrod1?
+                                              can-reach-ecruteak?)]
+    ;; we need to be strategic about further analysis, because
+    ;; progression is necessarily nonlinear. it might be a good idea
+    ;; to try the remaining can-reach functions in loop, breaking if
+    ;; there was no change after the last round of checks.
+    (->> early-linear-progression-results
+         can-surf?
+         can-reach-underground-warehouse?
+         can-defeat-team-rocket?
+         can-reach-kanto?)))
