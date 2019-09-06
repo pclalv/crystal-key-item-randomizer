@@ -44,7 +44,7 @@
 # tips
 
 - use this: `bc <<< "obase=16;ibase=16;($internal_address - 4000) + ($bank * 4000)"`
-  to compute the hex address from a symlink
+  to compute the hex address from a sym label
 - to disappear a person at $address, set their daytime to 0, ie set
   $address + 6 to 0.
 - hex patches:
