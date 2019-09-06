@@ -9,7 +9,7 @@
                        :OLD_ROD
                        :HM_CUT])
 
-(def goldenrod1-items [:BICYCLE
+(def goldenrod-items [:BICYCLE
                        :BLUE_CARD
                        :COIN_CASE
                        :SQUIRTBOTTLE])
@@ -37,15 +37,15 @@
        (select-keys originals)
        (vals)))
 
-(defn can-reach-goldenrod1? [{:keys [swaps items-obtained]}]
+(defn can-reach-goldenrod? [{:keys [swaps items-obtained]}]
   (if (items-obtained :HM_CUT)
     {:swaps swaps
-     :items-obtained (concat items-obtained (get-swaps swaps goldenrod1-items))
-     :conditions-met #{:goldenrod1}}
+     :items-obtained (clojure.set/union items-obtained (get-swaps swaps goldenrod-items))
+     :conditions-met #{:goldenrod}}
     {:swaps swaps
      :items-obtained items-obtained
      :conditions-met []
-     :reasons ["goldenrod1: cannot reach without HM_CUT"]}))
+     :reasons ["goldenrod: cannot reach without HM_CUT"]}))
 
 (defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; FIXME: if you get the LOST_ITEM this early then i don't think you
@@ -80,7 +80,7 @@
                                               :conditions-met conditions-met})))
 
 (defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (not (conditions-met :goldenrod1))
+  (if (not (conditions-met :goldenrod))
     args
     (if (items-obtained :SQUIRTBOTTLE)
       {:swaps swaps
@@ -177,7 +177,7 @@
 (defn beatable? [swaps]
   (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
         early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items}
-                                             can-reach-goldenrod1?
+                                             can-reach-goldenrod?
                                              can-reach-ecruteak?)]
     ;; we need to be strategic about further analysis, because
     ;; progression is necessarily nonlinear. try the remaining
