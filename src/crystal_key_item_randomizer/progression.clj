@@ -51,9 +51,9 @@
   ;; FIXME: if you get the LOST_ITEM this early then i don't think you
   ;; can get anything from the guy in Vermillion; see
   ;; PokemonFanClubClefairyGuyScript.FoundClefairyDoll in
-  ;; PokemonFanClub.asm. to rectify this, we'd need to flip
-  ;; EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM when you give the
-  ;; LOST_ITEM to copycat; let's assume that's doable.
+  ;; PokemonFanClub.asm. to rectify this, we'd need to have the
+  ;; ClefairyGuy check EVENT_RETURNED_MACHINE_PART (or something)
+  ;; instead.
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
           items-obtained' (conj items-obtained pass-swap)]
