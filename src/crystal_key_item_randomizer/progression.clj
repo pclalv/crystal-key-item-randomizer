@@ -88,8 +88,8 @@
        :conditions-met (conj conditions-met :ecruteak)}
       (if (items-obtained :PASS)
         (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                              :items-obtained (conj items-obtained
-                                                                                    (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                                                              :items-obtained (concat items-obtained
+                                                                                      (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
                                                               :conditions-met (conj conditions-met :kanto)})]
           (if (contains? (result :conditions-met) :ecruteak)
             (assoc result :items-obtained (concat (result :items-obtained)
