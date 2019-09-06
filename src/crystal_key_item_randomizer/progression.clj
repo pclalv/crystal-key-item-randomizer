@@ -1,4 +1,5 @@
-(ns crystal-key-item-randomizer.progression)
+(ns crystal-key-item-randomizer.progression
+  (:require [clojure.set :as cset]))
 
 ;; The code in this namespace uses what we know about the game and how
 ;; progress can be made, along with the particular items and progress
@@ -41,7 +42,7 @@
 (defn can-reach-goldenrod? [{:keys [swaps items-obtained]}]
   (if (items-obtained :HM_CUT)
     {:swaps swaps
-     :items-obtained (clojure.set/union items-obtained (get-swaps swaps goldenrod-items))
+     :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
      :conditions-met #{:goldenrod}}
     {:swaps swaps
      :items-obtained items-obtained
@@ -57,7 +58,7 @@
   ;; instead.
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
-          items-obtained' (clojure.set/union items-obtained pass-swap)]
+          items-obtained' (cset/union items-obtained pass-swap)]
       (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
@@ -85,12 +86,12 @@
     args
     (if (items-obtained :SQUIRTBOTTLE)
       {:swaps swaps
-       :items-obtained (clojure.set/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
+       :items-obtained (cset/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
        :conditions-met (conj conditions-met :ecruteak)}
       (if (items-obtained :PASS)
         (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                              :items-obtained (clojure.set/union items-obtained
-                                                                                                        (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                                                              :items-obtained (cset/union items-obtained
+                                                                                          (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
                                                               :conditions-met (conj conditions-met :kanto)})]
           (if (contains? (result :conditions-met) :ecruteak)
             (assoc result :items-obtained (concat (result :items-obtained)
@@ -106,7 +107,7 @@
     (if (and (conditions-met :ecruteak)
              (items-obtained :HM_SURF))
       (-> args
-          (assoc :items-obtained (clojure.set/union items-obtained (get-swaps swaps surf-required-items)))
+          (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items)))
           (assoc :conditions-met (conj conditions-met :can-surf)))
       args)))
 
@@ -144,7 +145,7 @@
     args
     (if (or (items-obtained :PASS) (items-obtained :S_S_TICKET))
       (-> args
-          (assoc :items-obtained (clojure.set/union items-obtained
+          (assoc :items-obtained (cset/union items-obtained
                                                            (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
           (assoc :conditions-met (conj conditions-met :kanto)))
       (-> args
@@ -159,7 +160,7 @@
       ;; any time after fixing power plant, regardless of talking
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
-          (assoc :items-obtained (clojure.set/union items-obtained (swaps :LOST_ITEM))
+          (assoc :items-obtained (cset/union items-obtained (swaps :LOST_ITEM))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
@@ -169,7 +170,7 @@
     args
     (if (and (conditions-met :kanto) (items-obtained :LOST_ITEM))
       (-> args
-          (assoc :items-obtained (clojure.set/union items-obtained (swaps :PASS)))
+          (assoc :items-obtained (cset/union items-obtained (swaps :PASS)))
           (assoc :conditions-met (conj conditions-met :copycat-item)))
       (-> args
           (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
