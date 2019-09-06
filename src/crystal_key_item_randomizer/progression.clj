@@ -33,9 +33,10 @@
   (not (not-any? pred col)))
 
 (defn get-swaps [swaps originals]
-  (->> swaps
-       (select-keys originals)
-       (vals)))
+  (-> swaps
+      (select-keys originals)
+      (vals)
+      (into #{})))
 
 (defn can-reach-goldenrod? [{:keys [swaps items-obtained]}]
   (if (items-obtained :HM_CUT)
@@ -44,7 +45,7 @@
      :conditions-met #{:goldenrod}}
     {:swaps swaps
      :items-obtained items-obtained
-     :conditions-met []
+     :conditions-met #{}
      :reasons ["goldenrod: cannot reach without HM_CUT"]}))
 
 (defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
@@ -56,7 +57,7 @@
   ;; instead.
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
-          items-obtained' (conj items-obtained pass-swap)]
+          items-obtained' (clojure.set/union items-obtained pass-swap)]
       (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
@@ -84,12 +85,12 @@
     args
     (if (items-obtained :SQUIRTBOTTLE)
       {:swaps swaps
-       :items-obtained (concat items-obtained (get-swaps swaps ecruteak-and-olivine-items))
+       :items-obtained (clojure.set/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
        :conditions-met (conj conditions-met :ecruteak)}
       (if (items-obtained :PASS)
         (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                              :items-obtained (concat items-obtained
-                                                                                      (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                                                              :items-obtained (clojure.set/union items-obtained
+                                                                                                        (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
                                                               :conditions-met (conj conditions-met :kanto)})]
           (if (contains? (result :conditions-met) :ecruteak)
             (assoc result :items-obtained (concat (result :items-obtained)
@@ -105,7 +106,7 @@
     (if (and (conditions-met :ecruteak)
              (items-obtained :HM_SURF))
       (-> args
-          (assoc :items-obtained (concat items-obtained (get-swaps surf-required-items)))
+          (assoc :items-obtained (clojure.set/union items-obtained (get-swaps swaps surf-required-items)))
           (assoc :conditions-met (conj conditions-met :can-surf)))
       args)))
 
@@ -143,8 +144,8 @@
     args
     (if (or (items-obtained :PASS) (items-obtained :S_S_TICKET))
       (-> args
-          (assoc :items-obtained (concat items-obtained
-                                         (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
+          (assoc :items-obtained (clojure.set/union items-obtained
+                                                           (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
           (assoc :conditions-met (conj conditions-met :kanto)))
       (-> args
           (assoc :items-obtained items-obtained)
@@ -158,7 +159,7 @@
       ;; any time after fixing power plant, regardless of talking
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :LOST_ITEM))
+          (assoc :items-obtained (clojure.set/union items-obtained (swaps :LOST_ITEM))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
@@ -168,7 +169,7 @@
     args
     (if (and (conditions-met :kanto) (items-obtained :LOST_ITEM))
       (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :PASS)))
+          (assoc :items-obtained (clojure.set/union items-obtained (swaps :PASS)))
           (assoc :conditions-met (conj conditions-met :copycat-item)))
       (-> args
           (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
