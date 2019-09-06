@@ -33,7 +33,8 @@
    :HM_CUT {:name :HM_CUT
             :location :IlexForest}
    :LOST_ITEM {:name :LOST_ITEM
-               :location :PokemonFanClub}
+               :location :PokemonFanClub
+               :comment "Obtainable at any time after fixing the Power Plant, without talking to Copycat"}
    :MACHINE_PART {:name :MACHINE_PART
                   :location :CeruleanGym}
 
@@ -91,49 +92,6 @@
                  :location :PewterCity}
    :SUPER_ROD {:name :SUPER_ROD
                :location :Route12SuperRodHouse}})
-
-(def kanto-items [:LOST_ITEM
-                  :MACHINE_PART
-                  :PASS
-                  :SILVER_WING
-                  :SUPER_ROD])
-
-(def pre-tree-items [:HM_CUT
-                     :HM_FLASH
-                     :MYSTERY_EGG
-                     :OLD_ROD])
-
-(def pre-goldenrod-items
-  ;; `CARD_KEY` is not included in pre_goldenrod_items! this is
-  ;; because even if you have the `BASEMENT_KEY`, the basement will be
-  ;; devoid of Team Rockets.
-
-  ;; `CLEAR_BELL` is likewise not included because i believe that the
-  ;; same goes for the `CARD_KEY`/radio tower upper floors. i'm just
-  ;; considering the `CLEAR_BELL` inaccessible for now.
-
-  ;; TODO: figure out if having the CARD_KEY is enough to get the
-  ;; CLEAR_BELL, regardless of in-game story progress.
-  (concat pre-tree-items [:BICYCLE
-                          :BLUE_CARD
-                          :COIN_CASE
-                          :SQUIRTBOTTLE]))
-
-(def surf-blocked-items
-  (concat kanto-items [:CARD_KEY     ;; surf-blocked because the player can't
-                       :BASEMENT_KEY ;; trigger the rocket radio tower takeover
-                       :CLEAR_BELL   ;; without defeating the red gyarados
-
-                       :RED_SCALE    ;; you have to surf to battle the Gyarados
-
-                       :HM_FLY       ;; on Cianwood
-                       :SECRETPOTION ;; on Cianwood
-
-                       ;; surf blocked unless we opt to remove the guy
-                       ;; blocking mahogany town/route 44
-                       ;; junction. HM_SURF is required to progress
-                       ;; the story, and hence to go to Ice Path.
-                       :HM_WATERFALL]))
 
 (def all-items (sort (concat (keys required-items)
                              (keys maybe-required-items)
