@@ -60,10 +60,10 @@
       (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
-         :conditions-met (conj conditions-met :ecruteak :early-lost-item)}
+         :conditions-met (conj conditions-met :ecruteak :copycat-item)}
         {:swaps swaps
          :items-obtained items-obtained'
-         :conditions-met (conj conditions-met :early-lost-item)
+         :conditions-met (conj conditions-met :copycat-item)
          :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
     {:swaps swaps
      :items-obtained items-obtained
