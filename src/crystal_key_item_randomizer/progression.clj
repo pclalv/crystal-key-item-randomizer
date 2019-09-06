@@ -38,10 +38,10 @@
        (vals)))
 
 (defn can-reach-goldenrod1? [{:keys [swaps items-obtained]}]
-  (if (contains? initial-items :HM_CUT)
+  (if (items-obtained :HM_CUT)
     {:swaps swaps
      :items-obtained (concat items-obtained (get-swaps swaps goldenrod1-items))
-     :conditions-met [:goldenrod1]}
+     :conditions-met #{:goldenrod1}}
     {:swaps swaps
      :items-obtained items-obtained
      :conditions-met []
@@ -54,7 +54,7 @@
   ;; PokemonFanClub.asm. to rectify this, we'd need to flip
   ;; EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM when you give the
   ;; LOST_ITEM to copycat; let's assume that's doable.
-  (if (contains? items-obtained :LOST_ITEM)
+  (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
           items-obtained' (conj items-obtained pass-swap)]
       (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
@@ -71,7 +71,7 @@
      :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
 
 (defn can-reach-ecruteak-via-saffron-detour? [{:keys [swaps items-obtained conditions-met] :as args}]
-  (if (any? #(contains? items-obtained %1) '(:SQUIRTBOTTLE :S_S_TICKET))
+  (if (any? #(items-obtained %1) '(:SQUIRTBOTTLE :S_S_TICKET))
     {:swaps swaps
      :items-obtained items-obtained
      :conditions-met (conj conditions-met :ecruteak)}
@@ -80,13 +80,13 @@
                                               :conditions-met conditions-met})))
 
 (defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (not (contains? conditions-met :goldenrod1))
+  (if (not (conditions-met :goldenrod1))
     args
-    (if (contains? items-obtained :SQUIRTBOTTLE)
+    (if (items-obtained :SQUIRTBOTTLE)
       {:swaps swaps
        :items-obtained (concat items-obtained (get-swaps swaps ecruteak-and-olivine-items))
        :conditions-met (conj conditions-met :ecruteak)}
-      (if (contains? items-obtained :PASS)
+      (if (items-obtained :PASS)
         (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
                                                               :items-obtained (conj items-obtained
                                                                                     (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
@@ -100,10 +100,10 @@
             (assoc :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))))
 
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (contains? conditions-met :can-surf)
+  (if (conditions-met :can-surf)
     args
-    (if (and (contains? conditions-met :ecruteak)
-             (contains? items-obtained :HM_SURF))
+    (if (and (conditions-met :ecruteak)
+             (items-obtained :HM_SURF))
       (-> args
           (assoc :items-obtained (concat items-obtained (get-swaps surf-required-items)))
           (assoc :conditions-met (conj conditions-met :can-surf)))
@@ -113,12 +113,12 @@
   ;; FIXME: warn players to avoid the underground warehouse until
   ;; they've defeated the Mahogany Rockets, even if they have the
   ;; BASEMENT_KEY
-  (if (contains? conditions-met :underground-warehouse)
+  (if (conditions-met :underground-warehouse)
     args
-    (if (not (contains? conditions-met :can-surf))
+    (if (not (conditions-met :can-surf))
       (assoc args :reasons
              (conj reasons "underground-warehouse: cannot reach without being able to surf"))
-      (if (contains? items-obtained :BASEMENT_KEY)
+      (if (items-obtained :BASEMENT_KEY)
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
             (assoc :conditions-met (conj conditions-met :underground-warehouse)))
@@ -126,12 +126,12 @@
                (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (contains? conditions-met :defeat-team-rocket)
+  (if (conditions-met :defeat-team-rocket)
     args
-    (if (not (contains? conditions-met :underground-warehouse))
+    (if (not (conditions-met :underground-warehouse))
       (assoc args :reason
-             (conj raesons "defeat-team-rocket: cannot reach without having reached underground-warehouse"))
-      (if (contains? items-obtained :CARD_KEY)
+             (conj reasons "defeat-team-rocket: cannot reach without having reached underground-warehouse"))
+      (if (items-obtained :CARD_KEY)
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
             (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
