@@ -139,22 +139,59 @@
                (conj reasons "defeat-team-rocket: cannot reach without CARD_KEY"))))))
 
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (contains? conditions-met :kanto)
+  (if (conditions-met :kanto)
     args
-    ;; FIXME
-    args))
+    (if (or (items-obtained :PASS) (items-obtained :S_S_TICKET))
+      (-> args
+          (assoc :items-obtained (concat items-obtained
+                                         (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
+          (assoc :conditions-met (conj conditions-met :kanto)))
+      (-> args
+          (assoc :items-obtained items-obtained)
+          (assoc :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
 
-(def beatable? [swaps]
-  (let [initial-items (get-swaps swaps guaranteed-items)
-        early-linear-progression-results (->> {:swaps swaps :items-obtained initial-items}
-                                              can-reach-goldenrod1?
-                                              can-reach-ecruteak?)]
+(defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (conditions-met :fix-power-plant)
+    args
+    (if (and (conditions-met :can-surf) (conditions-met :kanto))
+      ;; FIXME: let players know that they can get the LOST_ITEM
+      ;; any time after fixing power plant, regardless of talking
+      ;; to copycat or already giving her the real LOST_ITEM
+      (-> args
+          (assoc :items-obtained (conj items-obtained (swaps :LOST_ITEM))
+                 :conditions-met (conj conditions-met :fix-power-plant)))
+      (-> args
+          (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
+
+(defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (if (conditions-met :copycat-item)
+    args
+    (if (and (conditions-met :kanto) (items-obtained :LOST_ITEM))
+      (-> args
+          (assoc :items-obtained (conj items-obtained (swaps :PASS)))
+          (assoc :conditions-met (conj conditions-met :copycat-item)))
+      (-> args
+          (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
+          (assoc :conditions-met (conj conditions-met :copycat-item))))))
+
+(defn beatable? [swaps]
+  (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
+        early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items}
+                                             can-reach-goldenrod1?
+                                             can-reach-ecruteak?)]
     ;; we need to be strategic about further analysis, because
-    ;; progression is necessarily nonlinear. it might be a good idea
-    ;; to try the remaining can-reach functions in loop, breaking if
-    ;; there was no change after the last round of checks.
-    (->> early-linear-progression-results
-         can-surf?
-         can-reach-underground-warehouse?
-         can-defeat-team-rocket?
-         can-reach-kanto?)))
+    ;; progression is necessarily nonlinear. try the remaining
+    ;; functions in loop, breaking if there was no change after the
+    ;; last round of checks.
+    (loop [previous-result nil
+           result early-linear-progression-result]
+      (if (= previous-result result)
+        result
+        (recur result
+               (->> result
+                    can-surf?
+                    can-reach-underground-warehouse?
+                    can-defeat-team-rocket?
+                    can-reach-kanto?
+                    can-fix-power-plant?
+                    can-get-copycat-item?))))))
