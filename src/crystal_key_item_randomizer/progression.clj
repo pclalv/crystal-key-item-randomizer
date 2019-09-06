@@ -186,7 +186,8 @@
     ;; last round of checks.
     (loop [previous-result nil
            result early-linear-progression-result]
-      (if (= previous-result result)
+      (if (= (select-keys previous-result [:items-obtained :conditions-met])
+             (select-keys result [:items-obtained :conditions-met]))
         result
         (recur result
                (->> result
