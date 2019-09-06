@@ -15,19 +15,15 @@
                                  :GOOD_ROD
                                  :HM_STRENGTH])
 
-(def surf-required-items [:HM_FLY
-                          :SECRETPOTION
-                          ;; above - Cianwood
+(def surf-required-items [:HM_FLY       ; Cianwood
+                          :SECRETPOTION ; Cianwood
 
-                          :RED_SCALE
-                          :HM_WHIRLPOOL
-                          ;; above - Lake of Rage/Mahogany Rockets sidequest
+                          :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
+                          :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
 
-                          :BASEMENT_KEY
-                          ;; above - Rockets in the Radio Tower
+                          :BASEMENT_KEY ; Rockets in the Radio Tower
 
-                          ;; below - Ice Path after defeating Pryce
-                          :HM_WATERFALL])
+                          :HM_WATERFALL]) ; Ice Path after defeating Pryce
 
 (defn any? [pred col]
   (not (not-any? pred col)))
