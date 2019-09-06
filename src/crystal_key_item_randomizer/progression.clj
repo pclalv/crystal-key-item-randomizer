@@ -30,6 +30,41 @@
 
                           :HM_WATERFALL]) ; Ice Path after defeating Pryce
 
+(def badge-acquisition-conditions [{:badge :ZEPHYRBADGE}
+                                   {:badge :HIVEBADGE}
+                                   {:badge :PLAINBADGE
+                                    :conditions-met #{:goldenrod}}
+                                   {:badge :FOGBADGE
+                                    :conditions-met #{:ecruteak}}
+                                   {:badge :STORMBADGE
+                                    :conditions-met #{:can-surf}}
+                                   {:badge :MINERALBADGE
+                                    :conditions-met #{:ecruteak}
+                                    :items-obtained #{:SECRETPOTION}}
+                                   {:badge :GLACIERBADGE
+                                    :conditions-met #{:underground-warehouse}}
+                                   {:badge :RISINGBADGE
+                                    :conditions-met #{:underground-warehouse}}
+
+                                   {:badge :BOULDERBADGE
+                                    :conditions-met #{:fix-power-plant}}
+                                   {:badge :CASCADEBADGE
+                                    :conditions-met #{:kanto}}
+                                   {:badge :THUNDERBADGE
+                                    :conditions-met #{:kanto}
+                                    :items-obtained #{:HM_CUT}}
+                                   {:badge :RAINBOWBADGE
+                                    :conditions-met #{:kanto}
+                                    :items-obtained #{:HM_CUT}}
+                                   {:badge :SOULBADGE
+                                    :conditions-met #{:kanto}}
+                                   {:badge :MARSHBADGE
+                                    :conditions-met #{:kanto}}
+                                   {:badge :VOLCANOBADGE
+                                    :conditions-met #{:fix-power-plant}}
+                                   {:badge :EARTHBADGE
+                                    :conditions-met #{:fix-power-plant}}])
+
 (defn any? [pred col]
   (not (not-any? pred col)))
 
@@ -175,6 +210,27 @@
       (-> args
           (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
           (assoc :conditions-met (conj conditions-met :copycat-item))))))
+
+;;;;;;;;;;;;
+;; badges ;;
+;;;;;;;;;;;;
+
+(defn can-satisfy-badge-condition? [{player-conditions-met :conditions-met 
+                                     player-items-obtained :items-obtained
+                                     badges :badges
+                                     :as args}
+                                    {:keys [badge conditions-met items-obtained]}]
+  (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
+        items-satisfied? (every? player-items-obtained (or items-obtained #{}))
+        satisfied? (and conditions-satisfied? items-satisfied?)]
+    (if satisfied?
+      (assoc args :badges (conj badges badge))
+      args)))      
+
+(defn can-collect-eight-badges? [args]
+  (reduce can-satisfy-badge-condition?
+          (assoc args :badges #{})
+          badge-acquisition-conditions))
 
 (defn beatable? [swaps]
   (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
