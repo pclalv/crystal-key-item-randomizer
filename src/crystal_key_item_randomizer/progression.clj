@@ -236,21 +236,26 @@
   (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
         early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items}
                                              can-reach-goldenrod?
-                                             can-reach-ecruteak?)]
-    ;; we need to be strategic about further analysis, because
-    ;; progression is necessarily nonlinear. try the remaining
-    ;; functions in loop, breaking if there was no change after the
-    ;; last round of checks.
-    (loop [previous-result nil
-           result early-linear-progression-result]
-      (if (= (select-keys previous-result [:items-obtained :conditions-met])
-             (select-keys result [:items-obtained :conditions-met]))
-        result
-        (recur result
-               (->> result
-                    can-surf?
-                    can-reach-underground-warehouse?
-                    can-defeat-team-rocket?
-                    can-reach-kanto?
-                    can-fix-power-plant?
-                    can-get-copycat-item?))))))
+                                             can-reach-ecruteak?)
+        ;; we need to be strategic about further analysis, because
+        ;; progression is necessarily nonlinear. try the remaining
+        ;; functions in loop, breaking if there was no change after the
+        ;; last round of checks.
+        final-progression-result (loop [previous-result nil
+                                        result early-linear-progression-result]
+                                   (if (= (select-keys previous-result [:items-obtained :conditions-met])
+                                          (select-keys result [:items-obtained :conditions-met]))
+                                     result
+                                     (recur result
+                                            (->> result
+                                                 can-surf?
+                                                 can-reach-underground-warehouse?
+                                                 can-defeat-team-rocket?
+                                                 can-reach-kanto?
+                                                 can-fix-power-plant?
+                                                 can-get-copycat-item?))))
+        badge-progression-result (can-collect-eight-badges? final-progression-result)
+        badge-count (->> badge-progression-result
+                         :badges
+                         count)]
+    (assoc badge-progression-result :beatable (>= 8 badge-count))))
