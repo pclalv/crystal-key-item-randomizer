@@ -1,5 +1,9 @@
 (ns crystal-key-item-randomizer.progression)
 
+;; The code in this namespace uses what we know about the game and how
+;; progress can be made, along with the particular items and progress
+;; the player has, to determine further progress.
+
 (def guaranteed-items [:MYSTERY_EGG
                        :HM_FLASH
                        :OLD_ROD
