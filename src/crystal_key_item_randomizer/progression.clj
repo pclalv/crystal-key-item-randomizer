@@ -87,7 +87,7 @@
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
           items-obtained' (conj items-obtained pass-swap)]
-      (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
+      (if (contains? [:SQUIRTBOTTLE :S_S_TICKET] pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
          :conditions-met (conj conditions-met :ecruteak :copycat-item)}
@@ -122,12 +122,10 @@
                                                                                           (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
                                                               :conditions-met (conj conditions-met :kanto)})]
           (if (contains? (result :conditions-met) :ecruteak)
-            (assoc result :items-obtained (concat (result :items-obtained)
-                                                  (get-swaps swaps ecruteak-and-olivine-items)))
+            (assoc result :items-obtained (conj (result :items-obtained)
+                                                (get-swaps swaps ecruteak-and-olivine-items)))
             result))
-        (-> args
-            (assoc :items-obtained items-obtained)
-            (assoc :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))))
+        (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE"))))))
 
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :can-surf)
@@ -174,11 +172,9 @@
     (if (or (items-obtained :PASS) (items-obtained :S_S_TICKET))
       (-> args
           (assoc :items-obtained (cset/union items-obtained
-                                                           (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
+                                             (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
           (assoc :conditions-met (conj conditions-met :kanto)))
-      (-> args
-          (assoc :items-obtained items-obtained)
-          (assoc :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
+      (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET")))))
 
 (defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :fix-power-plant)
@@ -188,7 +184,7 @@
       ;; any time after fixing power plant, regardless of talking
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
-          (assoc :items-obtained (cset/union items-obtained (swaps :LOST_ITEM))
+          (assoc :items-obtained (conj items-obtained (swaps :LOST_ITEM))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
@@ -253,6 +249,5 @@
             badge-count (->> badge-progression-result
                              :badges
                              count)]
-        (assoc badge-progression-result :beatable? (>= badge-count 8))))
-    ))
+        (assoc badge-progression-result :beatable? (>= badge-count 8))))))
 
