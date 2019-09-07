@@ -288,7 +288,7 @@ function requestSwapsAndPatchRomFile(event) {
     var reader = event.target;
     var romBytes = new Uint8Array(reader.result);
     var seed = document.getElementById("seed").value;
-    var swaps = new Request("/v1api/swaps/" + seed);
+    var swaps = new Request("/swaps");
 
     fetch(swaps).then(
         (swapsResponse) => swapsResponse.json(),
