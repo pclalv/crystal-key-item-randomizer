@@ -93,7 +93,7 @@
   ;; instead.
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
-          items-obtained' (cset/union items-obtained pass-swap)]
+          items-obtained' (conj items-obtained pass-swap)]
       (if (contains? '(:SQUIRTBOTTLE :S_S_TICKET) pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
@@ -205,7 +205,7 @@
     args
     (if (and (conditions-met :kanto) (items-obtained :LOST_ITEM))
       (-> args
-          (assoc :items-obtained (cset/union items-obtained (swaps :PASS)))
+          (assoc :items-obtained (conj items-obtained (swaps :PASS)))
           (assoc :conditions-met (conj conditions-met :copycat-item)))
       (-> args
           (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
