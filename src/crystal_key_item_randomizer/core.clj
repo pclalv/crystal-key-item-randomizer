@@ -1,8 +1,8 @@
 (ns crystal-key-item-randomizer.core
   (:gen-class)
-  (:require [org.httpkit.server :as server]
-            [compojure.core :refer :all]
-            [compojure.route :as route]))
+  (:require [org.httpkit.server :as server])
+  (:use [compojure.route :only [files not-found]]
+        [compojure.core :only [defroutes GET POST DELETE ANY context]]))
 
 (defn hello-world-app [req] ;(3)
   {:status  200
@@ -11,10 +11,11 @@
 
 (defroutes app-routes ;(3)
   (GET "/" [] hello-world-app)
-  (route/not-found "not found"))
+  (files "")
+  (files "assets")
+  (not-found "not found"))
 
 (defn -main
-  "This is our app's entry point"
   [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
     (server/run-server #'app-routes {:port port})

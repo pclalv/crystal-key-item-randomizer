@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Pokemon Crystal Key Item Randomizer</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="/assets/css/app.css">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <h1>Pokemon Crystal Key Item Randomizer</h1>
-      </header>
+    <h1>Pokemon Crystal Key Item Randomizer</h1>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <main role="main">
+      <p>Your seed: <input id="seed" type="text"/></p>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+      <p>
+	You may input your own seed value greater than or equal to 0 and
+	less than or equal to 2147483647.
+      </p>
+
+      <div id="upload-download-row" class="jumbotron">
+	<label class="btn btn-default btn-file">
+	  Select ROM File
+	  <input id="rom-file" type="file" accept=".gbc" style="display: none;">
+	</label>
+      </div>
+    </main>
 
       <!-- factor out into footer -->
       <!-- <div class="row marketing"> -->
@@ -49,7 +51,6 @@
       <!--   </div> -->
       <!-- </div> -->
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="/assets/js/app.js"></script>
   </body>
 </html>
