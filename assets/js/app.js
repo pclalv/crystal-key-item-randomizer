@@ -177,16 +177,16 @@ window.Events = [
 	"name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // get LOST_ITEM from Pokemon Fan Club guy at any time after fixing the Power Plant
 	"location": "vermillion",
 	"address": 1644603,
-	"originalValue": 207
-	"replacementValue": 201
+	"originalValue": 207 // EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM
+	"replacementValue": 201 // EVENT_RESTORED_POWER_TO_KANTO
     },
 
     {
 	"name": "Remove cuttable tree in Ilex Forest", // for more variety :) having HM_CUT always appear within the first four items gotten is quite boring.
 	"location": "ilexforest",
 	"address": 721295,
-	"originalValue": 15,
-	"replacementValue": 1
+	"originalValue": 15, // tree
+	"replacementValue": 1 // grass
     }
 ];
 
