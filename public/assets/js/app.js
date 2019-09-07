@@ -276,12 +276,12 @@ function applySwaps(rom, swaps) {
     }
 }
 
-function patchRom(rom, swaps) {
+function patchRom(rom, swaps, seed) {
     applySwaps(rom, swaps);
     applyEventPatches(rom);
 
     hideUploadInput();
-    embedDownloadLink("pokecrystal-key-item-randomized.gbc", rom);
+    embedDownloadLink("pokecrystal-key-item-randomized-seed-" + seed + ".gbc", rom);
 }
 
 function requestSwapsAndPatchRomFile(event) {
@@ -297,7 +297,7 @@ function requestSwapsAndPatchRomFile(event) {
         (swapsJson) => new Map(Object.entries(swapsJson.swaps)),
         console.error
     ).then(
-        (swaps) => patchRom(romBytes, swaps),
+        (swaps) => patchRom(romBytes, swaps, seed),
         console.error
     );
 }
