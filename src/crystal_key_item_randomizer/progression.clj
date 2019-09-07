@@ -74,15 +74,16 @@
       (vals)
       (into #{})))
 
-(defn can-reach-goldenrod? [{:keys [swaps items-obtained]}]
-  (if (items-obtained :HM_CUT)
-    {:swaps swaps
-     :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
-     :conditions-met #{:goldenrod}}
-    {:swaps swaps
-     :items-obtained items-obtained
-     :conditions-met #{}
-     :reasons ["goldenrod: cannot reach without HM_CUT"]}))
+(defn can-reach-goldenrod? [{:keys [swaps items-obtained options] :as args}]
+  (if (not (options :cut-required))
+    (-> args
+        (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
+        (assoc :conditions-met #{:goldenrod}))
+    (if (items-obtained :HM_CUT)
+      (-> args
+          (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
+          (assoc :conditions-met #{:goldenrod}))
+      (assoc args :reasons ["goldenrod: cannot reach without HM_CUT"]))))
 
 (defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
