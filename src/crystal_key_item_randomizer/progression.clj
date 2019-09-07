@@ -75,15 +75,10 @@
       (into #{})))
 
 (defn can-reach-goldenrod? [{:keys [swaps items-obtained options] :as args}]
-  (if (not (options :cut-required))
-    (-> args
-        (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
-        (assoc :conditions-met #{:goldenrod}))
-    (if (items-obtained :HM_CUT)
-      (-> args
-          (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
-          (assoc :conditions-met #{:goldenrod}))
-      (assoc args :reasons ["goldenrod: cannot reach without HM_CUT"]))))
+  ;; the cuttable tree in Ilex Forest is removed by the randomizer
+  (-> args
+      (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
+      (assoc :conditions-met #{:goldenrod})))
 
 (defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
