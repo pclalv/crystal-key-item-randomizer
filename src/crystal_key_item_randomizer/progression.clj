@@ -11,9 +11,9 @@
                        :HM_CUT])
 
 (def goldenrod-items [:BICYCLE
-                       :BLUE_CARD
-                       :COIN_CASE
-                       :SQUIRTBOTTLE])
+                      :BLUE_CARD
+                      :COIN_CASE
+                      :SQUIRTBOTTLE])
 
 (def ecruteak-and-olivine-items [:HM_SURF
                                  :ITEMFINDER
