@@ -85,12 +85,9 @@
      :reasons ["goldenrod: cannot reach without HM_CUT"]}))
 
 (defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  ;; FIXME: if you get the LOST_ITEM this early then i don't think you
-  ;; can get anything from the guy in Vermillion; see
-  ;; PokemonFanClubClefairyGuyScript.FoundClefairyDoll in
-  ;; PokemonFanClub.asm. to rectify this, we'd need to have the
-  ;; ClefairyGuy check EVENT_RETURNED_MACHINE_PART (or something)
-  ;; instead.
+  ;; note, it's okay to get the Copycat's reward at any time because
+  ;; we patch the game so that you can get tHE LOST_ITEM at any time
+  ;; after fixing the Power Plant.
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
           items-obtained' (conj items-obtained pass-swap)]
