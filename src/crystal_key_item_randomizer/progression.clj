@@ -216,7 +216,7 @@
       (assoc args :badges (conj badges badge))
       args)))      
 
-(defn can-collect-eight-badges? [args]
+(defn can-collect-badges? [args]
   (reduce can-satisfy-badge-condition?
           (assoc args :badges #{})
           badge-acquisition-conditions))
@@ -245,9 +245,8 @@
                                                      can-reach-kanto?
                                                      can-fix-power-plant?
                                                      can-get-copycat-item?))))
-            badge-progression-result (can-collect-eight-badges? final-progression-result)
+            badge-progression-result (can-collect-badges? final-progression-result)
             badge-count (->> badge-progression-result
                              :badges
                              count)]
         (assoc badge-progression-result :beatable? (>= badge-count 8))))))
-
