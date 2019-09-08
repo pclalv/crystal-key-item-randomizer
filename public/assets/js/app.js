@@ -353,4 +353,4 @@ document
     .getElementById("rom-file")
     .addEventListener("change", handleFiles, false);
 
-document.getElementById("seed").value = DefaultSeed;
+// document.getElementById("seed").value = DefaultSeed;
