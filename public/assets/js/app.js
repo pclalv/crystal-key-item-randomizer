@@ -187,6 +187,45 @@ window.Events = [
 	"address": 721295,
 	"originalValue": 15, // tree
 	"replacementValue": 1 // grass
+    },
+
+    // Ensure that the player can get the Flower Shop item even if
+    // they've already fought Sudowoodo
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349021,
+	"originalValue": 49,
+	"replacementValue": NOP
+    },
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349022,
+	"originalValue": 42,
+	"replacementValue": NOP
+    },
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349023,
+	"originalValue": 0,
+	"replacementValue": NOP
+    },
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349024,
+	"originalValue": 9,
+	"replacementValue": NOP
+    },
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349025,
+	"originalValue": 143,
+	"replacementValue": NOP
+    },
+    {
+	"name": "FlowerShopTeacherScript.CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+	"address": 349026,
+	"originalValue": 83,
+	"replacementValue": NOP
     }
 ];
 
