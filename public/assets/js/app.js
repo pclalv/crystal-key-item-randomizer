@@ -175,7 +175,7 @@ window.Events = [
 
     {
 	"name": "CHECK_EVENT_RESTORED_POWER_TO_KANTO", // get LOST_ITEM from Pokemon Fan Club guy at any time after fixing the Power Plant
-	"location": "vermillion",
+	"location": "vermilion",
 	"address": 1644603,
 	"originalValue": 207, // EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM
 	"replacementValue": 201 // EVENT_RESTORED_POWER_TO_KANTO
