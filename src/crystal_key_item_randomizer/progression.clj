@@ -184,7 +184,8 @@
       ;; any time after fixing power plant, regardless of talking
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :MACHINE_PART :LOST_ITEM))
+          (assoc :items-obtained (cset/union items-obtained
+                                             (get-swaps swaps :MACHINE_PART :LOST_ITEM :SILVER_WING))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
