@@ -80,7 +80,7 @@
       (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
       (assoc :conditions-met #{:goldenrod})))
 
-(defn can-read-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
   ;; we patch the game so that you can get tHE LOST_ITEM at any time
   ;; after fixing the Power Plant.
@@ -105,9 +105,9 @@
     {:swaps swaps
      :items-obtained items-obtained
      :conditions-met (conj conditions-met :ecruteak)}
-    (can-read-ecruteak-with-copycats-reward? {:swaps swaps
-                                              :items-obtained items-obtained
-                                              :conditions-met conditions-met})))
+    (can-reach-ecruteak-with-copycats-reward? {:swaps swaps
+                                               :items-obtained items-obtained
+                                               :conditions-met conditions-met})))
 
 (defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (not (conditions-met :goldenrod))
