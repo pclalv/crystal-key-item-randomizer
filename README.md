@@ -47,11 +47,11 @@ page in your browser at `http://localhost:8080`.
 
 ### randomizer logic
 
-- [ ] randomize `SILVER_WING`
-- [ ] update code to reflect that the `MACHINE PART` is unavailable
+- [X] randomize `SILVER_WING`
+- [X] update code to reflect that the `MACHINE PART` is unavailable
       without `HM_SURF`, as `HM_SURF` is required to talk to the Power
       Plant manager to begin the sidequest
-- [ ] allow the player to progress from Violet to Ecruteak with
+- [X] allow the player to progress from Violet to Ecruteak with
       `SQUIRTBOTTLE`
 
 ### binary patching
