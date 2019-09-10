@@ -110,22 +110,21 @@
                                                :conditions-met conditions-met})))
 
 (defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (not (conditions-met :goldenrod))
-    args
-    (if (items-obtained :SQUIRTBOTTLE)
-      {:swaps swaps
-       :items-obtained (cset/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
-       :conditions-met (conj conditions-met :ecruteak)}
-      (if (items-obtained :PASS)
-        (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                              :items-obtained (cset/union items-obtained
-                                                                                          (get-swaps swaps [:SUPER_ROD]))
-                                                              :conditions-met (conj conditions-met :kanto)})]
-          (if (contains? (result :conditions-met) :ecruteak)
-            (assoc result :items-obtained (conj (result :items-obtained)
-                                                (get-swaps swaps ecruteak-and-olivine-items)))
-            result))
-        (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE"))))))
+  (if (items-obtained :SQUIRTBOTTLE)
+    {:swaps swaps
+     :items-obtained (cset/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
+     :conditions-met (conj conditions-met :ecruteak)}
+    (if (and (conditions-met :goldenrod) (items-obtained :PASS))
+      (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
+                                                            :items-obtained (cset/union items-obtained
+                                                                                        (get-swaps swaps [:SUPER_ROD]))
+                                                            :conditions-met (conj conditions-met :kanto)})]
+        (if (contains? (result :conditions-met) :ecruteak)
+          (assoc result :items-obtained (conj (result :items-obtained)
+                                              (get-swaps swaps ecruteak-and-olivine-items)))
+          result))
+      (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
+    
 
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :can-surf)
