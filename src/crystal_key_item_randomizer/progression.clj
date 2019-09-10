@@ -119,7 +119,7 @@
       (if (items-obtained :PASS)
         (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
                                                               :items-obtained (cset/union items-obtained
-                                                                                          (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                                                                                          (get-swaps swaps [:SUPER_ROD]))
                                                               :conditions-met (conj conditions-met :kanto)})]
           (if (contains? (result :conditions-met) :ecruteak)
             (assoc result :items-obtained (conj (result :items-obtained)
@@ -184,7 +184,7 @@
       ;; any time after fixing power plant, regardless of talking
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :LOST_ITEM))
+          (assoc :items-obtained (conj items-obtained (swaps :MACHINE_PART :LOST_ITEM))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
