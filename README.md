@@ -5,9 +5,8 @@
 In addition to swapping around key items, these changes open up the game:
 
 * Travel to Violet City without having retrieved the Mystery Egg for Elm
-* Progress to Goldenrod via Route 36 with `SQUIRTBOTTLE`, or via Ilex
-  Forest without `CUT` (the cuttable tree is removed by the
-  randomizer)
+* Travel to Goldenrod via Ilex Forest without `CUT` (the cuttable tree
+  is removed by the randomizer)
 * Travel via train without having fixed the Power Plant
 * Travel via SS Aqua without having beaten the Elite 4, on any day of
   the week
@@ -28,12 +27,10 @@ collectable.
   the Rocket Grunt in Cerulean sidequest (in order to retrieve the
   hidden item in the Cerulean Gym) by talking to the the Power Plant
   manager again after returning the `MACHINE PART`.
-* The Flower Shop item (`SQUIRTBOTTLE` in vanilla) is obtainable even
-  if the player has used the `SQUIRTBOTTLE` to defeat the
-  Sudowoodo. As in the vanilla game, the player must talk to Floria on
-  Route 36, then go back to the Flower Shop and talk to Floria there,
-  before finally talking to the other Flower Shop women to obtain the
-  item.
+* The Flower Shop item (`SQUIRTBOTTLE` in vanilla) is always
+  obtainable, even if the player has used the `SQUIRTBOTTLE` to defeat
+  the Sudowoodo. The player may obtain the Flower Shop item at any
+  time time after defeating Whitney.
 
 ## development
 
