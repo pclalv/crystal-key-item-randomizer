@@ -116,8 +116,7 @@
      :conditions-met (conj conditions-met :ecruteak)}
     (if (and (conditions-met :goldenrod) (items-obtained :PASS))
       (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                            :items-obtained (cset/union items-obtained
-                                                                                        (get-swaps swaps [:SUPER_ROD]))
+                                                            :items-obtained (conj items-obtained (swaps :SUPER_ROD))
                                                             :conditions-met (conj conditions-met :kanto)})]
         (if (contains? (result :conditions-met) :ecruteak)
           (assoc result :items-obtained (conj (result :items-obtained)
