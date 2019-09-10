@@ -139,6 +139,8 @@
   ;; FIXME: warn players to avoid the underground warehouse until
   ;; they've defeated the Mahogany Rockets, even if they have the
   ;; BASEMENT_KEY
+
+  ;; it'd be great if we could put an NPC into the game...
   (if (conditions-met :underground-warehouse)
     args
     (if (not (conditions-met :can-surf))
