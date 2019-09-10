@@ -31,6 +31,12 @@ collectable.
   obtainable, even if the player has used the `SQUIRTBOTTLE` to defeat
   the Sudowoodo. The player may obtain the Flower Shop item at any
   time time after defeating Whitney.
+  
+## known issues
+
+* If the player uses the `BASEMENT KEY` to visit the Underground
+  Warehouse before defeating Team Rocket in Mahogany Town, the
+  Underground Warehouse will be totally empty.
 
 ## development
 
@@ -75,6 +81,10 @@ page in your browser at `http://localhost:8080`.
       to randomize the kanto expansion card, which allows the player
       to wake the snorlax and progress to pewter from vermilion.
 - [ ] randomize which non-required item the copycat is looking for.
+- [ ] prevent players from visiting the Underground Warehouse before
+      defeating Team Rocket in Mahogany Town; even if the player gets
+      the `BASEMENT_KEY` early, nobody will be in the Underground
+      Warehouse until after defeating Team Rocket in Mahogany Town.
 
 ### backend/frontend
 
