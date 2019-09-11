@@ -114,11 +114,13 @@ window.KeyItems = new Map(Object.entries({
 window.Events = [
     // EVENT_ROUTE_30_BATTLE is arbitray; we just want a value such
     // that these checks always pass.
+
+    // TODO: try EVENT_GOT_A_POKEMON_FROM_ELM instead
     {
         "name": "CHECK_EVENT_ROUTE_30_YOUNGSTER_JOEY", // skip the "important" battle
         "address": 771120,
         "originalValue": 21,
-        "replacementValue": EVENT_ROUTE_30_BATTLE
+        "replacementValue": EVENT_ROUTE_30_BATTLE // FIXME: will things break if the player DOES return the MYSTERY EGG to elm?
     },
     {
         "name": "CHECK_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME", // travel via SS Aqua without having beat the elite 4
