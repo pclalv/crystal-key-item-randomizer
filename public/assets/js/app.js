@@ -278,7 +278,7 @@ function encodeGSCString(str) {
 }
 
 function embedDownloadLink(filename, content) {
-    var parent = document.getElementById("upload-download-row");
+    var parent = document.getElementById("download");
     var element = document.createElement("a");
     var blob = new Blob([content]);
 
@@ -294,9 +294,27 @@ function hideUploadInput() {
    document.getElementById("rom-file").parentElement.style.display = "none";
 }
 
-function applyEventPatches(rom) {
-    for (var event of Events) {
-        rom[event.address] = event.replacementValue;
+function applyDiffs(rom) {
+    for (var diff of Diffs) {
+	applyDiff(rom, diff);
+    }
+}
+
+function applyDiff(rom, diff) {
+    var idxs = R.range(diff.address_range.begin, diff.address_range.end);
+
+    if (idxs.length != diff.integer_values.old.length || idxs.length != diff.integer_values.new.length) {
+	console.log("Found mismatched lengths while applying " + diff.name);
+    }
+
+    for (var ii in idxs.count) {
+	var romIdx = idxs[ii];
+
+	if (rom.integer_values.old[ii] != rom[ii]) {
+	    console.log("Found unexpected value while applying " + diff.name);
+	}
+
+	rom[romIdx] = rom.integer_values.new[ii];
     }
 }
 
@@ -318,17 +336,16 @@ function applySwaps(rom, swaps) {
 }
 
 function patchRom(rom, swaps, seed) {
-    applySwaps(rom, swaps);
-    applyEventPatches(rom);
-
     hideUploadInput();
+    applySwaps(rom, swaps);
+    applyDiffs(rom);
     embedDownloadLink("pokecrystal-key-item-randomized-seed-" + seed + ".gbc", rom);
 }
 
 function requestSwapsAndPatchRomFile(event) {
     var reader = event.target;
     var romBytes = new Uint8Array(reader.result);
-    var seed = document.getElementById("seed").value;
+    var seed = "FIXME" // document.getElementById("seed").value;
     var swaps = new Request("/swaps");
 
     fetch(swaps).then(

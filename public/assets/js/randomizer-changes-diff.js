@@ -1,7 +1,7 @@
 // This file contains data that the frontend can use to modify the ROM
 // file with changes beyond the usual key item swaps.
 
-[
+window.Diffs = [
     // Disable the important battle
     {
         "integer_values": {
