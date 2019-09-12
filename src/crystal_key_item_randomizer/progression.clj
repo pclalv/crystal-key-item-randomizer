@@ -205,7 +205,7 @@
 ;; badges ;;
 ;;;;;;;;;;;;
 
-(defn can-satisfy-badge-condition? [{player-conditions-met :conditions-met 
+(defn can-satisfy-badge-condition? [{player-conditions-met :conditions-met
                                      player-items-obtained :items-obtained
                                      badges :badges
                                      :as args}
@@ -215,7 +215,7 @@
         satisfied? (and conditions-satisfied? items-satisfied?)]
     (if satisfied?
       (assoc args :badges (conj badges badge))
-      args)))      
+      args)))
 
 (defn can-collect-badges? [args]
   (reduce can-satisfy-badge-condition?
