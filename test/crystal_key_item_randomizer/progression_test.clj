@@ -163,3 +163,22 @@
                 :conditions-met #{:ecruteak}}
                can-reach-kanto?
                (select-keys [:items-obtained :conditions-met]))))))
+
+(deftest can-fix-power-plant?-test
+  (testing "meetable when the player has reached kanto and can surf"
+    (is (= {:items-obtained #{:SILVER_WING :LOST_ITEM :MACHINE_PART}
+            :conditions-met #{:fix-power-plant :kanto :can-surf}}
+           (-> {:swaps vanilla-swaps
+                :conditions-met #{:can-surf :kanto}}
+               can-fix-power-plant?
+               (select-keys [:items-obtained :conditions-met]))))))
+
+(deftest can-get-copycat-item?-test
+  (testing "obtainable when the player has reached kanto and has obtained the LOST_ITEM"
+    (is (= {:items-obtained #{:LOST_ITEM :PASS}
+            :conditions-met #{:copycat-item :kanto}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{:LOST_ITEM}
+                :conditions-met #{:kanto}}
+               can-get-copycat-item?
+               (select-keys [:items-obtained :conditions-met]))))))
