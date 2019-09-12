@@ -183,14 +183,16 @@ function applyDiff(rom, diff) {
 	console.log("Found mismatched lengths while applying " + diff.name);
     }
 
-    for (var ii in idxs.count) {
+    console.log("applying " + diff.name)
+    for (var ii in R.range(0, idxs.length)) {
 	var romIdx = idxs[ii];
 
-	if (rom.integer_values.old[ii] != rom[ii]) {
+	if (diff.integer_values.old[ii] != rom[romIdx]) {
 	    console.log("Found unexpected value while applying " + diff.name);
 	}
 
-	rom[romIdx] = rom.integer_values.new[ii];
+	console.log(diff.integer_values.old[ii] + " -> " + diff.integer_values.new[ii])
+	rom[romIdx] = diff.integer_values.new[ii];
     }
 }
 
