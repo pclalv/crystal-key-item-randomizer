@@ -127,7 +127,6 @@
           result))
       (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
 
-
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :can-surf)
     args
