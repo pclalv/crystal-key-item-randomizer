@@ -5,6 +5,9 @@
 ;; progress can be made, along with the particular items and progress
 ;; the player has, to determine further progress.
 
+(def vanilla-swaps (zipmap crystal-key-item-randomizer.randomizer/all-items
+                           crystal-key-item-randomizer.randomizer/all-items))
+
 (def guaranteed-items [:MYSTERY_EGG
                        :HM_FLASH
                        :OLD_ROD
