@@ -4,7 +4,8 @@
 
 (defn generate []
   (let [swaps (zipmap all-items
-                      (shuffle all-items))]
-    (if (beatable? swaps)
+                      (shuffle all-items))
+        progression-results (beatable? swaps)]
+    (if (progression-results :beatable?)
       swaps
       (recur))))
