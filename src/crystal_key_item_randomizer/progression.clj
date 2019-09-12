@@ -123,7 +123,7 @@
                                               (get-swaps swaps ecruteak-and-olivine-items)))
           result))
       (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
-    
+
 
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :can-surf)
@@ -185,7 +185,7 @@
       ;; to copycat or already giving her the real LOST_ITEM
       (-> args
           (assoc :items-obtained (cset/union items-obtained
-                                             (get-swaps swaps :MACHINE_PART :LOST_ITEM :SILVER_WING))
+                                             (get-swaps swaps [:MACHINE_PART :LOST_ITEM :SILVER_WING]))
                  :conditions-met (conj conditions-met :fix-power-plant)))
       (-> args
           (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
