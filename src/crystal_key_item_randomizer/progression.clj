@@ -72,13 +72,13 @@
   (not (not-any? pred col)))
 
 (defn get-swaps [swaps originals]
-  (-> swaps
-      (select-keys originals)
-      (vals)
-      (into #{})))
+  (into #{} (-> swaps
+                (select-keys originals)
+                (vals))))
 
 (defn can-reach-goldenrod? [{:keys [swaps items-obtained options] :as args}]
-  ;; the cuttable tree in Ilex Forest is removed by the randomizer
+  ;; the cuttable tree in Ilex Forest is removed by the randomizer, so
+  ;; goldenrod is always accessible
   (-> args
       (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
       (assoc :conditions-met #{:goldenrod})))
@@ -90,7 +90,7 @@
   (if (items-obtained :LOST_ITEM)
     (let [pass-swap (swaps :PASS)
           items-obtained' (conj items-obtained pass-swap)]
-      (if (contains? [:SQUIRTBOTTLE :S_S_TICKET] pass-swap)
+      (if (contains? #{:SQUIRTBOTTLE :S_S_TICKET} pass-swap)
         {:swaps swaps
          :items-obtained items-obtained'
          :conditions-met (conj conditions-met :ecruteak :copycat-item)}
@@ -122,8 +122,8 @@
                                                             :items-obtained (conj items-obtained (swaps :SUPER_ROD))
                                                             :conditions-met (conj conditions-met :kanto)})]
         (if (contains? (result :conditions-met) :ecruteak)
-          (assoc result :items-obtained (conj (result :items-obtained)
-                                              (get-swaps swaps ecruteak-and-olivine-items)))
+          (assoc result :items-obtained (cset/union (result :items-obtained)
+                                                    (get-swaps swaps ecruteak-and-olivine-items)))
           result))
       (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
 
