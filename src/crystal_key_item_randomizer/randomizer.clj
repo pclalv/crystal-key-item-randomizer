@@ -53,17 +53,7 @@
    ;; the player might be able to work around Sudowoodo with PASS and
    ;; S_S_TICKET
    :SQUIRTBOTTLE {:name :SQUIRTBOTTLE
-                  :location :GoldenrodFlowerShop}
-
-   ;; i forget why RED_SCALE is maybe required...
-   :RED_SCALE {:name :RED_SCALE
-               :location :LakeofRage}})
-
-(def maybe-required-pairs
-  [{:BASEMENT_KEY :CARD_KEY}
-   {:CARD_KEY :CLEAR_BELL}
-   {:MACHINE_PART :LOST_ITEM}
-   {:LOST_ITEM :PASS}])
+                  :location :GoldenrodFlowerShop}})
 
 (def non-required-items
   {:BICYCLE {:name :BICYCLE
@@ -88,6 +78,8 @@
                  :comment "no longer required; the 'Important Battle' is disabled"}
    :OLD_ROD {:name :OLD_ROD
              :location :Route32PokeCenter1F}
+   :RED_SCALE {:name :RED_SCALE
+               :location :LakeofRage}
    :SILVER_WING {:name :SILVER_WING
                  :location :PewterCity}
    :SUPER_ROD {:name :SUPER_ROD
