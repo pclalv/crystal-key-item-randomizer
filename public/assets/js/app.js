@@ -1,8 +1,5 @@
 "use strict";
 
-window.FIRST_TIME = 78; // OlivinePortSailorAfterHOFScript.FirstTime
-window.NOP = 0;
-
 window.KeyItems = new Map(Object.entries({
     "BICYCLE": {
         "address": 345957,
@@ -170,7 +167,7 @@ function embedDownloadLink(filename, content) {
 }
 
 function hideUploadInput() {
-   document.getElementById("rom-file").parentElement.style.display = "none";
+   document.getElementById("upload").style.display = "none";
 }
 
 function applyDiffs(rom) {

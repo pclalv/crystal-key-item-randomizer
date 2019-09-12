@@ -1,4 +1,6 @@
 window.EVENT_ROUTE_30_BATTLE = 20
+window.FIRST_TIME = 78; // OlivinePortSailorAfterHOFScript.FirstTime
+window.NOP = 0;
 
 window.OldEvents = [
     // EVENT_ROUTE_30_BATTLE is arbitray; we just want a value such
