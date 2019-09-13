@@ -196,5 +196,18 @@ window.Diffs = [
             "end": 1615907
         },
         "name": "SaffronMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO"
+    },
+
+    // for more variety :) having HM_CUT always appear within the first four items gotten is quite boring.
+    {
+	"name": "Remove cuttable tree in Ilex Forest",
+	"address_range": {
+	    "begin": 721295,
+	    "end": 721296
+	},
+	"integer_values": {
+	    "old": [15], // tree
+	    "new": [ 1]  // grass
+	}
     }
 ]
