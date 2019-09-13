@@ -9,9 +9,14 @@
         [ring.middleware.reload :only [wrap-reload]]))
 
 (defn swaps-handler [_req]
-  {:status  200
-   :headers {"Content-Type" "text/json"}
-   :body (str (json/write-str {:swaps (swaps/generate)}))})
+  (let [debug? (System/getenv "DEBUG")
+        swaps-body (swaps/generate)
+        swaps-body' (if debug?
+                     swaps-body
+                     (dissoc swaps-body :items-obtained :badges :conditions-met :beatable? :reasons))]
+    {:status 200
+     :headers {"Content-Type" "text/json"}
+     :body (str (json/write-str swaps-body'))}))
 
 (defroutes app-routes
   (GET "/swaps" [] swaps-handler)

@@ -7,5 +7,5 @@
                       (shuffle all-items))
         progression-results (beatable? swaps)]
     (if (progression-results :beatable?)
-      swaps
+      progression-results
       (recur))))
