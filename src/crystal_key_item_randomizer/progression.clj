@@ -159,7 +159,7 @@
   (if (conditions-met :defeat-team-rocket)
     args
     (if (not (conditions-met :underground-warehouse))
-      (assoc args :reason
+      (assoc args :reasons
              (conj reasons "defeat-team-rocket: cannot reach without having reached underground-warehouse"))
       (if (items-obtained :CARD_KEY)
         (-> args
