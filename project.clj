@@ -1,7 +1,7 @@
 (defproject crystal-key-item-randomizer "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Web app to randomize the key items in Pokemon Crystal"
   :min-lein-version "2.9.1"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/pclalv/crystal-key-item-randomizer"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[compojure "1.6.1"]
