@@ -50,17 +50,6 @@ window.Diffs = [
         },
         "name": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_FOUGHT_SUDOWOODO"
     },
-    {
-        "integer_values": {
-            "old": [ 49, 185, 0 ],
-            "new": [ 49,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 349033,
-            "end": 349036
-        },
-        "name": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_MET_FLORIA"
-    },
     // allow the player to skip talking to Floria back at the Flower Shop
     {
         "integer_values": {
