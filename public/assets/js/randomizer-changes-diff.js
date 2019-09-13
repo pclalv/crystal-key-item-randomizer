@@ -114,6 +114,9 @@ window.Diffs = [
         },
         "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_TUESDAY"
     },
+
+    // make Olivine Port always appear as if in its post-Hall-of-Fame
+    // state
     {
         "integer_values": {
             "old": [ 73, 19, 11, 7, 0, 255, 255, 0, 0, 254, 73, 55, 7 ],
