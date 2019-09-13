@@ -29,10 +29,10 @@
   (fn [request]
     (let [{:keys [request-method uri]} request
           {:keys [status body] :as response} (handler request)
-          logline (str ["INFO: -- " {:method (-> request-method name .toUpperCase)
-                                     :uri uri
-                                     :status status
-                                     :response-body body}])]
+          logline (str "INFO: -- " {:method (-> request-method name .toUpperCase)
+                                    :uri uri
+                                    :status status
+                                    :response-body body})]
       (.println System/out logline)
       response)))
 
