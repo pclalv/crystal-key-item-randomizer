@@ -29,9 +29,8 @@ collectable.
   manager again after returning the `MACHINE PART`.
 * The Flower Shop item (`SQUIRTBOTTLE` in vanilla) is always
   obtainable, even if the player has used the `SQUIRTBOTTLE` to defeat
-  the Sudowoodo. The player may obtain the Flower Shop item at any
-  time time after defeating Whitney.
-  
+  the Sudowoodo.
+
 ## known issues
 
 * If the player uses the `BASEMENT KEY` to visit the Underground
