@@ -37,7 +37,8 @@ window.Diffs = [
         "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1"
     },
 
-    // Flower Shop item stuff
+    // ensure that the player can still get the Flower Shop item even
+    // if they've already defeated/caught the Sudowoodo
     {
         "integer_values": {
             "old": [ 49,  42, 0 ],
@@ -60,6 +61,7 @@ window.Diffs = [
         },
         "name": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_MET_FLORIA"
     },
+    // allow the player to skip talking to Floria back at the Flower Shop
     {
         "integer_values": {
             "old": [ 49, 186, 0 ],
@@ -84,6 +86,12 @@ window.Diffs = [
         },
         "name": "GoldenrodMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO"
     },
+
+    // make Olivine Port always appear as if in its post-Hall-of-Fame
+    // state
+
+    // TODO: regenerate this file. it's missing the patches for
+    // Saturday and Wednesday. the ASM has been updated accordingly.
     {
         "integer_values": {
             "old": [ 6, 0, 242, 73 ],
