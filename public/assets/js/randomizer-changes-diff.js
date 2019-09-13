@@ -76,11 +76,29 @@ window.Diffs = [
         "name": "GoldenrodMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO"
     },
 
-    // make Olivine Port always appear as if in its post-Hall-of-Fame
-    // state
-
-    // TODO: regenerate this file. it's missing the patches for
-    // Saturday and Wednesday. the ASM has been updated accordingly.
+    // allow player to ride SS Aqua on any day
+    {
+        "integer_values": {
+            "old": [ 6, 6, 242, 73 ],
+            "new": [ 6, 6, 192, 73 ]
+        },
+        "address_range": {
+	    "begin": 477616,
+            "end": 477620
+        },
+        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 3, 248, 73 ],
+            "new": [ 6, 3, 192, 73 ]
+        },
+        "address_range": {
+            "begin": 477624,
+            "end": 477628
+        },
+        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_WEDNESDAY"
+    },
     {
         "integer_values": {
             "old": [ 6, 0, 242, 73 ],
