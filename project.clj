@@ -9,7 +9,8 @@
                  [org.clojure/data.json "0.2.6"]
                  [ring/ring-core "1.7.1"]
                  [ring/ring-jetty-adapter "1.7.1"]
-                 [ring/ring-devel "1.7.1"]]
+                 [ring/ring-devel "1.7.1"]
+                 [ring/ring-defaults "0.3.2"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}

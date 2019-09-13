@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [clojure.data.json :as json]
             [crystal-key-item-randomizer.swaps :as swaps]
-            [ring.adapter.jetty :as jetty])
+            [ring.adapter.jetty :as jetty]
+            [ring.middleware.defaults :refer :all])
             ;; [ring.middleware.defaults :refer :all]
   (:use [compojure.route :only [files not-found]]
         [compojure.core :only [defroutes GET]]
@@ -36,8 +37,9 @@
       response)))
 
 (def app
-  (->> app-routes
-       (wrap-logger)))
+  (-> app-routes
+      (wrap-defaults site-defaults)
+      (wrap-logger)))
 
 (defn event-logger [event]
   (println event)
