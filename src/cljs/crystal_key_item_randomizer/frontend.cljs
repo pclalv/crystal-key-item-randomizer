@@ -74,7 +74,7 @@
     (let [^js/File file (-> event .-target .-files (aget 0))]
       (embed-download-link))))
 
-(defn main []
+(defn init! []
   (-> js/document
       (.getElementById "rom-file")
       (.addEventListener "change" handle-rom false)))
