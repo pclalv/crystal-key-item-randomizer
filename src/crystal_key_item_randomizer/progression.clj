@@ -274,9 +274,6 @@
   (if (conditions-met :fix-power-plant)
     args
     (if (and (conditions-met :can-surf) (conditions-met :kanto))
-      ;; FIXME: let players know that they can get the LOST_ITEM
-      ;; any time after fixing power plant, regardless of talking
-      ;; to copycat or already giving her the real LOST_ITEM
       (-> args
           (assoc :items-obtained (cset/union items-obtained
                                              (get-swaps swaps [:MACHINE_PART :LOST_ITEM :SILVER_WING]))
