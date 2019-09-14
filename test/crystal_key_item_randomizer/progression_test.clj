@@ -129,10 +129,17 @@
 (deftest can-reach-underground-warehouse?-test
   (testing "reachable when the player can surf and has obtained the BASEMENT_KEY"
     (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
-            :conditions-met #{:underground-warehouse :can-surf}}
+            :conditions-met #{:underground-warehouse}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
-                :conditions-met #{:can-surf}}
+                :conditions-met #{}
+                :badges #{:ZEPHYRBADGE
+                          :HIVEBADGE
+                          :PLAINBADGE
+                          :FOGBADGE
+                          :STORMBADGE
+                          :MINERALBADGE
+                          :GLACIERBADGE}}
                can-reach-underground-warehouse?
                (select-keys [:items-obtained :conditions-met]))))))
 
