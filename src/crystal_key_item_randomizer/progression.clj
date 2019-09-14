@@ -114,7 +114,10 @@
                                     :conditions-met #{:can-surf}}
 
                                    {:badge :RISINGBADGE
-                                    :conditions-met #{:underground-warehouse}}
+                                    :conditions-met #{:defeat-team-rocket}}
+                                   ;; the supernerd blocking the gym
+                                   ;; doesn't move until the player
+                                   ;; defeats Team Rocket
 
                                    {:badge :BOULDERBADGE
                                     :conditions-met #{:fix-power-plant}}
