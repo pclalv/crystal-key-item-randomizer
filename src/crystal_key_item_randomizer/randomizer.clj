@@ -58,6 +58,14 @@
    :SQUIRTBOTTLE {:name :SQUIRTBOTTLE
                   :location :GoldenrodFlowerShop}})
 
+(def maybe-required-pairs
+  ;; if the item on the right is required, then the item on the left
+  ;; is required.
+  [{:BASEMENT_KEY :CARD_KEY}
+   {:CARD_KEY :CLEAR_BELL}
+   {:MACHINE_PART :LOST_ITEM}
+   {:LOST_ITEM :PASS}])
+
 (def non-required-items
   {:HM_CUT {:name :HM_CUT
             :location :IlexForest}
