@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.frontend
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [crystal-key-item-randomizer.data :refer [key-items]]))
 
 (def input-hidden (r/atom false))
 
@@ -11,8 +12,18 @@
                    (.getElementById "download"))]
     (r/render [test-component] parent)))
 
+(defn apply-swap [rom-bytes [original replacement]]
+  (let [original-address (-> (keyword original)
+                             key-items
+                             :address)
+        replacement-value (-> (keyword replacement)
+                              key-items
+                              :value)]
+    (js/console.log "Replacing " original " with " replacement)
+    (aset rom-bytes original-address replacement-value)))
+
 (defn apply-swaps [rom-bytes swaps]
-  rom-bytes)
+  (reduce apply-swap rom-bytes (js->clj swaps)))
 
 (defn apply-diffs [rom-bytes]
   rom-bytes)
