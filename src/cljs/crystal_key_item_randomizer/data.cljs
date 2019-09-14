@@ -1,4 +1,4 @@
-(ns crystal-key-item-randomizer.frontend.data)
+(ns crystal-key-item-randomizer.data)
 
 (def key-items {:BICYCLE {:address 345957
                           :value 7}
