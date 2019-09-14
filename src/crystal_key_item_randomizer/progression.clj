@@ -233,9 +233,25 @@
         (assoc args :reasons
                (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
-(defn basement-key-not-required? []
-  ;; TODO: try to implement this?
-  false)
+(comment
+  (defn basement-key-required? [swaps]
+    ;; TODO: try to implement this?
+    (let [goldenrod-underground-item (swaps :CARD_KEY)]
+      (required? goldenrod-underground-item))
+
+
+  (defn required? [swaps item]
+    ;; TODO: try to implement this?
+    (cond (required-items item) true
+          (non-required-items item) false
+          ;; we know it's maybe-required preerq.
+          (reduce (fn [required?' [prereq maybe-required-orig]]
+                    (if (not= prereq item)
+                      (or required?' false)
+                      ;; this is the hard part.
+                      false))
+                  false
+                  maybe-reqiured-items))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; i'm thinking that you can do this gym as long as you've got 7
@@ -250,8 +266,9 @@
     (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
       (assoc args :reasons
              (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))
-      (if (or basement-key-not-required?
-              (items-obtained :BASEMENT_KEY)
+      (if (or (items-obtained :BASEMENT_KEY)
+              ;; TODO: this next line a bit of a reach goal.
+              ;; (not (basement-key-required? sawps))
               (= :BASEMENT_KEY (swaps :BASEMENT_KEY)))
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
