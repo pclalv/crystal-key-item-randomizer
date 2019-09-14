@@ -1,13 +1,14 @@
 (ns crystal-key-item-randomizer.randomizer)
 
 (def required-items
-  {:HM_SURF {:name :HM_SURF
-             :location :DanceTheatre
-             :comment "required for Cianwood badge"}
-   ;; could surf ever be non-required? surely you might be able to get
+  {;; could surf ever be non-required? surely you might be able to get
    ;; 4 johto badges and 4 kanto badges, but you still eventually need
    ;; to surf to victory road (unless pokegear cards are randomized).
+   :HM_SURF {:name :HM_SURF
+             :location :DanceTheatre
+             :comment "required for Cianwood badge"}
 
+   ;; likewise, basically, re: Victory Road
    :HM_STRENGTH {:name :HM_STRENGTH
                  :location :OlivineCafe
                  :comment "required for Victory Road"}
