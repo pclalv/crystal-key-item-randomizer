@@ -233,6 +233,10 @@
         (assoc args :reasons
                (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
+(defn basement-key-not-required? []
+  ;; TODO: try to implement this?
+  false)
+
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; i'm thinking that you can do this gym as long as you've got 7
   ;; badges and have the CARD KEY. after that, there are two cases:
@@ -246,7 +250,8 @@
     (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
       (assoc args :reasons
              (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))
-      (if (or (items-obtained :BASEMENT_KEY)
+      (if (or basement-key-not-required?
+              (items-obtained :BASEMENT_KEY)
               (= :BASEMENT_KEY (swaps :BASEMENT_KEY)))
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
