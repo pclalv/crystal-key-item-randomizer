@@ -2,6 +2,7 @@
   (:gen-class)
   (:require [clojure.data.json :as json]
             [crystal-key-item-randomizer.seeds :as seeds]
+            [crystal-key-item-randomizer.patches :as patches]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer :all])
             ;; [ring.middleware.defaults :refer :all]
@@ -11,7 +12,8 @@
 
 (defn seed-handler [_req]
   (let [debug? (System/getenv "DEBUG")
-        seed (seeds/generate)
+        seed (-> (seeds/generate)
+                 (assoc :patches patches/default))
         seed' (if debug?
                 seed
                 (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
