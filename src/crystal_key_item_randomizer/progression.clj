@@ -111,7 +111,7 @@
                                     :items-obtained #{:SECRETPOTION}}
 
                                    {:badge :GLACIERBADGE
-                                    :conditions-met #{:underground-warehouse}}
+                                    :conditions-met #{:can-surf}}
 
                                    {:badge :RISINGBADGE
                                     :conditions-met #{:underground-warehouse}}
