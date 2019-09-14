@@ -16,12 +16,6 @@
              (get-swaps vanilla-swaps
                         crystal-key-item-randomizer.randomizer/all-items))))))
 
-(deftest beatable?-test
-  (testing "vanilla swaps are beatable"
-    (is (= true (->> vanilla-swaps
-                     beatable?
-                     :beatable?)))))
-
 (deftest can-reach-goldenrod?-test
   (testing "always adds :goldenrod to conditions-met"
     (is (= #{:goldenrod} (->> {}
@@ -285,3 +279,9 @@
            (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
                                                 :badges #{}}
                                                (get-badge-prereqs :EARTHBADGE)))))))
+
+(deftest beatable?-test
+  (testing "vanilla swaps are beatable"
+    (is (= true (->> vanilla-swaps
+                     beatable?
+                     :beatable?)))))
