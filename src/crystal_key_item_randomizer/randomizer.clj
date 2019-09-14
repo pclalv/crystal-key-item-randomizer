@@ -30,17 +30,11 @@
                   :location :RadioTower5F}
    :CARD_KEY {:name :CARD_KEY
               :location :UndergroundWarehouse}
-   :HM_CUT {:name :HM_CUT
-            :location :IlexForest}
    :LOST_ITEM {:name :LOST_ITEM
                :location :PokemonFanClub
                :comment "Obtainable at any time after fixing the Power Plant, without talking to Copycat"}
    :MACHINE_PART {:name :MACHINE_PART
                   :location :CeruleanGym}
-
-   ;; probably not required?? TODO: settle this!
-   :HM_WHIRLPOOL {:name :HM_WHIRLPOOL
-                  :location :TeamRocketBaseB2F}
 
    ;; the player might need to go to kanto.
    :PASS {:name :PASS
@@ -56,7 +50,9 @@
                   :location :GoldenrodFlowerShop}})
 
 (def non-required-items
-  {:BICYCLE {:name :BICYCLE
+  {:HM_CUT {:name :HM_CUT
+            :location :IlexForest}
+   :BICYCLE {:name :BICYCLE
              :location :GoldenrodBikeShop}
    :BLUE_CARD {:name :BLUE_CARD
                :location :RadioTower2F}
@@ -71,6 +67,8 @@
               :location :SproutTower3F}
    :HM_FLY {:name :HM_FLY
             :location :CianwoodCity}
+   :HM_WHIRLPOOL {:name :HM_WHIRLPOOL
+                  :location :TeamRocketBaseB2F}
    :ITEMFINDER {:name :ITEMFINDER
                 :location :EcruteakItemfinderHouse}
    :MYSTERY_EGG {:name :MYSTERY_EGG
