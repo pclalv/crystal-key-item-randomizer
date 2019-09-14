@@ -99,34 +99,46 @@
                                    {:badge :HIVEBADGE}
                                    {:badge :PLAINBADGE
                                     :conditions-met #{:goldenrod}}
+
                                    {:badge :FOGBADGE
                                     :conditions-met #{:ecruteak}}
+
                                    {:badge :STORMBADGE
                                     :conditions-met #{:can-surf}}
+
                                    {:badge :MINERALBADGE
                                     :conditions-met #{:ecruteak}
                                     :items-obtained #{:SECRETPOTION}}
+
                                    {:badge :GLACIERBADGE
                                     :conditions-met #{:underground-warehouse}}
+
                                    {:badge :RISINGBADGE
                                     :conditions-met #{:underground-warehouse}}
 
                                    {:badge :BOULDERBADGE
                                     :conditions-met #{:fix-power-plant}}
+
                                    {:badge :CASCADEBADGE
                                     :conditions-met #{:kanto}}
+
                                    {:badge :THUNDERBADGE
                                     :conditions-met #{:kanto}
                                     :items-obtained #{:HM_CUT}}
+
                                    {:badge :RAINBOWBADGE
                                     :conditions-met #{:kanto}
                                     :items-obtained #{:HM_CUT}}
+
                                    {:badge :SOULBADGE
                                     :conditions-met #{:kanto}}
+
                                    {:badge :MARSHBADGE
                                     :conditions-met #{:kanto}}
+
                                    {:badge :VOLCANOBADGE
                                     :conditions-met #{:fix-power-plant}}
+
                                    {:badge :EARTHBADGE
                                     :conditions-met #{:fix-power-plant}}])
 
