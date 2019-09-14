@@ -10,4 +10,5 @@
  {:frontend
   {:target :browser
    :modules {:main {:init-fn crystal-key-item-randomizer.frontend/init}}
-   :output-dir "public/assets/js"}}}
+   :output-dir "public/assets/js"
+   :asset-path "/assets/js"}}}
