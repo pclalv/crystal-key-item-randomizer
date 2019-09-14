@@ -95,55 +95,55 @@
    ;; this item is not obtainable.
    ;; :S_S_TICKET [{:conditions-met #{:impossible}}]
 
-(def badge-acquisition-conditions [{:badge :ZEPHYRBADGE}
-                                   {:badge :HIVEBADGE}
-                                   {:badge :PLAINBADGE
-                                    :conditions-met #{:goldenrod}}
+(def badge-acquisition-prereqs [{:badge :ZEPHYRBADGE}
+                                {:badge :HIVEBADGE}
+                                {:badge :PLAINBADGE
+                                 :conditions-met #{:goldenrod}}
 
-                                   {:badge :FOGBADGE
-                                    :conditions-met #{:ecruteak}}
+                                {:badge :FOGBADGE
+                                 :conditions-met #{:ecruteak}}
 
-                                   {:badge :STORMBADGE
-                                    :conditions-met #{:can-surf}}
+                                {:badge :STORMBADGE
+                                 :conditions-met #{:can-surf}}
 
-                                   {:badge :MINERALBADGE
-                                    :conditions-met #{:ecruteak}
-                                    :items-obtained #{:SECRETPOTION}}
+                                {:badge :MINERALBADGE
+                                 :conditions-met #{:ecruteak}
+                                 :items-obtained #{:SECRETPOTION}}
 
-                                   {:badge :GLACIERBADGE
-                                    :conditions-met #{:can-surf}}
+                                {:badge :GLACIERBADGE
+                                 :conditions-met #{:can-surf}}
 
-                                   {:badge :RISINGBADGE
-                                    :conditions-met #{:defeat-team-rocket}}
-                                   ;; the supernerd blocking the gym
-                                   ;; doesn't move until the player
-                                   ;; defeats Team Rocket
+                                {:badge :RISINGBADGE
+                                 :conditions-met #{:defeat-team-rocket}}
+                                ;; the supernerd blocking the gym
+                                ;; doesn't move until the player
+                                ;; defeats Team Rocket
 
-                                   {:badge :BOULDERBADGE
-                                    :conditions-met #{:fix-power-plant}}
+                                {:badge :BOULDERBADGE
+                                 :conditions-met #{:fix-power-plant}}
 
-                                   {:badge :CASCADEBADGE
-                                    :conditions-met #{:kanto}}
+                                {:badge :CASCADEBADGE
+                                 :conditions-met #{:kanto}}
 
-                                   {:badge :THUNDERBADGE
-                                    :conditions-met #{:kanto}
-                                    :items-obtained #{:HM_CUT}}
+                                {:badge :THUNDERBADGE
+                                 :conditions-met #{:kanto}
+                                 :items-obtained #{:HM_CUT}}
 
-                                   {:badge :RAINBOWBADGE
-                                    :conditions-met #{:kanto}
-                                    :items-obtained #{:HM_CUT}}
+                                {:badge :RAINBOWBADGE
+                                 :conditions-met #{:kanto}
+                                 :items-obtained #{:HM_CUT}}
 
-                                   {:badge :SOULBADGE
-                                    :conditions-met #{:kanto}}
+                                {:badge :SOULBADGE
+                                 :conditions-met #{:kanto}}
 
-                                   {:badge :MARSHBADGE
-                                    :conditions-met #{:kanto}}
+                                {:badge :MARSHBADGE
+                                 :conditions-met #{:kanto}}
 
-                                   {:badge :VOLCANOBADGE
-                                    :conditions-met #{:fix-power-plant}}
+                                {:badge :VOLCANOBADGE
+                                 :conditions-met #{:fix-power-plant}}
 
-                                   {:badge :EARTHBADGE
-                                    :conditions-met #{:fix-power-plant}}])
+                                {:badge :EARTHBADGE
+                                 :conditions-met #{:fix-power-plant}}])
 
 (defn any? [pred col]
   (not (not-any? pred col)))
@@ -297,11 +297,11 @@
 ;; badges ;;
 ;;;;;;;;;;;;
 
-(defn can-satisfy-badge-condition? [{player-conditions-met :conditions-met
-                                     player-items-obtained :items-obtained
-                                     badges :badges
-                                     :as args}
-                                    {:keys [badge conditions-met items-obtained]}]
+(defn can-satisfy-badge-prereq? [{player-conditions-met :conditions-met
+                                  player-items-obtained :items-obtained
+                                  badges :badges
+                                  :as args}
+                                 {:keys [badge conditions-met items-obtained]}]
   (if (badges badge)
     args
     (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
@@ -312,9 +312,9 @@
         args))))
 
 (defn can-collect-badges? [args]
-  (reduce can-satisfy-badge-condition?
+  (reduce can-satisfy-badge-prereq?
           (assoc args :badges #{})
-          badge-acquisition-conditions))
+          badge-acquisition-prereqs))
 
 (defn beatable? [swaps]
   (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
