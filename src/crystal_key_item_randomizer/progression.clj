@@ -95,7 +95,7 @@
    ;; this item is not obtainable.
    ;; :S_S_TICKET [{:conditions-met #{:impossible}}]
 
-(def badge-acquisition-prereqs [{:badge :ZEPHYRBADGE}
+(def badge-prereqs [{:badge :ZEPHYRBADGE}
                                 {:badge :HIVEBADGE}
                                 {:badge :PLAINBADGE
                                  :conditions-met #{:goldenrod}}
@@ -318,7 +318,7 @@
 (defn can-collect-badges? [args]
   (reduce can-satisfy-badge-prereq?
           (assoc args :badges #{})
-          badge-acquisition-prereqs))
+          badge-prereqs))
 
 (defn beatable? [swaps]
   (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
