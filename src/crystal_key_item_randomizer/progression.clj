@@ -302,12 +302,14 @@
                                      badges :badges
                                      :as args}
                                     {:keys [badge conditions-met items-obtained]}]
-  (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
-        items-satisfied? (every? player-items-obtained (or items-obtained #{}))
-        satisfied? (and conditions-satisfied? items-satisfied?)]
-    (if satisfied?
-      (assoc args :badges (conj badges badge))
-      args)))
+  (if (badges badge)
+    args
+    (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
+          items-satisfied? (every? player-items-obtained (or items-obtained #{}))
+          satisfied? (and conditions-satisfied? items-satisfied?)]
+      (if satisfied?
+        (assoc args :badges (conj badges badge))
+        args))))
 
 (defn can-collect-badges? [args]
   (reduce can-satisfy-badge-condition?
