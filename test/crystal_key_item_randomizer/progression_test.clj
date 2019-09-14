@@ -6,8 +6,15 @@
   (testing "returns the vanilla swaps"
     (is (= (set crystal-key-item-randomizer.randomizer/all-items)
            (get-swaps vanilla-swaps
-                      crystal-key-item-randomizer.randomizer/all-items)))))
-;; TODO: assert that shuffled swaps are returned
+                      crystal-key-item-randomizer.randomizer/all-items))))
+
+  (testing "returns chocolate swaps"
+    (let [shuffled-items (shuffle crystal-key-item-randomizer.randomizer/all-items)
+          swaps (zipmap crystal-key-item-randomizer.randomizer/all-items
+                        shuffled-items)]
+      (is (= (set shuffled-items)
+             (get-swaps vanilla-swaps
+                        crystal-key-item-randomizer.randomizer/all-items))))))
 
 (deftest beatable?-test
   (testing "vanilla swaps are beatable"
