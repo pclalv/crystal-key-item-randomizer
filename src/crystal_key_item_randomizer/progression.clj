@@ -246,6 +246,11 @@
     (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
       (assoc args :reasons
              (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))
+      ;; the player CANNOT defeat team rocket before getting the
+      ;; CARD_KEY, because they'd never be able to get the CARD_KEY if
+      ;; they did. however, this doesn't matter if the CARD_KEY isn't
+      ;; required. (see GoldenrodUndergroundWarehouseDirectorScript,
+      ;; EVENT_RADIO_TOWER_ROCKET_TAKEOVER in the ASM)
       (if (or (items-obtained :BASEMENT_KEY)
               ;; TODO: this next line a bit of a reach goal.
               ;; (not (basement-key-required? sawps))
