@@ -62,10 +62,19 @@
                    (.getElementById "download"))]
     (r/render [test-component] parent)))
 
-(defn handle-files []
-  (embed-download-link))
+(defn handle-rom [event]
+  (println "handle-files event.target.value" (-> event
+                                                 (aget "target")
+                                                 (aget "value")))
+  (println "handle-files event.target.files" (-> event
+                                                 (aget "target")
+                                                 (aget "files")
+                                                 (aget 0)))
+  (when (not= "" (-> event .-target .-value))
+    (let [^js/File file (-> event .-target .-files (aget 0))]
+      (embed-download-link))))
 
 (defn main []
   (-> js/document
       (.getElementById "rom-file")
-      (.addEventListener "click" handle-files false)))
+      (.addEventListener "change" handle-rom false)))
