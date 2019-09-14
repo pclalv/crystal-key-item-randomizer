@@ -191,6 +191,28 @@ window.Diffs = [
         },
         "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_3"
     },
+    {
+        "integer_values": {
+            "old": [ 73, 19, 10, 9, 0, 255, 255, 0, 0, 156, 73, 56, 7 ],
+            "new": [ 73, 19, 10, 9, 0, 255, 255, 0, 0, 156, 73, 200, 6 ]
+        },
+        "address_range": {
+            "begin": 478543,
+            "end": 478556
+        },
+        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_0"
+    },
+    {
+        "integer_values": {
+            "old": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74, 56, 7 ],
+	    "new": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74, 200, 6 ]
+        },
+        "address_range": {
+            "begin": 478582,
+            "end": 478595
+        },
+        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1"
+    },
 
     // ensure Pokemon Fan Club item is obtainable
     {
