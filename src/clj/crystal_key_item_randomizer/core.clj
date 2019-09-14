@@ -1,7 +1,7 @@
 (ns crystal-key-item-randomizer.core
   (:gen-class)
   (:require [clojure.data.json :as json]
-            [crystal-key-item-randomizer.swaps :as swaps]
+            [crystal-key-item-randomizer.seeds :as seeds]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer :all])
             ;; [ring.middleware.defaults :refer :all]
@@ -9,18 +9,18 @@
         [compojure.core :only [defroutes GET]]
         [ring.middleware.reload :only [wrap-reload]]))
 
-(defn swaps-handler [_req]
+(defn seed-handler [_req]
   (let [debug? (System/getenv "DEBUG")
-        swaps-body (swaps/generate)
-        swaps-body' (if debug?
-                     swaps-body
-                     (dissoc swaps-body :items-obtained :badges :conditions-met :beatable? :reasons))]
+        seed (seeds/generate)
+        seed' (if debug?
+                seed
+                (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
     {:status 200
      :headers {"Content-Type" "text/json"}
-     :body (str (json/write-str swaps-body'))}))
+     :body (str (json/write-str seed'))}))
 
 (defroutes app-routes
-  (GET "/swaps" [] swaps-handler)
+  (GET "/seed" [] seed-handler)
   (files "")
   (files "assets")
   (not-found "not found"))

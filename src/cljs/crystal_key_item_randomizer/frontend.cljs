@@ -28,7 +28,7 @@
 (defn apply-diffs [rom-bytes]
   rom-bytes)
 
-(defn patch-rom [rom-bytes swaps]
+(defn patch-rom [rom-bytes {:keys [swaps patches]}]
   (let [seed "FIXME"]
     (-> rom-bytes
         (apply-swaps swaps)
@@ -39,12 +39,10 @@
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))]
-    (-> (js/Request. "/swaps")
+    (-> (js/Request. "/seed")
         (js/fetch)
         (.then (fn [resp] (.json resp))
-               (fn [resp] (js/console.error "GET /swaps" resp)))
-        (.then (fn [resp-json] (.-swaps resp-json))
-               (fn [resp] (js/console.error "Could not extract JSON response" resp)))
+               (fn [resp] (js/console.error "GET /seed" resp)))
         (.then (partial patch-rom rom-bytes)
                (fn [resp] (js/console.error "Could not get swaps" resp))))))
 

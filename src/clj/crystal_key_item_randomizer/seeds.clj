@@ -1,4 +1,4 @@
-(ns crystal-key-item-randomizer.swaps
+(ns crystal-key-item-randomizer.seeds
   (:use [crystal-key-item-randomizer.randomizer :only [all-items]]
         [crystal-key-item-randomizer.progression :only [beatable?]]))
 

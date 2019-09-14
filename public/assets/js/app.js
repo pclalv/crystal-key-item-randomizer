@@ -224,7 +224,7 @@ function requestSwapsAndPatchRomFile(event) {
     var reader = event.target;
     var romBytes = new Uint8Array(reader.result);
     var seed = "FIXME" // document.getElementById("seed").value;
-    var swaps = new Request("/swaps");
+    var swaps = new Request("/seed");
 
     fetch(swaps).then(
         (swapsResponse) => swapsResponse.json(),
