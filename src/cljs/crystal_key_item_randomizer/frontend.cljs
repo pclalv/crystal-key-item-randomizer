@@ -6,13 +6,23 @@
 (defn test-component []
   [:a {:href "#test"} "I am a test link created with reagent"])
 
-(defn embed-download-link []
+(defn embed-download-link [filename rom]
   (let [parent (-> js/document
                    (.getElementById "download"))]
     (r/render [test-component] parent)))
 
+(defn apply-swaps [rom-bytes swaps]
+  rom-bytes)
+
+(defn apply-diffs [rom-bytes]
+  rom-bytes)
+
 (defn patch-rom [rom-bytes swaps]
-  (js/console.log "swaps" swaps))
+  (let [seed "FIXME"]
+    (-> rom-bytes
+        (apply-swaps swaps)
+        (apply-diffs)
+        (embed-download-link (str "pokecrystal-key-item-randomized-seed-" seed ".gbc")))))
 
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
