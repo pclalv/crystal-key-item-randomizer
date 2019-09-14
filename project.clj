@@ -12,6 +12,7 @@
                  [ring/ring-devel "1.7.1"]
                  [ring/ring-defaults "0.3.2"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
+  :source-paths ["src/clj"]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :production {:env {:production true}}}
