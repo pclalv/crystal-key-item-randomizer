@@ -36,6 +36,18 @@ window.Diffs = [
         },
         "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1"
     },
+    // appear the real youngster joey
+    {
+        "integer_values": {
+            "old": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 21, 7 ],
+            "new": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 200, 6 ]
+        },
+        "address_range": {
+            "begin": 1711242,
+            "end": 1711255
+        },
+        "name": "Route30_MapEvents.ckir_BEFORE_EVENT_ROUTE_30_YOUNGSTER_JOEY"
+    },
 
     // ensure that the player can still get the Flower Shop item even
     // if they've already defeated/caught the Sudowoodo
