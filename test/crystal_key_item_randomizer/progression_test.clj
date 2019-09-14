@@ -196,3 +196,92 @@
                 :conditions-met #{:kanto}}
                can-get-copycat-item?
                (select-keys [:items-obtained :conditions-met]))))))
+
+(deftest can-collect-badges?-test
+  (defn get-badge-prereqs [badge]
+    (->> badge-prereqs
+         (filter #(= badge
+                     (%1 :badge)))
+         (first)))
+
+  (testing "can collect ZEPHYRBADGE"
+    (is (= #{:ZEPHYRBADGE}
+           (:badges (can-satisfy-badge-prereq? {:badges #{}}
+                                               (get-badge-prereqs :ZEPHYRBADGE))))))
+  (testing "can collect HIVEBADGE"
+    (is (= #{:HIVEBADGE}
+           (:badges (can-satisfy-badge-prereq? {:badges #{}}
+                                               (get-badge-prereqs :HIVEBADGE))))))
+  (testing "can collect PLAINBADGE"
+    (is (= #{:PLAINBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:goldenrod}
+                                                :badges #{}}
+                                               (get-badge-prereqs :PLAINBADGE))))))
+  (testing "can collect FOGBADGE"
+    (is (= #{:FOGBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:ecruteak}
+                                                :badges #{}}
+                                               (get-badge-prereqs :FOGBADGE))))))
+  (testing "can collect STORMBADGE"
+    (is (= #{:STORMBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:can-surf}
+                                                :badges #{}}
+                                               (get-badge-prereqs :STORMBADGE))))))
+  (testing "can collect MINERALBADGE"
+    (is (= #{:MINERALBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:ecruteak}
+                                                :items-obtained #{:SECRETPOTION}
+                                                :badges #{}}
+                                               (get-badge-prereqs :MINERALBADGE))))))
+  (testing "can collect GLACIERBADGE"
+    (is (= #{:GLACIERBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:can-surf}
+                                                :badges #{}}
+                                               (get-badge-prereqs :GLACIERBADGE))))))
+  (testing "can collect RISINGBADGE"
+    (is (= #{:RISINGBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:defeat-team-rocket}
+                                                :badges #{}}
+                                               (get-badge-prereqs :RISINGBADGE))))))
+  (testing "can collect BOULDERBADGE"
+    (is (= #{:BOULDERBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+                                                :badges #{}}
+                                               (get-badge-prereqs :BOULDERBADGE))))))
+  (testing "can collect CASCADEBADGE"
+    (is (= #{:CASCADEBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto}
+                                                :badges #{}}
+                                               (get-badge-prereqs :CASCADEBADGE))))))
+  (testing "can collect THUNDERBADGE"
+    (is (= #{:THUNDERBADGE}
+           (:badges (can-satisfy-badge-prereq? {:items-obtained #{:HM_CUT}
+                                                :conditions-met #{:kanto}
+                                                :badges #{}}
+                                               (get-badge-prereqs :THUNDERBADGE))))))
+  (testing "can collect RAINBOWBADGE"
+    (is (= #{:RAINBOWBADGE}
+           (:badges (can-satisfy-badge-prereq? {:items-obtained #{:HM_CUT}
+                                                :conditions-met #{:kanto}
+                                                :badges #{}}
+                                               (get-badge-prereqs :RAINBOWBADGE))))))
+  (testing "can collect SOULBADGE"
+    (is (= #{:SOULBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto}
+                                                :badges #{}}
+                                               (get-badge-prereqs :SOULBADGE))))))
+  (testing "can collect MARSHBADGE"
+    (is (= #{:MARSHBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto}
+                                                :badges #{}}
+                                               (get-badge-prereqs :MARSHBADGE))))))
+  (testing "can collect VOLCANOBADGE"
+    (is (= #{:VOLCANOBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+                                                :badges #{}}
+                                               (get-badge-prereqs :VOLCANOBADGE))))))
+  (testing "can collect EARTHBADGE"
+    (is (= #{:EARTHBADGE}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+                                                :badges #{}}
+                                               (get-badge-prereqs :EARTHBADGE)))))))
