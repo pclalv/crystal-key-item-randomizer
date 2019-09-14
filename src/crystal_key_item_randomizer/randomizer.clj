@@ -4,12 +4,21 @@
   {:HM_SURF {:name :HM_SURF
              :location :DanceTheatre
              :comment "required for Cianwood badge"}
+   ;; could surf ever be non-required? surely you might be able to get
+   ;; 4 johto badges and 4 kanto badges, but you still eventually need
+   ;; to surf to victory road (unless pokegear cards are randomized).
+
    :HM_STRENGTH {:name :HM_STRENGTH
                  :location :OlivineCafe
                  :comment "required for Victory Road"}
+   ;; likewise, basically, re: Victory Road
+
    :SECRETPOTION {:name :SECRETPOTION
                   :location :CianwoodPharmacy
                   :comment "required for Olivine badge"}
+   ;; SECRETPOTION required only if Olivine's badge would be the last
+   ;; badge to get 8 for the E4.
+
 
    ;; HM_WATERFALL is required to cross Tohjo Falls - or wait, can the
    ;; player perhaps get through from Viridian?
