@@ -18,9 +18,8 @@
       (embed-download-link))))
 
 (defn rom-input []
-  (if-let [_ (not @input-hidden)]
-    [:label "Select ROM FILE"
-     [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom}]]))
+  [:label {:style (when @input-hidden {:display "none"})} "Select ROM FILE"
+   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom}]])
 
 (defn init! []
   (r/render [rom-input] (-> js/document
