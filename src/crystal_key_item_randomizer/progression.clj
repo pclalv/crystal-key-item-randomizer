@@ -52,6 +52,11 @@
 
   Any condition in the conditions array may be satisfied in order to
   obtain the item."
+  ;; TODO: flip this so as to not repeat conditions so much.
+
+  ;; "Describes the items that are obtained upon meeting some
+  ;; conditions/obtaining an item/acquiring a badge in the vanilla
+  ;; game."
   {:MYSTERY_EGG []
    :HM_FLASH []
    :OLD_ROD []
