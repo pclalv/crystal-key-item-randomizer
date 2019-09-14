@@ -11,14 +11,8 @@
                    (.getElementById "download"))]
     (r/render [test-component] parent)))
 
-(defn patch-rom [rom-bytes swaps-response]
-  (let [swaps-json (-> swaps-response .json)]
-    (js/console.log "swaps-response" swaps-response)
-    (js/console.log "swaps-json" swaps-json)))
-
-(defn server-error [& args]
-  (js/console.error "server error")
-  (js/console.error "args" args))
+(defn patch-rom [rom-bytes swaps]
+  (js/console.log "swaps" swaps))
 
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
@@ -26,11 +20,12 @@
                                       .-result))]
     (-> (js/Request. "/swaps")
         (js/fetch)
-        (.then (partial patch-rom rom-bytes) server-error))))
-    ;; (go (let [response (<! (http/get "swaps"))]
-    ;;       (prn (:status response))
-    ;;       (prn (:body response))))))
-;;  (embed-download-link))
+        (.then (fn [resp] (.json resp))
+               (fn [resp] (js/console.error "GET /swaps" resp)))
+        (.then (fn [resp-json] (.-swaps resp-json))
+               (fn [resp] (js/console.error "Could not extract JSON response" resp)))
+        (.then (partial patch-rom rom-bytes)
+               (fn [resp] (js/console.error "Could not get swaps" resp))))))
 
 (defn handle-rom [event]
   (when (not= "" (-> event .-target .-value))
