@@ -4,11 +4,11 @@
   "test/cljs/"]
 
  :dependencies
- []
+ [[reagent "0.9.0-rc1"]]
 
  :builds
  {:frontend
   {:target :browser
-   :modules {:main {:init-fn crystal-key-item-randomizer.frontend/init}}
+   :modules {:main {:init-fn crystal-key-item-randomizer.frontend/main}}
    :output-dir "public/assets/js"
    :asset-path "/assets/js"}}}

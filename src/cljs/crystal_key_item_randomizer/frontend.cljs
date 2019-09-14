@@ -1,4 +1,5 @@
-(ns crystal-key-item-randomizer.frontend)
+(ns crystal-key-item-randomizer.frontend
+  (:require [reagent.core :as r]))
 
 (def key-items {:BICYCLE {:address 345957
                           :value 7}
@@ -53,5 +54,18 @@
                 :HM_FLY {:address 1704097
                          :value 244}})
 
-(defn init [who]
-  (str "Hello, " who "!"))
+(defn test-component []
+  [:a {:href "#test"} "I am a test link created with reagent"])
+
+(defn embed-download-link []
+  (let [parent (-> js/document
+                   (.getElementById "download"))]
+    (r/render [test-component] parent)))
+
+(defn handle-files []
+  (embed-download-link))
+
+(defn main []
+  (-> js/document
+      (.getElementById "rom-file")
+      (.addEventListener "click" handle-files false)))
