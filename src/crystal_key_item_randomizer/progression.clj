@@ -327,19 +327,21 @@
             ;; last round of checks.
             final-progression-result (loop [previous-result nil
                                             result early-linear-progression-result]
-                                       (if (= (select-keys previous-result [:items-obtained :conditions-met])
-                                              (select-keys result [:items-obtained :conditions-met]))
+                                       (if (= (select-keys previous-result
+                                                           [:items-obtained :conditions-met :badges])
+                                              (select-keys result
+                                                           [:items-obtained :conditions-met :badges]))
                                          result
                                          (recur result
                                                 (->> result
+                                                     can-collect-badges?
                                                      can-surf?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
                                                      can-reach-kanto?
                                                      can-fix-power-plant?
                                                      can-get-copycat-item?))))
-            badge-progression-result (can-collect-badges? final-progression-result)
-            badge-count (->> badge-progression-result
+            badge-count (->> final-progression-result
                              :badges
                              count)]
-        (assoc badge-progression-result :beatable? (>= badge-count 8))))))
+        (assoc final-progression-result :beatable? (>= badge-count 8))))))
