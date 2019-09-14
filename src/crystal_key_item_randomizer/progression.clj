@@ -211,17 +211,18 @@
           (assoc :conditions-met (conj conditions-met :can-surf)))
       args)))
 
-(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; FIXME: warn players to avoid the underground warehouse until
   ;; they've defeated the Mahogany Rockets, even if they have the
   ;; BASEMENT_KEY
 
-  ;; it'd be great if we could put an NPC into the game...
+  ;; it'd be great if we could put an NPC into the game to block the
+  ;; player.
   (if (conditions-met :underground-warehouse)
     args
-    (if (not (conditions-met :can-surf))
+    (if (not (<= 7 (count badges)))
       (assoc args :reasons
-             (conj reasons "underground-warehouse: cannot reach without being able to surf"))
+             (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
       (if (items-obtained :BASEMENT_KEY)
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
@@ -229,18 +230,26 @@
         (assoc args :reasons
                (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
-(defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  ;; i'm thinking that you can do this gym as long as you've got 7
+  ;; badges and have the CARD KEY. after that, there are two cases:
+
+  ;; * Goldenrod Underground item is vanilla (BASEMENT_KEY)
+
+  ;; * the player (should have) gotten the BASEMENT_KEY already
+
   (if (conditions-met :defeat-team-rocket)
     args
-    (if (not (conditions-met :underground-warehouse))
+    (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
       (assoc args :reasons
-             (conj reasons "defeat-team-rocket: cannot reach without having reached underground-warehouse"))
-      (if (items-obtained :CARD_KEY)
+             (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))
+      (if (or (items-obtained :BASEMENT_KEY)
+              (= :BASEMENT_KEY (swaps :BASEMENT_KEY)))
         (-> args
             (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
             (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
         (assoc args :reasons
-               (conj reasons "defeat-team-rocket: cannot reach without CARD_KEY"))))))
+               (conj reasons "defeat-team-rocket: cannot reach without being guaranteed the BASEMENT_KEY"))))))
 
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :kanto)
