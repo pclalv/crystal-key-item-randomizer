@@ -11,14 +11,6 @@
    :HM_STRENGTH {:name :HM_STRENGTH
                  :location :OlivineCafe
                  :comment "required for Victory Road"}
-   ;; likewise, basically, re: Victory Road
-
-   :SECRETPOTION {:name :SECRETPOTION
-                  :location :CianwoodPharmacy
-                  :comment "required for Olivine badge"}
-   ;; SECRETPOTION required only if Olivine's badge would be the last
-   ;; badge to get 8 for the E4.
-
 
    ;; HM_WATERFALL is required to cross Tohjo Falls - or wait, can the
    ;; player perhaps get through from Viridian?
@@ -44,6 +36,14 @@
                :comment "Obtainable at any time after fixing the Power Plant, without talking to Copycat"}
    :MACHINE_PART {:name :MACHINE_PART
                   :location :CeruleanGym}
+   ;; the above four are prereqs to getting an item. that item may
+   ;; itself be required, in which case the prereq would be required.
+
+   ;; SECRETPOTION required only if Olivine's badge would be the last
+   ;; badge to get 8 for the E4.
+   :SECRETPOTION {:name :SECRETPOTION
+                  :location :CianwoodPharmacy
+                  :comment "required for Olivine badge"}
 
    ;; the player might need to go to kanto.
    :PASS {:name :PASS
