@@ -1,37 +1,99 @@
 (ns crystal-key-item-randomizer.progression
+  "The code in this namespace uses what we know about the game and how
+  progress can be made, along with the particular items and progress
+  the player has, to determine further progress."
   (:require [clojure.set :as cset]))
 
-;; The code in this namespace uses what we know about the game and how
-;; progress can be made, along with the particular items and progress
-;; the player has, to determine further progress.
+(def vanilla-swaps
+  "A map of key items where the key and value are always equal."
+  (zipmap crystal-key-item-randomizer.randomizer/all-items
+          crystal-key-item-randomizer.randomizer/all-items))
 
-(def vanilla-swaps (zipmap crystal-key-item-randomizer.randomizer/all-items
-                           crystal-key-item-randomizer.randomizer/all-items))
+(def guaranteed-items
+  "Items that obtainable in every possible randomization."
+  [:MYSTERY_EGG
+   :HM_FLASH
+   :OLD_ROD
+   :HM_CUT])
 
-(def guaranteed-items [:MYSTERY_EGG
-                       :HM_FLASH
-                       :OLD_ROD
-                       :HM_CUT])
+(def goldenrod-items
+  "Items that are obtainable if the player can arrive in Goldenrod."
+  [:BICYCLE
+   :BLUE_CARD
+   :COIN_CASE
+   :SQUIRTBOTTLE])
 
-(def goldenrod-items [:BICYCLE
-                      :BLUE_CARD
-                      :COIN_CASE
-                      :SQUIRTBOTTLE])
+(def ecruteak-and-olivine-items
+  "Items that are obtainable if the player can arrive in Ecruteak (e.g.,
+  by defeating the Sudowoodo, or by train and boat via Kanto)."
+  [:HM_SURF
+   :ITEMFINDER
+   :GOOD_ROD
+   :HM_STRENGTH])
 
-(def ecruteak-and-olivine-items [:HM_SURF
-                                 :ITEMFINDER
-                                 :GOOD_ROD
-                                 :HM_STRENGTH])
+(def surf-required-items
+  "Items that are unlocked merely by being able to surf."
+  [:HM_FLY       ; Cianwood
+   :SECRETPOTION ; Cianwood
 
-(def surf-required-items [:HM_FLY       ; Cianwood
-                          :SECRETPOTION ; Cianwood
+   :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
+   :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
 
-                          :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
-                          :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
+   :BASEMENT_KEY ; Rockets in the Radio Tower
 
-                          :BASEMENT_KEY ; Rockets in the Radio Tower
+   :HM_WATERFALL]) ; Ice Path after defeating Pryce
 
-                          :HM_WATERFALL]) ; Ice Path after defeating Pryce
+(def item-conditions
+  "A map from items to the conditions that must be satisfied in order
+  for the player to obtain that item in the vanilla game.
+
+  An empty array means that the item is obtainable without meeting any
+  prerequisite.
+
+  Any condition in the conditions array may be satisfied in order to
+  obtain the item."
+  {:MYSTERY_EGG []
+   :HM_FLASH []
+   :OLD_ROD []
+   :HM_CUT []
+
+   ;; goldenrod
+   :BICYCLE [{:conditions-met #{:goldenrod}}]
+   :BLUE_CARD [{:conditions-met #{:goldenrod}}]
+   :COIN_CASE [{:conditions-met #{:goldenrod}}]
+   :SQUIRTBOTTLE [{:conditions-met #{:goldenrod}}]
+
+   ;; ecruteak
+   :ITEMFINDER [{:conditions-met #{:ecruteak}}]
+   :HM_SURF [{:conditions-met #{:ecruteak}}]
+
+   ;; olivine
+   :GOOD_ROD [{:conditions-met #{:ecruteak}}]
+   :HM_STRENGTH [{:conditions-met #{:ecruteak}}]
+
+   ;; cianwood
+   :HM_FLY [{:conditions-met #{:can-surf}}]
+   :SECRETPOTION [{:conditions-met #{:can-surf}}]
+
+   ;; mahogany
+   :RED_SCALE [{:conditions-met #{:can-surf}}]
+   :BASEMENT_KEY [{:conditions-met #{:can-surf}}]
+   :HM_WHIRLPOOL [{:conditions-met #{:can-surf}}]
+
+   ;; ice path
+   :HM_WATERFALL [{:conditions-met #{:can-surf}}]
+
+   :CARD_KEY [{:items-obtained #{:BASEMENT_KEY}}]
+   :CLEAR_BELL [{:items-obtained #{:CARD_KEY}}]
+
+   :SUPER_ROD [{:conditions-met #{:kanto}}]
+   :MACHINE_PART [{:conditions-met #{:can-surf}}]
+   :PASS [{:items-obtained #{:LOST_ITEM}}]
+   :LOST_ITEM [{:conditions-met #{:fix-power-plant}}]
+   :SILVER_WING [{:conditions-met #{:fix-power-plant}}]})
+
+   ;; this item is not obtainable.
+   ;; :S_S_TICKET [{:conditions-met #{:impossible}}]
 
 (def badge-acquisition-conditions [{:badge :ZEPHYRBADGE}
                                    {:badge :HIVEBADGE}
