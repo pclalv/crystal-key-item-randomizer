@@ -49,7 +49,7 @@
    :PASS {:name :PASS
           :location :CopycatsHouse2F}
 
-   ;; the player might need to goto kanto.
+   ;; the player might need to go to kanto.
    :S_S_TICKET {:name :S_S_TICKET
                 :location :ElmsLab}
 
