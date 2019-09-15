@@ -59,13 +59,12 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
-(defn patch-rom [rom-bytes swaps patches]
+(defn patch-rom [rom-bytes seed-id swaps patches]
   ;; TODO: come up with a better name for this fn
-  (let [seed "FIXME"]
-    (-> rom-bytes
+  (-> rom-bytes
         (apply-swaps swaps)
         (apply-patches patches)
-        (embed-download-link (str "pokecrystal-key-item-randomized-seed-" seed ".gbc")))))
+        (embed-download-link (str "pokecrystal-key-item-randomized-seed-" seed-id ".gbc"))))
 
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
@@ -82,8 +81,9 @@
                (fn [resp] (reset! error (-> resp .json .-error))))
         (.then (fn [resp]
                  (patch-rom rom-bytes
-                            (-> resp .-swaps (js->clj :keywordize-keys true))
-                            (-> resp .-patches (js->clj :keywordize-keys true))))))))
+                            (-> resp .-seed .-id)
+                            (-> resp .-seed .-swaps (js->clj :keywordize-keys true))
+                            (-> resp .-seed .-patches (js->clj :keywordize-keys true))))))))
 
 (defn handle-rom [event]
   (when (not= "" (-> event .-target .-value))
