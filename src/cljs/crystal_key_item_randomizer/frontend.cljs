@@ -71,8 +71,11 @@
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
-                                      .-result))]
-    (-> (js/Request. "/seed")
+                                      .-result))
+        seed-id (-> js/document
+                    (.getElementById "seed")
+                    (.-value))]
+    (-> (js/Request. (str "/seed?seed-id=" seed-id))
         (js/fetch)
         (.then (fn [resp] (.json resp))
                (fn [resp] (js/console.error "GET /seed" resp)))
@@ -95,5 +98,11 @@
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom}]])
 
 (defn init! []
+  (let [default-seed (-> (js/Uint32Array. 1)
+                         (js/window.crypto.getRandomValues)
+                         (aget 0))]
+    (-> js/document
+        (.getElementById "seed")
+        (aset "value" default-seed)))
   (r/render [rom-input] (-> js/document
                             (.getElementById "upload"))))

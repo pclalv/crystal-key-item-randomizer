@@ -223,8 +223,8 @@ function patchRom(rom, swaps, seed) {
 function requestSwapsAndPatchRomFile(event) {
     var reader = event.target;
     var romBytes = new Uint8Array(reader.result);
-    var seed = "FIXME" // document.getElementById("seed").value;
-    var swaps = new Request("/seed");
+    var seed = document.getElementById("seed").value;
+    var swaps = new Request("/seed?seed-id=" + seed);
 
     fetch(swaps).then(
         (swapsResponse) => swapsResponse.json(),
@@ -250,4 +250,4 @@ document
     .getElementById("rom-file")
     .addEventListener("change", handleFiles, false);
 
-// document.getElementById("seed").value = DefaultSeed;
+document.getElementById("seed").value = DefaultSeed;

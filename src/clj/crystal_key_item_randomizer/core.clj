@@ -11,7 +11,7 @@
 
 (defn seed-handler [req]
   (let [seed-id-param (-> req :params :seed-id)
-        seed-id (if seed-id-param
+        seed-id (if (not (empty? seed-id-param))
                   (new java.lang.Long seed-id-param)
                   (-> (new java.util.Random)
                       .nextLong
