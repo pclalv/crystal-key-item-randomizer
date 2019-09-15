@@ -17,6 +17,17 @@
   :profiles {:uberjar {:aot :all}
              :production {:env {:production true}}}
   :uberjar-name "crystal-key-item-randomizer.jar"
+  ;; jkutner's thing?
+  ;; https://jkutner.github.io/2015/10/14/clojurescript-on-heroku.html
+  :uberjar {:hooks [leiningen.cljsbuild]
+            :env {:production true}
+            :omit-source true
+            :aot :all
+            :main my-app.server
+            :cljsbuild {:builds {:app {:source-paths ["env/prod/cljs"]
+                                       :compiler {:optimizations :advanced
+                                                  :pretty-print false}}}}}
 
-  :plugins [[lein-ring "0.12.5"]]
+  :plugins [[lein-ring "0.12.5"]
+            [lein-cljsbuild "1.1.7"]]
   :ring {:handler crystal-key-item-randomizer.core/app})
