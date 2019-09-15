@@ -100,6 +100,7 @@
 
 (defn handle-rom [event]
   (when (not= "" (-> event .-target .-value))
+    (reset! error nil)
     (reset! input-hidden true)
     (let [^js/File rom-file (-> event .-target .-files (aget 0))
           reader (js/FileReader.)]
