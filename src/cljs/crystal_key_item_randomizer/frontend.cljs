@@ -99,5 +99,4 @@
 
 (defn init! []
   (r/render [rom-input] (-> js/document
-                            (.getElementById "upload"))))
-  
+                            (.getElementById "input"))))
