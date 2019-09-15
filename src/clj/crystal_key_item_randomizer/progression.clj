@@ -228,6 +228,8 @@
   ;; player.
   (if (conditions-met :underground-warehouse)
     args
+    ;; FIXME: the player is probably screwed if their 7th badge isn't
+    ;; one of the first 7 johto badges.
     (if (not (<= 7 (count badges)))
       (assoc args :reasons
              (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))

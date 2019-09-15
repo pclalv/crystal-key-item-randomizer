@@ -41,6 +41,15 @@ collectable.
   (`BASEMENT KEY` in vanilla), then the player **will not be able to
   obtain the Goldenrod Underground item**, potentially hardlocking the
   player from beating that file.
+* If the player's 7th badge is not one of the first 7 Johto badges,
+  then they will be unable to activate the Goldenrod Radio Tower
+  Takeover, potentially hardlocking the player from beating that file.
+* Some dialogs don't reveal which item was obtained; this affects the following key items: 
+   - BICYCLE
+   - RED_SCALE
+   - SECRETPOTION
+   - LOST_ITEM
+   - MYSTERY_EGG
 
 ## development
 
