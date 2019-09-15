@@ -9,26 +9,38 @@
         [compojure.core :only [defroutes GET]]
         [ring.middleware.reload :only [wrap-reload]]))
 
+(def debug? (System/getenv "DEBUG"))
+
+(defn parse-seed-id [seed-id]
+  (or (empty? seed-id)
+      (if-let [seed-id-parsed (try
+                                (new java.lang.Long seed-id)
+                                (catch Exception e nil))]
+        {:seed-id seed-id-parsed}
+        {:error (str "Invalid seed: " seed-id)})))
+
 (defn seed-handler [req]
-  (let [seed-id-param (-> req :params :seed-id)
-        seed-id (if (not (empty? seed-id-param))
-                  (new java.lang.Long seed-id-param)
-                  (-> (new java.util.Random)
-                      .nextLong
-                      java.lang.Math/abs))
-        debug? (System/getenv "DEBUG")
-        seed (-> seed-id
-                 (seeds/generate)
-                 (assoc :patches patches/default))
-        seed' (if debug?
-                seed
-                (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
-    {:status 200
-     :headers {"Content-Type" "text/json"}
-     :body (str (json/write-str seed'))}))
+  (println req)
+  (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)]
+    (if error
+      {:status 400
+       :headers {"Content-Type" "text/json"}
+       :body (json/write-str {:error error})}
+      (let [{:keys [seed error]} (seeds/generate seed-id)]
+        (if error
+          {:status 400
+           :headers {"Content-Type" "text/json"}
+           :body (json/write-str {:error error})}
+          (let [seed' (if debug?
+                        seed
+                        (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
+            {:status 200
+             :headers {"Content-Type" "text/json"}
+             :body (json/write-str {:seed seed'})}))))))
 
 (defroutes app-routes
   (GET "/seed" [] seed-handler)
+  (GET "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
   (not-found "not found"))

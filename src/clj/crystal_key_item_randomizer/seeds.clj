@@ -1,4 +1,5 @@
 (ns crystal-key-item-randomizer.seeds
+  (:require [crystal-key-item-randomizer.patches :as patches])
   (:use [crystal-key-item-randomizer.randomizer :only [all-items]]
         [crystal-key-item-randomizer.progression :only [beatable?]]))
 
@@ -8,11 +9,12 @@
     (java.util.Collections/shuffle al rng)
     (clojure.lang.RT/vector (.toArray al))))
 
-(defn generate [seed]
+(defn generate [seed-id]
   (let [swaps (zipmap all-items
-                      (deterministic-shuffle all-items seed))
+                      (deterministic-shuffle all-items seed-id))
         progression-results (beatable? swaps)]
     (if (progression-results :beatable?)
-      (assoc progression-results :seed-id seed)
-      ;; TODO: handle this error
-      {:seed-id seed :error "not beatable"})))
+      {:seed (-> progression-results
+                 (assoc :patches patches/default)
+                 (assoc :id seed-id))}
+      {:error (str "Unbeatable seed: " seed-id)})))
