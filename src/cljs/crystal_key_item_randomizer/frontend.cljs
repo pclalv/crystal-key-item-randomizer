@@ -8,11 +8,13 @@
 (defn mismatched-lengths-error [patch]
   (str "Mismatch between address range, old values and new values for FIXME"))
 
+(defn render-as-error [text]
+  (reset! error text))
 
 (defn download-link [href filename]
   [:a {:href href
        :download filename}
-   "download randomized ROM"])
+   "Download!"])
 
 (defn embed-download-link [rom filename]
   (let [parent (-> js/document
@@ -36,7 +38,7 @@
 
 (defn update-address [rom-bytes {:keys [address old-value new-value]}]
   (if (not= old-value (aget rom-bytes address))
-    (js/console.log "Error: expected " old-value " at address " address " but found " (aget rom-bytes address))
+    (js/console.error "Error: expected " old-value " at address " address " but found " (aget rom-bytes address))
     (do (aset rom-bytes address new-value)
         rom-bytes)))
 
@@ -46,7 +48,7 @@
                               :as patch}]
   (let [address-range (range begin-addr end-addr)]
     (if (not= (count address-range) (count old-values) (count new-values))
-      (js/console.error (mismatched-lengths-error patch))
+      (render-as-error (mismatched-lengths-error patch))
       (let [address-values (map (fn [address old-value new-value]
                                   {:address address :old-value old-value :new-value new-value})
                                 address-range
@@ -66,6 +68,13 @@
         (apply-patches patches)
         (embed-download-link (str "pokecrystal-key-item-randomized-seed-" seed-id ".gbc"))))
 
+(defn reset-form []
+  (set! (-> js/document
+            (.getElementById "rom-file")
+            .-value)
+        "")
+  (reset! input-hidden false))
+
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
@@ -73,17 +82,21 @@
         seed-id (-> js/document
                     (.getElementById "seed")
                     (.-value))]
-    (-> (js/Request. (if (empty? seed-id)
-                       "/seed"
-                       (str "/seed/" seed-id)))
-        (js/fetch)
-        (.then (fn [resp] (.json resp))
-               (fn [resp] (reset! error (-> resp .json .-error))))
+    (-> (js/fetch (if (empty? seed-id)
+                    "/seed"
+                    (str "/seed/" seed-id)))
+        (.then (fn [resp] (if (.-ok resp)
+                            (.json resp)
+                            (throw (.json resp)))))
         (.then (fn [resp]
                  (patch-rom rom-bytes
                             (-> resp .-seed .-id)
                             (-> resp .-seed .-swaps (js->clj :keywordize-keys true))
-                            (-> resp .-seed .-patches (js->clj :keywordize-keys true))))))))
+                            (-> resp .-seed .-patches (js->clj :keywordize-keys true)))))
+        (.catch (fn [resp]
+                  (.then resp (fn [resp]
+                                (render-as-error (.-error resp))
+                                (reset-form))))))))
 
 (defn handle-rom [event]
   (when (not= "" (-> event .-target .-value))
@@ -93,10 +106,15 @@
       (set! (.-onload reader) randomize-rom)
       (.readAsArrayBuffer reader rom-file))))
 
+(defn error-display []
+  [:p {:style (when (nil? @error) {:display "none"})} (str "Error: " @error)])
+
 (defn rom-input []
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM FILE"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom}]])
 
 (defn init! []
+  (r/render [error-display] (-> js/document
+                                (.getElementById "error")))
   (r/render [rom-input] (-> js/document
                             (.getElementById "input"))))
