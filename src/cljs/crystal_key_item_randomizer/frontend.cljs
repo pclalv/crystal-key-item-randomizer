@@ -5,8 +5,10 @@
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
 
+;; TODO: get this error to show up. not sure how to bust out of the
+;; promises though
 (defn mismatched-lengths-error [patch]
-  (str "Mismatch between address range, old values and new values for FIXME"))
+  (str "Mismatch between address range, old values and new values for " (patch :name)))
 
 (defn render-as-error [text]
   (reset! error text))
