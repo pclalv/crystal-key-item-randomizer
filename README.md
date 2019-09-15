@@ -49,9 +49,10 @@ collectable.
 * [clojure](https://clojure.org)
 * [leiningen](https://leiningen.org) (recommended)
 
-To run this application locally, run `lein run` at the command
+To run this application locally, run `lein ring server` at the command
 line. At that point, you should be able to see the randomizer home
-page in your browser at `http://localhost:8080`.
+page in your browser at `http://localhost:3000`. Note that `lein ring
+server` automatically reloads code.
 
 ## to do
 
