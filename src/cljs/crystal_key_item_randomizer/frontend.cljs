@@ -61,13 +61,6 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
-(defn patch-rom [rom-bytes seed-id swaps patches]
-  ;; TODO: come up with a better name for this fn
-  (-> rom-bytes
-        (apply-swaps swaps)
-        (apply-patches patches)
-        (embed-download-link (str "pokecrystal-key-item-randomized-seed-" seed-id ".gbc"))))
-
 (defn reset-form []
   (set! (-> js/document
             (.getElementById "rom-file")
@@ -89,11 +82,14 @@
                             (.json resp)
                             (throw (.json resp)))))
         (.then (fn [resp]
-                 (patch-rom rom-bytes
-                            (-> resp .-seed .-id)
-                            (-> resp .-seed .-swaps (js->clj :keywordize-keys true))
-                            (-> resp .-seed .-patches (js->clj :keywordize-keys true)))))
+                 (let [{:keys [id swaps patches]} (-> resp .-seed (js->clj :keywordize-keys true))]
+                   (-> rom-bytes
+                       (apply-swaps swaps)
+                       (apply-patches patches)
+                       (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc"))))))
         (.catch (fn [resp]
+                  ;; i have no idea why i need to chain another then
+                  ;; on the input to get this to work.
                   (.then resp (fn [resp]
                                 (render-as-error (.-error resp))
                                 (reset-form))))))))
