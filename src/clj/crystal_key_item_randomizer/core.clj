@@ -10,9 +10,16 @@
         [compojure.core :only [defroutes GET]]
         [ring.middleware.reload :only [wrap-reload]]))
 
-(defn seed-handler [_req]
-  (let [debug? (System/getenv "DEBUG")
-        seed (-> (seeds/generate)
+(defn seed-handler [req]
+  (let [seed-id-param (-> req :params :seed-id)
+        seed-id (if seed-id-param
+                  (new java.lang.Long seed-id-param)
+                  (-> (new java.util.Random)
+                      .nextLong
+                      java.lang.Math/abs))
+        debug? (System/getenv "DEBUG")
+        seed (-> seed-id
+                 (seeds/generate)
                  (assoc :patches patches/default))
         seed' (if debug?
                 seed
