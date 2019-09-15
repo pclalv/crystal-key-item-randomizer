@@ -23,8 +23,8 @@
       of Pokemon Crystal:
 
       <ul>
-	<li>Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc (sha1: f4cd194bdee0d04ca4eac29e09b8e4e9d818c133)</li>
-	<li>Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc (sha1: f2f52230b536214ef7c9924f483392993e226cfb)</li>
+  	<li>Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc (sha1: f4cd194bdee0d04ca4eac29e09b8e4e9d818c133)</li>
+  	<li>Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc (sha1: f2f52230b536214ef7c9924f483392993e226cfb)</li>
       </ul>
     </p>
 
@@ -44,70 +44,67 @@
       the game:
 
       <ul>
-	<li>
-	  The player does not need to return the MYSTERY EGG to
-	  Professor Elm
-	</li>
-	<li>
-	  The player does not need HM01 to progress through Ilex
-	  Forest
-	</li>
-	<li>
-	  The player may obtain the Flower Shop item even after
-	  defeating the Sudowoodo
-	</li>
-	<li>
-	  The player may take the train without having fixed the Power
-	  Plant, as long as the player has the PASS
-	</li>
-	<li>
-	  The player may take the SS Aqua without having beaten the
-	  Elite 4, on any day of the week, as long as they have the
-	  S.S. TICKET
-	</li>
-	<li>
-	  The player may obtain the Cerulean Gym item even after
-	  fixing the Power Plant by talking to the Power Plant manager
-	  again after handing over the MACHINE PART
-	</li>
-	<li>
-	  The player may obtain the Pokemon Fan Club item at any time
-	  after fixing the Power Plant
-	</li>
+  	<li>
+  	  The player does not need to return the MYSTERY EGG to
+  	  Professor Elm
+  	</li>
+  	<li>
+  	  The player does not need HM01 to progress through Ilex
+  	  Forest
+  	</li>
+  	<li>
+  	  The player may obtain the Flower Shop item even after
+  	  defeating the Sudowoodo
+  	</li>
+  	<li>
+  	  The player may take the train without having fixed the Power
+  	  Plant, as long as the player has the PASS
+  	</li>
+  	<li>
+  	  The player may take the SS Aqua without having beaten the
+  	  Elite 4, on any day of the week, as long as they have the
+  	  S.S. TICKET
+  	</li>
+  	<li>
+  	  The player may obtain the Cerulean Gym item even after
+  	  fixing the Power Plant by talking to the Power Plant manager
+  	  again after handing over the MACHINE PART
+  	</li>
+  	<li>
+  	  The player may obtain the Pokemon Fan Club item at any time
+  	  after fixing the Power Plant
+  	</li>
       </ul>
     </p>
 
-    <label>Your seed: <input id="seed" type="text"/></label>
+    <div id="seed-area">
+      <label>Your seed: <input id="seed" type="text"/></label>
+    </div>
 
     <p>
       You may input your own seed value greater than or equal to 0 and
       less than or equal to 9223372036854775807.
     </p>
 
-    <div id="upload">
-      <label name="rom-file">Select ROM File</label>
-      <input id="rom-file" type="file" accept=".gbc">
-    </div>
-
+    <div id="upload"></div>
     <div id="download"></div>
 
     <h2>Known Issues</h2>
     <ul>
       <li>
-	If the player uses the BASEMENT KEY to visit the Underground
-	Warehouse before defeating Team Rocket in Mahogany Town, the
-	Underground Warehouse will be totally empty.
+  	If the player uses the BASEMENT KEY to visit the Underground
+  	Warehouse before defeating Team Rocket in Mahogany Town, the
+  	Underground Warehouse will be totally empty.
       </li>
       <li>
-	If the player uses the CARD KEY to defeat the Rocket
-	Executives in the Radio Tower before obtaining the Goldenrod
-	Underground item (BASEMENT KEY in vanilla), then the player
-	**will not be able to obtain the Goldenrod Underground item**,
-	potentially hardlocking the player from beating that file.
+  	If the player uses the CARD KEY to defeat the Rocket
+  	Executives in the Radio Tower before obtaining the Goldenrod
+  	Underground item (BASEMENT KEY in vanilla), then the player
+  	**will not be able to obtain the Goldenrod Underground item**,
+  	potentially hardlocking the player from beating that file.
       </li>
     </ul>
 
-    <!-- factor out into footer -->
     <!-- <h4>Resources</h4> -->
     <!-- <ul> -->
     <!--   <li> -->
@@ -118,8 +115,6 @@
     <!--   </li> -->
     <!-- </ul> -->
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>
-    <script src="/assets/js/randomizer-changes-diff.js"></script>
-    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
