@@ -98,7 +98,7 @@
                                 (render-as-error (.-error resp))
                                 (reset-form))))))))
 
-(defn handle-rom [event]
+(defn handle-rom-input [event]
   (when (not= "" (-> event .-target .-value))
     (reset! error nil)
     (reset! input-hidden true)
@@ -111,8 +111,8 @@
   [:p {:style (when (nil? @error) {:display "none"})} (str "Error: " @error)])
 
 (defn rom-input []
-  [:label {:style (when @input-hidden {:display "none"})} "Select ROM FILE"
-   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom}]])
+  [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
+   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
 (defn init! []
   (r/render [error-display] (-> js/document
