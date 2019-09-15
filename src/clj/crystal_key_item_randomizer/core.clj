@@ -5,7 +5,6 @@
             [crystal-key-item-randomizer.patches :as patches]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer :all])
-            ;; [ring.middleware.defaults :refer :all]
   (:use [compojure.route :only [files not-found]]
         [compojure.core :only [defroutes GET]]
         [ring.middleware.reload :only [wrap-reload]]))
