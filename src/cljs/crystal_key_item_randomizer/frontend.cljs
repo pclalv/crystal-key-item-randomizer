@@ -3,12 +3,11 @@
             [crystal-key-item-randomizer.data :refer [key-items]]))
 
 (def input-hidden (r/atom false))
+(def error (r/atom nil))
 
 (defn mismatched-lengths-error [patch]
   (str "Mismatch between address range, old values and new values for FIXME"))
 
-(defn error [_]
-  (js/console.error "ERROR FIXME"))
 
 (defn download-link [href filename]
   [:a {:href href
@@ -47,7 +46,7 @@
                               :as patch}]
   (let [address-range (range begin-addr end-addr)]
     (if (not= (count address-range) (count old-values) (count new-values))
-      (error (mismatched-lengths-error patch))
+      (js/console.error (mismatched-lengths-error patch))
       (let [address-values (map (fn [address old-value new-value]
                                   {:address address :old-value old-value :new-value new-value})
                                 address-range
@@ -75,15 +74,16 @@
         seed-id (-> js/document
                     (.getElementById "seed")
                     (.-value))]
-    (-> (js/Request. (str "/seed?seed-id=" seed-id))
+    (-> (js/Request. (if (empty? seed-id)
+                       "/seed"
+                       (str "/seed/" seed-id)))
         (js/fetch)
         (.then (fn [resp] (.json resp))
-               (fn [resp] (js/console.error "GET /seed" resp)))
+               (fn [resp] (reset! error (-> resp .json .-error))))
         (.then (fn [resp]
                  (patch-rom rom-bytes
                             (-> resp .-swaps (js->clj :keywordize-keys true))
-                            (-> resp .-patches (js->clj :keywordize-keys true))))
-               (fn [resp] (js/console.error "Could not get swaps" resp))))))
+                            (-> resp .-patches (js->clj :keywordize-keys true))))))))
 
 (defn handle-rom [event]
   (when (not= "" (-> event .-target .-value))
