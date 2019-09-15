@@ -18,3 +18,12 @@
                  (assoc :patches patches/default)
                  (assoc :id seed-id))}
       {:error (str "Unbeatable seed: " seed-id)})))
+
+(defn generate-beatable []
+  (let [seed-id (-> (new java.util.Random)
+                    .nextLong
+                    java.lang.Math/abs)
+        {:keys [seed error]} (generate seed-id)]
+    (if error
+      (recur)
+      {:seed seed})))

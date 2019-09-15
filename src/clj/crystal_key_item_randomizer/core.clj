@@ -19,8 +19,12 @@
         {:seed-id seed-id-parsed}
         {:error (str "Invalid seed: " seed-id)})))
 
+(defn random-seed-handler [req]
+  {:status 200
+   :headers {"Content-Type" "text/json"}
+   :body (json/write-str {:seed (seeds/generate-beatable)})})
+
 (defn seed-handler [req]
-  (println req)
   (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)]
     (if error
       {:status 400
@@ -39,7 +43,7 @@
              :body (json/write-str {:seed seed'})}))))))
 
 (defroutes app-routes
-  (GET "/seed" [] seed-handler)
+  (GET "/seed" [] random-seed-handler)
   (GET "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
