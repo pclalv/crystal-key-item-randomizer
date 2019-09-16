@@ -21,12 +21,12 @@
   ;; jkutner's thing?
   ;; https://jkutner.github.io/2015/10/14/clojurescript-on-heroku.html
   :uberjar {:hooks [leiningen.cljsbuild]
-            :env {:production true}
             :omit-source true
             :aot :all
             :main my-app.server
-            :cljsbuild {:builds {:app {:source-paths ["env/prod/cljs"]
+            :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                                        :compiler {:optimizations :advanced
+                                                  :output-to "public/assets/js/main.js"
                                                   :pretty-print false}}}}}
 
   :plugins [[lein-ring "0.12.5"]
