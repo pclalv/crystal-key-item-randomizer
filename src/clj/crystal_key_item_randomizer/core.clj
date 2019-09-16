@@ -6,8 +6,8 @@
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer :all])
   (:use [compojure.route :only [files not-found]]
-        [compojure.core :only [defroutes GET]]
-        [ring.middleware.reload :only [wrap-reload]]))
+        [compojure.core :only [defroutes GET]]))
+        ;; [ring.middleware.reload :only [wrap-reload]]))
 
 (def debug? (System/getenv "DEBUG"))
 

@@ -9,21 +9,31 @@
                  [org.clojure/data.json "0.2.6"]
                  [ring/ring-core "1.7.1"]
                  [ring/ring-jetty-adapter "1.7.1"]
-                 [ring/ring-devel "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
                  [compojure "1.6.1"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
   :source-paths ["src/clj"]
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}
+
+  :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
+             :uberjar {:hooks [leiningen.cljsbuild]
+                       :env {:production true}
+                       :omit-source true
+                       :aot :all
+                       :main crystal-key-item-randomizer.core
+                       :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
+                                                  :compiler {:optimizations :advanced
+                                                             :output-to "public/assets/js/main.js"
+                                                             :pretty-print false}}}}}
              :production {:env {:production true}}}
   :uberjar-name "crystal-key-item-randomizer.jar"
   ;; jkutner's thing?
   ;; https://jkutner.github.io/2015/10/14/clojurescript-on-heroku.html
   :uberjar {:hooks [leiningen.cljsbuild]
+            :env {:production true}
             :omit-source true
             :aot :all
-            :main my-app.server
+            :main crystal-key-item-randomizer.core
             :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                                        :compiler {:optimizations :advanced
                                                   :output-to "public/assets/js/main.js"
