@@ -10,35 +10,24 @@
                  [ring/ring-core "1.7.1"]
                  [ring/ring-jetty-adapter "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
-                 [compojure "1.6.1"]]
+                 [compojure "1.6.1"]
+                 [reagent "0.9.0-rc1"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
   :source-paths ["src/clj"]
   :target-path "target/%s"
 
-  :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
-             :uberjar {:hooks [leiningen.cljsbuild]
-                       :env {:production true}
-                       :omit-source true
-                       :aot :all
-                       :main crystal-key-item-randomizer.core
-                       :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
-                                                  :compiler {:optimizations :advanced
-                                                             :output-to "public/assets/js/main.js"
-                                                             :pretty-print false}}}}}
-             :production {:env {:production true}}}
-  :uberjar-name "crystal-key-item-randomizer.jar"
-  ;; jkutner's thing?
-  ;; https://jkutner.github.io/2015/10/14/clojurescript-on-heroku.html
-  :uberjar {:hooks [leiningen.cljsbuild]
-            :env {:production true}
-            :omit-source true
-            :aot :all
-            :main crystal-key-item-randomizer.core
-            :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
-                                       :compiler {:optimizations :advanced
-                                                  :output-to "public/assets/js/main.js"
-                                                  :pretty-print false}}}}}
-
   :plugins [[lein-ring "0.12.5"]
             [lein-cljsbuild "1.1.7"]]
-  :ring {:handler crystal-key-item-randomizer.core/app})
+  :ring {:handler crystal-key-item-randomizer.core/app}
+  :hooks [leiningen.cljsbuild]
+
+  :cljsbuild {:builds {:prod {:source-paths ["src/cljs"]
+                              :jar true
+                              :compiler {:output-to "public/assets/js/main.js"
+                                         :optimizations :advanced}}}}
+
+  :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
+             :production {:env {:production true}}}
+  :uberjar-name "crystal-key-item-randomizer.jar"
+
+  )
