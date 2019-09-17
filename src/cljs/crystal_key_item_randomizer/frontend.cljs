@@ -83,8 +83,11 @@
         (.then (fn [resp] (if (.-ok resp)
                             (.json resp)
                             (throw (.json resp)))))
-        (.then (fn [resp]
-                 (let [{:keys [id swaps patches]} (-> resp .-seed (js->clj :keywordize-keys true))]
+        (.then (fn [seedJson]
+                 (let [{:keys [swaps patches id]} (-> seedJson .-seed .-seed (js->clj :keywordize-keys true))]
+                   (js/console.log "seedJson" (-> seedJson .-seed))
+                   (js/console.log "id" id)
+                   (js/console.log "swaps" swaps)
                    (-> rom-bytes
                        (apply-swaps swaps)
                        (apply-patches patches)
