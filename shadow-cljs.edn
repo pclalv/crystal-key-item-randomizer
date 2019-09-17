@@ -13,6 +13,6 @@
  :builds
  {:frontend
   {:target :browser
-   :modules {:main {:init-fn crystal-key-item-randomizer.frontend/init!}}
+   :modules {:main {:entries [crystal-key-item-randomizer.frontend]}}
    :output-dir "public/assets/js"
    :asset-path "/assets/js"}}}

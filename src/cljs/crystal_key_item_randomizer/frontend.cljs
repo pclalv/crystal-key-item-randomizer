@@ -112,8 +112,8 @@
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
-(defn init! []
-  (r/render [error-display] (-> js/document
+(r/render [error-display] (-> js/document
                                 (.getElementById "error")))
-  (r/render [rom-input] (-> js/document
-                            (.getElementById "input"))))
+(r/render [rom-input] (-> js/document
+                          (.getElementById "input")))
+  
