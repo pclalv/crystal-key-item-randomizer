@@ -5,6 +5,9 @@
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
 
+(defn throw-js [str]
+  (throw (clj->js {:error str})))
+
 (defn render-as-error [text]
   (reset! error text))
 
@@ -42,9 +45,9 @@
 
 (defn update-address [rom-bytes {:keys [address old-value new-value]}]
   (if (not= old-value (aget rom-bytes address))
-    (throw (clj->js {:error (str "Expected \"" old-value
-                                 "\" at address \"" address
-                                 "\" but found \"" (aget rom-bytes address) "\".")}))
+    (throw-js (str "Expected \"" old-value
+                   "\" at address \"" address
+                   "\" but found \"" (aget rom-bytes address) "\"."))
     (do (aset rom-bytes address new-value)
         rom-bytes)))
 
@@ -54,7 +57,7 @@
                               :as patch}]
   (let [address-range (range begin-addr end-addr)]
     (if (not= (count address-range) (count old-values) (count new-values))
-      (throw (clj->js {:error (str "Mismatch between address range, old values and new values for \"" (patch :name) "\".")}))
+      (throw (str "Mismatch between address range, old values and new values for \"" (patch :name) "\"."))
       (let [address-values (map (fn [address old-value new-value]
                                   {:address address :old-value old-value :new-value new-value})
                                 address-range
@@ -105,7 +108,9 @@
   ;; TODO: style error class - maybe put a box around it and indent it for visibility.
   [:p {:class ["error"] :style (when (nil? @error) {:display "none"})}
    [:p (str "Error: " @error)]
-   [:p "Please try again."]])
+   ;; link to and create maintainer/contact anchor on the page,
+   ;; probably with links to github and discord
+   [:p "Please report this issue to the maintainer and try again."]])
 
 (defn rom-input []
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
