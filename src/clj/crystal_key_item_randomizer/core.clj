@@ -44,6 +44,7 @@
 
 (defroutes app-routes
   (GET "/seed" [] random-seed-handler)
+  (GET "/seed/" [] random-seed-handler)
   (GET "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
