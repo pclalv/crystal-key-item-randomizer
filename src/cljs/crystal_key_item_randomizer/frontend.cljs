@@ -5,11 +5,6 @@
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
 
-;; TODO: get this error to show up. not sure how to bust out of the
-;; promises though
-(defn mismatched-lengths-error [patch]
-  (str "Mismatch between address range, old values and new values for " (patch :name)))
-
 (defn render-as-error [text]
   (reset! error text))
 
@@ -40,7 +35,9 @@
 
 (defn update-address [rom-bytes {:keys [address old-value new-value]}]
   (if (not= old-value (aget rom-bytes address))
-    (js/console.error "Error: expected " old-value " at address " address " but found " (aget rom-bytes address))
+    (throw (clj->js {:error (str "Expected \"" old-value
+                                 "\" at address \"" address
+                                 "\" but found \"" (aget rom-bytes address) "\".")}))
     (do (aset rom-bytes address new-value)
         rom-bytes)))
 
@@ -50,7 +47,7 @@
                               :as patch}]
   (let [address-range (range begin-addr end-addr)]
     (if (not= (count address-range) (count old-values) (count new-values))
-      (render-as-error (mismatched-lengths-error patch))
+      (throw (clj->js {:error (str "Mismatch between address range, old values and new values for \"" (patch :name) "\".")}))
       (let [address-values (map (fn [address old-value new-value]
                                   {:address address :old-value old-value :new-value new-value})
                                 address-range
@@ -77,27 +74,23 @@
         seed-id (-> js/document
                     (.getElementById "seed")
                     (.-value))]
-    (-> (js/fetch (if (empty? seed-id)
-                    "/seed"
-                    (str "/seed/" seed-id)))
-        (.then (fn [resp] (if (.-ok resp)
-                            (.json resp)
-                            (throw (.json resp)))))
-        (.then (fn [seedJson]
-                 (let [{:keys [swaps patches id]} (-> seedJson .-seed .-seed (js->clj :keywordize-keys true))]
-                   (js/console.log "seedJson" (-> seedJson .-seed))
-                   (js/console.log "id" id)
-                   (js/console.log "swaps" swaps)
-                   (-> rom-bytes
-                       (apply-swaps swaps)
-                       (apply-patches patches)
-                       (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc"))))))
+    (-> (js/fetch (str "/seed/" seed-id))
+        (.then (fn [resp] (-> resp .json)))
+        (.then (fn [json]
+                 (if (.-error json)
+                   (do (render-as-error (.-error json))
+                       (reset-form))
+                   (let [{:keys [swaps patches id]} (-> json .-seed .-seed (js->clj :keywordize-keys true))]
+                     (js/console.log "id" id)
+                     (-> rom-bytes
+                         (apply-swaps swaps)
+                         (apply-patches patches)
+                         (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc")))))))
         (.catch (fn [resp]
-                  ;; i have no idea why i need to chain another then
-                  ;; on the input to get this to work.
-                  (.then resp (fn [resp]
-                                (render-as-error (.-error resp))
-                                (reset-form))))))))
+                  (if (.-error resp)
+                    (do (render-as-error (.-error resp))
+                        (reset-form))
+                    (js/console.error "some kind of horrible error, sorry" resp)))))))
 
 (defn handle-rom-input [event]
   (when (not= "" (-> event .-target .-value))
@@ -109,7 +102,10 @@
       (.readAsArrayBuffer reader rom-file))))
 
 (defn error-display []
-  [:p {:style (when (nil? @error) {:display "none"})} (str "Error: " @error)])
+  ;; TODO: style error class - maybe put a box around it and indent it for visibility.
+  [:p {:class ["error"] :style (when (nil? @error) {:display "none"})}
+   [:p (str "Error: " @error)]
+   [:p "Please try again."]])
 
 (defn rom-input []
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
