@@ -8,6 +8,13 @@
 (defn render-as-error [text]
   (reset! error text))
 
+(defn reset-form []
+  (set! (-> js/document
+            (.getElementById "rom-file")
+            .-value)
+        "")
+  (reset! input-hidden false))
+
 (defn download-link [href filename]
   [:a {:href href
        :download filename}
@@ -59,13 +66,6 @@
 
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
-
-(defn reset-form []
-  (set! (-> js/document
-            (.getElementById "rom-file")
-            .-value)
-        "")
-  (reset! input-hidden false))
 
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
