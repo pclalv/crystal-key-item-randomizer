@@ -24,7 +24,7 @@
   :cljsbuild {:builds {:prod {:source-paths ["src/cljs"]
                               :jar true
                               :compiler {:output-to "public/assets/js/main.js"
-                                         :optimizations :advanced}}}}
+                                         :optimizations :simple}}}}
 
   :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
              :production {:env {:production true}}}
