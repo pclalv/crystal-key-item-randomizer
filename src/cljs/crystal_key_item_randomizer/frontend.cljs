@@ -83,6 +83,7 @@
                  (if (.-error json)
                    (do (render-as-error (.-error json))
                        (reset-form))
+                   ;; why does this get nested into another seed key?
                    (let [{:keys [swaps patches id]} (-> json .-seed .-seed (js->clj :keywordize-keys true))]
                      (js/console.log "id" id)
                      (-> rom-bytes
