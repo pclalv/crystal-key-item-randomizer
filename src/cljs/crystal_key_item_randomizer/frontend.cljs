@@ -108,7 +108,7 @@
 
 (defn error-display []
   ;; TODO: style error class - maybe put a box around it and indent it for visibility.
-  [:p {:class ["error"] :style (when (nil? @error) {:display "none"})}
+  [:div {:class ["error"] :style (when (nil? @error) {:display "none"})}
    [:p (str "Error: " @error)]
    ;; link to and create maintainer/contact anchor on the page,
    ;; probably with links to github and discord
