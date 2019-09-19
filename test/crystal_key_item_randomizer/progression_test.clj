@@ -234,7 +234,8 @@
                                                (get-badge-prereqs :GLACIERBADGE))))))
   (testing "can collect RISINGBADGE"
     (is (= #{:RISINGBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:defeat-team-rocket}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:defeat-team-rocket
+                                                                  :can-whirlpool}
                                                 :badges #{}}
                                                (get-badge-prereqs :RISINGBADGE))))))
   (testing "can collect BOULDERBADGE"

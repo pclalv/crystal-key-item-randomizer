@@ -220,6 +220,26 @@
           (assoc :conditions-met (conj conditions-met :can-surf)))
       args)))
 
+(defn can-whirlpool? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (if (conditions-met :can-whirlpool)
+    args
+    (if (and (badges :GLACIERBADGE)
+             (items-obtained :HM_WHIRLPOOL))
+      (-> args
+          (assoc :conditions-met (conj conditions-met :can-whirlpool)))
+      (-> args
+          (assoc :reasons (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))))
+
+(defn can-waterfall? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (if (conditions-met :can-waterfall)
+    args
+    (if (and (badges :RISINGBADGE)
+             (items-obtained :HM_WATERFALL))
+      (-> args
+          (assoc :conditions-met (conj conditions-met :can-waterfall)))
+      (-> args
+          (assoc :reasons (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))))
+
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; FIXME: warn players to avoid the underground warehouse until
   ;; they've defeated the Mahogany Rockets, even if they have the
@@ -350,6 +370,8 @@
                                                 (->> result
                                                      can-collect-badges?
                                                      can-surf?
+                                                     can-whirlpool?
+                                                     can-waterfall?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
                                                      can-reach-kanto?
