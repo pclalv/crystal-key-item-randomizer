@@ -119,7 +119,8 @@
                      :conditions-met #{:can-surf}}
 
                     {:badge :RISINGBADGE
-                     :conditions-met #{:defeat-team-rocket}}
+                     :conditions-met #{:can-whirlpool
+                                       :defeat-team-rocket}}
                     ;; the supernerd blocking the gym
                     ;; doesn't move until the player
                     ;; defeats Team Rocket
@@ -357,7 +358,9 @@
             badge-count (->> final-progression-result
                              :badges
                              count)]
-        (assoc final-progression-result :beatable? (>= badge-count 8))))))
+        (assoc final-progression-result :beatable? (and (>= badge-count 8)
+                                                        (contains? (final-progression-result :conditions-met) :can-surf)
+                                                        (contains? (final-progression-result :conditions-met) :can-waterfall)))))))
 
 (comment
   ;; TODO: try to implement these?
