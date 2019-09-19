@@ -67,19 +67,9 @@ server` automatically reloads code.
 
 ### randomizer logic
 
-- [X] randomize `SILVER_WING`
-- [X] update code to reflect that the `MACHINE PART` is unavailable
-      without `HM_SURF`, as `HM_SURF` is required to talk to the Power
-      Plant manager to begin the sidequest
-- [X] allow the player to progress from Violet to Ecruteak with
-      `SQUIRTBOTTLE`
-
 ### binary patching
 
-- [ ] ensure the flower shop item is always obtainable, even if the
-	  player fights sudowoodo before they first visit the flower shop.
-- [ ] Allow player to visit power plant for the first time with the
-      `MACHINE_PART` and still trigger the Cerulean rocket events
+- [ ] address all aforementioned known issues
 - [ ] fix `giveitem` key items so that the player sees item is actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the
       rest of the routine with `nop` and a final `end` to cut off any
@@ -101,5 +91,3 @@ server` automatically reloads code.
       Warehouse until after defeating Team Rocket in Mahogany Town.
 
 ### backend/frontend
-
-- [ ] support seeds for real
