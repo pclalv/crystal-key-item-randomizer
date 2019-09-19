@@ -85,8 +85,6 @@
                        (reset-form))
                    ;; why does this get nested into another seed key?
                    (let [{:keys [swaps patches id]} (-> json (aget "seed") (js->clj :keywordize-keys true))]
-                     (js/console.log (-> json (aget "seed") (js->clj :keywordize-keys true)))
-                     (js/console.log "id" id)
                      (-> rom-bytes
                          (apply-swaps swaps)
                          (apply-patches patches)

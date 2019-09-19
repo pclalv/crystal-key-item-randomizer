@@ -46,7 +46,7 @@
   (GET "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
-  (not-found "not found"))
+  (not-found {:error "not found"}))
 
 (defn wrap-logger [handler]
   (fn [request]
