@@ -261,5 +261,28 @@
 	},
 	"name": "Remove cuttable tree in Ilex Forest",
 	"description": "For variety :) otherwise we'd have to force HM_CUT to appear within the first four items"
+    },
+        {
+        "integer_values": {
+            "old": [ 2, 1 ]
+        },
+        "address_range": {
+            "end": 514538,
+            "begin": 514536
+        },
+        "name": "GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL",
+	"description": "(WIP) Change the contents of the item ball from ULTRA_BALL to CARD_KEY; for real, this needs to be whatever replaces the CARD_KEY. integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
+    },
+    {
+        "integer_values": {
+            "old": [ 84,  5,  6, 1, 0, 255, 255, 1, 0, 232, 89, 85,  6 ],
+            "new": [ 84, 12, 17, 1, 0, 255, 255, 1, 0, 232, 89, 228, 6 ]
+        },
+        "address_range": {
+            "end": 515572,
+            "begin": 515559
+        },
+        "name": "GoldenrodUndergroundWarehouse_MapEvents.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
+	"description": "Move the ULTRA_BALL item ball and make ita appear after Team Rocket is defeated"
     }
 ]
