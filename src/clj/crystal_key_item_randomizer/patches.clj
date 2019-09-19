@@ -8,3 +8,6 @@
        io/resource
        slurp
        json/read-str))
+
+(defn generate [& _]
+  default)
