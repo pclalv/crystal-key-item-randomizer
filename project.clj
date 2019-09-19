@@ -13,7 +13,7 @@
                  [compojure "1.6.1"]
                  [reagent "0.9.0-rc1"]]
   :main ^:skip-aot crystal-key-item-randomizer.core
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "src/cljc"]
   :target-path "target/%s"
 
   :plugins [[lein-ring "0.12.5"]
