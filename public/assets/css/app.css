@@ -1,1 +1,7 @@
-/* This file is for your main application css. */
+#error > .error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    vertical-align: middle;
+    margin: 10px 0px;
+    padding: 12px;
+}

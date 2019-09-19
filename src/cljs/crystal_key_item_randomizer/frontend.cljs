@@ -110,7 +110,9 @@
    [:p (str "Error: " @error)]
    ;; link to and create maintainer/contact anchor on the page,
    ;; probably with links to github and discord
-   [:p "Please report this issue to the maintainer and try again."]])
+   [:p "Please reload this page and try again. If this is a bug, "
+    [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
+     "please report it."]]])
 
 (defn rom-input []
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
