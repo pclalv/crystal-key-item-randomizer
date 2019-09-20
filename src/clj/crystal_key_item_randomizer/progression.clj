@@ -163,8 +163,8 @@
   ;; the cuttable tree in Ilex Forest is removed by the randomizer, so
   ;; goldenrod is always accessible
   (-> args
-      (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items)))
-      (assoc :conditions-met #{:goldenrod})))
+      (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
+             :conditions-met #{:goldenrod})))
 
 (defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
@@ -214,8 +214,8 @@
   (cond (conditions-met :can-surf) args
         (and (conditions-met :ecruteak)
              (items-obtained :HM_SURF)) (-> args
-                                            (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items)))
-                                            (assoc :conditions-met (conj conditions-met :can-surf)))
+                                            (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
+                                                   :conditions-met (conj conditions-met :can-surf)))
         :else args))
 
 (defn can-whirlpool? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
@@ -235,17 +235,14 @@
                      (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))
 
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (if (conditions-met :underground-warehouse)
-    args
-    (if (not (<= 7 (count badges)))
-      (assoc args :reasons
-             (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
-      (if (items-obtained :BASEMENT_KEY)
-        (-> args
-            (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
-            (assoc :conditions-met (conj conditions-met :underground-warehouse)))
-        (assoc args :reasons
-               (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
+  (cond (conditions-met :underground-warehouse) args
+        (not (<= 7 (count badges))) (assoc args :reasons
+                                           (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
+        (items-obtained :BASEMENT_KEY) (-> args
+                                           (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
+                                                  :conditions-met (conj conditions-met :underground-warehouse)))
+        :else (assoc args :reasons
+                     (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; FIXME: the player is still screwed if their 7th badge isn't one
@@ -259,8 +256,8 @@
   ;; in a particular order, which kind of sucks.
   (cond (conditions-met :defeat-team-rocket) args
         (and (items-obtained :CARD_KEY) (<= 7 (count badges))) (-> args
-                                                                   (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
-                                                                   (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
+                                                                   (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
+                                                                          :conditions-met (conj conditions-met :defeat-team-rocket)))
         :else (assoc args :reasons
                      (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))))
 
@@ -272,33 +269,28 @@
           kanto-via-boat? (and (conditions-met :ecruteak)
                                (items-obtained :S_S_TICKET))]
       (if (or kanto-via-train? kanto-via-boat?)
-        (-> args
-            (assoc :items-obtained (cset/union items-obtained
-                                               (get-swaps swaps [:SUPER_ROD :MACHINE_PART])))
-            (assoc :conditions-met (conj conditions-met :kanto)))
+        (-> args (assoc :items-obtained (cset/union items-obtained
+                                                    (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+                        :conditions-met (conj conditions-met :kanto)))
         (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
 
 (defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (conditions-met :fix-power-plant)
-    args
-    (if (and (conditions-met :can-surf) (conditions-met :kanto))
-      (-> args
-          (assoc :items-obtained (cset/union items-obtained
-                                             (get-swaps swaps [:MACHINE_PART :LOST_ITEM :SILVER_WING]))
-                 :conditions-met (conj conditions-met :fix-power-plant)))
-      (-> args
-          (assoc :reasons (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))))
+  (cond (conditions-met :fix-power-plant) args
+        (and (conditions-met :can-surf)
+             (conditions-met :kanto)) (-> args (assoc :items-obtained (cset/union items-obtained
+                                                                                  (get-swaps swaps [:MACHINE_PART :LOST_ITEM :SILVER_WING]))
+                                                      :conditions-met (conj conditions-met :fix-power-plant)))
+        :else (assoc args :reasons
+                     (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))
 
 (defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (conditions-met :copycat-item)
-    args
-    (if (and (conditions-met :kanto) (items-obtained :LOST_ITEM))
-      (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :PASS)))
-          (assoc :conditions-met (conj conditions-met :copycat-item)))
-      (-> args
-          (assoc :reasons (conj reasons "copycat-item: cannot reach without LOST_ITEM"))
-          (assoc :conditions-met (conj conditions-met :copycat-item))))))
+  (cond (conditions-met :copycat-item) args
+        (and (conditions-met :kanto)
+             (items-obtained :LOST_ITEM)) (-> args
+                                              (assoc :items-obtained (conj items-obtained (swaps :PASS))
+                                                     :conditions-met (conj conditions-met :copycat-item)))
+        :else (assoc args :reasons
+                     (conj reasons "copycat-item: cannot reach without LOST_ITEM"))))
 
 ;;;;;;;;;;;;
 ;; badges ;;
