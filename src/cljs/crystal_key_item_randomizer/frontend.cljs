@@ -70,6 +70,11 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
+(defn patch-rom [rom-bytes {:keys [swaps patches]}]
+  (-> rom-bytes
+      (apply-swaps swaps)
+      (apply-patches patches)))
+
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
@@ -83,11 +88,9 @@
                  (if (.-error json)
                    (do (render-as-error (.-error json))
                        (reset-form))
-                   ;; why does this get nested into another seed key?
                    (let [{:keys [swaps patches id]} (-> json (aget "seed") (js->clj :keywordize-keys true))]
                      (-> rom-bytes
-                         (apply-swaps swaps)
-                         (apply-patches patches)
+                         (patch-rom {:swaps swaps :patches patches})
                          (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc")))))))
         (.catch (fn [resp]
                   (if (.-error resp)
