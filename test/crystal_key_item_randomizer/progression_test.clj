@@ -127,6 +127,24 @@
                can-surf?
                (select-keys [:items-obtained :conditions-met]))))))
 
+(deftest can-whirlpool?-test
+  (testing "meetable when the player has obtained the GLACIERBADGE and HM_WHIRLPOOL"
+    (is (= #{:can-whirlpool} (-> {:swaps vanilla-swaps
+                                  :items-obtained #{:HM_WHIRLPOOL}
+                                  :badges #{:GLACIERBADGE}
+                                  :conditions-met #{}}
+                                 can-whirlpool?
+                                 :conditions-met)))))
+
+(deftest can-waterfall?-test
+  (testing "meetable when the player has obtained the RISINGBADGE and HM_WATERFALL"
+    (is (= #{:can-waterfall} (-> {:swaps vanilla-swaps
+                                  :items-obtained #{:HM_WATERFALL}
+                                  :badges #{:RISINGBADGE}
+                                  :conditions-met #{}}
+                                 can-waterfall?
+                                 :conditions-met)))))
+
 (deftest can-reach-underground-warehouse?-test
   (testing "reachable when the player can surf and has obtained the BASEMENT_KEY"
     (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
@@ -150,7 +168,8 @@
             :conditions-met #{:defeat-team-rocket :underground-warehouse}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:CARD_KEY}
-                :conditions-met #{:underground-warehouse}}
+                :conditions-met #{:underground-warehouse}
+                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE :STORMBADGE :MINERALBADGE :GLACIERBADGE}}
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met]))))))
 
