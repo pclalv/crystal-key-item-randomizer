@@ -209,7 +209,7 @@
           badge-prereqs))
 
 (defn beatable? [swaps]
-  (let [initial-items (into #{} (get-swaps swaps guaranteed-items))
+  (let [initial-items (get-swaps swaps guaranteed-items)
         early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items}
                                              can-reach-goldenrod?
                                              can-reach-ecruteak?)]
