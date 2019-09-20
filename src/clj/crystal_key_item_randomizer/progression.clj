@@ -211,24 +211,18 @@
       (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
 
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (conditions-met :can-surf)
-    args
-    (if (and (conditions-met :ecruteak)
-             (items-obtained :HM_SURF))
-      (-> args
-          (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items)))
-          (assoc :conditions-met (conj conditions-met :can-surf)))
-      args)))
+  (cond (conditions-met :can-surf) args
+        (and (conditions-met :ecruteak)
+             (items-obtained :HM_SURF)) (-> args
+                                            (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items)))
+                                            (assoc :conditions-met (conj conditions-met :can-surf)))
+        :else args))
 
 (defn can-whirlpool? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (if (conditions-met :can-whirlpool)
-    args
-    (if (and (badges :GLACIERBADGE)
-             (items-obtained :HM_WHIRLPOOL))
-      (-> args
-          (assoc :conditions-met (conj conditions-met :can-whirlpool)))
-      (-> args
-          (assoc :reasons (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))))
+  (cond (conditions-met :can-whirlpool) args
+        (and (badges :GLACIERBADGE)
+             (items-obtained :HM_WHIRLPOOL)) (assoc args :conditions-met (conj conditions-met :can-whirlpool))
+        :else (assoc args :reasons (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))
 
 (defn can-waterfall? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (if (conditions-met :can-waterfall)
