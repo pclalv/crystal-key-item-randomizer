@@ -69,6 +69,8 @@ server` automatically reloads code.
 
 ### binary patching
 
+- [ ] verify that the Underground Warehouse itemball patch works for
+      arbitrary key items.
 - [ ] address all aforementioned known issues
 - [ ] fix `giveitem` key items so that the player sees item is actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the

@@ -240,54 +240,38 @@
       (-> args
           (assoc :reasons (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))))
 
-(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  ;; FIXME: warn players to avoid the underground warehouse until
-  ;; they've defeated the Mahogany Rockets, even if they have the
-  ;; BASEMENT_KEY
 
-  ;; it'd be great if we could put an NPC into the game to block the
-  ;; player.
+(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (if (conditions-met :underground-warehouse)
     args
-    ;; FIXME: the player is probably screwed if their 7th badge isn't
-    ;; one of the first 7 johto badges.
     (if (not (<= 7 (count badges)))
       (assoc args :reasons
              (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
       (if (items-obtained :BASEMENT_KEY)
-        (-> args
-            (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
-            (assoc :conditions-met (conj conditions-met :underground-warehouse)))
-        (assoc args :reasons
-               (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
+          (-> args
+              (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
+              (assoc :conditions-met (conj conditions-met :underground-warehouse)))
+          (assoc args :reasons
+                 (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  ;; i'm thinking that you can do this gym as long as you've got 7
-  ;; badges and have the CARD KEY. after that, there are two cases:
+  ;; FIXME: the player is still screwed if their 7th badge isn't one
+  ;; of the first 7 Johto badges.
 
-  ;; * Goldenrod Underground item is vanilla (BASEMENT_KEY)
+  ;; this logic would be more complex were it not for the fact that we
+  ;; patch in an item ball that makes the Underground Basement item
+  ;; appear automatically after Team Rocket is defeated.
 
-  ;; * the player (should have) gotten the BASEMENT_KEY already
-
+  ;; without the item ball, the player would have to know to do things
+  ;; in a particular order, which kind of sucks.
   (if (conditions-met :defeat-team-rocket)
     args
     (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
+      (-> args
+          (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
+          (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
       (assoc args :reasons
-             (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))
-      ;; the player CANNOT defeat team rocket before getting the
-      ;; CARD_KEY, because they'd never be able to get the CARD_KEY if
-      ;; they did. however, this doesn't matter if the CARD_KEY isn't
-      ;; required. (see GoldenrodUndergroundWarehouseDirectorScript,
-      ;; EVENT_RADIO_TOWER_ROCKET_TAKEOVER in the ASM)
-      (if (or (items-obtained :BASEMENT_KEY)
-              ;; TODO: this next line a bit of a reach goal.
-              ;; (not (basement-key-required? sawps))
-              (= :BASEMENT_KEY (swaps :BASEMENT_KEY)))
-        (-> args
-            (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
-            (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
-        (assoc args :reasons
-               (conj reasons "defeat-team-rocket: cannot reach without being guaranteed the BASEMENT_KEY"))))))
+             (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges")))))
 
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :kanto)
