@@ -221,19 +221,18 @@
 (defn can-whirlpool? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :can-whirlpool) args
         (and (badges :GLACIERBADGE)
-             (items-obtained :HM_WHIRLPOOL)) (assoc args :conditions-met (conj conditions-met :can-whirlpool))
-        :else (assoc args :reasons (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))
+             (items-obtained :HM_WHIRLPOOL)) (assoc args :conditions-met
+                                                    (conj conditions-met :can-whirlpool))
+        :else (assoc args :reasons
+                     (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))
 
 (defn can-waterfall? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (if (conditions-met :can-waterfall)
-    args
-    (if (and (badges :RISINGBADGE)
-             (items-obtained :HM_WATERFALL))
-      (-> args
-          (assoc :conditions-met (conj conditions-met :can-waterfall)))
-      (-> args
-          (assoc :reasons (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))))
-
+  (cond (conditions-met :can-waterfall) args
+        (and (badges :RISINGBADGE)
+             (items-obtained :HM_WATERFALL)) (assoc args :conditions-met
+                                                    (conj conditions-met :can-waterfall))
+        :else (assoc args :reasons
+                     (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))
 
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (if (conditions-met :underground-warehouse)
@@ -242,11 +241,11 @@
       (assoc args :reasons
              (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
       (if (items-obtained :BASEMENT_KEY)
-          (-> args
-              (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
-              (assoc :conditions-met (conj conditions-met :underground-warehouse)))
-          (assoc args :reasons
-                 (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
+        (-> args
+            (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY)))
+            (assoc :conditions-met (conj conditions-met :underground-warehouse)))
+        (assoc args :reasons
+               (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; FIXME: the player is still screwed if their 7th badge isn't one
@@ -258,14 +257,12 @@
 
   ;; without the item ball, the player would have to know to do things
   ;; in a particular order, which kind of sucks.
-  (if (conditions-met :defeat-team-rocket)
-    args
-    (if (and (items-obtained :CARD_KEY) (<= 7 (count badges)))
-      (-> args
-          (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
-          (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
-      (assoc args :reasons
-             (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges")))))
+  (cond (conditions-met :defeat-team-rocket) args
+        (and (items-obtained :CARD_KEY) (<= 7 (count badges))) (-> args
+                                                                   (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL)))
+                                                                   (assoc :conditions-met (conj conditions-met :defeat-team-rocket)))
+        :else (assoc args :reasons
+                     (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))))
 
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :kanto)
