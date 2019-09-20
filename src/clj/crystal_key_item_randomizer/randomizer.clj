@@ -24,8 +24,7 @@
    ;; all that's really required is the Radio Expansion Card, but
    ;; we're not to the point of randomizing that yet.
    :HM_WATERFALL {:name :HM_WATERFALL
-                  :location :IcePath1F
-                  :macro :itemball}})
+                  :location :IcePath1F}})
 
 (def maybe-required-items
   {:BASEMENT_KEY {:name :BASEMENT_KEY
@@ -77,8 +76,7 @@
    :CLEAR_BELL {:name :CLEAR_BELL
                 :location :RadioTower5F}
    :COIN_CASE {:name :COIN_CASE
-               :location :GoldenrodUnderground
-               :macro :itemball}
+               :location :GoldenrodUnderground}
    :GOOD_ROD {:name :GOOD_ROD
               :location :OlivineGoodRodHouse}
    :HM_FLASH {:name :HM_FLASH
