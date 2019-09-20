@@ -20,9 +20,10 @@
   (let [{rest :rest patch UNDERGROUND-ITEM-BALL} (->> patches
                                                       (group-by (fn [patch]
                                                                   (if (= (name UNDERGROUND-ITEM-BALL)
-                                                                         (:name patch))
-                                                                    (UNDERGROUND-ITEM-BALL)
+                                                                         (patch "name"))
+                                                                    UNDERGROUND-ITEM-BALL
                                                                     :rest))))
+        patch (first patch)
         updated-patch (assoc-in patch
                                 ["integer_values" "new"]
                                 (item-ball card-key-replacement))]
