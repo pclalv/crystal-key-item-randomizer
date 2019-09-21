@@ -311,7 +311,7 @@
 	    "end": 721296
 	},
 	"integer_values": {
-	    "old": [15]
+	    "old": [15],
 	    "new": [ 1]
 	},
 	"name": "Remove cuttable tree in Ilex Forest",
