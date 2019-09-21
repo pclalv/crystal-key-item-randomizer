@@ -284,5 +284,60 @@
         },
         "name": "GoldenrodUndergroundWarehouse_MapEvents.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
 	"description": "Move the ULTRA_BALL item ball and make ita appear after Team Rocket is defeated"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 5, 124, 78 ],
+            "new": [ 6, 5,  80, 78 ]
+        },
+        "address_range": {
+            "begin": 478785,
+            "end": 478789
+        },
+        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_FRIDAY"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 1, 114, 78 ],
+            "new": [ 6, 1,  80, 78 ]
+        },
+        "address_range": {
+            "begin": 478773,
+            "end": 478777
+        },
+        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_MONDAY"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 6, 124, 78 ],
+            "new": [ 6, 6,  80, 78 ]
+        },
+        "address_range": {
+            "begin": 478789,
+            "end": 478793
+        },
+        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 4, 124, 78 ],
+            "new": [ 6, 4,  80, 78 ]
+        },
+        "address_range": {
+            "begin": 478781,
+            "end": 478785
+        },
+        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_THURSDAY"
+    },
+    {
+        "integer_values": {
+            "old": [ 6, 2, 114, 78 ],
+            "new": [ 6, 2,  80, 78 ]
+        },
+        "address_range": {
+            "begin": 478777,
+            "end": 478781
+        },
+        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
     }
 ]
