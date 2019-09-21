@@ -91,5 +91,22 @@ server` automatically reloads code.
       defeating Team Rocket in Mahogany Town; even if the player gets
       the `BASEMENT_KEY` early, nobody will be in the Underground
       Warehouse until after defeating Team Rocket in Mahogany Town.
+- [ ] speedchoice compatibility. this would be straightforward, if
+      tedious. to my mind, the gist of this work is as follows:
+	  1. figure out where the speedchoice ROM's item addresses.
+	  2. starting with [`pclalv/speedchoice`][pclalv/speedchoice],
+	     create a `speedchoice-randomizer-labels` branch which contains
+         the extra labels present in [`pclalv/randomizer-labels`][pclalv/randomizer-labels].
+	  3. creatae a `speedchoice-randomizer-changes` branch based off
+         of `speedchoice-randomizer-labels` (akin to the relationship
+         between `randomizer-labels` and `randomizer-changes`) and use
+         the `generate-randomizer-changes-diff` script to diff the the
+         two branches to discover the addresses that the ranodmizer
+         would need modify.
+	  4. add a 'speedchoice' option to this app which would allow the
+         app to use speechoice-appropriate values.
 
 ### backend/frontend
+
+[pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
+[pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
