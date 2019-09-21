@@ -1,5 +1,8 @@
 # crystal-key-item-randomizer
 
+A Clojure + Clojurescript application for randomizing the key items
+(including HMs) in Pokemon Crystal.
+
 ## changes
 
 In addition to swapping around key items, these changes open up the game:
@@ -57,6 +60,7 @@ collectable.
 
 * [clojure](https://clojure.org)
 * [leiningen](https://leiningen.org) (recommended)
+* [shadow-cljs](http://shadow-cljs.org/) (recommended)
 
 To run this application locally, run `lein ring server` at the command
 line. At that point, you should be able to see the randomizer home
@@ -72,18 +76,18 @@ server` automatically reloads code.
 - [ ] verify that the Underground Warehouse itemball patch works for
       arbitrary key items.
 - [ ] address all aforementioned known issues
-- [ ] fix `giveitem` key items so that the player sees item is actually being given.
+- [ ] fix `giveitem` key items so that the player sees item is
+      actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the
       rest of the routine with `nop` and a final `end` to cut off any
-      unintended additional text (from, say, a local labelled
-      routine).
+      unintended additional text
     - items:
         - `SECRETPOTION`
         - `BICYCLE`
         - `RED_SCALE`
         - `MYSTERY_EGG`
         - `LOST_ITEM`
-- [ ] randomize pokegear cards. this is primarily motivated by wanting
+- [ ] **randomize pokegear cards**. this is primarily motivated by wanting
       to randomize the kanto expansion card, which allows the player
       to wake the snorlax and progress to pewter from vermilion.
 - [ ] randomize which non-required item the copycat is looking for.
@@ -91,9 +95,11 @@ server` automatically reloads code.
       defeating Team Rocket in Mahogany Town; even if the player gets
       the `BASEMENT_KEY` early, nobody will be in the Underground
       Warehouse until after defeating Team Rocket in Mahogany Town.
-- [ ] speedchoice compatibility. this would be straightforward, if
+- [ ] **speedchoice compatibility**. this would be straightforward, if
       tedious. to my mind, the gist of this work is as follows:
-	  1. figure out where the speedchoice ROM's item addresses.
+	  1. figure out the speedchoice ROM's item addresses and use that
+         to create a speechoice-specific version of
+         `crystal-key-item-randomizer.data/key-items`
 	  2. starting with [`pclalv/speedchoice`][pclalv/speedchoice],
 	     create a `speedchoice-randomizer-labels` branch which contains
          the extra labels present in [`pclalv/randomizer-labels`][pclalv/randomizer-labels].
@@ -102,7 +108,9 @@ server` automatically reloads code.
          between `randomizer-labels` and `randomizer-changes`) and use
          the `generate-randomizer-changes-diff` script to diff the the
          two branches to discover the addresses that the ranodmizer
-         would need modify.
+         would need modify. use that information to create a
+         speedchoice-specific version of
+         `resources/randomizer-patches-diff.json`
 	  4. add a 'speedchoice' option to this app which would allow the
          app to use speechoice-appropriate values.
 
