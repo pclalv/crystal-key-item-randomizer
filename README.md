@@ -33,17 +33,17 @@ collectable.
 * The Flower Shop item (`SQUIRTBOTTLE` in vanilla) is always
   obtainable, even if the player has used the `SQUIRTBOTTLE` to defeat
   the Sudowoodo.
+* The Underground Warehouse item is obtainable as soon as Team Rocket
+  takes over the Radio Tower. The player may either visit the
+  Underground Warehouse during the takeover and obtain the item from
+  the director, or visit the Underground Warehouse after the takeover
+  and obtain the item from an item ball.
 
 ## known issues
 
 * If the player uses the `BASEMENT KEY` to visit the Underground
   Warehouse before defeating Team Rocket in Mahogany Town, the
   Underground Warehouse will be totally empty.
-* If the player uses the `CARD KEY` to defeat the Rocket Executives in
-  the Radio Tower before obtaining the Goldenrod Underground item
-  (`BASEMENT KEY` in vanilla), then the player **will not be able to
-  obtain the Goldenrod Underground item**, potentially hardlocking the
-  player from beating that file.
 * If the player's 7th badge is not one of the first 7 Johto badges,
   then they will be unable to activate the Goldenrod Radio Tower
   Takeover, potentially hardlocking the player from beating that file.
