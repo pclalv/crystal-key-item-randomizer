@@ -14,7 +14,7 @@
 
 (defn item-ball [key-item]
   (let [key-item-value (get-in key-items [key-item :value])]
-    [key-item-value 1])) 
+    [key-item-value 1]))
 
 (defn replace-underground-warehouse-ultra-ball-with-key-item [patches {card-key-replacement :CARD_KEY}]
   (let [{rest :rest patch UNDERGROUND-ITEM-BALL} (->> patches
