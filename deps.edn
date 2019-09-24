@@ -14,7 +14,11 @@
                                                           :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
                   :main-opts ["-m" "cognitect.test-runner"]}
            :cljs {:extra-paths ["src/cljc" "src/cljs"]
-                  :main-opts ["-m" "cljs.main" "--optimizations" "advanced" "-c" "crystal-key-item-randomizer.frontend"]}
+                  :main-opts ["-m" "cljs.main"
+                              "--verbose"
+                              "--optimizations" "advanced"
+                              "--output-to" "public/assets/js/main.js"
+                              "--compile" "crystal-key-item-randomizer.frontend"]}
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.4"}}
                      :main-opts  ["-m" "uberdeps.uberjar" "--target" "target/crystal-key-item-randomizer.jar"]}
            :outdated {:extra-deps {olical/depot {:mvn/version "1.8.4"}}
