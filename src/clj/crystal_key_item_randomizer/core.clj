@@ -7,9 +7,12 @@
             [ring.middleware.defaults :refer :all])
   (:use [compojure.route :only [files not-found]]
         [compojure.core :only [defroutes GET]]))
-        ;; [ring.middleware.reload :only [wrap-reload]]))
 
-(def debug? (System/getenv "DEBUG"))
+(def dev? (= "dev" (System/getenv "RUNTIME_ENV")))
+
+(when dev?
+  (println "using ring middleware")
+  (use '[ring.middleware.reload :only [wrap-reload]]))
 
 (defn parse-seed-id [seed-id]
   (or (empty? seed-id)
@@ -33,7 +36,7 @@
           {:status 500
            :headers {"Content-Type" "text/json"}
            :body (json/write-str {:error error})}
-          (let [seed' (if debug?
+          (let [seed' (if dev?
                         seed
                         (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
             {:status 200
