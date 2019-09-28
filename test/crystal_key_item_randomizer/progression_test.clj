@@ -146,9 +146,17 @@
                                  :conditions-met)))))
 
 (deftest can-reach-underground-warehouse?-test
-  (testing "reachable when the player can surf and has obtained the BASEMENT_KEY"
+  (testing "reachable when the has obtained the BASEMENT_KEY, and has obtained 7 johto badges"
     (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
             :conditions-met #{:underground-warehouse}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{:BASEMENT_KEY}
+                :conditions-met #{}
+                :badges johto-badges}
+               can-reach-underground-warehouse?
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "not reachable when the player has obtained the BASEMENT_KEY, and doesn't have 7 johto badges"
+    (is (= {#{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
                 :conditions-met #{}
@@ -158,20 +166,23 @@
                           :FOGBADGE
                           :STORMBADGE
                           :MINERALBADGE
-                          :GLACIERBADGE}}
+                          ;; oops, a kanto badges
+                          :THUNDERBADGE}}
                can-reach-underground-warehouse?
-               (select-keys [:items-obtained :conditions-met]))))))
+               :conditions-met)))))
 
 (deftest can-defeat-team-rocket?-test
-  (testing "meetable when the player has reached the underground warehouse and has obtained the CARD_KEY"
+  (testing "meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and has 7 johto badges"
     (is (= {:items-obtained #{:CARD_KEY :CLEAR_BELL}
             :conditions-met #{:defeat-team-rocket :underground-warehouse}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:CARD_KEY}
                 :conditions-met #{:underground-warehouse}
-                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE :STORMBADGE :MINERALBADGE :GLACIERBADGE}}
+                :badges johto-badges}
                can-defeat-team-rocket?
-               (select-keys [:items-obtained :conditions-met]))))))
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "not meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and doesn't have 7 johto badges"
+    (is (= true false))))
 
 (deftest can-reach-kanto?-test
   (testing "reachable when the player has reached goldenrod and has obtained the PASS"

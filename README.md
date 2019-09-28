@@ -75,6 +75,8 @@ server` automatically reloads code.
 
 - [ ] verify that the Underground Warehouse itemball patch works for
       arbitrary key items.
+- [ ] patch kanto gyms so that they can activate Team Rocket's
+      takeover of the Radio Tower.
 - [ ] address all aforementioned known issues
 - [ ] fix `giveitem` key items so that the player sees item is
       actually being given.
