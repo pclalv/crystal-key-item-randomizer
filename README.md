@@ -72,6 +72,8 @@ server` automatically reloads code.
 ### randomizer logic
 
 - [ ] add HM_STRENGTH as a prereq for Cianwood badge
+- [ ] speedchoice support
+	- whirlpool isn't required to get the RISINGBADGE
 
 ### binary patching
 
