@@ -73,6 +73,8 @@ server` automatically reloads code.
 
 ### binary patching
 
+- [ ] ensure that the Cianwood Pharmacy item is obtainable even if
+      you've healed amphy.
 - [ ] verify that the Underground Warehouse itemball patch works for
       arbitrary key items.
 - [ ] patch kanto gyms so that they can activate Team Rocket's
