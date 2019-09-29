@@ -71,6 +71,8 @@ server` automatically reloads code.
 
 ### randomizer logic
 
+- [ ] add HM_STRENGTH as a prereq for Cianwood badge
+
 ### binary patching
 
 - [ ] ensure that the Cianwood Pharmacy item is obtainable even if
