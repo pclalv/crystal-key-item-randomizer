@@ -117,6 +117,10 @@
                can-reach-ecruteak?
                (select-keys [:items-obtained :conditions-met]))))))
 
+(deftest can-strength?-test
+  (testing "pls fix"
+    (is (= true false))))
+
 (deftest can-surf?-test
   (testing "meetable when the player has reached ecruteak and has obtained HM_SURF"
     (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :HM_WATERFALL :SECRETPOTION :BASEMENT_KEY :HM_FLY :HM_SURF}

@@ -107,6 +107,14 @@
           result))
       (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
 
+(defn can-strength? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (cond (conditions-met :can-strength) args
+        (and (items-obtained :HM_STRENGTH)
+             (badges :PLAINBADGE)) (-> args
+                                       (assoc :conditions-met (conj conditions-met :can-strength)))
+        :else (assoc args :reasons
+                     (conj reasons "can-strength: cannot without both PLAINBADGE and HM_STRENGTH"))))
+
 (defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :can-surf) args
         (and (conditions-met :ecruteak)
@@ -241,6 +249,7 @@
                                          (recur result
                                                 (->> result
                                                      can-collect-badges?
+                                                     can-strength?
                                                      can-surf?
                                                      can-whirlpool?
                                                      can-waterfall?
