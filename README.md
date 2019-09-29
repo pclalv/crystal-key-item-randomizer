@@ -75,6 +75,7 @@ server` automatically reloads code.
 - [ ] add HM_STRENGTH as a prereq for Cianwood badge
 - [ ] speedchoice support
 	- whirlpool isn't required to get the RISINGBADGE
+	- revert to simpler 7 badge check, assuming any 7 badges will do
 
 ### binary patching
 
