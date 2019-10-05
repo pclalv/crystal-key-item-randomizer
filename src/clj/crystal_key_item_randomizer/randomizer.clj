@@ -99,6 +99,8 @@
    :SUPER_ROD {:name :SUPER_ROD
                :location :Route12SuperRodHouse}})
 
+;; Note that the RAINBOW_WING is not among these items. It's just too
+;; much of a pain to get.
 (def all-items (sort (concat (keys required-items)
                              (keys maybe-required-items)
                              (keys non-required-items))))
