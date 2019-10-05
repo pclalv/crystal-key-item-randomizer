@@ -56,12 +56,12 @@
                 (select-keys originals)
                 (vals))))
 
-(defn can-reach-goldenrod? [{:keys [swaps items-obtained options] :as args}]
+(defn can-reach-goldenrod? [{:keys [swaps items-obtained conditions-met] :as args}]
   ;; the cuttable tree in Ilex Forest is removed by the randomizer, so
   ;; goldenrod is always accessible
   (-> args
       (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
-             :conditions-met #{:goldenrod})))
+             (conj conditions-met :goldenrod))))
 
 (defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
@@ -228,9 +228,16 @@
           (assoc args :badges #{})
           badge-prereqs))
 
-(defn beatable? [swaps]
+(defn beatable? [swaps {:keys [speedchoice?]}]
   (let [initial-items (get-swaps swaps guaranteed-items)
-        early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items}
+        ;; in vanilla, the player needs whirlpool only to get the
+        ;; RISINGBADGE.  in speedchoice, the player doesn't need
+        ;; whirlpool at all.  so that we don't have to make more
+        ;; complex logical changes to account for this minor
+        ;; difference, just asusme that the user can-whirlpool from
+        ;; the get-go if we're dealing with speedchoice.
+        initial-conditions (if speedchoice? #{:can-whirlpool} #{})
+        early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions}
                                              can-reach-goldenrod?
                                              can-reach-ecruteak?)]
     (if (not (-> early-linear-progression-result :conditions-met :ecruteak))

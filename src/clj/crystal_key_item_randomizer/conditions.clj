@@ -25,6 +25,8 @@
 
    {:badge :RISINGBADGE
     :conditions-met #{:can-strength
+                      ;; can-whirlpool isn't actually a prereq in
+                      ;; speedchoice.
                       :can-whirlpool
                       :defeat-team-rocket}}
    ;; the supernerd blocking the gym

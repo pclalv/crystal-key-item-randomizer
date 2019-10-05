@@ -24,14 +24,15 @@
 
 
 (defn seed-handler [req]
-  (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)]
+  (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)
+        speedchoice? (-> req :params :speedchoice java.lang.Boolean/parseBoolean)]
     (if error
       {:status 400
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
       (let [{:keys [seed error]} (if seed-id
-                                   (seeds/generate seed-id)
-                                   (seeds/generate-beatable))]
+                                   (seeds/generate seed-id {:speedchoice? speedchoice?})
+                                   (seeds/generate-beatable {:speedchoice? speedchoice?}))]
         (if error
           {:status 500
            :headers {"Content-Type" "text/json"}
