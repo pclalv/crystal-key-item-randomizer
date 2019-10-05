@@ -24,7 +24,8 @@
     :conditions-met #{:can-surf}}
 
    {:badge :RISINGBADGE
-    :conditions-met #{:can-whirlpool
+    :conditions-met #{:can-strength
+                      :can-whirlpool
                       :defeat-team-rocket}}
    ;; the supernerd blocking the gym
    ;; doesn't move until the player
