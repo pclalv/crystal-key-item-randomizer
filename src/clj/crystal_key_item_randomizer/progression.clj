@@ -140,17 +140,13 @@
         :else (assoc args :reasons
                      (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))
 
-(defn has-seven-johto-badges? [badges]
-  ;; it'd be great if we could simplify this and just check if the
-  ;; player has any 7 badges, but that would take modifying the coding
-  ;; of every kanto gym.
-  (<= 7 (count (cset/intersection badges
-                                  johto-badges))))
+(defn has-seven-badges? [badges]
+  (<= 7 (count badges)))
 
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :underground-warehouse) args
-        (not (has-seven-johto-badges? badges)) (assoc args :reasons
-                                                      (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
+        (not (has-seven-badges? badges)) (assoc args :reasons
+                                                (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
         (items-obtained :BASEMENT_KEY) (-> args
                                            (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
                                                   :conditions-met (conj conditions-met :underground-warehouse)))
@@ -168,9 +164,9 @@
   ;; without the item ball, the player would have to know to do things
   ;; in a particular order, which kind of sucks.
   (cond (conditions-met :defeat-team-rocket) args
-        (and (items-obtained :CARD_KEY) (has-seven-johto-badges? badges)) (-> args
-                                                                              (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
-                                                                                     :conditions-met (conj conditions-met :defeat-team-rocket)))
+        (and (items-obtained :CARD_KEY) (has-seven-badges? badges)) (-> args
+                                                                        (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
+                                                                               :conditions-met (conj conditions-met :defeat-team-rocket)))
         :else (assoc args :reasons
                      (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))))
 

@@ -44,9 +44,6 @@ collectable.
 * If the player uses the `BASEMENT KEY` to visit the Underground
   Warehouse before defeating Team Rocket in Mahogany Town, the
   Underground Warehouse will be totally empty.
-* If the player's 7th badge is not one of the first 7 Johto badges,
-  then they will be unable to activate the Goldenrod Radio Tower
-  Takeover, potentially hardlocking the player from beating that file.
 * Some dialogs don't reveal which item was obtained; this affects the
   following key items:
    - BICYCLE
