@@ -20,7 +20,8 @@
             "begin": 1711294,
             "end": 1711307
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0"
+        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0",
+	"description": "Disable the important battle"
     },
     {
         "integer_values": {
@@ -31,11 +32,12 @@
             "begin": 1711307,
             "end": 1711320
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1"
+        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1",
+	"description": "Disable the important battle"
     },
     {
         "integer_values": {
-            "old": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 21, 7 ],
+            "old": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86,  21, 7 ],
             "new": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 200, 6 ]
         },
         "address_range": {
@@ -82,6 +84,7 @@
         "name": "GoldenrodMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
 	"description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
     },
+
     {
         "integer_values": {
             "old": [ 6, 6, 242, 73 ],
@@ -142,6 +145,7 @@
         "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_TUESDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
+
     {
         "integer_values": {
             "old": [ 6, 6, 119, 73 ],
@@ -197,6 +201,7 @@
         },
         "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_WEDNESDAY"
     },
+
     {
         "integer_values": {
             "old": [ 73, 19, 11, 7, 0, 255, 255, 0, 0, 254, 73, 55, 7 ],
@@ -259,7 +264,7 @@
     },
     {
         "integer_values": {
-            "old": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74, 56, 7 ],
+            "old": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74,  56, 7 ],
 	    "new": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74, 200, 6 ]
         },
         "address_range": {
@@ -269,6 +274,7 @@
         "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
+
     {
         "integer_values": {
             "old": [ 49, 207, 0 ],
@@ -293,6 +299,7 @@
         "name": "PowerPlantManager.ckir_BEFORE_CHECKEVENT_EVENT_RETURNED_MACHINE_PART",
 	"description": "Ensure Cerulean Gym item is obtainable even if the player has already given the real MACHINE PART to the Power Plant manager"
     },
+
     {
         "integer_values": {
             "old": [ 49, 205, 0 ],
@@ -305,19 +312,21 @@
         "name": "SaffronMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
 	"description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
     },
+
     {
+	"integer_values": {
+	    "old": [ 15 ],
+	    "new": [  1 ]
+	},
 	"address_range": {
 	    "begin": 721295,
 	    "end": 721296
 	},
-	"integer_values": {
-	    "old": [15],
-	    "new": [ 1]
-	},
 	"name": "Remove cuttable tree in Ilex Forest",
 	"description": "For variety :) otherwise we'd have to force HM_CUT to appear within the first four items"
     },
-        {
+
+    {
         "integer_values": {
             "old": [ 2, 1 ]
         },
@@ -328,6 +337,7 @@
         "name": "GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL",
 	"description": "(WIP) Change the contents of the item ball from ULTRA_BALL to CARD_KEY; for real, this needs to be whatever replaces the CARD_KEY. integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
     },
+
     {
         "integer_values": {
             "old": [ 84,  5,  6, 1, 0, 255, 255, 1, 0, 232, 89, 85,  6 ],
@@ -340,6 +350,7 @@
         "name": "GoldenrodUndergroundWarehouse_MapEvents.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
 	"description": "Move the ULTRA_BALL item ball and make ita appear after Team Rocket is defeated"
     },
+
     {
         "integer_values": {
             "old": [ 6, 5, 124, 78 ],
@@ -395,6 +406,7 @@
         },
         "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
     },
+
     {
         "integer_values": {
             "old": [ 6, 5, 224, 78 ],
