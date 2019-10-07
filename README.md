@@ -104,9 +104,9 @@ server` automatically reloads code.
       Warehouse until after defeating Team Rocket in Mahogany Town.
 - [ ] **speedchoice compatibility**. this would be straightforward, if
       tedious. to my mind, the gist of this work is as follows:
-	  1. figure out the speedchoice ROM's item addresses and use that
-         to create a speechoice-specific version of
-         `crystal-key-item-randomizer.data/key-items`
+	  1. DONE ~~figure out the speedchoice ROM's item addresses and
+         use that to create a speechoice-specific version of
+         crystal-key-item-randomizer.data/key-items`~~
 	  2. starting with [`pclalv/speedchoice`][pclalv/speedchoice],
 	     create a `speedchoice-randomizer-labels` branch which contains
          the extra labels present in [`pclalv/randomizer-labels`][pclalv/randomizer-labels].
