@@ -240,8 +240,8 @@
       (assoc early-linear-progression-result :beatable? false)
       (let [;; we need to be strategic about further analysis, because
             ;; progression is necessarily nonlinear. try the remaining
-            ;; functions in loop, breaking if there was no change after the
-            ;; last round of checks.
+            ;; functions in loop, breaking if there was no change
+            ;; after the last round of checks.
             final-progression-result (loop [previous-result nil
                                             result early-linear-progression-result]
                                        (if (= (select-keys previous-result
