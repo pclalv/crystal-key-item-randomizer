@@ -25,7 +25,7 @@
 
 (defn seed-handler [req]
   (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)
-        speedchoice? (-> req :params :speedchoice java.lang.Boolean/parseBoolean)]
+        speedchoice? true]
     (if error
       {:status 400
        :headers {"Content-Type" "text/json"}
