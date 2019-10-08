@@ -160,7 +160,7 @@
                can-reach-underground-warehouse?
                (select-keys [:items-obtained :conditions-met])))))
   (testing "not reachable when the player has obtained the BASEMENT_KEY, and doesn't have 7 johto badges"
-    (is (= {#{}}
+    (is (= #{}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
                 :conditions-met #{}

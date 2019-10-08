@@ -20,10 +20,11 @@
       {:error (str "Unbeatable seed: " seed-id)})))
 
 (defn generate-beatable [opts]
-  (loop [seed-id (-> (new java.util.Random
-                          .nextLong
-                          java.lang.Math/abs))
-         {:keys [seed error]} (generate seed-id opts)]
-    (if error
-      (recur)
-      {:seed seed})))
+  (loop []
+    (let [seed-id (-> (new java.util.Random)
+                      .nextLong
+                      java.lang.Math/abs)
+          {:keys [seed error]} (generate seed-id opts)]
+      (if error
+        (recur)
+        {:seed seed}))))

@@ -42,5 +42,5 @@
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
-    (-> default
+    (-> patches
         (replace-underground-warehouse-ultra-ball-with-key-item swaps {:speedchoice? speedchoice?}))))
