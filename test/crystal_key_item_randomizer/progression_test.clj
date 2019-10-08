@@ -18,7 +18,7 @@
 
 (deftest can-reach-goldenrod?-test
   (testing "always adds :goldenrod to conditions-met"
-    (is (= #{:goldenrod} (->> {}
+    (is (= #{:goldenrod} (->> {:conditions-met #{}}
                               can-reach-goldenrod?
                               :conditions-met))))
   (testing "adds items that the player can obtain"
@@ -169,9 +169,7 @@
                           :PLAINBADGE
                           :FOGBADGE
                           :STORMBADGE
-                          :MINERALBADGE
-                          ;; oops, a kanto badges
-                          :THUNDERBADGE}}
+                          :MINERALBADGE}}
                can-reach-underground-warehouse?
                :conditions-met)))))
 
@@ -252,7 +250,8 @@
                                                (get-badge-prereqs :FOGBADGE))))))
   (testing "can collect STORMBADGE"
     (is (= #{:STORMBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:can-surf}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:can-surf
+                                                                  :can-strength}
                                                 :badges #{}}
                                                (get-badge-prereqs :STORMBADGE))))))
   (testing "can collect MINERALBADGE"
@@ -269,6 +268,7 @@
   (testing "can collect RISINGBADGE"
     (is (= #{:RISINGBADGE}
            (:badges (can-satisfy-badge-prereq? {:conditions-met #{:defeat-team-rocket
+                                                                  :can-strength
                                                                   :can-whirlpool}
                                                 :badges #{}}
                                                (get-badge-prereqs :RISINGBADGE))))))
