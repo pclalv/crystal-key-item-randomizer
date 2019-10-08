@@ -28,10 +28,10 @@
                       ;; can-whirlpool isn't actually a prereq in
                       ;; speedchoice.
                       :can-whirlpool
+                      ;; the supernerd blocking the gym
+                      ;; doesn't move until the player
+                      ;; defeats Team Rocket
                       :defeat-team-rocket}}
-   ;; the supernerd blocking the gym
-   ;; doesn't move until the player
-   ;; defeats Team Rocket
 
    {:badge :BOULDERBADGE
     :conditions-met #{:fix-power-plant}}
