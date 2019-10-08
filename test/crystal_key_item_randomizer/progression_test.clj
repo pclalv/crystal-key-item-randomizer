@@ -118,8 +118,30 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-strength?-test
-  (testing "pls fix"
-    (is (= true false))))
+  (testing "can when the player has obtained HM_STRENGTH and has the PLAINBADGE"
+    (is (= #{:can-strength}
+           (-> {:swaps vanilla-swaps
+                :conditions-met #{}
+                :items-obtained #{:HM_STRENGTH}
+                :badges #{:PLAINBADGE}}
+               can-strength?
+               :conditions-met))))
+  (testing "can't when the player doesn't have PLAINBADGE"
+    (is (= #{}
+           (-> {:swaps vanilla-swaps
+                :conditions-met #{}
+                :items-obtained #{:HM_STRENGTH}
+                :badges #{}}
+               can-strength?
+               :conditions-met))))
+  (testing "can't when the player doesn't have HM_STRENGTH"
+    (is (= #{}
+           (-> {:swaps vanilla-swaps
+                :conditions-met #{}
+                :items-obtained #{}
+                :badges #{:PLAINBADGE}}
+               can-strength?
+               :conditions-met)))))
 
 (deftest can-surf?-test
   (testing "meetable when the player has reached ecruteak and has obtained HM_SURF"
