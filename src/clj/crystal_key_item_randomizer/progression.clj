@@ -57,7 +57,7 @@
   ;; goldenrod is always accessible
   (-> args
       (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
-             (conj conditions-met :goldenrod))))
+             :conditions-met (conj conditions-met :goldenrod))))
 
 (defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
