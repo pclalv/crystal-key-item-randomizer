@@ -260,9 +260,16 @@
             badge-count (->> final-progression-result
                              :badges
                              count)]
-        (assoc final-progression-result :beatable? (and (>= badge-count 8)
-                                                        (contains? (final-progression-result :conditions-met) :can-surf)
-                                                        (contains? (final-progression-result :conditions-met) :can-waterfall)))))))
+        (assoc final-progression-result :beatable? (if (not speedchoice?)
+                                                     ;; there's some not-straightforward stuff we'd need to do to
+                                                     ;; support vanilla. we'd need to either change the logic around
+                                                     ;; collecting 7 badges, or otherwise patch the rom with new code
+                                                     ;; so taht the Team Rocket Radio Tower takeover can be activated
+                                                     ;; after collecting any 7 badges.
+                                                     false
+                                                     (and (>= badge-count 8)
+                                                          (contains? (final-progression-result :conditions-met) :can-surf)
+                                                          (contains? (final-progression-result :conditions-met) :can-waterfall))))))))
 
 (comment
   ;; TODO: try to implement these?

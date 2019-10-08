@@ -353,7 +353,13 @@
                                                (get-badge-prereqs :EARTHBADGE)))))))
 
 (deftest beatable?-test
-  (testing "vanilla swaps are beatable"
-    (is (= true (->> vanilla-swaps
-                     beatable?
-                     :beatable?)))))
+  (testing "when not speedchoice, vanilla swaps aren't beatable"
+    ;; TODO: eventually fix the code so that it supports vanilla and
+    ;; not just speedchoice.
+    (is (= false (-> vanilla-swaps
+                     (beatable? {:speedchoice? false})
+                     :beatable?))))
+  (testing "when speedchoice, vanilla swaps are beatable"
+    (is (= true (-> vanilla-swaps
+                    (beatable? {:speedchoice? true})
+                    :beatable?)))))
