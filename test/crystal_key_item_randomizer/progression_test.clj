@@ -156,7 +156,13 @@
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
                 :conditions-met #{}
-                :badges johto-badges}
+                :badges #{:ZEPHYRBADGE
+                          :HIVEBADGE
+                          :PLAINBADGE
+                          :FOGBADGE
+                          :STORMBADGE
+                          :MINERALBADGE
+                          :GLACIERBADGE}}
                can-reach-underground-warehouse?
                (select-keys [:items-obtained :conditions-met])))))
   (testing "not reachable when the player has obtained the BASEMENT_KEY, and doesn't have 7 johto badges"
@@ -174,13 +180,14 @@
                :conditions-met)))))
 
 (deftest can-defeat-team-rocket?-test
-  (testing "meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and has 7 johto badges"
+  (testing "meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and has 7 badges"
     (is (= {:items-obtained #{:CARD_KEY :CLEAR_BELL}
             :conditions-met #{:defeat-team-rocket :underground-warehouse}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:CARD_KEY}
                 :conditions-met #{:underground-warehouse}
-                :badges johto-badges}
+                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE
+                          :STORMBADGE :MINERALBADGE :GLACIERBADGE}}
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met])))))
   (testing "not meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and doesn't have 7 johto badges"

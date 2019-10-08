@@ -44,10 +44,6 @@
 
    :HM_WATERFALL]) ; Ice Path after defeating Pryce
 
-(def johto-badges
-  #{:PLAINBADGE :RISINGBADGE :FOGBADGE :ZEPHYRBADGE
-    :STORMBADGE :HIVEBADGE :MINERALBADGE :GLACIERBADGE})
-
 (defn any? [pred col]
   (not (not-any? pred col)))
 
