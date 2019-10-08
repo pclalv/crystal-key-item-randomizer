@@ -146,11 +146,12 @@
   (cond (conditions-met :underground-warehouse) args
         (not (has-seven-badges? badges)) (assoc args :reasons
                                                 (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
-        (items-obtained :BASEMENT_KEY) (-> args
-                                           (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
-                                                  :conditions-met (conj conditions-met :underground-warehouse)))
-        :else (assoc args :reasons
-                     (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))))
+        (not (items-obtained :BASEMENT_KEY)) (assoc args :reasons
+                                                    (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))
+        (and (has-seven-badges? badges)
+             (items-obtained :BASEMENT_KEY)) (-> args
+                                                 (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
+                                                        :conditions-met (conj conditions-met :underground-warehouse)))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   ;; FIXME: the player is still screwed if their 7th badge isn't one
