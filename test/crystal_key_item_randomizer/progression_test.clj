@@ -213,7 +213,15 @@
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met])))))
   (testing "not meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and doesn't have 7 johto badges"
-    (is (= true false))))
+    (is (= {:items-obtained #{:CARD_KEY}
+            :conditions-met #{:underground-warehouse}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{:CARD_KEY}
+                :conditions-met #{:underground-warehouse}
+                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE
+                          :STORMBADGE :MINERALBADGE}}
+               can-defeat-team-rocket?
+               (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-reach-kanto?-test
   (testing "reachable when the player has reached goldenrod and has obtained the PASS"
