@@ -67,6 +67,9 @@ server` automatically reloads code.
 
 ## to do
 
+- [ ] convert JSON patch files into a mroe readable, commentable
+      format (yaml probably)
+
 ### randomizer logic
 
 - [ ] add HM_STRENGTH as a prereq for Cianwood badge
