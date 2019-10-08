@@ -13,8 +13,9 @@
        json/read-str))
 
 (def speedchoice-patches
-  "Contains data that the frontend can use to modify the ROM file with changes beyond the usual key item swaps."
-  ;; TODO: define this file
+  "Contains data specific to crystal-speedchoice.gbc that the frontend
+  can use to modify the ROM file with changes beyond the usual key
+  item swaps."
   (->> "randomizer-patches-diff-speedchoice.json"
        io/resource
        slurp
