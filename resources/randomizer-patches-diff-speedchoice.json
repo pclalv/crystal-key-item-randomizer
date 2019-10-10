@@ -320,10 +320,10 @@
         },
         "address_range": {
             "begin": 721295,
-            "end": 721295
+            "end": 721296
         },
 	"name": "Remove cuttable tree in Ilex Forest",
-	"description": "For variety :) otherwise we'd have to force HM_CUT to appear within the first four items"
+	"description": "For variety :) otherwise we'd have to force HM_CUT (or SQUIRTBOTTLE) to appear within the first four items"
     },
 
     {
