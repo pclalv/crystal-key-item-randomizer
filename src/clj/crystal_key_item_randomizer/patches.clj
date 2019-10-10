@@ -4,6 +4,7 @@
   (:use [crystal-key-item-randomizer.data :only [key-items key-items-speedchoice]]))
 
 (def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
+(def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 
 (def vanilla-patches
   "Contains data that the frontend can use to modify the ROM file with changes beyond the usual key item swaps."
@@ -29,7 +30,9 @@
 (defn replace-underground-warehouse-ultra-ball-with-key-item [patches {card-key-replacement :CARD_KEY} {:keys [speedchoice?]}]
   (let [{rest :rest patch UNDERGROUND-ITEM-BALL} (->> patches
                                                       (group-by (fn [patch]
-                                                                  (if (= (name UNDERGROUND-ITEM-BALL)
+                                                                  (if (= (name (if speedchoice?
+                                                                                 UNDERGROUND-ITEM-BALL-SPEEDCHOICE
+                                                                                 UNDERGROUND-ITEM-BALL))
                                                                          (patch "name"))
                                                                     UNDERGROUND-ITEM-BALL
                                                                     :rest))))
