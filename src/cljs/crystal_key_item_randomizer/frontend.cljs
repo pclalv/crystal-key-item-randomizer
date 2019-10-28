@@ -1,6 +1,6 @@
 (ns crystal-key-item-randomizer.frontend
   (:require [reagent.core :as r]
-            [crystal-key-item-randomizer.data :refer [key-items]]))
+            [crystal-key-item-randomizer.data :refer [key-items-speedchoice]]))
 
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
@@ -32,10 +32,10 @@
 
 (defn apply-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
-                             key-items
+                             key-items-speedchoice
                              :address)
         replacement-value (-> (keyword replacement)
-                              key-items
+                              key-items-speedchoice
                               :value)]
     (aset rom-bytes original-address replacement-value)
     rom-bytes))
