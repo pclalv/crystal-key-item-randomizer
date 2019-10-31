@@ -1,7 +1,7 @@
 # crystal-key-item-randomizer
 
 A Clojure + Clojurescript application for randomizing the key items
-(including HMs) in Pokemon Crystal.
+(including HMs) in the speedchoice fork of Pokemon Crystal.
 
 ## changes
 
