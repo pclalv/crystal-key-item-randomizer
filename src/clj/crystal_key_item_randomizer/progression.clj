@@ -39,8 +39,7 @@
 
    :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
    :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
-
-   :HM_WATERFALL]) ; Ice Path after defeating Pryce
+   ])
 
 (defn any? [pred col]
   (not (not-any? pred col)))
@@ -165,6 +164,15 @@
         :else (assoc args :reasons
                      (conj reasons "defeat-team-rocket: cannot reach without having triggered the radio tower takeover and having obtained CARD_KEY"))))
 
+(defn can-reach-blackthorn? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (conditions-met :blackthorn) args
+        (and (conditions-met :can-strength)
+             (conditions-met :trigger-radio-tower-takeover)) (-> args
+                                                                 (assoc :items-obtained (conj items-obtained (swaps :HM_WATERFALL)) ;; from ice path
+                                                                        :conditions-met (conj conditions-met :blackthorn)))
+        :else (assoc args :reasons
+                     (conj reasons "blackthorn: cannot reach without having defeated team rocket and being able to use strength"))))
+
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :kanto)
     args
@@ -254,6 +262,7 @@
                                                      can-trigger-radio-tower-takeover?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
+                                                     can-reach-blackthorn?
                                                      can-reach-kanto?
                                                      can-fix-power-plant?
                                                      can-get-copycat-item?))))

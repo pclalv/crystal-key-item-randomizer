@@ -24,14 +24,14 @@
     :conditions-met #{:can-surf}}
 
    {:badge :RISINGBADGE
-    :conditions-met #{:can-strength
-                      ;; can-whirlpool isn't actually a prereq in
+    :conditions-met #{;; can-whirlpool isn't actually a prereq in
                       ;; speedchoice.
                       :can-whirlpool
                       ;; the supernerd blocking the gym
                       ;; doesn't move until the player
                       ;; defeats Team Rocket
-                      :defeat-team-rocket}}
+                      :defeat-team-rocket
+                      :blackthorn}}
 
    {:badge :BOULDERBADGE
     :conditions-met #{:fix-power-plant}}

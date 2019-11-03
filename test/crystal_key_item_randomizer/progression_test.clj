@@ -171,6 +171,26 @@
                                  can-waterfall?
                                  :conditions-met)))))
 
+(deftest can-reach-blackthorn?-test
+  (testing "meetable when the player can use strength and has defeated team rocket"
+    (is (= #{:can-strength :trigger-radio-tower-takeover :blackthorn} (-> {:swaps vanilla-swaps
+                                                                           :items-obtained #{}
+                                                                           :conditions-met #{:can-strength :trigger-radio-tower-takeover}}
+                                                                          can-reach-blackthorn?
+                                                                          :conditions-met))))
+  (testing "not meetable when the player can use strength and has not defeated team rocket"
+    (is (= #{:can-strength} (-> {:swaps vanilla-swaps
+                                 :items-obtained #{}
+                                 :conditions-met #{:can-strength}}
+                                can-reach-blackthorn?
+                                :conditions-met))))
+  (testing "not meetable when the player has defeated team rocket and cannot use strength"
+    (is (= #{:defeat-team-rocket} (-> {:swaps vanilla-swaps
+                                       :items-obtained #{}
+                                       :conditions-met #{:defeat-team-rocket}}
+                                      can-reach-blackthorn?
+                                      :conditions-met)))))
+
 (deftest can-trigger-radio-tower-takeover?-test
   (testing "meetable when the player has obtained johto 7 badges"
     (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
@@ -352,9 +372,9 @@
                                                (get-badge-prereqs :GLACIERBADGE))))))
   (testing "can collect RISINGBADGE"
     (is (= #{:RISINGBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:defeat-team-rocket
-                                                                  :can-strength
-                                                                  :can-whirlpool}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:blackthorn
+                                                                  :can-whirlpool
+                                                                  :defeat-team-rocket}
                                                 :badges #{}}
                                                (get-badge-prereqs :RISINGBADGE))))))
   (testing "can collect BOULDERBADGE"
