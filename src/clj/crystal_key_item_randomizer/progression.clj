@@ -40,8 +40,6 @@
    :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
    :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
 
-   :BASEMENT_KEY ; Rockets in the Radio Tower
-
    :HM_WATERFALL]) ; Ice Path after defeating Pryce
 
 (defn any? [pred col]
@@ -138,24 +136,34 @@
 (defn has-seven-badges? [badges]
   (<= 7 (count badges)))
 
+(defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (conditions-met :trigger-radio-tower-takeover) args
+        (has-seven-badges? badges) (-> args
+                                       (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
+                                              :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
+        (not (has-seven-badges? badges)) (assoc args :reasons
+                                                (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
+        
+
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :underground-warehouse) args
-        (not (has-seven-badges? badges)) (assoc args :reasons
-                                                (conj reasons "underground-warehouse: cannot reach without having at least 7 badges"))
+        (not (conditions-met :trigger-radio-tower-takeover)) (assoc args :reasons
+                                                                    (conj reasons "underground-warehouse: cannot reach without having triggered radio tower takeover"))
         (not (items-obtained :BASEMENT_KEY)) (assoc args :reasons
                                                     (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))
-        (and (has-seven-badges? badges)
+        (and (conditions-met :trigger-radio-tower-takeover)
              (items-obtained :BASEMENT_KEY)) (-> args
                                                  (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
                                                         :conditions-met (conj conditions-met :underground-warehouse)))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-team-rocket) args
-        (and (items-obtained :CARD_KEY) (has-seven-badges? badges)) (-> args
-                                                                        (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
-                                                                               :conditions-met (conj conditions-met :defeat-team-rocket)))
+        (and (items-obtained :CARD_KEY)
+             (conditions-met :trigger-radio-tower-takeover)) (-> args
+                                                                 (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
+                                                                        :conditions-met (conj conditions-met :defeat-team-rocket)))
         :else (assoc args :reasons
-                     (conj reasons "defeat-team-rocket: cannot reach without having obtained CARD_KEY and at least 7 badges"))))
+                     (conj reasons "defeat-team-rocket: cannot reach without having triggered the radio tower takeover and having obtained CARD_KEY"))))
 
 (defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (if (conditions-met :kanto)
@@ -243,6 +251,7 @@
                                                      can-surf?
                                                      can-whirlpool?
                                                      can-waterfall?
+                                                     can-trigger-radio-tower-takeover?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
                                                      can-reach-kanto?

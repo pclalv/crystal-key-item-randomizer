@@ -145,7 +145,7 @@
 
 (deftest can-surf?-test
   (testing "meetable when the player has reached ecruteak and has obtained HM_SURF"
-    (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :HM_WATERFALL :SECRETPOTION :BASEMENT_KEY :HM_FLY :HM_SURF}
+    (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_FLY :HM_SURF}
             :conditions-met #{:ecruteak :can-surf}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}
@@ -171,12 +171,11 @@
                                  can-waterfall?
                                  :conditions-met)))))
 
-(deftest can-reach-underground-warehouse?-test
-  (testing "reachable when the has obtained the BASEMENT_KEY, and has obtained 7 johto badges"
-    (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
-            :conditions-met #{:underground-warehouse}}
+(deftest can-trigger-radio-tower-takeover?-test
+  (testing "meetable when the player has obtained johto 7 badges"
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
-                :items-obtained #{:BASEMENT_KEY}
+                :items-obtained #{}
                 :conditions-met #{}
                 :badges #{:ZEPHYRBADGE
                           :HIVEBADGE
@@ -185,41 +184,90 @@
                           :STORMBADGE
                           :MINERALBADGE
                           :GLACIERBADGE}}
-               can-reach-underground-warehouse?
+               can-trigger-radio-tower-takeover?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not reachable when the player has obtained the BASEMENT_KEY, and doesn't have 7 johto badges"
-    (is (= #{}
+
+  (testing "meetable when the player has obtained 7 kanto badges"
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{}
+                :badges #{:BOULDERBADGE
+                          :CASCADEBADGE
+                          :THUNDERBADGE
+                          :RAINBOWBADGE
+                          :SOULBADGE
+                          :MARSHBADGE
+                          :VOLCANOBADGE}}
+               can-trigger-radio-tower-takeover?
+               (select-keys [:items-obtained :conditions-met])))))
+
+  (testing "not meetable when the player has not obtained 7 badges"
+    (is (= {:items-obtained #{} :conditions-met #{}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{}
+                :badges #{:BOULDERBADGE
+                          :CASCADEBADGE
+                          :THUNDERBADGE
+                          :RAINBOWBADGE
+                          :SOULBADGE
+                          :MARSHBADGE}}
+               can-trigger-radio-tower-takeover?
+               (select-keys [:items-obtained :conditions-met]))))))
+
+(deftest can-reach-underground-warehouse?-test
+  (testing "reachable when the has obtained the BASEMENT_KEY, and has triggered the takeover"
+    (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
+            :conditions-met #{:underground-warehouse :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
-                :conditions-met #{}
-                :badges #{:ZEPHYRBADGE
-                          :HIVEBADGE
-                          :PLAINBADGE
-                          :FOGBADGE
-                          :STORMBADGE
-                          :MINERALBADGE}}
+                :conditions-met #{:trigger-radio-tower-takeover}}
                can-reach-underground-warehouse?
-               :conditions-met)))))
+               (select-keys [:items-obtained :conditions-met])))))
+
+  (testing "reachable when the has triggered the takeover but has not obtained the BASEMENT KEY"
+    (is (= {:items-obtained #{}
+            :conditions-met #{:trigger-radio-tower-takeover}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{:trigger-radio-tower-takeover}}
+               can-reach-underground-warehouse?
+               (select-keys [:items-obtained :conditions-met])))))
+
+  (testing "not reachable when the player has obtained the BASEMENT_KEY, and has not triggered the takekover"
+    (is (= {:items-obtained #{:BASEMENT_KEY}, :conditions-met #{}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{:BASEMENT_KEY}
+                :conditions-met #{}}
+               can-reach-underground-warehouse?
+               (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-defeat-team-rocket?-test
-  (testing "meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and has 7 badges"
+  (testing "meetable when the player has obtained the CARD_KEY, and has triggered the takeover"
     (is (= {:items-obtained #{:CARD_KEY :CLEAR_BELL}
-            :conditions-met #{:defeat-team-rocket :underground-warehouse}}
+            :conditions-met #{:defeat-team-rocket :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:CARD_KEY}
-                :conditions-met #{:underground-warehouse}
-                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE
-                          :STORMBADGE :MINERALBADGE :GLACIERBADGE}}
+                :conditions-met #{:trigger-radio-tower-takeover}}
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not meetable when the player has reached the underground warehouse, has obtained the CARD_KEY, and doesn't have 7 johto badges"
+
+  (testing "not meetable when the player has triggered the takeover and has not obtained the CARD_KEY and"
+    (is (= {:items-obtained #{}
+            :conditions-met #{:trigger-radio-tower-takeover}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{:trigger-radio-tower-takeover}}
+               can-defeat-team-rocket?
+               (select-keys [:items-obtained :conditions-met])))))
+
+  (testing "not meetable when has obtained the CARD_KEY and has not triggered the takeover"
     (is (= {:items-obtained #{:CARD_KEY}
-            :conditions-met #{:underground-warehouse}}
+            :conditions-met #{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:CARD_KEY}
-                :conditions-met #{:underground-warehouse}
-                :badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE
-                          :STORMBADGE :MINERALBADGE}}
+                :conditions-met #{}}
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met]))))))
 
