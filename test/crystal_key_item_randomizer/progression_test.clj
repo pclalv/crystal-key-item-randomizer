@@ -444,7 +444,7 @@
                                                (get-badge-prereqs :BOULDERBADGE))))))
   (testing "can collect CASCADEBADGE"
     (is (= #{:CASCADEBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
                                                 :badges #{}}
                                                (get-badge-prereqs :CASCADEBADGE))))))
   (testing "can collect THUNDERBADGE"

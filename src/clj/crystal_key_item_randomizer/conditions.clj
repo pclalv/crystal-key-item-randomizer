@@ -37,7 +37,7 @@
     :conditions-met #{:fix-power-plant}}
 
    {:badge :CASCADEBADGE
-    :conditions-met #{:kanto}}
+    :conditions-met #{:fix-power-plant}}
 
    {:badge :THUNDERBADGE
     :conditions-met #{:kanto}
