@@ -51,6 +51,10 @@ collectable.
    - SECRETPOTION
    - LOST_ITEM
    - MYSTERY_EGG
+* During the Goldenrod Radio Tower takeover, if the player gets the
+  `CARD KEY` early, the player cannot skip the battle with the fake Radio
+  Tower director by using the key card to skip straight to the final
+  Rocket executives.
 
 ## development
 
