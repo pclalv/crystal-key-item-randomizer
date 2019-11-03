@@ -144,12 +144,28 @@
                :conditions-met)))))
 
 (deftest can-surf?-test
-  (testing "meetable when the player has reached ecruteak and has obtained HM_SURF"
+  (testing "can when the player has reached ecruteak and has obtained HM_SURF"
     (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_FLY :HM_SURF}
             :conditions-met #{:ecruteak :can-surf}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}
                 :conditions-met #{:ecruteak}}
+               can-surf?
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "can't when the player has reached ecruteak and has not obtained HM_SURF"
+    (is (= {:items-obtained #{}
+            :conditions-met #{:ecruteak}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{:ecruteak}}
+               can-surf?
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "can when the player has not reached ecruteak and has obtained HM_SURF"
+    (is (= {:items-obtained #{:HM_SURF}
+            :conditions-met #{}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{:HM_SURF}
+                :conditions-met #{}}
                can-surf?
                (select-keys [:items-obtained :conditions-met]))))))
 
@@ -160,7 +176,21 @@
                                   :badges #{:GLACIERBADGE}
                                   :conditions-met #{}}
                                  can-whirlpool?
-                                 :conditions-met)))))
+                                 :conditions-met))))
+  (testing "not meetable when the player has obtained the GLACIERBADGE and not HM_WHIRLPOOL"
+    (is (= #{} (-> {:swaps vanilla-swaps
+                    :items-obtained #{}
+                    :badges #{:GLACIERBADGE}
+                    :conditions-met #{}}
+                   can-whirlpool?
+                   :conditions-met))))
+  (testing "meetable when the player has not obtained the GLACIERBADGE and has obtained HM_WHIRLPOOL"
+    (is (= #{} (-> {:swaps vanilla-swaps
+                    :items-obtained #{:HM_WHIRLPOOL}
+                    :badges #{}
+                    :conditions-met #{}}
+                   can-whirlpool?
+                   :conditions-met)))))
 
 (deftest can-waterfall?-test
   (testing "meetable when the player has obtained the RISINGBADGE and HM_WATERFALL"
@@ -169,7 +199,21 @@
                                   :badges #{:RISINGBADGE}
                                   :conditions-met #{}}
                                  can-waterfall?
-                                 :conditions-met)))))
+                                 :conditions-met))))
+  (testing "not meetable when the player has obtained the RISINGBADGE and not HM_WATERFALL"
+    (is (= #{} (-> {:swaps vanilla-swaps
+                    :items-obtained #{}
+                    :badges #{:RISINGBADGE}
+                    :conditions-met #{}}
+                   can-waterfall?
+                   :conditions-met))))
+  (testing "meetable when the player has not obtained the RISINGBADGE and has obtained HM_WATERFALL"
+    (is (= #{} (-> {:swaps vanilla-swaps
+                    :items-obtained #{:HM_WATERFALL}
+                    :badges #{}
+                    :conditions-met #{}}
+                   can-waterfall?
+                   :conditions-met)))))
 
 (deftest can-reach-blackthorn?-test
   (testing "meetable when the player can use strength and has defeated team rocket"
@@ -315,6 +359,22 @@
             :conditions-met #{:fix-power-plant :kanto :can-surf}}
            (-> {:swaps vanilla-swaps
                 :conditions-met #{:can-surf :kanto}}
+               can-fix-power-plant?
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "not meetable when the player has reached kanto and can't surf"
+    (is (= {:items-obtained #{}
+            :conditions-met #{:kanto}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{:kanto}}
+               can-fix-power-plant?
+               (select-keys [:items-obtained :conditions-met])))))
+  (testing "not meetable when the player has not reached kanto and can surf"
+    (is (= {:items-obtained #{}
+            :conditions-met #{:can-surf}}
+           (-> {:swaps vanilla-swaps
+                :items-obtained #{}
+                :conditions-met #{:can-surf}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met]))))))
 
