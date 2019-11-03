@@ -150,15 +150,6 @@
                                                         :conditions-met (conj conditions-met :underground-warehouse)))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  ;; FIXME: the player is still screwed if their 7th badge isn't one
-  ;; of the first 7 Johto badges.
-
-  ;; this logic would be more complex were it not for the fact that we
-  ;; patch in an item ball that makes the Underground Basement item
-  ;; appear automatically after Team Rocket is defeated.
-
-  ;; without the item ball, the player would have to know to do things
-  ;; in a particular order, which kind of sucks.
   (cond (conditions-met :defeat-team-rocket) args
         (and (items-obtained :CARD_KEY) (has-seven-badges? badges)) (-> args
                                                                         (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
