@@ -4,6 +4,7 @@
 
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
+(def wildcard "*")
 
 (defn throw-js [str]
   (throw (clj->js {:error str})))
@@ -44,12 +45,13 @@
   (reduce apply-swap rom-bytes (js->clj swaps)))
 
 (defn update-address [rom-bytes {:keys [address old-value new-value]}]
-  (if (not= old-value (aget rom-bytes address))
+  (if (or (= old-value wildcard)
+          (= old-value (aget rom-bytes address)))
+    (do (aset rom-bytes address new-value)
+        rom-bytes)
     (throw-js (str "Expected \"" old-value
                    "\" at address \"" address
-                   "\" but found \"" (aget rom-bytes address) "\"."))
-    (do (aset rom-bytes address new-value)
-        rom-bytes)))
+                   "\" but found \"" (aget rom-bytes address) "\"."))))
 
 (defn apply-patch [rom-bytes {{old-values :old new-values :new} :integer_values
                               {begin-addr :begin end-addr :end} :address_range
