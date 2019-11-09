@@ -130,7 +130,7 @@
              (items-obtained :HM_WATERFALL)) (assoc args :conditions-met
                                                     (conj conditions-met :can-waterfall))
         :else (assoc args :reasons
-                     (conj reasons "can-waterfall: cannot without both RISIINGBADGE and HM_WATERFALL"))))
+                     (conj reasons "can-waterfall: cannot without both RISINGBADGE and HM_WATERFALL"))))
 
 (defn has-seven-badges? [badges]
   (<= 7 (count badges)))
