@@ -237,10 +237,10 @@
 
 (deftest can-trigger-radio-tower-takeover?-test
   (testing "meetable when the player has obtained johto 7 badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{}
+                :conditions-met #{:defeat-red-gyarados}
                 :badges #{:ZEPHYRBADGE
                           :HIVEBADGE
                           :PLAINBADGE
@@ -252,10 +252,10 @@
                (select-keys [:items-obtained :conditions-met])))))
 
   (testing "meetable when the player has obtained 7 kanto badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{}
+                :conditions-met #{:defeat-red-gyarados}
                 :badges #{:BOULDERBADGE
                           :CASCADEBADGE
                           :THUNDERBADGE
@@ -267,10 +267,10 @@
                (select-keys [:items-obtained :conditions-met])))))
 
   (testing "not meetable when the player has not obtained 7 badges"
-    (is (= {:items-obtained #{} :conditions-met #{}}
+    (is (= {:items-obtained #{} :conditions-met #{:defeat-red-gyarados}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{}
+                :conditions-met #{:defeat-red-gyarados}
                 :badges #{:BOULDERBADGE
                           :CASCADEBADGE
                           :THUNDERBADGE
@@ -337,7 +337,7 @@
 
 (deftest can-reach-kanto?-test
   (testing "reachable when the player has reached goldenrod and has obtained the PASS"
-    (is (= {:items-obtained #{:MACHINE_PART :PASS :SUPER_ROD}
+    (is (= {:items-obtained #{:PASS :SUPER_ROD}
             :conditions-met #{:goldenrod :kanto}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:PASS}
@@ -345,7 +345,7 @@
                can-reach-kanto?
                (select-keys [:items-obtained :conditions-met])))))
   (testing "reachable when the player has reached ecruteak and has obtained the PASS"
-    (is (= {:items-obtained #{:MACHINE_PART :S_S_TICKET :SUPER_ROD}
+    (is (= {:items-obtained #{:S_S_TICKET :SUPER_ROD}
             :conditions-met #{:ecruteak :kanto}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:S_S_TICKET}
