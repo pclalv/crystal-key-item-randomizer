@@ -135,11 +135,19 @@
 (defn has-seven-badges? [badges]
   (<= 7 (count badges)))
 
+(defn can-defeat-red-gyarados? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (conditions-met :defeat-red-gyarados) args
+        (and (conditions-met :can-surf)
+             (conditions-met :ecruteak)) (assoc args :conditions-met (conj conditions-met :defeat-red-gyarados))
+        :else (assoc args :reasons
+                     (conj reasons "defeat-red-gyarados: cannot without both surf and reaching ecruteak"))))
+
 (defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :trigger-radio-tower-takeover) args
-        (has-seven-badges? badges) (-> args
-                                       (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
-                                              :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
+        (and (conditions-met :defeat-red-gyarados)
+             (has-seven-badges? badges)) (-> args
+                                             (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
+                                                    :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
         (not (has-seven-badges? badges)) (assoc args :reasons
                                                 (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
         
@@ -258,6 +266,7 @@
                                                      can-surf?
                                                      can-whirlpool?
                                                      can-waterfall?
+                                                     can-defeat-red-gyarados?
                                                      can-trigger-radio-tower-takeover?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
