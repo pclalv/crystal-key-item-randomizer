@@ -16,7 +16,7 @@
     (if (progression-results :beatable?)
       {:seed (-> progression-results
                  (assoc :patches (patches/generate swaps {:speedchoice? speedchoice?}))
-                 (assoc :id seed-id))}
+                 (assoc :id (str seed-id)))}
       {:error (str "Unbeatable seed: " seed-id)})))
 
 (defn generate-beatable [opts]
