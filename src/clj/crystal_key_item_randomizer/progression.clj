@@ -181,8 +181,7 @@
           kanto-via-boat? (and (conditions-met :ecruteak)
                                (items-obtained :S_S_TICKET))]
       (if (or kanto-via-train? kanto-via-boat?)
-        (-> args (assoc :items-obtained (cset/union items-obtained
-                                                    (get-swaps swaps [:SUPER_ROD :MACHINE_PART]))
+        (-> args (assoc :items-obtained (conj items-obtained (swaps :SUPER_ROD))
                         :conditions-met (conj conditions-met :kanto)))
         (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
 
