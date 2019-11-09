@@ -34,8 +34,7 @@
 
 (def surf-required-items
   "Items that are unlocked merely by being able to surf."
-  [:HM_FLY       ; Cianwood
-   :SECRETPOTION ; Cianwood
+  [:SECRETPOTION ; Cianwood
 
    :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
    :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
@@ -131,6 +130,13 @@
                                                     (conj conditions-met :can-waterfall))
         :else (assoc args :reasons
                      (conj reasons "can-waterfall: cannot without both RISINGBADGE and HM_WATERFALL"))))
+
+(defn can-get-chucks-wifes-item?[{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (items-obtained (swaps :HM_FLY)) args
+        (and (conditions-met :can-surf)
+             (conditions-met :can-strength)) (assoc args :items-obtained (conj items-obtained (swaps :HM_FLY)))
+        :else (assoc args :reasons
+                     (conj reasons "HM_FLY: cannot obtained with out being able to surf and being able to strength"))))
 
 (defn has-seven-badges? [badges]
   (<= 7 (count badges)))
@@ -266,6 +272,7 @@
                                                      can-whirlpool?
                                                      can-waterfall?
                                                      can-defeat-red-gyarados?
+                                                     can-get-chucks-wifes-item?
                                                      can-trigger-radio-tower-takeover?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
