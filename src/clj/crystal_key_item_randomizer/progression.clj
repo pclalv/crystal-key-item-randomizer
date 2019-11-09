@@ -148,9 +148,8 @@
              (has-seven-badges? badges)) (-> args
                                              (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
                                                     :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
-        (not (has-seven-badges? badges)) (assoc args :reasons
-                                                (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
-        
+        :else (assoc args :reasons
+                     (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges and defeating the red gyarados"))))
 
 (defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :underground-warehouse) args
