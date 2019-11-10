@@ -27,9 +27,6 @@
     :conditions-met #{;; can-whirlpool isn't actually a prereq in
                       ;; speedchoice.
                       :can-whirlpool
-                      ;; FIXME: you also definitely need to be able to
-                      ;; surf in vanilla.
-
                       ;; the supernerd blocking the gym
                       ;; doesn't move until the player
                       ;; defeats Team Rocket
