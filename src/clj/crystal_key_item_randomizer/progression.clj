@@ -223,6 +223,24 @@
         :else (assoc args :reasons
                      (conj reasons "copycat-item: cannot reach without LOST_ITEM"))))
 
+(defn can-defeat-elite-4? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (conditions-met :defeat-elite-4) args
+        (and (>= (count badges) 8) (or ;; via Viridian
+                                    (and (conditions-met :fix-power-plant)
+                                         (conditions-met :can-strength))
+                                    ;; via Tohjo Falls
+                                    (and (conditions-met :can-surf)
+                                         (conditions-met :can-strength)
+                                         (conditions-met :can-waterfall)))) (-> args
+                                                                                (assoc :items-obtained (conj items-obtained :S_S_TICKET))
+                                                                                (assoc :conditions-met (conj conditions-met :defeat-elite-4)))
+        :else (assoc args :reasons (conj reasons "defeat-elite-4: can't without Victory Road access via Viridian or Tohjo Falls"))))
+
+(defn can-defeat-red? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (conditions-met :defeat-red) args
+        (= (count badges) 16) (assoc args :conditions-met (conj conditions-met :defeat-red))
+        :else (assoc args :reasons (conj reasons "defeat-red: cannot without 16 badges"))))
+
 ;;;;;;;;;;;;
 ;; badges ;;
 ;;;;;;;;;;;;
@@ -246,10 +264,8 @@
           (assoc args :badges #{})
           badge-prereqs))
 
-(defn beatable? [swaps {:keys [speedchoice? endgame]}]
-  (let [endgame-badge-count (cond (= :red endgame) 16
-                                  :else 8)
-        initial-items (get-swaps swaps guaranteed-items)
+(defn beatable? [swaps {:keys [speedchoice?]}]
+  (let [initial-items (get-swaps swaps guaranteed-items)
         ;; in vanilla, the player needs whirlpool only to get the
         ;; RISINGBADGE.  in speedchoice, the player doesn't need
         ;; whirlpool at all.  so that we don't have to make more
@@ -289,10 +305,9 @@
                                                      can-reach-blackthorn?
                                                      can-reach-kanto?
                                                      can-fix-power-plant?
-                                                     can-get-copycat-item?))))
-            badge-count (->> final-progression-result
-                             :badges
-                             count)]
+                                                     can-get-copycat-item?
+                                                     can-defeat-elite-4?
+                                                     can-defeat-red?))))]
         (assoc final-progression-result :beatable? (if (not speedchoice?)
                                                      ;; there's some not-straightforward stuff we'd need to do to
                                                      ;; support vanilla. we'd need to either change the logic around
@@ -300,9 +315,7 @@
                                                      ;; so taht the Team Rocket Radio Tower takeover can be activated
                                                      ;; after collecting any 7 badges.
                                                      false
-                                                     (and (>= badge-count endgame-badge-count)
-                                                          (contains? (final-progression-result :conditions-met) :can-surf)
-                                                          (contains? (final-progression-result :conditions-met) :can-waterfall))))))))
+                                                     (contains? (final-progression-result :conditions-met) :defeat-red)))))))
 
 (comment
   ;; TODO: try to implement these?
