@@ -145,7 +145,7 @@
 
 (deftest can-surf?-test
   (testing "can when the player has reached ecruteak and has obtained HM_SURF"
-    (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_FLY :HM_SURF}
+    (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_SURF}
             :conditions-met #{:ecruteak :can-surf}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}
