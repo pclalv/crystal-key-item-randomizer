@@ -33,6 +33,9 @@ collectable.
 * The Flower Shop item (`SQUIRTBOTTLE` in vanilla) is always
   obtainable, even if the player has used the `SQUIRTBOTTLE` to defeat
   the Sudowoodo.
+* The Cianwood Pharmacy item (`SECRETPOTION` in vanilla) is always
+  obtainable, even if they player has used the `SECRETPOTION` on Amphy
+  at the Lighthouse.
 * The Underground Warehouse item is obtainable as soon as Team Rocket
   takes over the Radio Tower. The player may either visit the
   Underground Warehouse during the takeover and obtain the item from
