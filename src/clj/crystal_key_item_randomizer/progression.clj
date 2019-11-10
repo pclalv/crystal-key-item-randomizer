@@ -246,8 +246,10 @@
           (assoc args :badges #{})
           badge-prereqs))
 
-(defn beatable? [swaps {:keys [speedchoice?]}]
-  (let [initial-items (get-swaps swaps guaranteed-items)
+(defn beatable? [swaps {:keys [speedchoice? endgame]}]
+  (let [endgame-badge-count (cond (= :red endgame) 16
+                                  :else 8)
+        initial-items (get-swaps swaps guaranteed-items)
         ;; in vanilla, the player needs whirlpool only to get the
         ;; RISINGBADGE.  in speedchoice, the player doesn't need
         ;; whirlpool at all.  so that we don't have to make more
@@ -298,7 +300,7 @@
                                                      ;; so taht the Team Rocket Radio Tower takeover can be activated
                                                      ;; after collecting any 7 badges.
                                                      false
-                                                     (and (>= badge-count 8)
+                                                     (and (>= badge-count endgame-badge-count)
                                                           (contains? (final-progression-result :conditions-met) :can-surf)
                                                           (contains? (final-progression-result :conditions-met) :can-waterfall))))))))
 
