@@ -2,8 +2,10 @@
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.data :refer [key-items-speedchoice]]))
 
+(def show-spoilers (r/atom false))
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
+(def swaps-table (r/atom {}))
 (def wildcard "*")
 
 (defn throw-js [str]
@@ -91,6 +93,7 @@
                    (do (render-as-error (.-error json))
                        (reset-form))
                    (let [{:keys [swaps patches id]} (-> json (aget "seed") (js->clj :keywordize-keys true))]
+                     (reset! swaps-table swaps)
                      (-> rom-bytes
                          (patch-rom {:swaps swaps :patches patches})
                          (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc")))))))
@@ -109,6 +112,9 @@
       (set! (.-onload reader) randomize-rom)
       (.readAsArrayBuffer reader rom-file))))
 
+(defn toggle-spoilers [event]
+  (reset! show-spoilers (-> event .-target .-checked)))
+
 (defn error-display []
   ;; TODO: style error class - maybe put a box around it and indent it for visibility.
   [:div {:class ["error"] :style (when (nil? @error) {:display "none"})}
@@ -123,8 +129,28 @@
   [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
+(defn swap-row []
+  (fn [swap]
+    (let [orig-item (-> swap .-key)
+          new-item (-> swap .-val)]
+      [:tr [:td orig-item] [:td new-item]])))
+          
+(defn spoilers-display []
+  [:div
+   [:label {:for "toggle-spoilers"} "Show spoilers"]
+   [:input {:id "toggle-spoilers ":type "checkbox" :on-change toggle-spoilers :default @show-spoilers}]
+   [:table {:id "swaps" :style (when (not @show-spoilers) {:display "none"})}
+    [:thead [:tr
+             [:th "Vanilla item"] [:th "New item"]]]
+    [:tbody (for [swap @swaps-table]
+              [swap-row swap])]]])
+
+(r/render [spoilers-display] (-> js/document
+                                 (.getElementById "spoilers")))
+
 (r/render [error-display] (-> js/document
-                                (.getElementById "error")))
+                              (.getElementById "error")))
+
 (r/render [rom-input] (-> js/document
                           (.getElementById "input")))
   
