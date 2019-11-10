@@ -450,14 +450,12 @@
                                                (get-badge-prereqs :CASCADEBADGE))))))
   (testing "can collect THUNDERBADGE"
     (is (= #{:THUNDERBADGE}
-           (:badges (can-satisfy-badge-prereq? {:items-obtained #{:HM_CUT}
-                                                :conditions-met #{:kanto}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto :can-cut}
                                                 :badges #{}}
                                                (get-badge-prereqs :THUNDERBADGE))))))
   (testing "can collect RAINBOWBADGE"
     (is (= #{:RAINBOWBADGE}
-           (:badges (can-satisfy-badge-prereq? {:items-obtained #{:HM_CUT}
-                                                :conditions-met #{:kanto}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:kanto :can-cut}
                                                 :badges #{}}
                                                (get-badge-prereqs :RAINBOWBADGE))))))
   (testing "can collect SOULBADGE"

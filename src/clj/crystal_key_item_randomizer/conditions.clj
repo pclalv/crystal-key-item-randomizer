@@ -43,12 +43,10 @@
     :conditions-met #{:kanto :can-surf :can-cut}}
 
    {:badge :THUNDERBADGE
-    :conditions-met #{:kanto}
-    :items-obtained #{:HM_CUT}}
+    :conditions-met #{:kanto :can-cut}}
 
    {:badge :RAINBOWBADGE
-    :conditions-met #{:kanto}
-    :items-obtained #{:HM_CUT}}
+    :conditions-met #{:kanto :can-cut}}
 
    {:badge :SOULBADGE
     :conditions-met #{:kanto}}
