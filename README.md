@@ -13,6 +13,7 @@ In addition to swapping around key items, these changes open up the game:
 * Travel via train without having fixed the Power Plant
 * Travel via SS Aqua without having beaten the Elite 4, on any day of
   the week
+* Defeating any 7 gyms will trigger the Radio Tower takeover
 
 ### quality of life changes
 
@@ -49,23 +50,27 @@ collectable.
   Underground Warehouse will be totally empty.
 * Some dialogs don't reveal which item was obtained; this affects the
   following key items:
-   - BICYCLE
-   - RED_SCALE
-   - SECRETPOTION
-   - LOST_ITEM
-   - MYSTERY_EGG
+   - `BICYCLE`
+   - `RED_SCALE`
+   - `SECRETPOTION`
+   - `LOST_ITEM`
+   - `MYSTERY_EGG`
 * During the Goldenrod Radio Tower takeover, if the player gets the
   `CARD KEY` early, the player cannot skip the battle with the fake Radio
   Tower director by using the key card to skip straight to the final
   Rocket executives.
+* During the Goldenrod Radio Tower takeover, the player cannot skip
+  the first Rocket Executive on the left side of the tower; before
+  that, it is impossible to battle the final executive on the right
+  side of the tower.
 
 ## development
 
 ### dependencies
 
 * [clojure](https://clojure.org)
-* [leiningen](https://leiningen.org) (recommended)
-* [shadow-cljs](http://shadow-cljs.org/) (recommended)
+* [leiningen](https://leiningen.org)
+* [shadow-cljs](http://shadow-cljs.org/)
 
 To run this application locally, run `lein ring server` at the command
 line. At that point, you should be able to see the randomizer home
@@ -77,21 +82,12 @@ server` automatically reloads code.
 - [ ] convert JSON patch files into a mroe readable, commentable
       format (yaml probably)
 
-### randomizer logic
-
-- [ ] add HM_STRENGTH as a prereq for Cianwood badge
-- [ ] speedchoice support
-	- whirlpool isn't required to get the RISINGBADGE
-	- revert to simpler 7 badge check, assuming any 7 badges will do
-
 ### binary patching
 
-- [ ] ensure that the Cianwood Pharmacy item is obtainable even if
-      you've healed amphy.
 - [ ] verify that the Underground Warehouse itemball patch works for
       arbitrary key items.
 - [ ] patch kanto gyms so that they can activate Team Rocket's
-      takeover of the Radio Tower.
+      takeover of the Radio Tower (vanilla, not speedchoice)
 - [ ] address all aforementioned known issues
 - [ ] fix `giveitem` key items so that the player sees item is
       actually being given.
@@ -111,25 +107,8 @@ server` automatically reloads code.
 - [ ] prevent players from visiting the Underground Warehouse before
       defeating Team Rocket in Mahogany Town; even if the player gets
       the `BASEMENT_KEY` early, nobody will be in the Underground
-      Warehouse until after defeating Team Rocket in Mahogany Town.
-- [ ] **speedchoice compatibility**. this would be straightforward, if
-      tedious. to my mind, the gist of this work is as follows:
-	  1. DONE ~~figure out the speedchoice ROM's item addresses and
-         use that to create a speechoice-specific version of
-         crystal-key-item-randomizer.data/key-items`~~
-	  2. starting with [`pclalv/speedchoice`][pclalv/speedchoice],
-	     create a `speedchoice-randomizer-labels` branch which contains
-         the extra labels present in [`pclalv/randomizer-labels`][pclalv/randomizer-labels].
-	  3. creatae a `speedchoice-randomizer-changes` branch based off
-         of `speedchoice-randomizer-labels` (akin to the relationship
-         between `randomizer-labels` and `randomizer-changes`) and use
-         the `generate-randomizer-changes-diff` script to diff the the
-         two branches to discover the addresses that the ranodmizer
-         would need modify. use that information to create a
-         speedchoice-specific version of
-         `resources/randomizer-patches-diff.json`
-	  4. add a 'speedchoice' option to this app which would allow the
-         app to use speechoice-appropriate values.
+      Warehouse until after defeating Team Rocket in Mahogany
+      Town. (won't fix?)
 
 ### backend/frontend
 
