@@ -316,21 +316,3 @@
                                                      ;; after collecting any 7 badges.
                                                      false
                                                      (contains? (final-progression-result :conditions-met) :defeat-red)))))))
-
-(comment
-  ;; TODO: try to implement these?
-  (defn basement-key-required? [swaps]
-    (let [goldenrod-underground-item (swaps :CARD_KEY)]
-      (required? goldenrod-underground-item)))
-
-  (defn required? [swaps item]
-    (cond (required-items item) true
-          (non-required-items item) false
-          ;; we know it's maybe-required preerq.
-          (reduce (fn [required?' [prereq maybe-required-orig]]
-                    (if (not= prereq item)
-                      (or required?' false)
-                      ;; this is the hard part.
-                      false))
-                  false
-                  maybe-reqiured-items))))

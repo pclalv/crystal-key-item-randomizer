@@ -81,6 +81,10 @@ server` automatically reloads code.
 
 - [ ] convert JSON patch files into a mroe readable, commentable
       format (yaml probably)
+- [ ] fix bad interaction with TM randomizer
+- [ ] option to get the bike early?
+- [ ] modify frontend to enable users to generate multiple seeds
+      without refreshing
 
 ### binary patching
 
