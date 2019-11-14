@@ -79,45 +79,46 @@ server` automatically reloads code.
 
 ## to do
 
-- [ ] convert JSON patch files into a more readable, commentable
-      format (yaml probably)
-- [ ] option to get the bike early
-- [ ] modify frontend to enable users to generate multiple seeds
-      without refreshing
-- [ ] take useful cues from [the other key item randomizer](https://github.com/erudnick-cohen/Pokemon-Crystal-Item-Randomizer#list-of-changes-relative-to-vanilla-crystal)
-  - [ ] "Team Rocket taking over the radio tower will not block the
-        following things"
-- [ ] investigate possible issue loading "Download button on the
-      webpage
-- [ ]
+in priority order:
+
+- **prevent hardlocks** take useful cues from [the other key item randomizer](https://github.com/erudnick-cohen/Pokemon-Crystal-Item-Randomizer#list-of-changes-relative-to-vanilla-crystal)
+  - "Team Rocket taking over the radio tower will not block the
+	following things"
+- progression options
+  - [ ] prevent super rod from being obtained early
+  - [ ] get the bike early
+- modify frontend to enable users to generate multiple seeds without
+  refreshing
+- investigate possible issue loading "Download button on the webpage
+- convert JSON patch files into a more readable, commentable format
+  (yaml probably)
 
 ### binary patching
 
-- [ ] **randomize pokegear cards**. this is primarily motivated by wanting
-      to randomize the kanto expansion card, which allows the player
-      to wake the snorlax and progress to pewter from vermilion.
-- [ ] randomize which non-required item the copycat is looking for.
-- [ ] prevent players from visiting the Underground Warehouse before
-      defeating Team Rocket in Mahogany Town; even if the player gets
-      the `BASEMENT_KEY` early, nobody will be in the Underground
-      Warehouse until after defeating Team Rocket in Mahogany
-      Town. (won't fix?)
-- [ ] randomize badges
-- [ ] fix `giveitem` key items so that the player sees item is
-      actually being given.
-    - hard way: change `giveitem` to `verbosegiveitem` and fill the
-      rest of the routine with `nop` and a final `end` to cut off any
-      unintended additional text
-    - items:
-        - `SECRETPOTION`
-        - `BICYCLE`
-        - `RED_SCALE`
-        - `MYSTERY_EGG`
-        - `LOST_ITEM`
-- [ ] verify that the Underground Warehouse itemball patch works for
-      arbitrary key items.
-- [ ] patch kanto gyms so that they can activate Team Rocket's
-      takeover of the Radio Tower (vanilla, not speedchoice)
+- **randomize pokegear cards**. this is primarily motivated by wanting
+  to randomize the kanto expansion card, which allows the player to
+  wake the snorlax and progress to pewter from vermilion.
+- randomize which non-required item the copycat is looking for.
+- prevent players from visiting the Underground Warehouse before
+  defeating Team Rocket in Mahogany Town; even if the player gets the
+  `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
+  until after defeating Team Rocket in Mahogany Town. (won't fix?)
+- randomize badges
+- fix `giveitem` key items so that the player sees item is actually
+  being given.
+  - hard way: change `giveitem` to `verbosegiveitem` and fill the rest
+    of the routine with `nop` and a final `end` to cut off any
+    unintended additional text
+  - items:
+	- `SECRETPOTION`
+    - `BICYCLE`
+    - `RED_SCALE`
+    - `MYSTERY_EGG`
+    - `LOST_ITEM`
+- verify that the Underground Warehouse itemball patch works for
+  arbitrary key items.
+- patch kanto gyms so that they can activate Team Rocket's takeover of
+  the Radio Tower (vanilla, not speedchoice)
 
 ### backend/frontend
 
