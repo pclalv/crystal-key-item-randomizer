@@ -79,20 +79,30 @@ server` automatically reloads code.
 
 ## to do
 
-- [ ] convert JSON patch files into a mroe readable, commentable
+- [ ] convert JSON patch files into a more readable, commentable
       format (yaml probably)
-- [ ] fix bad interaction with TM randomizer
-- [ ] option to get the bike early?
+- [ ] option to get the bike early
 - [ ] modify frontend to enable users to generate multiple seeds
       without refreshing
+- [ ] take useful cues from [the other key item randomizer](https://github.com/erudnick-cohen/Pokemon-Crystal-Item-Randomizer#list-of-changes-relative-to-vanilla-crystal)
+  - [ ] "Team Rocket taking over the radio tower will not block the
+        following things"
+- [ ] investigate possible issue loading "Download button on the
+      webpage
+- [ ]
 
 ### binary patching
 
-- [ ] verify that the Underground Warehouse itemball patch works for
-      arbitrary key items.
-- [ ] patch kanto gyms so that they can activate Team Rocket's
-      takeover of the Radio Tower (vanilla, not speedchoice)
-- [ ] address all aforementioned known issues
+- [ ] **randomize pokegear cards**. this is primarily motivated by wanting
+      to randomize the kanto expansion card, which allows the player
+      to wake the snorlax and progress to pewter from vermilion.
+- [ ] randomize which non-required item the copycat is looking for.
+- [ ] prevent players from visiting the Underground Warehouse before
+      defeating Team Rocket in Mahogany Town; even if the player gets
+      the `BASEMENT_KEY` early, nobody will be in the Underground
+      Warehouse until after defeating Team Rocket in Mahogany
+      Town. (won't fix?)
+- [ ] randomize badges
 - [ ] fix `giveitem` key items so that the player sees item is
       actually being given.
     - hard way: change `giveitem` to `verbosegiveitem` and fill the
@@ -104,15 +114,10 @@ server` automatically reloads code.
         - `RED_SCALE`
         - `MYSTERY_EGG`
         - `LOST_ITEM`
-- [ ] **randomize pokegear cards**. this is primarily motivated by wanting
-      to randomize the kanto expansion card, which allows the player
-      to wake the snorlax and progress to pewter from vermilion.
-- [ ] randomize which non-required item the copycat is looking for.
-- [ ] prevent players from visiting the Underground Warehouse before
-      defeating Team Rocket in Mahogany Town; even if the player gets
-      the `BASEMENT_KEY` early, nobody will be in the Underground
-      Warehouse until after defeating Team Rocket in Mahogany
-      Town. (won't fix?)
+- [ ] verify that the Underground Warehouse itemball patch works for
+      arbitrary key items.
+- [ ] patch kanto gyms so that they can activate Team Rocket's
+      takeover of the Radio Tower (vanilla, not speedchoice)
 
 ### backend/frontend
 
