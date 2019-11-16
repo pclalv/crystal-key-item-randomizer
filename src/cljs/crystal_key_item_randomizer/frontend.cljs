@@ -6,6 +6,9 @@
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
+(def early-super-rod (r/atom false))
+(def early-bicycle (r/atom true))
+
 (def wildcard "*")
 
 (defn throw-js [str]
@@ -85,8 +88,13 @@
                                       .-result))
         seed-id (-> js/document
                     (.getElementById "seed")
-                    (.-value))]
-    (-> (js/fetch (str "/seed/" seed-id))
+                    (.-value))
+        body {:options {:early-bicycle? @early-bicycle
+                        :early-super-rod? @early-super-rod}}]
+    (-> (js/fetch (str "/seed/" seed-id)
+                  (clj->js {:method "POST"
+                            :headers {"Content-Type" "application/json"}
+                            :body (-> body clj->js js/JSON.stringify)}))
         (.then (fn [resp] (-> resp .json)))
         (.then (fn [json]
                  (if (.-error json)
@@ -111,6 +119,11 @@
           reader (js/FileReader.)]
       (set! (.-onload reader) randomize-rom)
       (.readAsArrayBuffer reader rom-file))))
+
+(defn set-boolean-atom [atom]
+  (fn [event]
+    (js/console.log "called set-boolean-atom!!")
+    (reset! atom (-> event .-target .-checked))))
 
 (defn toggle-spoilers [event]
   (reset! show-spoilers (-> event .-target .-checked)))
@@ -144,6 +157,18 @@
              [:th "Vanilla item"] [:th "New item"]]]
     [:tbody (for [swap @swaps-table]
               [swap-row swap])]]])
+
+(defn options []
+  [:div
+   [:div
+    [:label {:for "early-super-rod"} "Early " [:tt "SUPER_ROD"]]
+    [:input {:id "early-super-rod" :type "checkbox" :on-change (set-boolean-atom early-super-rod) :checked @early-super-rod}]]
+   [:div
+    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
+    [:input {:id "early-bicycle" :type "checkbox" :on-change (set-boolean-atom early-bicycle) :checked @early-bicycle}]]])
+
+(r/render [options] (-> js/document
+                        (.getElementById "options")))
 
 (r/render [spoilers-display] (-> js/document
                                  (.getElementById "spoilers")))
