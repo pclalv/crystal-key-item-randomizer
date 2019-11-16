@@ -238,6 +238,7 @@
 
 (defn can-defeat-red? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-red) args
+        ;; is this check too lazy?
         (= (count badges) 16) (assoc args :conditions-met (conj conditions-met :defeat-red))
         :else (assoc args :reasons (conj reasons "defeat-red: cannot without 16 badges"))))
 
