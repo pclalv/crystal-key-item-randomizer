@@ -4,6 +4,7 @@
             [crystal-key-item-randomizer.seeds :as seeds]
             [crystal-key-item-randomizer.patches :as patches]
             [ring.adapter.jetty :as jetty]
+            [ring.middleware.json :refer [json-body-request]]
             [ring.middleware.defaults :refer :all])
   (:use [compojure.route :only [files not-found]]
         [compojure.core :only [defroutes POST]]))
@@ -22,8 +23,9 @@
         {:seed-id seed-id-parsed}
         {:error (str "Invalid seed: " seed-id)})))
 
-
 (defn seed-handler [req]
+  ;; assocs parsed body back onto req
+  (json-body-request req {:keywords? true})
   (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)
         ;; currently, only speedchoice is supported. for vanilla
         ;; crystal, there's always the opportunity for the player to
