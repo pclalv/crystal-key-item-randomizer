@@ -6,7 +6,7 @@
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer :all])
   (:use [compojure.route :only [files not-found]]
-        [compojure.core :only [defroutes GET]]))
+        [compojure.core :only [defroutes POST]]))
 
 (def dev? (= "dev" (System/getenv "RUNTIME_ENV")))
 
@@ -51,9 +51,9 @@
              :body (json/write-str {:seed seed'})}))))))
 
 (defroutes app-routes
-  (GET "/seed" [] seed-handler)
-  (GET "/seed/" [] seed-handler)
-  (GET "/seed/:id" [] seed-handler)
+  (POST "/seed" [] seed-handler)
+  (POST "/seed/" [] seed-handler)
+  (POST "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
   (not-found {:error "not found"}))
@@ -71,7 +71,7 @@
 
 (def app
   (-> app-routes
-      (wrap-defaults site-defaults)
+      (wrap-defaults api-defaults)
       (wrap-logger)))
 
 (defn event-logger [event]
