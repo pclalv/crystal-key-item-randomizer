@@ -138,7 +138,7 @@
 (defn spoilers-display []
   [:div
    [:label {:for "toggle-spoilers"} "Show spoilers"]
-   [:input {:id "toggle-spoilers ":type "checkbox" :on-change toggle-spoilers :default @show-spoilers}]
+   [:input {:id "toggle-spoilers ":type "checkbox" :on-change toggle-spoilers :checked @show-spoilers}]
    [:table {:id "swaps" :style (when (not @show-spoilers) {:display "none"})}
     [:thead [:tr
              [:th "Vanilla item"] [:th "New item"]]]
