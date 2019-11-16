@@ -473,5 +473,18 @@
             "end": 478781
         },
         "name": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_TUESDAY"
+    },
+
+    {
+        "integer_values": {
+            "old": [ 52, 19, 0 ],
+            "new": [ 52, 200, 6 ]
+        },
+        "address_range": {
+            "begin": 382839,
+            "end": 382842
+        },
+        "name": "Buena.ckir_BEFORE_checkflag_ENGINE_ROCKETS_IN_RADIO_TOWER",
+        "description": "Permit player to get Buena's item even during the Radio Tower takeover"
     }
 ]
