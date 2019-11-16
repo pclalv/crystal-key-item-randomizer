@@ -1,7 +1,10 @@
 (ns crystal-key-item-randomizer.seeds
   (:require [crystal-key-item-randomizer.patches :as patches])
   (:use [crystal-key-item-randomizer.randomizer :only [all-items]]
-        [crystal-key-item-randomizer.progression :only [beatable?]]))
+        [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
+
+(def early-items (concat crystal-key-item-randomizer.progression/guaranteed-items
+                         crystal-key-item-randomizer.progression/goldenrod-items))
 
 (defn deterministic-shuffle [^java.util.Collection coll seed]
   (let [al (java.util.ArrayList. coll)
@@ -9,12 +12,19 @@
     (java.util.Collections/shuffle al rng)
     (clojure.lang.RT/vector (.toArray al))))
 
-(defn generate-swaps [{:keys [early-bicycle? early-super-rod?]}]
-  (zipmap all-items
-          (deterministic-shuffle all-items seed-id)))
+(defn gives-early? [item swaps]
+  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps early-items)]
+    (contains? early-swaps item)))
+
+(defn generate-swaps [seed-id {:keys [early-bicycle? early-super-rod?] :as opts}]
+  (let [swaps (zipmap all-items
+                      (deterministic-shuffle all-items seed-id))]
+    (cond (and early-bicycle?   (not (gives-early? :BICYCLE swaps))) (recur opts)
+          (and early-super-rod? (not (gives-early? :SUPER_ROD swaps))) (recur opts)
+          :else swaps)))
 
 (defn generate [seed-id {:keys [early-bicycle? early-super-rod?] :as options}]
-  (let [swaps (generate-swaps options)
+  (let [swaps (generate-swaps seed-id options)
         progression-results (beatable? swaps {:speedchoice? true})]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
