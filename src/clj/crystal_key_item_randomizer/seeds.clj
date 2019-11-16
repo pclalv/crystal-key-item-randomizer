@@ -9,10 +9,13 @@
     (java.util.Collections/shuffle al rng)
     (clojure.lang.RT/vector (.toArray al))))
 
-(defn generate [seed-id {:keys [speedchoice?]}]
-  (let [swaps (zipmap all-items
-                      (deterministic-shuffle all-items seed-id))
-        progression-results (beatable? swaps {:speedchoice? speedchoice?})]
+(defn generate-swaps [{:keys [early-bicycle? early-super-rod?]}]
+  (zipmap all-items
+          (deterministic-shuffle all-items seed-id)))
+
+(defn generate [seed-id {:keys [early-bicycle? early-super-rod?] :as options}]
+  (let [swaps (generate-swaps options)
+        progression-results (beatable? swaps {:speedchoice? true})]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
                  (assoc :patches (patches/generate swaps {:speedchoice? speedchoice?}))
