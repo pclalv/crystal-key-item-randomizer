@@ -82,25 +82,28 @@ server` automatically reloads code.
 in priority order:
 
 - progression options
-  - [ ] prevent super rod from being obtained early
-  - [ ] get the bike early
+  - [ ] prevent `SUPER_ROD` from being obtained early
+  - [ ] get the `BICYCLE` early
 - modify frontend to enable users to generate multiple seeds without
   refreshing
 - investigate possible issue loading "Download button on the webpage
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
-
-### binary patching
+  
+### logic
 
 - **randomize pokegear cards**. this is primarily motivated by wanting
   to randomize the kanto expansion card, which allows the player to
   wake the snorlax and progress to pewter from vermilion.
 - randomize which non-required item the copycat is looking for.
+- randomize badges
+
+### binary patching
+
 - prevent players from visiting the Underground Warehouse before
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
-- randomize badges
 - fix `giveitem` key items so that the player sees item is actually
   being given.
   - hard way: change `giveitem` to `verbosegiveitem` and fill the rest
@@ -115,9 +118,7 @@ in priority order:
 - verify that the Underground Warehouse itemball patch works for
   arbitrary key items.
 - patch kanto gyms so that they can activate Team Rocket's takeover of
-  the Radio Tower (vanilla, not speedchoice)
-
-### backend/frontend
+  the Radio Tower (vanilla, not speedchoice; won't fix?)
 
 [pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
 [pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
