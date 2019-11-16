@@ -229,9 +229,12 @@
                                     (and (conditions-met :can-surf)
                                          (conditions-met :can-strength)
                                          (conditions-met :can-waterfall)))) (-> args
-                                                                                (assoc :items-obtained (conj items-obtained (swaps :S_S_TICKET)))
-                                                                                (assoc :conditions-met (conj conditions-met :defeat-elite-4)))
-        :else (assoc args :reasons (conj reasons "defeat-elite-4: can't without Victory Road access via Viridian or Tohjo Falls"))))
+                                                                                (assoc :items-obtained
+                                                                                       (conj items-obtained (swaps :S_S_TICKET)))
+                                                                                (assoc :conditions-met
+                                                                                       (conj conditions-met :defeat-elite-4)))
+        :else (assoc args :reasons
+                     (conj reasons "defeat-elite-4: can't without Victory Road access via Viridian or Tohjo Falls"))))
 
 (defn can-defeat-red? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-red) args
