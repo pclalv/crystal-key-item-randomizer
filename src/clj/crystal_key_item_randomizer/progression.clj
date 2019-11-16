@@ -158,7 +158,7 @@
 (defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :trigger-radio-tower-takeover) args
         (has-seven-badges? badges)(-> args
-                                      (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
+                                      (assoc :items-obtained (conj items-obtained (get-swaps swaps [:BASEMENT_KEY :HM_WATERFALL]))
                                              :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
         :else (assoc args :reasons
                      (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
@@ -186,9 +186,7 @@
 (defn can-reach-blackthorn? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :blackthorn) args
         (and (conditions-met :can-strength)
-             (conditions-met :trigger-radio-tower-takeover)) (-> args
-                                                                 (assoc :items-obtained (conj items-obtained (swaps :HM_WATERFALL)) ;; from ice path
-                                                                        :conditions-met (conj conditions-met :blackthorn)))
+             (conditions-met :trigger-radio-tower-takeover)) (assoc args :conditions-met (conj conditions-met :blackthorn))
         :else (assoc args :reasons
                      (conj reasons "blackthorn: cannot reach without having defeated team rocket and being able to use strength"))))
 
