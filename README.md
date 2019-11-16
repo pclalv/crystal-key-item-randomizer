@@ -81,9 +81,6 @@ server` automatically reloads code.
 
 in priority order:
 
-- **prevent hardlocks** take useful cues from [the other key item randomizer](https://github.com/erudnick-cohen/Pokemon-Crystal-Item-Randomizer#list-of-changes-relative-to-vanilla-crystal)
-  - "Team Rocket taking over the radio tower will not block the
-	following things"
 - progression options
   - [ ] prevent super rod from being obtained early
   - [ ] get the bike early
