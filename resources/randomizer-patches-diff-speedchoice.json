@@ -486,5 +486,42 @@
         },
         "name": "Buena.ckir_BEFORE_checkflag_ENGINE_ROCKETS_IN_RADIO_TOWER",
         "description": "Permit player to get Buena's item even during the Radio Tower takeover"
+    },
+
+    {
+        "integer_values": {
+            "old": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75, 206, 6 ],
+            "new": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75,  26, 0 ]
+        },
+        "address_range": {
+            "begin": 1676269,
+            "end": 1676282
+        },
+        "name": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_1",
+        "description": "Permit player to get the Bike Shop item even during the Radio Tower takeover"
+    },
+    {
+        "integer_values": {
+            "old": [ 53, 11, 33, 6, 0, 255, 255, 0, 0, 53, 75, 206, 6 ],
+            "new": [ 53, 11, 33, 6, 0, 255, 255, 0, 0, 53, 75,  26, 0 ]
+        },
+        "address_range": {
+            "begin": 1676282,
+            "end": 1676295
+        },
+        "name": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_2",
+        "description": "Permit player to get the Flower Shop item even during the Radio Tower takeover"
+    },
+    {
+        "integer_values": {
+            "old": [ 53, 24, 32, 7, 0, 255, 255, 0, 0, 41, 75, 205, 6 ],
+            "new": [ 53, 24, 32, 7, 0, 255, 255, 0, 0, 41, 75,  26, 0 ]
+        },
+        "address_range": {
+            "begin": 1676230,
+            "end": 1676243
+        },
+        "name": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_3",
+        "description": "Permit player to get the Bike Shop item even during the Radio Tower takeover"
     }
 ]
