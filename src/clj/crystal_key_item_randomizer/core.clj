@@ -33,14 +33,14 @@
         ;; order and thereby preventing themselves from being able to
         ;; trigger the team rocket radio tower takeover. it'd be great
         ;; to fix that.
-        speedchoice? true]
+        seed-options (-> req :body :options (assoc :speedchoice? true))]
     (if error
       {:status 400
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
       (let [{:keys [seed error]} (if seed-id
-                                   (seeds/generate seed-id {:speedchoice? speedchoice?})
-                                   (seeds/generate-beatable {:speedchoice? speedchoice?}))]
+                                   (seeds/generate seed-id options)
+                                   (seeds/generate-beatable options))]
         (if error
           {:status 500
            :headers {"Content-Type" "text/json"}
