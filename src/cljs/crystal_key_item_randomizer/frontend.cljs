@@ -122,11 +122,9 @@
 
 (defn set-boolean-atom [atom]
   (fn [event]
-    (js/console.log "called set-boolean-atom!!")
     (reset! atom (-> event .-target .-checked))))
 
 (defn error-display []
-  ;; TODO: style error class - maybe put a box around it and indent it for visibility.
   [:div {:class ["error"] :style (when (nil? @error) {:display "none"})}
    [:p (str "Error: " @error)]
    ;; link to and create maintainer/contact anchor on the page,
