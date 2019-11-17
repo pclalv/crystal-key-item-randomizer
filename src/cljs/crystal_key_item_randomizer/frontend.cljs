@@ -2,8 +2,8 @@
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.key-items :as key-items]))
 
-(def show-spoilers (r/atom false))
-(def input-hidden (r/atom false))
+(def show-spoilers? (r/atom false))
+(def input-hidden? (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
 (def no-early-super-rod? (r/atom true))
@@ -22,7 +22,7 @@
             (.getElementById "rom-file")
             .-value)
         "")
-  (reset! input-hidden false))
+  (reset! input-hidden? false))
 
 (defn download-link [href filename]
   [:a {:href href
@@ -114,7 +114,7 @@
 (defn handle-rom-input [event]
   (when (not= "" (-> event .-target .-value))
     (reset! error nil)
-    (reset! input-hidden true)
+    (reset! input-hidden? true)
     (let [^js/File rom-file (-> event .-target .-files (aget 0))
           reader (js/FileReader.)]
       (set! (.-onload reader) randomize-rom)
@@ -124,9 +124,6 @@
   (fn [event]
     (js/console.log "called set-boolean-atom!!")
     (reset! atom (-> event .-target .-checked))))
-
-(defn toggle-spoilers [event]
-  (reset! show-spoilers (-> event .-target .-checked)))
 
 (defn error-display []
   ;; TODO: style error class - maybe put a box around it and indent it for visibility.
@@ -139,7 +136,7 @@
      "please report it."]]])
 
 (defn rom-input []
-  [:label {:style (when @input-hidden {:display "none"})} "Select ROM file"
+  [:label {:style (when @input-hidden? {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
 (defn swap-row []
@@ -150,9 +147,10 @@
           
 (defn spoilers-display []
   [:div
-   [:label {:for "toggle-spoilers"} "Show spoilers"]
-   [:input {:id "toggle-spoilers ":type "checkbox" :on-change toggle-spoilers :checked @show-spoilers}]
-   [:table {:id "swaps" :style (when (not @show-spoilers) {:display "none"})}
+   [:label {:for "show-spoilers"} "Show spoilers"]
+   [:input {:id "show-spoilers ":type "checkbox"
+            :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
+   [:table {:id "swaps" :style (when (not @show-spoilers?) {:display "none"})}
     [:thead [:tr
              [:th "Vanilla item"] [:th "New item"]]]
     [:tbody (for [swap @swaps-table]
