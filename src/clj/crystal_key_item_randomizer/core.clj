@@ -24,9 +24,8 @@
         {:error (str "Invalid seed: " seed-id)})))
 
 (defn seed-handler [req]
-  ;; assocs parsed body back onto req
-  (json-body-request req {:keywords? true})
-  (let [{:keys [seed-id error]} (-> req :params :id parse-seed-id)
+  (let [req (json-body-request req {:keywords? true})
+        {:keys [seed-id error]} (-> req :params :id parse-seed-id)
         ;; currently, only speedchoice is supported. for vanilla
         ;; crystal, there's always the opportunity for the player to
         ;; softlock themselves by acquiring badges in the incorrect
