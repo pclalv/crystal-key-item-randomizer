@@ -1,7 +1,7 @@
 (ns crystal-key-item-randomizer.patches
   (:require [clojure.data.json :as json]
-            [clojure.java.io :as io])
-  (:use [crystal-key-item-randomizer.data :only [key-items key-items-speedchoice]]))
+            [clojure.java.io :as io]
+            [crystal-key-item-randomizer.key-items :as key-items]))
 
 (def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 (def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
@@ -23,7 +23,7 @@
        json/read-str))
 
 (defn item-ball [key-item {:keys [speedchoice?]}]
-  (let [key-items' (if speedchoice? key-items-speedchoice key-items)
+  (let [key-items' (if speedchoice? key-items/speedchoice key-items/vanilla)
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
