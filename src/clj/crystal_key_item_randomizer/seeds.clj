@@ -19,8 +19,8 @@
 (defn generate-swaps [seed-id {:keys [early-bicycle? early-super-rod?] :as opts}]
   (let [swaps (zipmap all-items
                       (deterministic-shuffle all-items seed-id))]
-    (cond (and early-bicycle?   (not (gives-early? :BICYCLE swaps))) (recur opts)
-          (and early-super-rod? (not (gives-early? :SUPER_ROD swaps))) (recur opts)
+    (cond (and early-bicycle?   (not (gives-early? :BICYCLE swaps))) (recur seed-id opts)
+          (and early-super-rod? (not (gives-early? :SUPER_ROD swaps))) (recur seed-id opts)
           :else swaps)))
 
 (defn generate [seed-id {:keys [early-bicycle? early-super-rod?] :as options}]
@@ -28,7 +28,7 @@
         progression-results (beatable? swaps {:speedchoice? true})]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
-                 (assoc :patches (patches/generate swaps {:speedchoice? speedchoice?}))
+                 (assoc :patches (patches/generate swaps {:speedchoice? true}))
                  (assoc :id (str seed-id)))}
       {:error (str "Unbeatable seed: " seed-id)})))
 

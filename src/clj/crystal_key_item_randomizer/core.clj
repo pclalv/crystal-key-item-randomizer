@@ -39,8 +39,8 @@
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
       (let [{:keys [seed error]} (if seed-id
-                                   (seeds/generate seed-id options)
-                                   (seeds/generate-beatable options))]
+                                   (seeds/generate seed-id seed-options)
+                                   (seeds/generate-beatable seed-options))]
         (if error
           {:status 500
            :headers {"Content-Type" "text/json"}
