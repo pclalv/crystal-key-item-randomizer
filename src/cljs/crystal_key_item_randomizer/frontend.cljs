@@ -159,6 +159,8 @@
               [swap-row swap])]]])
 
 (defn options []
+  ;; TODO: make these unmodifiable if seed ID is not nil. it does not
+  ;; make sense to specify options AND a seed.
   [:div
    [:div
     [:label {:for "early-super-rod"} "Early " [:tt "SUPER_ROD"]]
