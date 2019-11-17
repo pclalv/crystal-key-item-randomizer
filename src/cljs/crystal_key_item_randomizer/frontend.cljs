@@ -158,6 +158,7 @@
   ;; TODO: make these unmodifiable if seed ID is not nil. it does not
   ;; make sense to specify options AND a seed.
   [:div
+   [:strong "Options (note that options don't apply if you manually input a seed)"]
    [:div
     [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
