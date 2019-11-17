@@ -6,8 +6,8 @@
 (def input-hidden (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
-(def early-super-rod (r/atom false))
-(def early-bicycle (r/atom true))
+(def no-early-super-rod? (r/atom true))
+(def early-bicycle? (r/atom true))
 
 (def wildcard "*")
 
@@ -89,8 +89,8 @@
         seed-id (-> js/document
                     (.getElementById "seed")
                     (.-value))
-        body {:options {:early-bicycle? @early-bicycle
-                        :early-super-rod? @early-super-rod}}]
+        body {:options {:early-bicycle? @early-bicycle?
+                        :no-early-super-rod? @no-early-super-rod?}}]
     (-> (js/fetch (str "/seed/" seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
@@ -163,11 +163,13 @@
   ;; make sense to specify options AND a seed.
   [:div
    [:div
-    [:label {:for "early-super-rod"} "Early " [:tt "SUPER_ROD"]]
-    [:input {:id "early-super-rod" :type "checkbox" :on-change (set-boolean-atom early-super-rod) :checked @early-super-rod}]]
+    [:label {:for "no-early-super-rod"} "Early " [:tt "SUPER_ROD"]]
+    [:input {:id "no-early-super-rod" :type "checkbox"
+             :on-change (set-boolean-atom no-early-super-rod?) :checked @no-early-super-rod?}]]
    [:div
     [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
-    [:input {:id "early-bicycle" :type "checkbox" :on-change (set-boolean-atom early-bicycle) :checked @early-bicycle}]]])
+    [:input {:id "early-bicycle" :type "checkbox"
+             :on-change (set-boolean-atom early-bicycle?) :checked @early-bicycle?}]]])
 
 (r/render [options] (-> js/document
                         (.getElementById "options")))
