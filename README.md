@@ -81,9 +81,6 @@ server` automatically reloads code.
 
 in priority order:
 
-- progression options
-  - [ ] prevent `SUPER_ROD` from being obtained early
-  - [ ] get the `BICYCLE` early
 - modify frontend to enable users to generate multiple seeds without
   refreshing
 - investigate possible issue loading "Download button on the webpage
