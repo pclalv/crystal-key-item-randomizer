@@ -478,7 +478,7 @@
     {
         "integer_values": {
             "old": [ 52, 19, 0 ],
-            "new": [ 52, 200, 6 ]
+            "new": [ 52, 61, 3 ]
         },
         "address_range": {
             "begin": 382839,
