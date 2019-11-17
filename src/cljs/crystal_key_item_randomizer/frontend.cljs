@@ -159,7 +159,7 @@
   ;; make sense to specify options AND a seed.
   [:div
    [:div
-    [:label {:for "no-early-super-rod"} "Early " [:tt "SUPER_ROD"]]
+    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
              :on-change (set-boolean-atom no-early-super-rod?) :checked @no-early-super-rod?}]]
    [:div
