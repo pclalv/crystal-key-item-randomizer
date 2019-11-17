@@ -3,8 +3,9 @@
   (:use [crystal-key-item-randomizer.randomizer :only [all-items]]
         [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
-(def early-items (concat crystal-key-item-randomizer.progression/guaranteed-items
-                         crystal-key-item-randomizer.progression/goldenrod-items))
+(def early-items (set (apply conj
+                             crystal-key-item-randomizer.progression/guaranteed-items
+                             crystal-key-item-randomizer.progression/goldenrod-items)))
 
 (defn deterministic-shuffle [^java.util.Collection coll seed]
   (let [al (java.util.ArrayList. coll)
