@@ -1,4 +1,4 @@
-(ns crystal-key-item-randomizer.core
+(ns crystal-key-item-randomizer.server
   (:gen-class)
   (:require [clojure.data.json :as json]
             [crystal-key-item-randomizer.seeds :as seeds]
