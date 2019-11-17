@@ -17,21 +17,23 @@
   (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps early-items)]
     (contains? early-swaps item)))
 
-(defn generate-swaps [{:keys [early-bicycle? early-super-rod?] :as opts}]
+(defn generate-swaps [{:keys [early-bicycle? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
-                 (new java.util.Random))
-         seed-id (-> rng
-                     .nextLong
-                     java.lang.Math/abs)]
-    (let [swaps (zipmap all-items
+                 (new java.util.Random))]
+    (let [seed-id (-> rng
+                      .nextLong
+                      java.lang.Math/abs)
+          swaps (zipmap all-items
                         (deterministic-shuffle all-items seed-id))]
-      (cond (and early-bicycle?   (not (gives-early? :BICYCLE swaps))) (recur)
-            (and early-super-rod? (not (gives-early? :SUPER_ROD swaps))) (recur)
-            :else swaps))))
+      (cond (and early-bicycle? complement
+                 (not (gives-early? :BICYCLE swaps))) (recur rng)
+            (and no-early-super-rod?
+                 (gives-early? :SUPER_ROD swaps)) (recur rng)
+            :else {:swaps swaps :seed-id seed-id}))))
 
 (defn generate-random [options]
   (loop []
-    (let [swaps (generate-swaps options)
+    (let [{:keys [swaps seed-id]} (generate-swaps options)
           progression-results (beatable? swaps {:speedchoice? true})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
