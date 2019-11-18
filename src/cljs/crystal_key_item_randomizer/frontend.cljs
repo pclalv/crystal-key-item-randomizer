@@ -124,7 +124,7 @@
 (defn error-display []
   [:div {:class ["error"] :style (when (nil? @error) {:display "none"})}
    [:p (str "Error: " @error)]
-   ;; link to and create maintainer/contact anchor on the page,
+   ;; TODO: link to and create maintainer/contact anchor on the page,
    ;; probably with links to github and discord
    [:p "Please reload this page and try again. If this is a bug, "
     [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
