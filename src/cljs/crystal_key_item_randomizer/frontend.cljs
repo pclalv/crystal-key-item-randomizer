@@ -117,7 +117,7 @@
       (set! (.-onload reader) randomize-rom)
       (.readAsArrayBuffer reader rom-file))))
 
-(defn set-boolean-atom [atom]
+(defn set-checkbox-value-on-atom [atom]
   (fn [event]
     (reset! atom (-> event .-target .-checked))))
 
@@ -149,7 +149,8 @@
       [:<>
        [:label {:for "show-spoilers"} "Show spoilers"]
        [:input {:id "show-spoilers ":type "checkbox"
-                :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
+                :on-change (set-checkbox-value-on-atom show-spoilers?)
+                :checked @show-spoilers?}]
        (when @show-spoilers?
          [spoilers-table @swaps-table])])))
 
@@ -160,12 +161,14 @@
    [:p
     [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
-             :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
+             :on-change (set-checkbox-value-on-atom no-early-super-rod?)
+             :checked (and (empty? @seed-id) @no-early-super-rod?)
              :disabled (not (empty? @seed-id))}]]
    [:p
     [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
     [:input {:id "early-bicycle" :type "checkbox"
-             :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
+             :on-change (set-checkbox-value-on-atom early-bicycle?)
+             :checked (and (empty? @seed-id) @early-bicycle?)
              :disabled (not (empty? @seed-id))}]]])
 
 (defn seed []
