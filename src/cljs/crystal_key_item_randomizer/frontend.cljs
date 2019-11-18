@@ -145,7 +145,7 @@
 
 (defn spoilers-display []
   (let [show-spoilers? (r/atom false)]
-    (fn []
+    (fn spoilers-display* []
       [:<>
        [:label {:for "show-spoilers"} "Show spoilers"]
        [:input {:id "show-spoilers ":type "checkbox"
