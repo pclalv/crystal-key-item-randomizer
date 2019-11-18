@@ -34,11 +34,12 @@
 
 (def surf-required-items
   "Items that are unlocked merely by being able to surf."
-  [:SECRETPOTION ; Cianwood
+  [;; Cianwood
+   :SECRETPOTION
 
-   :RED_SCALE    ; Lake of Rage/Mahogany Rockets sidequest
-   :HM_WHIRLPOOL ; Lake of Rage/Mahogany Rockets sidequest
-   ])
+   ;; Lake of Rage/Mahogany Rockets sidequest
+   :RED_SCALE    
+   :HM_WHIRLPOOL])
 
 (defn any? [pred col]
   (not (not-any? pred col)))
