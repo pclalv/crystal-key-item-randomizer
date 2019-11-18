@@ -8,6 +8,7 @@
 (def swaps-table (r/atom {}))
 (def no-early-super-rod? (r/atom true))
 (def early-bicycle? (r/atom true))
+(def seed-id (r/atom ""))
 
 (def wildcard "*")
 
@@ -86,12 +87,9 @@
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))
-        seed-id (-> js/document
-                    (.getElementById "seed")
-                    (.-value))
         body {:options {:early-bicycle? @early-bicycle?
                         :no-early-super-rod? @no-early-super-rod?}}]
-    (-> (js/fetch (str "/seed/" seed-id)
+    (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
                             :body (-> body clj->js js/JSON.stringify)}))
@@ -155,18 +153,31 @@
               [swap-row swap])]]])
 
 (defn options []
-  ;; TODO: make these unmodifiable if seed ID is not nil. it does not
-  ;; make sense to specify options AND a seed.
-  [:div
+  [:p
    [:strong "Options (note that options don't apply if you manually input a seed)"]
    [:div
     [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
-             :on-change (set-boolean-atom no-early-super-rod?) :checked @no-early-super-rod?}]]
+             :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
+             :disabled (not (empty? @seed-id))}]]
    [:div
     [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
     [:input {:id "early-bicycle" :type "checkbox"
-             :on-change (set-boolean-atom early-bicycle?) :checked @early-bicycle?}]]])
+             :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
+             :disabled (not (empty? @seed-id))}]]])
+
+(defn seed []
+  [:div
+   [:label {:for "seed-id"} "Seed:"]
+   [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
+            :on-change #(reset! seed-id (.-target.value %))}]
+   [:p
+    "You may input a seed value greater than or equal to 0 and less"
+    "than or equal to 9223372036854775807, or leave it blank to get a"
+    "random seed."]])
+
+(r/render [seed] (-> js/document
+                     (.getElementById "seed")))
 
 (r/render [options] (-> js/document
                         (.getElementById "options")))
