@@ -135,36 +135,35 @@
   [:label {:style (when @input-hidden? {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
-(defn swap-row []
-  (fn [swap]
-    (let [orig-item (-> swap .-key)
-          new-item (-> swap .-val)]
-      [:tr [:td orig-item] [:td new-item]])))
-          
+(defn spoilers-table [swaps {:keys [hidden?]}]
+  [:table {:id "swaps" :style (when hidden? {:display "none"})}
+   [:thead [:tr
+            [:th "Vanilla item"] [:th "New item"]]]
+   [:tbody (for [swap swaps]
+             (let [orig-item (-> swap .-key)
+                   new-item (-> swap .-val)]
+               ^{:key orig-item} [:tr [:td orig-item] [:td new-item]]))]])
+
 (defn spoilers-display []
   [:div
    [:label {:for "show-spoilers"} "Show spoilers"]
    [:input {:id "show-spoilers ":type "checkbox"
             :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
-   [:table {:id "swaps" :style (when (not @show-spoilers?) {:display "none"})}
-    [:thead [:tr
-             [:th "Vanilla item"] [:th "New item"]]]
-    [:tbody (for [swap @swaps-table]
-              [swap-row swap])]]])
+   [spoilers-table @swaps-table {:hidden? (not @show-spoilers?)}]])
 
 (defn options []
   [:p
    [:strong "Options (note that options don't apply if you manually input a seed)"]
-   [:div
-    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
-    [:input {:id "no-early-super-rod" :type "checkbox"
-             :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
-             :disabled (not (empty? @seed-id))}]]
-   [:div
-    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
-    [:input {:id "early-bicycle" :type "checkbox"
-             :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
-             :disabled (not (empty? @seed-id))}]]])
+   [:br]
+   [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
+   [:input {:id "no-early-super-rod" :type "checkbox"
+            :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
+            :disabled (not (empty? @seed-id))}]
+   [:br]
+   [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
+   [:input {:id "early-bicycle" :type "checkbox"
+            :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
+            :disabled (not (empty? @seed-id))}]])
 
 (defn seed []
   [:div
