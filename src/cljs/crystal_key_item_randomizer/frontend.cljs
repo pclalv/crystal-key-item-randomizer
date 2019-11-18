@@ -134,8 +134,8 @@
   [:label {:style (when @input-hidden? {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
-(defn spoilers-table [swaps {:keys [hidden?]}]
-  [:table {:id "swaps" :style (when hidden? {:display "none"})}
+(defn spoilers-table [swaps]
+  [:table {:id "swaps"}
    [:thead [:tr
             [:th "Vanilla item"] [:th "New item"]]]
    [:tbody (for [swap swaps]
@@ -150,7 +150,8 @@
        [:label {:for "show-spoilers"} "Show spoilers"]
        [:input {:id "show-spoilers ":type "checkbox"
                 :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
-       [spoilers-table @swaps-table {:hidden? (not @show-spoilers?)}]])))
+       (when @show-spoilers?
+         [spoilers-table @swaps-table])])))
 
 (defn options []
   [:<>
