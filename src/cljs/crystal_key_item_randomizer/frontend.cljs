@@ -145,28 +145,29 @@
                ^{:key orig-item} [:tr [:td orig-item] [:td new-item]]))]])
 
 (defn spoilers-display []
-  [:div
+  [:<>
    [:label {:for "show-spoilers"} "Show spoilers"]
    [:input {:id "show-spoilers ":type "checkbox"
             :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
    [spoilers-table @swaps-table {:hidden? (not @show-spoilers?)}]])
 
 (defn options []
-  [:p
-   [:strong "Options (note that options don't apply if you manually input a seed)"]
-   [:br]
-   [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
-   [:input {:id "no-early-super-rod" :type "checkbox"
-            :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
-            :disabled (not (empty? @seed-id))}]
-   [:br]
-   [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
-   [:input {:id "early-bicycle" :type "checkbox"
-            :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
-            :disabled (not (empty? @seed-id))}]])
+  [:<>
+   [:p
+    [:strong "Options (note that options don't apply if you manually input a seed)"]]
+   [:p
+    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
+    [:input {:id "no-early-super-rod" :type "checkbox"
+             :on-change (set-boolean-atom no-early-super-rod?) :checked (and (empty? @seed-id) @no-early-super-rod?)
+             :disabled (not (empty? @seed-id))}]]
+   [:p
+    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
+    [:input {:id "early-bicycle" :type "checkbox"
+             :on-change (set-boolean-atom early-bicycle?) :checked (and (empty? @seed-id) @early-bicycle?)
+             :disabled (not (empty? @seed-id))}]]])
 
 (defn seed []
-  [:div
+  [:<>
    [:label {:for "seed-id"} "Seed:"]
    [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
             :on-change #(reset! seed-id (.-target.value %))}]
