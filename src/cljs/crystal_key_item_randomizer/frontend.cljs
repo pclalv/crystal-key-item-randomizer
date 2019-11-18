@@ -2,7 +2,6 @@
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.key-items :as key-items]))
 
-(def show-spoilers? (r/atom false))
 (def input-hidden? (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
@@ -145,11 +144,13 @@
                ^{:key orig-item} [:tr [:td orig-item] [:td new-item]]))]])
 
 (defn spoilers-display []
-  [:<>
-   [:label {:for "show-spoilers"} "Show spoilers"]
-   [:input {:id "show-spoilers ":type "checkbox"
-            :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
-   [spoilers-table @swaps-table {:hidden? (not @show-spoilers?)}]])
+  (let [show-spoilers? (r/atom false)]
+    (fn []
+      [:<>
+       [:label {:for "show-spoilers"} "Show spoilers"]
+       [:input {:id "show-spoilers ":type "checkbox"
+                :on-change (set-boolean-atom show-spoilers?) :checked @show-spoilers?}]
+       [spoilers-table @swaps-table {:hidden? (not @show-spoilers?)}]])))
 
 (defn options []
   [:<>
