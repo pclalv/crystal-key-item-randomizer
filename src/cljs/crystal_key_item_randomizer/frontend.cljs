@@ -175,18 +175,18 @@
     "than or equal to 9223372036854775807, or leave it blank to get a"
     "random seed."]])
 
+(r/render [error-display] (-> js/document
+                              (.getElementById "error")))
+
 (r/render [seed] (-> js/document
                      (.getElementById "seed")))
 
 (r/render [options] (-> js/document
                         (.getElementById "options")))
 
+(r/render [rom-input] (-> js/document
+                          (.getElementById "input")))
+
 (r/render [spoilers-display] (-> js/document
                                  (.getElementById "spoilers")))
 
-(r/render [error-display] (-> js/document
-                              (.getElementById "error")))
-
-(r/render [rom-input] (-> js/document
-                          (.getElementById "input")))
-  
