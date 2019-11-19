@@ -126,6 +126,7 @@
                 :badges #{:PLAINBADGE}}
                can-strength?
                :conditions-met))))
+
   (testing "can't when the player doesn't have PLAINBADGE"
     (is (= #{}
            (-> {:swaps vanilla-swaps
@@ -173,21 +174,21 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-whirlpool?-test
-  (testing "meetable when the player has obtained the GLACIERBADGE and HM_WHIRLPOOL"
+  (testing "can when the player has obtained the GLACIERBADGE and HM_WHIRLPOOL"
     (is (= #{:can-whirlpool} (-> {:swaps vanilla-swaps
                                   :items-obtained #{:HM_WHIRLPOOL}
                                   :badges #{:GLACIERBADGE}
                                   :conditions-met #{}}
                                  can-whirlpool?
                                  :conditions-met))))
-  (testing "not meetable when the player has obtained the GLACIERBADGE and not HM_WHIRLPOOL"
+  (testing "can't when the player has obtained the GLACIERBADGE and not HM_WHIRLPOOL"
     (is (= #{} (-> {:swaps vanilla-swaps
                     :items-obtained #{}
                     :badges #{:GLACIERBADGE}
                     :conditions-met #{}}
                    can-whirlpool?
                    :conditions-met))))
-  (testing "meetable when the player has not obtained the GLACIERBADGE and has obtained HM_WHIRLPOOL"
+  (testing "can't when the player has not obtained the GLACIERBADGE and has obtained HM_WHIRLPOOL"
     (is (= #{} (-> {:swaps vanilla-swaps
                     :items-obtained #{:HM_WHIRLPOOL}
                     :badges #{}
@@ -196,21 +197,21 @@
                    :conditions-met)))))
 
 (deftest can-waterfall?-test
-  (testing "meetable when the player has obtained the RISINGBADGE and HM_WATERFALL"
+  (testing "can when the player has obtained the RISINGBADGE and HM_WATERFALL"
     (is (= #{:can-waterfall} (-> {:swaps vanilla-swaps
                                   :items-obtained #{:HM_WATERFALL}
                                   :badges #{:RISINGBADGE}
                                   :conditions-met #{}}
                                  can-waterfall?
                                  :conditions-met))))
-  (testing "not meetable when the player has obtained the RISINGBADGE and not HM_WATERFALL"
+  (testing "can't when the player has obtained the RISINGBADGE and not HM_WATERFALL"
     (is (= #{} (-> {:swaps vanilla-swaps
                     :items-obtained #{}
                     :badges #{:RISINGBADGE}
                     :conditions-met #{}}
                    can-waterfall?
                    :conditions-met))))
-  (testing "meetable when the player has not obtained the RISINGBADGE and has obtained HM_WATERFALL"
+  (testing "can't when the player has not obtained the RISINGBADGE and has obtained HM_WATERFALL"
     (is (= #{} (-> {:swaps vanilla-swaps
                     :items-obtained #{:HM_WATERFALL}
                     :badges #{}
@@ -219,32 +220,26 @@
                    :conditions-met)))))
 
 (deftest can-reach-blackthorn?-test
-  (testing "meetable when the player can use strength and has defeated team rocket"
+  (testing "can when the player can use strength, has defeated team rocket and has reached ecruteak"
     (is (= #{:can-strength :blackthorn :ecruteak
              :trigger-radio-tower-takeover} (-> {:swaps vanilla-swaps
                                                  :items-obtained #{}
                                                  :conditions-met #{:can-strength :trigger-radio-tower-takeover :ecruteak}}
                                                 can-reach-blackthorn?
                                                 :conditions-met))))
-  (testing "not meetable when the player can use strength and has not defeated team rocket"
-    (is (= #{:can-strength} (-> {:swaps vanilla-swaps
-                                 :items-obtained #{}
-                                 :conditions-met #{:can-strength}}
-                                can-reach-blackthorn?
-                                :conditions-met))))
-  (testing "not meetable when the player has defeated team rocket and cannot use strength"
-    (is (= #{:defeat-team-rocket} (-> {:swaps vanilla-swaps
-                                       :items-obtained #{}
-                                       :conditions-met #{:defeat-team-rocket}}
-                                      can-reach-blackthorn?
-                                      :conditions-met)))))
+  (testing "can't otherwise"
+    (is (= #{} (-> {:swaps vanilla-swaps
+                    :items-obtained #{}
+                    :conditions-met #{}}
+                   can-reach-blackthorn?
+                   :conditions-met)))))
 
 (deftest can-trigger-radio-tower-takeover?-test
-  (testing "meetable when the player has obtained johto 7 badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
+  (testing "can when the player has obtained johto 7 badges"
+    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{:defeat-red-gyarados}
+                :conditions-met #{}
                 :badges #{:ZEPHYRBADGE
                           :HIVEBADGE
                           :PLAINBADGE
@@ -255,11 +250,11 @@
                can-trigger-radio-tower-takeover?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "meetable when the player has obtained 7 kanto badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
+  (testing "can when the player has obtained 7 kanto badges"
+    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{:defeat-red-gyarados}
+                :conditions-met #{}
                 :badges #{:BOULDERBADGE
                           :CASCADEBADGE
                           :THUNDERBADGE
@@ -270,11 +265,11 @@
                can-trigger-radio-tower-takeover?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "not meetable when the player has not obtained 7 badges"
-    (is (= {:items-obtained #{} :conditions-met #{:defeat-red-gyarados}}
+  (testing "can't when the player has not obtained 7 badges"
+    (is (= {:items-obtained #{} :conditions-met #{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{:defeat-red-gyarados}
+                :conditions-met #{}
                 :badges #{:BOULDERBADGE
                           :CASCADEBADGE
                           :THUNDERBADGE
@@ -285,7 +280,7 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-reach-underground-warehouse?-test
-  (testing "reachable when the has obtained the BASEMENT_KEY, and has triggered the takeover"
+  (testing "can when the has obtained the BASEMENT_KEY, and has triggered the takeover"
     (is (= {:items-obtained #{:CARD_KEY :BASEMENT_KEY}
             :conditions-met #{:underground-warehouse :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
@@ -294,7 +289,7 @@
                can-reach-underground-warehouse?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "reachable when the has triggered the takeover but has not obtained the BASEMENT KEY"
+  (testing "can't when the has triggered the takeover but has not obtained the BASEMENT KEY"
     (is (= {:items-obtained #{}
             :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
@@ -303,7 +298,7 @@
                can-reach-underground-warehouse?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "not reachable when the player has obtained the BASEMENT_KEY, and has not triggered the takekover"
+  (testing "can't when the player has obtained the BASEMENT_KEY, and has not triggered the takekover"
     (is (= {:items-obtained #{:BASEMENT_KEY}, :conditions-met #{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:BASEMENT_KEY}
@@ -312,7 +307,7 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-defeat-team-rocket?-test
-  (testing "meetable when the player has obtained the CARD_KEY, and has triggered the takeover"
+  (testing "can when the player has obtained the CARD_KEY, and has triggered the takeover"
     (is (= {:items-obtained #{:CARD_KEY :CLEAR_BELL}
             :conditions-met #{:defeat-team-rocket :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
@@ -321,7 +316,7 @@
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "not meetable when the player has triggered the takeover and has not obtained the CARD_KEY and"
+  (testing "can't when the player has triggered the takeover and has not obtained the CARD_KEY and"
     (is (= {:items-obtained #{}
             :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
@@ -330,7 +325,7 @@
                can-defeat-team-rocket?
                (select-keys [:items-obtained :conditions-met])))))
 
-  (testing "not meetable when has obtained the CARD_KEY and has not triggered the takeover"
+  (testing "can't when has obtained the CARD_KEY and has not triggered the takeover"
     (is (= {:items-obtained #{:CARD_KEY}
             :conditions-met #{}}
            (-> {:swaps vanilla-swaps
@@ -348,7 +343,7 @@
                 :conditions-met #{:goldenrod}}
                can-reach-kanto?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "reachable when the player has reached ecruteak and has obtained the PASS"
+  (testing "reachable when the player has reached ecruteak and has obtained the S_S_TICKER"
     (is (= {:items-obtained #{:S_S_TICKET :SUPER_ROD}
             :conditions-met #{:ecruteak :kanto}}
            (-> {:swaps vanilla-swaps
@@ -358,7 +353,7 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-fix-power-plant?-test
-  (testing "meetable when the player has the MACHINE PART and has talked to the power plant manager"
+  (testing "can when the player has the MACHINE PART and has talked to the power plant manager"
     (is (= {:items-obtained #{:SILVER_WING :LOST_ITEM :MACHINE_PART}
             :conditions-met #{:fix-power-plant :talk-to-power-plant-manager}}
            (-> {:swaps vanilla-swaps
@@ -366,7 +361,7 @@
                 :conditions-met #{:talk-to-power-plant-manager}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not meetable when the player does not have the MACHINE PART and has talked to the power plant manager"
+  (testing "can't when the player does not have the MACHINE PART and has talked to the power plant manager"
     (is (= {:items-obtained #{}
             :conditions-met #{:talk-to-power-plant-manager}}
            (-> {:swaps vanilla-swaps
@@ -374,7 +369,7 @@
                 :conditions-met #{:talk-to-power-plant-manager}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not meetable when the player has the MACHINE PART and has not talked to the power plant manager"
+  (testing "can't when the player has the MACHINE PART and has not talked to the power plant manager"
     (is (= {:items-obtained #{:MACHINE_PART}
             :conditions-met #{}}
            (-> {:swaps vanilla-swaps
@@ -384,7 +379,7 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-get-copycat-item?-test
-  (testing "obtainable when the player has reached kanto and has obtained the LOST_ITEM"
+  (testing "can when the player has reached kanto and has obtained the LOST_ITEM"
     (is (= {:items-obtained #{:LOST_ITEM :PASS}
             :conditions-met #{:copycat-item :kanto}}
            (-> {:swaps vanilla-swaps
