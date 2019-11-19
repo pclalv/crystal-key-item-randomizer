@@ -144,28 +144,31 @@
                :conditions-met)))))
 
 (deftest can-surf?-test
-  (testing "can when the player has reached ecruteak and has obtained HM_SURF"
+  (testing "can when the player has FOGBADE and has obtained HM_SURF"
     (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_SURF}
-            :conditions-met #{:ecruteak :can-surf}}
+            :conditions-met #{:can-surf}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}
-                :conditions-met #{:ecruteak}}
+                :conditions-met #{}
+                :badges #{:FOGBADGE}}
                can-surf?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "can't when the player has reached ecruteak and has not obtained HM_SURF"
+  (testing "can't when the player has FOGBADGE and has not obtained HM_SURF"
     (is (= {:items-obtained #{}
-            :conditions-met #{:ecruteak}}
+            :conditions-met #{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{:ecruteak}}
+                :conditions-met #{}
+                :badges #{:FOGBADGE}}
                can-surf?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "can when the player has not reached ecruteak and has obtained HM_SURF"
+  (testing "can when the player does not have FOGBADGE and has obtained HM_SURF"
     (is (= {:items-obtained #{:HM_SURF}
             :conditions-met #{}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}
-                :conditions-met #{}}
+                :conditions-met #{}
+                :badges #{}}
                can-surf?
                (select-keys [:items-obtained :conditions-met]))))))
 
@@ -217,11 +220,12 @@
 
 (deftest can-reach-blackthorn?-test
   (testing "meetable when the player can use strength and has defeated team rocket"
-    (is (= #{:can-strength :trigger-radio-tower-takeover :blackthorn} (-> {:swaps vanilla-swaps
-                                                                           :items-obtained #{}
-                                                                           :conditions-met #{:can-strength :trigger-radio-tower-takeover}}
-                                                                          can-reach-blackthorn?
-                                                                          :conditions-met))))
+    (is (= #{:can-strength :blackthorn :ecruteak
+             :trigger-radio-tower-takeover} (-> {:swaps vanilla-swaps
+                                                 :items-obtained #{}
+                                                 :conditions-met #{:can-strength :trigger-radio-tower-takeover :ecruteak}}
+                                                can-reach-blackthorn?
+                                                :conditions-met))))
   (testing "not meetable when the player can use strength and has not defeated team rocket"
     (is (= #{:can-strength} (-> {:swaps vanilla-swaps
                                  :items-obtained #{}

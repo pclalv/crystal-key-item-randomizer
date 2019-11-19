@@ -114,9 +114,9 @@
         :else (assoc args :reasons
                      (conj reasons "can-strength: cannot without both PLAINBADGE and HM_STRENGTH"))))
 
-(defn can-surf? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-surf? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :can-surf) args
-        (and (conditions-met :ecruteak)
+        (and (badges :FOGBADGE)
              (items-obtained :HM_SURF)) (-> args
                                             (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
                                                    :conditions-met (conj conditions-met :can-surf)))
@@ -141,7 +141,11 @@
 
 (defn can-get-chucks-wifes-item?[{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (items-obtained (swaps :HM_FLY)) args
-        (and (conditions-met :can-surf)
+        ;; can-surf currently implies that the player can reach
+        ;; ecruteak, but that would not be guaranteed if badges were
+        ;; randomized.
+        (and (conditions-met :ecruteak)
+             (conditions-met :can-surf)
              (conditions-met :can-strength)) (assoc args :items-obtained (conj items-obtained (swaps :HM_FLY)))
         :else (assoc args :reasons
                      (conj reasons "HM_FLY: cannot obtained with out being able to surf and being able to strength"))))
@@ -186,7 +190,8 @@
 
 (defn can-reach-blackthorn? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :blackthorn) args
-        (and (conditions-met :can-strength)
+        (and (conditions-met :ecruteak)
+             (conditions-met :can-strength)
              (conditions-met :trigger-radio-tower-takeover)) (assoc args :conditions-met (conj conditions-met :blackthorn))
         :else (assoc args :reasons
                      (conj reasons "blackthorn: cannot reach without having defeated team rocket and being able to use strength"))))
