@@ -34,7 +34,7 @@
                       :blackthorn}}
 
    {:badge :BOULDERBADGE
-    :conditions-met #{:fix-power-plant}}
+    :conditions-met #{:pewter}}
 
    {:badge :CASCADEBADGE
     :conditions-met #{:kanto :can-surf :can-cut}}
@@ -52,10 +52,10 @@
     :conditions-met #{:kanto}}
 
    {:badge :VOLCANOBADGE
-    :conditions-met #{:fix-power-plant}}
+    :conditions-met #{:pewter}}
 
    {:badge :EARTHBADGE
-    :conditions-met #{:fix-power-plant}}])
+    :conditions-met #{:pewter}}])
 
 (def condition-prereqs
   [{:condition nil

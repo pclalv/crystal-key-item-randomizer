@@ -439,7 +439,7 @@
                                                (get-badge-prereqs :RISINGBADGE))))))
   (testing "can collect BOULDERBADGE"
     (is (= #{:BOULDERBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:pewter}
                                                 :badges #{}}
                                                (get-badge-prereqs :BOULDERBADGE))))))
   (testing "can collect CASCADEBADGE"
@@ -469,12 +469,12 @@
                                                (get-badge-prereqs :MARSHBADGE))))))
   (testing "can collect VOLCANOBADGE"
     (is (= #{:VOLCANOBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:pewter}
                                                 :badges #{}}
                                                (get-badge-prereqs :VOLCANOBADGE))))))
   (testing "can collect EARTHBADGE"
     (is (= #{:EARTHBADGE}
-           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:fix-power-plant}
+           (:badges (can-satisfy-badge-prereq? {:conditions-met #{:pewter}
                                                 :badges #{}}
                                                (get-badge-prereqs :EARTHBADGE)))))))
 
