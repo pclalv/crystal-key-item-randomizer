@@ -61,6 +61,8 @@
     :conditions-met #{:pewter}}])
 
 (def condition-prereqs
+  ":prereqs is a vector that specifies one or more set of prereqs, each
+  one of which is sufficient for the player to meet the :condition."
   [{:condition :goldenrod
     :prereqs [{:conditions-met #{}
                :badges #{}
@@ -192,7 +194,9 @@
                :items-obtained #{}}]}])
 
 (def item-prereqs
-  [{:conditions-met #{}
+  [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
+    ;; so goldenrod is always accessible
+    :conditions-met #{}
     :badge-count 0
     :items-obtained #{}
     :grants #{:MYSTERY_EGG
