@@ -179,7 +179,7 @@
    {:condition :defeat-elite-4
     :prereqs [{:conditions-met #{:pewter}
                :badges #{}
-               :badge-count 8
+               :badge-count 0
                :items-obtained #{}}
 
               {:conditions-met #{:can-cut :can-waterfall}
