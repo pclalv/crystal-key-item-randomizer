@@ -52,9 +52,9 @@
 (defn can-reach-goldenrod? [{:keys [swaps items-obtained conditions-met] :as args}]
   ;; the cuttable tree in Ilex Forest is removed by the randomizer, so
   ;; goldenrod is always accessible
-  (-> args
-      (assoc :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
-             :conditions-met (conj conditions-met :goldenrod))))
+  (assoc args
+         :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
+         :conditions-met (conj conditions-met :goldenrod)))
 
 (defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
@@ -169,9 +169,9 @@
 
 (defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :trigger-radio-tower-takeover) args
-        (has-seven-badges? badges) (-> args
-                                       (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
-                                              :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
+        (has-seven-badges? badges) (assoc args
+                                          :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
+                                          :conditions-met (conj conditions-met :trigger-radio-tower-takeover))
         :else (assoc args :reasons
                      (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
 
@@ -182,16 +182,16 @@
         (not (items-obtained :BASEMENT_KEY)) (assoc args :reasons
                                                     (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))
         (and (conditions-met :trigger-radio-tower-takeover)
-             (items-obtained :BASEMENT_KEY)) (-> args
-                                                 (assoc :items-obtained (conj items-obtained (swaps :CARD_KEY))
-                                                        :conditions-met (conj conditions-met :underground-warehouse)))))
+             (items-obtained :BASEMENT_KEY)) (assoc args
+                                                    :items-obtained (conj items-obtained (swaps :CARD_KEY))
+                                                    :conditions-met (conj conditions-met :underground-warehouse))))
 
 (defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-team-rocket) args
         (and (items-obtained :CARD_KEY)
-             (conditions-met :trigger-radio-tower-takeover)) (-> args
-                                                                 (assoc :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
-                                                                        :conditions-met (conj conditions-met :defeat-team-rocket)))
+             (conditions-met :trigger-radio-tower-takeover)) (assoc args
+                                                                    :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
+                                                                    :conditions-met (conj conditions-met :defeat-team-rocket))
         :else (assoc args :reasons
                      (conj reasons "defeat-team-rocket: cannot reach without having triggered the radio tower takeover and having obtained CARD_KEY"))))
 
@@ -211,23 +211,26 @@
           kanto-via-boat? (and (conditions-met :ecruteak)
                                (items-obtained :S_S_TICKET))]
       (if (or kanto-via-train? kanto-via-boat?)
-        (-> args (assoc :items-obtained (conj items-obtained (swaps :SUPER_ROD))
-                        :conditions-met (conj conditions-met :kanto)))
+        (assoc args
+               :items-obtained (conj items-obtained (swaps :SUPER_ROD))
+               :conditions-met (conj conditions-met :kanto))
         (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
 
 (defn can-talk-to-power-plant-manager? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :talk-to-power-plant-manager) args
         (and (conditions-met :can-surf)
-             (conditions-met :kanto)) (-> args (assoc :items-obtained (conj items-obtained (swaps :MACHINE_PART))
-                                                      :conditions-met (conj conditions-met :talk-to-power-plant-manager)))
+             (conditions-met :kanto)) (assoc args
+                                             :items-obtained (conj items-obtained (swaps :MACHINE_PART))
+                                             :conditions-met (conj conditions-met :talk-to-power-plant-manager))
         :else (assoc args :reasons
                      (conj reasons "talk-to-power-plant-manager: cannot reach without being able to surf and without having reached kanto"))))
 
 (defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :fix-power-plant) args
         (and (items-obtained :MACHINE_PART)
-             (conditions-met :talk-to-power-plant-manager)) (-> args (assoc :items-obtained (conj items-obtained :LOST_ITEM)
-                                                                            :conditions-met (conj conditions-met :fix-power-plant)))
+             (conditions-met :talk-to-power-plant-manager)) (assoc args
+                                                                   :items-obtained (conj items-obtained :LOST_ITEM)
+                                                                   :conditions-met (conj conditions-met :fix-power-plant))
         :else (assoc args :reasons
                      (conj reasons "fix-power-plant: cannot reach without having MACHINE_PART and being able to talk to the Power Plant manager"))))
 
@@ -243,9 +246,9 @@
 (defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :copycat-item) args
         (and (conditions-met :kanto)
-             (items-obtained :LOST_ITEM)) (-> args
-                                              (assoc :items-obtained (conj items-obtained (swaps :PASS))
-                                                     :conditions-met (conj conditions-met :copycat-item)))
+             (items-obtained :LOST_ITEM)) (assoc args
+                                                 :items-obtained (conj items-obtained (swaps :PASS))
+                                                 :conditions-met (conj conditions-met :copycat-item))
         :else (assoc args :reasons
                      (conj reasons "copycat-item: cannot reach without LOST_ITEM"))))
 
@@ -256,11 +259,9 @@
                                          (conditions-met :can-cut))
                                     ;; via Tohjo Falls
                                     (and (conditions-met :can-surf)
-                                         (conditions-met :can-waterfall)))) (-> args
-                                                                                (assoc :items-obtained
-                                                                                       (conj items-obtained (swaps :S_S_TICKET)))
-                                                                                (assoc :conditions-met
-                                                                                       (conj conditions-met :defeat-elite-4)))
+                                         (conditions-met :can-waterfall)))) (assoc args
+                                                                                   :items-obtained (conj items-obtained (swaps :S_S_TICKET))
+                                                                                   :conditions-met (conj conditions-met :defeat-elite-4))
         :else (assoc args :reasons
                      (conj reasons "defeat-elite-4: can't without Victory Road access via Viridian or Tohjo Falls"))))
 
