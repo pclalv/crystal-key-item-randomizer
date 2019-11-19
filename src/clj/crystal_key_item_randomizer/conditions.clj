@@ -61,22 +61,21 @@
     :conditions-met #{:pewter}}])
 
 (def condition-prereqs
-  [{:condition nil
+  [{:condition :goldenrod
     :prereqs [{:conditions-met #{}
-               :badge-count 0
-               :items-obtained #{}}]}
-
-   {:condition :goldenrod
-    :prereqs [{:conditions-met #{}
+               :badges #{}
                :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :ecruteak
     :prereqs [{:conditions-met #{}
+               :badges #{}
                :badge-count 0
                :items-obtained #{:SQUIRTBOTTLE}}
 
               {:conditions-met #{}
+               :badges #{}
+               :badge-count 0
                :items-obtained #{:PASS :S_S_TICKET}}]}
 
    {:condition :can-cut
