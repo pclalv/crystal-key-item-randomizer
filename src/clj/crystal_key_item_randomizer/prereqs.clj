@@ -1,6 +1,6 @@
-(ns crystal-key-item-randomizer.conditions
-  "Data pertaining to the conditions that must be satisfied in order to
-  make progress, namely collecting badges and collecting items.")
+(ns crystal-key-item-randomizer.prereqs
+  "Data pertaining to the prereqs that must be satisfied in order to
+  meet conditions, collect badges and collect items.")
 
 (def badge-prereqs
   "A list detailing the various conditions that must be met to acquire a

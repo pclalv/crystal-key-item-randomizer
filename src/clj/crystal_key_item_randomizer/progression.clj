@@ -3,7 +3,7 @@
   progress can be made, along with the particular items and progress
   the player has, to determine further progress."
   (:require [clojure.set :as cset]
-            [crystal-key-item-randomizer.conditions :refer :all]))
+            [crystal-key-item-randomizer.prereqs :refer :all]))
 
 (def guaranteed-items
   "Items that obtainable in every possible randomization."
