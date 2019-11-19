@@ -106,7 +106,7 @@
       analyze-conditions
       (analyze-items swaps)))
 
-(defn beatable? [swaps {:keys [speedchoice?] :or {speedchoice? true}}]
+(defn beatable? [swaps & {:keys [speedchoice?] :or {speedchoice? true}}]
   (if (not speedchoice?)
     {:beatable? false
      :error "only speedchoice is currently supported."}

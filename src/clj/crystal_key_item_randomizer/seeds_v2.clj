@@ -44,7 +44,7 @@
 (defn generate [seed-id]
   (let [swaps (zipmap all-items
                       (deterministic-shuffle all-items seed-id))
-        progression-results (beatable? swaps {:speedchoice? true})]
+        progression-results (beatable? swaps :speedchoice? true)]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
                  (assoc :patches (patches/generate swaps {:speedchoice? true}))
