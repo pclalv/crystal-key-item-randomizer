@@ -203,14 +203,22 @@
                         :conditions-met (conj conditions-met :kanto)))
         (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
 
+(defn can-talk-to-power-plant-manager? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (cond (conditions-met :talk-to-power-plant-manager) args
+        (and (conditions-met :can-surf)
+             (conditions-met :kanto)) (-> args (assoc :items-obtained (conj items-obtained (swaps :MACHINE_PART))
+                                                      :conditions-met (conj conditions-met :talk-to-power-plant-manager)))
+        :else (assoc args :reasons
+                     (conj reasons "talk-to-power-plant-manager: cannot reach without being able to surf and without having reached kanto"))))
+
 (defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :fix-power-plant) args
-        (and (conditions-met :can-surf)
-             (conditions-met :kanto)) (-> args (assoc :items-obtained (cset/union items-obtained
-                                                                                  (get-swaps swaps [:MACHINE_PART :LOST_ITEM :SILVER_WING]))
-                                                      :conditions-met (conj conditions-met :fix-power-plant)))
+        (and (items-obtained :MACHINE_PART)
+             (conditions-met :talk-to-power-plant-manager)) (-> args (assoc :items-obtained (cset/union items-obtained
+                                                                                                        (get-swaps swaps [:LOST_ITEM :SILVER_WING]))
+                                                                            :conditions-met (conj conditions-met :fix-power-plant)))
         :else (assoc args :reasons
-                     (conj reasons "fix-power-plant: cannot reach without being able to surf and having reached kanto"))))
+                     (conj reasons "fix-power-plant: cannot reach without having MACHINE_PART and being able to talk to the Power Plant manager"))))
 
 (defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :copycat-item) args
@@ -306,6 +314,7 @@
                                                      can-defeat-team-rocket?
                                                      can-reach-blackthorn?
                                                      can-reach-kanto?
+                                                     can-talk-to-power-plant-manager?
                                                      can-fix-power-plant?
                                                      can-get-copycat-item?
                                                      can-defeat-elite-4?

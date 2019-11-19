@@ -354,27 +354,28 @@
                (select-keys [:items-obtained :conditions-met]))))))
 
 (deftest can-fix-power-plant?-test
-  (testing "meetable when the player has reached kanto and can surf"
+  (testing "meetable when the player has the MACHINE PART and has talked to the power plant manager"
     (is (= {:items-obtained #{:SILVER_WING :LOST_ITEM :MACHINE_PART}
-            :conditions-met #{:fix-power-plant :kanto :can-surf}}
+            :conditions-met #{:fix-power-plant :talk-to-power-plant-manager}}
            (-> {:swaps vanilla-swaps
-                :conditions-met #{:can-surf :kanto}}
+                :items-obtained #{:MACHINE_PART}
+                :conditions-met #{:talk-to-power-plant-manager}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not meetable when the player has reached kanto and can't surf"
+  (testing "not meetable when the player does not have the MACHINE PART and has talked to the power plant manager"
     (is (= {:items-obtained #{}
-            :conditions-met #{:kanto}}
+            :conditions-met #{:talk-to-power-plant-manager}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
-                :conditions-met #{:kanto}}
+                :conditions-met #{:talk-to-power-plant-manager}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met])))))
-  (testing "not meetable when the player has not reached kanto and can surf"
-    (is (= {:items-obtained #{}
-            :conditions-met #{:can-surf}}
+  (testing "not meetable when the player has the MACHINE PART and has not talked to the power plant manager"
+    (is (= {:items-obtained #{:MACHINE_PART}
+            :conditions-met #{}}
            (-> {:swaps vanilla-swaps
-                :items-obtained #{}
-                :conditions-met #{:can-surf}}
+                :items-obtained #{:MACHINE_PART}
+                :conditions-met #{}}
                can-fix-power-plant?
                (select-keys [:items-obtained :conditions-met]))))))
 
