@@ -252,10 +252,9 @@
   (cond (conditions-met :defeat-elite-4) args
         (and (>= (count badges) 8) (or ;; via Viridian
                                     (and (conditions-met :fix-power-plant)
-                                         (conditions-met :can-strength))
+                                         (conditions-met :can-cut))
                                     ;; via Tohjo Falls
                                     (and (conditions-met :can-surf)
-                                         (conditions-met :can-strength)
                                          (conditions-met :can-waterfall)))) (-> args
                                                                                 (assoc :items-obtained
                                                                                        (conj items-obtained (swaps :S_S_TICKET)))
