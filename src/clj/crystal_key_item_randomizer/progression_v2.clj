@@ -56,7 +56,7 @@
                         conditions-satisfied?
                         items-satisfied?)]
     (if satisfied?
-      (assoc args :items-obtained (cset/union items-obtained
+      (assoc args :items-obtained (cset/union player-items-obtained
                                               (get-swaps swaps grants)))
       args)))
 
