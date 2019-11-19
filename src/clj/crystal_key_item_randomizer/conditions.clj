@@ -37,7 +37,7 @@
     :conditions-met #{:pewter}}
 
    {:badge :CASCADEBADGE
-    :conditions-met #{:kanto :can-surf :can-cut}}
+    :conditions-met #{:kanto :talk-to-power-plant-manager}}
 
    {:badge :THUNDERBADGE
     :conditions-met #{:kanto :can-cut}}
