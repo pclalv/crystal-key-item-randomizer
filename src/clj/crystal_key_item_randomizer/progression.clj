@@ -5,11 +5,6 @@
   (:require [clojure.set :as cset]
             [crystal-key-item-randomizer.conditions :refer :all]))
 
-(def vanilla-swaps
-  "A map of key items where the key and value are always equal."
-  (zipmap crystal-key-item-randomizer.randomizer/all-items
-          crystal-key-item-randomizer.randomizer/all-items))
-
 (def guaranteed-items
   "Items that obtainable in every possible randomization."
   [:MYSTERY_EGG

@@ -2,6 +2,11 @@
   (:require [clojure.test :refer :all]
             [crystal-key-item-randomizer.progression :refer :all]))
 
+(def vanilla-swaps
+  "A map of key items where the key and value are always equal."
+  (zipmap crystal-key-item-randomizer.randomizer/all-items
+          crystal-key-item-randomizer.randomizer/all-items))
+
 (deftest get-swaps-test
   (testing "returns the vanilla swaps"
     (is (= (set crystal-key-item-randomizer.randomizer/all-items)
