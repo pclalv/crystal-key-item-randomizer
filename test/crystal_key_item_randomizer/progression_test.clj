@@ -237,7 +237,7 @@
 
 (deftest can-trigger-radio-tower-takeover?-test
   (testing "meetable when the player has obtained johto 7 badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
                 :conditions-met #{:defeat-red-gyarados}
@@ -252,7 +252,7 @@
                (select-keys [:items-obtained :conditions-met])))))
 
   (testing "meetable when the player has obtained 7 kanto badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:defeat-red-gyarados :trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
                 :conditions-met #{:defeat-red-gyarados}
