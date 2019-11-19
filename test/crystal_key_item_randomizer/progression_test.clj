@@ -354,7 +354,7 @@
 
 (deftest can-fix-power-plant?-test
   (testing "can when the player has the MACHINE PART and has talked to the power plant manager"
-    (is (= {:items-obtained #{:SILVER_WING :LOST_ITEM :MACHINE_PART}
+    (is (= {:items-obtained #{:LOST_ITEM :MACHINE_PART}
             :conditions-met #{:fix-power-plant :talk-to-power-plant-manager}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:MACHINE_PART}

@@ -219,11 +219,17 @@
 (defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :fix-power-plant) args
         (and (items-obtained :MACHINE_PART)
-             (conditions-met :talk-to-power-plant-manager)) (-> args (assoc :items-obtained (cset/union items-obtained
-                                                                                                        (get-swaps swaps [:LOST_ITEM :SILVER_WING]))
+             (conditions-met :talk-to-power-plant-manager)) (-> args (assoc :items-obtained (conj items-obtained :LOST_ITEM)
                                                                             :conditions-met (conj conditions-met :fix-power-plant)))
         :else (assoc args :reasons
                      (conj reasons "fix-power-plant: cannot reach without having MACHINE_PART and being able to talk to the Power Plant manager"))))
+
+(defn can-get-pewter-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+  (cond (items-obtained (swaps :SILVER_WING)) args
+        (and (conditions-met :can-cut)
+             (conditions-met :fix-power-plant)) (assoc args :items-obtained (conj items-obtained :SILVER_WING))
+        :else (assoc args :reasons
+                     (conj reasons "pewter-item: cannot obtain without having fixed power plant and being able to use cut"))))
 
 (defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
   (cond (conditions-met :copycat-item) args
@@ -322,6 +328,7 @@
                                                      can-talk-to-power-plant-manager?
                                                      can-fix-power-plant?
                                                      can-get-copycat-item?
+                                                     can-get-pewter-item?
                                                      can-defeat-elite-4?
                                                      can-defeat-red?))))]
         (assoc final-progression-result :beatable? (if (not speedchoice?)
