@@ -49,4 +49,6 @@
       {:seed (-> progression-results
                  (assoc :patches (patches/generate swaps {:speedchoice? true}))
                  (assoc :id (str seed-id)))}
-      {:error (str "Unbeatable seed: " seed-id)})))
+      {:error (str "Unbeatable seed: " seed-id)
+       :seed (-> progression-results
+                 (assoc :id (str seed-id)))})))
