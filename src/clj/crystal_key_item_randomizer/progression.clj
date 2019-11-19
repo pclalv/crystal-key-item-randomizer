@@ -163,7 +163,7 @@
 
 (defn can-get-ice-path-item? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (items-obtained (swaps :HM_WATERFALL)) args
-        (and (has-seven-badges? badges)
+        (and (conditions-met :trigger-radio-tower-takeover)
              (conditions-met :ecruteak)) (assoc args :items-obtained (conj items-obtained (swaps :HM_WATERFALL)))
         :else (assoc args :reasons
                      (conj reasons "ice-path-item: cannot obtain without 7 badges and reaching ecruteak"))))
