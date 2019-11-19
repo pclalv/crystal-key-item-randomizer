@@ -146,7 +146,7 @@
 
 (deftest can-surf?-test
   (testing "can when the player has FOGBADE and has obtained HM_SURF"
-    (is (= {:items-obtained #{:HM_WHIRLPOOL :RED_SCALE :SECRETPOTION :HM_SURF}
+    (is (= {:items-obtained #{:HM_SURF}
             :conditions-met #{:can-surf}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{:HM_SURF}

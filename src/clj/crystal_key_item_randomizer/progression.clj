@@ -117,10 +117,7 @@
 (defn can-surf? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :can-surf) args
         (and (badges :FOGBADGE)
-             (conditions-met :ecruteak)
-             (items-obtained :HM_SURF)) (-> args
-                                            (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
-                                                   :conditions-met (conj conditions-met :can-surf)))
+             (items-obtained :HM_SURF)) (assoc args :conditions-met (conj conditions-met :can-surf))
         :else (assoc args :reasons
                      (conj reasons "can-surf: cannot without both FOGBADGE and HM_SURF"))))
 
@@ -157,7 +154,9 @@
 (defn can-defeat-red-gyarados? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-red-gyarados) args
         (and (conditions-met :can-surf)
-             (conditions-met :ecruteak)) (assoc args :conditions-met (conj conditions-met :defeat-red-gyarados))
+             (conditions-met :ecruteak)) (assoc args
+                                                :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
+                                                :conditions-met (conj conditions-met :defeat-red-gyarados))
         :else (assoc args :reasons
                      (conj reasons "defeat-red-gyarados: cannot without both surf and reaching ecruteak"))))
 
