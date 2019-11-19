@@ -108,7 +108,8 @@
                                    player-items-obtained :items-obtained
                                    player-badges :badges
                                    :as result}
-                                  {:keys [badges items-obtained condition]}]
+                                  {condition :condition
+                                   {:keys [badges items-obtained]} :prereqs}]
   (let [badges-satisfied? (every? player-badges
                                   (or badges #{}))
         items-satisfied? (every? player-items-obtained
