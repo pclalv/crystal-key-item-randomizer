@@ -488,4 +488,11 @@
   (testing "when speedchoice, vanilla swaps are beatable"
     (is (= true (-> vanilla-swaps
                     (beatable? {:speedchoice? true})
-                    :beatable?)))))
+                    :beatable?))))
+
+  (testing "When speedchoice, the player gets every item"
+    (is (= (set crystal-key-item-randomizer.randomizer/all-items) (-> vanilla-swaps
+                                                                      (beatable? {:speedchoice? true})
+                                                                      :swaps
+                                                                      vals
+                                                                      set)))))
