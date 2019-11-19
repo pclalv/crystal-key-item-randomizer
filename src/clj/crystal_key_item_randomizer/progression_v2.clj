@@ -146,4 +146,6 @@
                      result
                      (recur result
                             (analyze result swaps))))]
-      (assoc result :beatable? (contains? (result :conditions-met) :defeat-red)))))
+      (assoc result
+             :swaps swaps
+             :beatable? (contains? (result :conditions-met) :defeat-red)))))
