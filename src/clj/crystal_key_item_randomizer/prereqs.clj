@@ -204,6 +204,8 @@
     :items-obtained #{}
     :grants #{:SUPER_ROD}}
 
+   ;; TODO: add option to make this easier by ensuring either can-cut
+   ;; or can-flash
    {:conditions-met #{:talk-to-power-plant-manager}
     :items-obtained #{}
     :grants #{:MACHINE_PART}}
