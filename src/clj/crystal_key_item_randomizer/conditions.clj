@@ -25,7 +25,10 @@
 
    {:badge :RISINGBADGE
     :conditions-met #{;; can-whirlpool isn't actually a prereq in
-                      ;; speedchoice.
+                      ;; speedchoice. speedchoice logic will just
+                      ;; assume the player can always use whirlpool,
+                      ;; because whirlpool doesn't matter for anything
+                      ;; else.
                       :can-whirlpool
                       ;; the supernerd blocking the gym
                       ;; doesn't move until the player
