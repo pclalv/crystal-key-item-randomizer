@@ -117,6 +117,7 @@
 (defn can-surf? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :can-surf) args
         (and (badges :FOGBADGE)
+             (conditions-met :ecruteak)
              (items-obtained :HM_SURF)) (-> args
                                             (assoc :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
                                                    :conditions-met (conj conditions-met :can-surf)))
