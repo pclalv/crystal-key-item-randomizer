@@ -43,17 +43,13 @@
 (defn can-satisfy-item-prereqs? [swaps
                                  {player-conditions-met :conditions-met
                                   player-items-obtained :items-obtained
-                                  player-badges :badges
                                   :as args}
-                                 {:keys [badge-count conditions-met items-obtained grants]}]
-  (let [badge-count-satisfied (>= (count player-badges)
-                                  badge-count)
-        conditions-satisfied? (every? player-conditions-met
+                                 {:keys [conditions-met items-obtained grants]}]
+  (let [conditions-satisfied? (every? player-conditions-met
                                       (or conditions-met #{}))
         items-satisfied? (every? player-items-obtained
                                  (or items-obtained #{}))
-        satisfied? (and badge-count-satisfied
-                        conditions-satisfied?
+        satisfied? (and conditions-satisfied?
                         items-satisfied?)]
     (if satisfied?
       (assoc args :items-obtained (cset/union player-items-obtained
