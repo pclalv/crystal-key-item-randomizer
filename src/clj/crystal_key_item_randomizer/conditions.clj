@@ -197,7 +197,6 @@
   [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
     ;; so goldenrod is always accessible
     :conditions-met #{}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:MYSTERY_EGG
               :HM_FLASH 
@@ -205,7 +204,6 @@
               :HM_CUT}}
 
    {:conditions-met #{:goldenrod}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:BICYCLE
               :BLUE_CARD 
@@ -213,7 +211,6 @@
               :SQUIRTBOTTLE}}
 
    {:conditions-met #{:ecruteak}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:ITEMFINDER
               :HM_SURF
@@ -221,58 +218,51 @@
               :HM_STRENGTH}}
 
    {:conditions-met #{:ecruteak :can-surf}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:RED_SCALE
               :HM_WHIRLPOOL
               :SECRETPOTION}}
 
    {:conditions-met #{:ecruteak :can-surf :can-strength}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:HM_FLY}}
 
-   {:conditions-met #{:ecruteak :can-surf :can-strength}
-    :badge-count 7
+   {:conditions-met #{:seven-badges}
     :items-obtained #{}
-    :grants #{:BASEMENT_KEY :HM_WATERFALL}}
+    :grants #{:BASEMENT_KEY}}
+
+   {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
+    :items-obtained #{}
+    :grants #{:HM_WATERFALL}}
 
    {:conditions-met #{:defeat-elite-4}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:S_S_TICKET}}
 
    {:conditions-met #{:underground-warehouse}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:CARD_KEY}}
 
    {:conditions-met #{:defeat-team-rocket}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:CLEAR_BELL}}
 
    {:conditions-met #{:kanto}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:SUPER_ROD}}
 
    {:conditions-met #{:talk-to-power-plant-manager}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:MACHINE_PART}}
 
    {:conditions-met #{:kanto}
-    :badge-count 0
     :items-obtained #{:LOST_ITEM}
     :grants #{:PASS}}
 
    {:conditions-met #{:fix-power-plant}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:LOST_ITEM}}
 
    {:conditions-met #{:pewter}
-    :badge-count 0
     :items-obtained #{}
     :grants #{:SILVER_WING}}])
