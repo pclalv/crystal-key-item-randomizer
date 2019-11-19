@@ -224,7 +224,7 @@
   (cond (conditions-met :fix-power-plant) args
         (and (items-obtained :MACHINE_PART)
              (conditions-met :talk-to-power-plant-manager)) (assoc args
-                                                                   :items-obtained (conj items-obtained :LOST_ITEM)
+                                                                   :items-obtained (conj items-obtained (swaps :LOST_ITEM))
                                                                    :conditions-met (conj conditions-met :fix-power-plant))
         :else (assoc args :reasons
                      (conj reasons "fix-power-plant: cannot reach without having MACHINE_PART and being able to talk to the Power Plant manager"))))
