@@ -57,59 +57,216 @@
    {:badge :EARTHBADGE
     :conditions-met #{:fix-power-plant}}])
 
-(def item-conditions
-  "A map from items to the conditions that must be satisfied in order
-  for the player to obtain that item in the vanilla game.
+(def condition-prereqs
+  [{:condition nil
+    :prereqs [{:conditions-met #{}
+               :badge-count 0
+               :items-obtained #{}}]}
 
-  An empty array means that the item is obtainable without meeting any
-  prerequisite.
+   {:condition :goldenrod
+    :prereqs [{:conditions-met #{}
+               :badge-count 0
+               :items-obtained #{}}]}
 
-  Any condition in the conditions array may be satisfied in order to
-  obtain the item."
-  ;; TODO: flip this so as to not repeat conditions so much.
+   {:condition :ecruteak
+    :prereqs [{:conditions-met #{}
+               :badge-count 0
+               :items-obtained #{:SQUIRTBOTTLE}}
 
-  ;; "Describes the items that are obtained upon meeting some
-  ;; conditions/obtaining an item/acquiring a badge in the vanilla
-  ;; game."
-  {:MYSTERY_EGG []
-   :HM_FLASH []
-   :OLD_ROD []
-   :HM_CUT []
+              {:conditions-met #{}
+               :items-obtained #{:PASS :S_S_TICKET}}]}
 
-   ;; goldenrod
-   :BICYCLE [{:conditions-met #{:goldenrod}}]
-   :BLUE_CARD [{:conditions-met #{:goldenrod}}]
-   :COIN_CASE [{:conditions-met #{:goldenrod}}]
-   :SQUIRTBOTTLE [{:conditions-met #{:goldenrod}}]
+   {:condition :can-cut
+    :prereqs [{:conditions-met #{}
+               :badges #{:HIVEBADGE}
+               :badge-count 0
+               :items-obtained #{:HM_CUT}}]}
 
-   ;; ecruteak
-   :ITEMFINDER [{:conditions-met #{:ecruteak}}]
-   :HM_SURF [{:conditions-met #{:ecruteak}}]
+   {:condition :can-strength
+    :prereqs [{:conditions-met #{}
+               :badges #{:PLAINBADGE}
+               :badge-count 0
+               :items-obtained #{:HM_STRENGTH}}]}
 
-   ;; olivine
-   :GOOD_ROD [{:conditions-met #{:ecruteak}}]
-   :HM_STRENGTH [{:conditions-met #{:ecruteak}}]
+   {:condition :can-surf
+    :prereqs [{:conditions-met #{}
+               :badges #{:FOGBADGE}
+               :badge-count 0
+               :items-obtained #{:HM_SURF}}]}
 
-   ;; cianwood
-   :HM_FLY [{:conditions-met #{:can-surf}}]
-   :SECRETPOTION [{:conditions-met #{:can-surf}}]
+   ;; speedchoice-specific
+   {:condition :can-whirlpool
+    :prereqs [{:conditions-met #{}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
 
-   ;; mahogany
-   :RED_SCALE [{:conditions-met #{:can-surf}}]
-   :BASEMENT_KEY [{:conditions-met #{:can-surf}}]
-   :HM_WHIRLPOOL [{:conditions-met #{:can-surf}}]
+   {:condition :can-waterfall
+    :prereqs [{:conditions-met #{}
+               :badges #{:RISINGBADGE}
+               :badge-count 0
+               :items-obtained #{:HM_WATERFALL}}]}
 
-   ;; ice path
-   :HM_WATERFALL [{:conditions-met #{:can-surf}}]
+   {:condition :seven-badges
+    :prereqs [{:conditions-met #{}
+               :badges #{}
+               :badge-count 7
+               :items-obtained #{}}]}
 
-   :CARD_KEY [{:items-obtained #{:BASEMENT_KEY}}]
-   :CLEAR_BELL [{:items-obtained #{:CARD_KEY}}]
+   {:condition :defeat-red-gyarados
+    :prereqs [{:conditions-met #{:can-surf :ecruteak}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
 
-   :SUPER_ROD [{:conditions-met #{:kanto}}]
-   :MACHINE_PART [{:conditions-met #{:can-surf}}]
-   :PASS [{:items-obtained #{:LOST_ITEM}}]
-   :LOST_ITEM [{:conditions-met #{:fix-power-plant}}]
-   :SILVER_WING [{:conditions-met #{:fix-power-plant}}]})
+   {:condition :trigger-radio-tower-takeover
+    :prereqs [{:conditions-met #{:seven-badges}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
 
-;; this item is not obtainable.
-;; :S_S_TICKET [{:conditions-met #{:impossible}}]
+   {:condition :underground-warehouse
+    :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{:BASEMENT_KEY}}]}
+
+   {:condition :defeat-team-rocket
+    :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{:CARD_KEY}}]}
+
+   {:condition :blackthorn
+    :prereqs [{:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
+
+   {:condition :kanto
+    :prereqs [{:conditions-met #{:ecruteak}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{:S_S_TICKET}}
+
+              {:conditions-met #{:goldenrod}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{:PASS}}]}
+
+   {:condition :talk-to-power-plant-manager
+    :prereqs [{:conditions-met #{:can-surf :kanto}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
+
+   {:condition :fix-power-plant
+    :prereqs [{:conditions-met #{:talk-to-power-plant-manager}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{:MACHINE_PART}}]}
+
+   {:condition :pewter
+    :prereqs [{:conditions-met #{:fix-power-plant :can-cut}
+               :badges #{}
+               :badge-count 0
+               :items-obtained #{}}]}
+
+   {:condition :defeat-elite-4
+    :prereqs [{:conditions-met #{:pewter}
+               :badges #{}
+               :badge-count 8
+               :items-obtained #{}}
+
+              {:conditions-met #{:can-cut :can-waterfall}
+               :badges #{}
+               :badge-count 8
+               :items-obtained #{}}]}
+
+   {:condition :defeat-red
+    :prereqs [{:conditions-met #{}
+               :badges #{}
+               :badge-count 16
+               :items-obtained #{}}]}])
+
+(def item-prereqs
+  [{:conditions-met #{}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:MYSTERY_EGG
+              :HM_FLASH 
+              :OLD_ROD
+              :HM_CUT}}
+
+   {:conditions-met #{:goldenrod}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:BICYCLE
+              :BLUE_CARD 
+              :COIN_CASE
+              :SQUIRTBOTTLE}}
+
+   {:conditions-met #{:ecruteak}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:ITEMFINDER
+              :HM_SURF
+              :GOOD_ROD
+              :HM_STRENGTH}}
+
+   {:conditions-met #{:ecruteak :can-surf}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:RED_SCALE
+              :HM_WHIRLPOOL
+              :SECRETPOTION}}
+
+   {:conditions-met #{:ecruteak :can-surf :can-strength}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:HM_FLY}}
+
+   {:conditions-met #{:ecruteak :can-surf :can-strength}
+    :badge-count 7
+    :items-obtained #{}
+    :grants #{:BASEMENT_KEY :HM_WATERFALL}}
+
+   {:conditions-met #{:defeat-elite-4}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:S_S_TICKET}}
+
+   {:conditions-met #{:underground-warehouse}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:CARD_KEY}}
+
+   {:conditions-met #{:defeat-team-rocket}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:CLEAR_BELL}}
+
+   {:conditions-met #{:kanto}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:SUPER_ROD}}
+
+   {:conditions-met #{:can-talk-to-power-plant-manager}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:MACHINE_PART}}
+
+   {:conditions-met #{:kanto}
+    :badge-count 0
+    :items-obtained #{:LOST_ITEM}
+    :grants #{:PASS}}
+
+   {:conditions-met #{:fix-power-plant}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:LOST_ITEM}}
+
+   {:conditions-met #{:pewter}
+    :badge-count 0
+    :items-obtained #{}
+    :grants #{:SILVER_WING}}])
