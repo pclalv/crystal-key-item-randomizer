@@ -60,110 +60,90 @@
    {:badge :EARTHBADGE
     :conditions-met #{:pewter}}])
 
+(def hm-use-prereqs
+  [{:condition :can-cut
+    :prereqs {:badges #{:HIVEBADGE}
+              :items-obtained #{:HM_CUT}}}
+
+   {:condition :can-strength
+    :prereqs {:badges #{:PLAINBADGE}
+              :items-obtained #{:HM_STRENGTH}}}
+
+   {:condition :can-surf
+    :prereqs {:badges #{:FOGBADGE}
+              :items-obtained #{:HM_SURF}}}
+
+   ;; speedchoice-specific
+   {:condition :can-whirlpool
+    :prereqs {:badges #{}
+              :items-obtained #{}}}
+
+   {:condition :can-waterfall
+    :prereqs {:badges #{:RISINGBADGE}
+              :items-obtained #{:HM_WATERFALL}}}])
+
 (def condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
   [{:condition :goldenrod
     :prereqs [{:conditions-met #{}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :ecruteak
     :prereqs [{:conditions-met #{}
-               :badges #{}
                :items-obtained #{:SQUIRTBOTTLE}}
 
               {:conditions-met #{}
-               :badges #{}
                :items-obtained #{:PASS :S_S_TICKET}}]}
-
-   {:condition :can-cut
-    :prereqs [{:conditions-met #{}
-               :badges #{:HIVEBADGE}
-               :items-obtained #{:HM_CUT}}]}
-
-   {:condition :can-strength
-    :prereqs [{:conditions-met #{}
-               :badges #{:PLAINBADGE}
-               :items-obtained #{:HM_STRENGTH}}]}
-
-   {:condition :can-surf
-    :prereqs [{:conditions-met #{}
-               :badges #{:FOGBADGE}
-               :items-obtained #{:HM_SURF}}]}
-
-   ;; speedchoice-specific
-   {:condition :can-whirlpool
-    :prereqs [{:conditions-met #{}
-               :badges #{}
-               :items-obtained #{}}]}
-
-   {:condition :can-waterfall
-    :prereqs [{:conditions-met #{}
-               :badges #{:RISINGBADGE}
-               :items-obtained #{:HM_WATERFALL}}]}
 
    {:condition :defeat-red-gyarados
     :prereqs [{:conditions-met #{:can-surf :ecruteak}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :trigger-radio-tower-takeover
     :prereqs [{:conditions-met #{:seven-badges}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :underground-warehouse
     :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
-               :badges #{}
                :items-obtained #{:BASEMENT_KEY}}]}
 
    {:condition :defeat-team-rocket
     :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
-               :badges #{}
                :items-obtained #{:CARD_KEY}}]}
 
    {:condition :blackthorn
     :prereqs [{:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :kanto
     :prereqs [{:conditions-met #{:ecruteak}
-               :badges #{}
                :items-obtained #{:S_S_TICKET}}
 
               {:conditions-met #{:goldenrod}
-               :badges #{}
                :items-obtained #{:PASS}}]}
 
    {:condition :talk-to-power-plant-manager
     :prereqs [{:conditions-met #{:can-surf :kanto}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :fix-power-plant
     :prereqs [{:conditions-met #{:talk-to-power-plant-manager}
-               :badges #{}
                :items-obtained #{:MACHINE_PART}}]}
 
    {:condition :pewter
     :prereqs [{:conditions-met #{:fix-power-plant :can-cut}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :defeat-elite-4
     :prereqs [{:conditions-met #{:pewter}
-               :badges #{}
                :items-obtained #{}}
 
               {:conditions-met #{:eight-badges :can-cut :can-waterfall}
-               :badges #{}
                :items-obtained #{}}]}
 
    {:condition :defeat-red
     :prereqs [{:conditions-met #{:sixteen-badges}
-               :badges #{}
                :items-obtained #{}}]}])
 
 (def item-prereqs

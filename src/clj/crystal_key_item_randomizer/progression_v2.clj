@@ -104,9 +104,30 @@
           (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges}))
           :else result)))
 
+(defn can-satisfy-hm-use-prereq? [{player-conditions-met :conditions-met
+                                   player-items-obtained :items-obtained
+                                   player-badges :badges
+                                   :as result}
+                                  {:keys [badges items-obtained condition]}]
+  (let [badges-satisfied? (every? player-badges
+                                  (or badges #{}))
+        items-satisfied? (every? player-items-obtained
+                                 (or items-obtained #{}))
+        satisfied? (and badges-satisfied?
+                        items-satisfied?)]
+    (if satisfied?
+      (assoc result :conditions-met (conj player-conditions-met condition))
+      result)))
+
+(defn analyze-hm-use [result]
+  (reduce can-satisfy-hm-use-prereq?
+          result
+          hm-use-prereqs))
+
 (defn analyze [result swaps]
   (-> result
       analyze-badge-count
+      analyze-hm-use
       analyze-badges
       analyze-conditions
       (analyze-items swaps)))
