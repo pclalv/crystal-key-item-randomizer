@@ -236,7 +236,7 @@
 
 (deftest can-trigger-radio-tower-takeover?-test
   (testing "can when the player has obtained johto 7 badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
                 :conditions-met #{}
@@ -251,7 +251,7 @@
                (select-keys [:items-obtained :conditions-met])))))
 
   (testing "can when the player has obtained 7 kanto badges"
-    (is (= {:items-obtained #{:BASEMENT_KEY :HM_WATERFALL} :conditions-met #{:trigger-radio-tower-takeover}}
+    (is (= {:items-obtained #{:BASEMENT_KEY} :conditions-met #{:trigger-radio-tower-takeover}}
            (-> {:swaps vanilla-swaps
                 :items-obtained #{}
                 :conditions-met #{}

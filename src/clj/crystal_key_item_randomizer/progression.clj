@@ -160,11 +160,18 @@
         :else (assoc args :reasons
                      (conj reasons "defeat-red-gyarados: cannot without both surf and reaching ecruteak"))))
 
+(defn can-get-ice-path-item? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
+  (cond (items-obtained (swaps :HM_WATERFALL)) args
+        (and (has-seven-badges? badges)
+             (conditions-met :ecruteak)) (assoc args :items-obtained (conj items-obtained (swaps :HM_WATERFALL)))
+        :else (assoc args :reasons
+                     (conj reasons "ice-path-item: cannot obtain without 7 badges and reaching ecruteak"))))
+
 (defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :trigger-radio-tower-takeover) args
-        (has-seven-badges? badges)(-> args
-                                      (assoc :items-obtained (cset/union items-obtained (get-swaps swaps [:BASEMENT_KEY :HM_WATERFALL]))
-                                             :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
+        (has-seven-badges? badges) (-> args
+                                       (assoc :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
+                                              :conditions-met (conj conditions-met :trigger-radio-tower-takeover)))
         :else (assoc args :reasons
                      (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
 
@@ -321,6 +328,7 @@
                                                      can-defeat-red-gyarados?
                                                      can-get-chucks-wifes-item?
                                                      can-trigger-radio-tower-takeover?
+                                                     can-get-ice-path-item?
                                                      can-reach-underground-warehouse?
                                                      can-defeat-team-rocket?
                                                      can-reach-blackthorn?
