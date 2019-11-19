@@ -257,7 +257,7 @@
     :items-obtained #{}
     :grants #{:SUPER_ROD}}
 
-   {:conditions-met #{:can-talk-to-power-plant-manager}
+   {:conditions-met #{:talk-to-power-plant-manager}
     :badge-count 0
     :items-obtained #{}
     :grants #{:MACHINE_PART}}
