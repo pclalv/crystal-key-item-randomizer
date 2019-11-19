@@ -69,17 +69,14 @@
                                       player-items-obtained :items-obtained
                                       player-badges :badges
                                       :as args}
-                                     {:keys [badge-count badges conditions-met items-obtained]}]
-  (let [badge-count-satisfied (>= (count player-badges)
-                                  badge-count)
-        badges-satisfied? (every? player-badges
+                                     {:keys [badges conditions-met items-obtained]}]
+  (let [badges-satisfied? (every? player-badges
                                   (or badges #{}))
         conditions-satisfied? (every? player-conditions-met
                                       (or conditions-met #{}))
         items-satisfied? (every? player-items-obtained
                                  (or items-obtained #{}))]
-    (and badge-count-satisfied
-         badges-satisfied?
+    (and badges-satisfied?
          conditions-satisfied?
          items-satisfied?)))
 
@@ -96,8 +93,20 @@
           result
           condition-prereqs))
 
+;;;;;;;;;;;;;;;;;
+;; badge count ;;
+;;;;;;;;;;;;;;;;;
+
+(defn analyze-badge-count [{:keys [badges conditions-met] :as result}]
+  (let [badge-count (count badges)]
+    (cond (= badge-count 16) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges :sixteen-badges}))
+          (>= badge-count 8) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges}))
+          (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges}))
+          :else result)))
+
 (defn analyze [result swaps]
   (-> result
+      analyze-badge-count
       analyze-badges
       analyze-conditions
       (analyze-items swaps)))

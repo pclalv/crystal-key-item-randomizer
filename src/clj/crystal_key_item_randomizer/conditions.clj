@@ -66,131 +66,104 @@
   [{:condition :goldenrod
     :prereqs [{:conditions-met #{}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :ecruteak
     :prereqs [{:conditions-met #{}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:SQUIRTBOTTLE}}
 
               {:conditions-met #{}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:PASS :S_S_TICKET}}]}
 
    {:condition :can-cut
     :prereqs [{:conditions-met #{}
                :badges #{:HIVEBADGE}
-               :badge-count 0
                :items-obtained #{:HM_CUT}}]}
 
    {:condition :can-strength
     :prereqs [{:conditions-met #{}
                :badges #{:PLAINBADGE}
-               :badge-count 0
                :items-obtained #{:HM_STRENGTH}}]}
 
    {:condition :can-surf
     :prereqs [{:conditions-met #{}
                :badges #{:FOGBADGE}
-               :badge-count 0
                :items-obtained #{:HM_SURF}}]}
 
    ;; speedchoice-specific
    {:condition :can-whirlpool
     :prereqs [{:conditions-met #{}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :can-waterfall
     :prereqs [{:conditions-met #{}
                :badges #{:RISINGBADGE}
-               :badge-count 0
                :items-obtained #{:HM_WATERFALL}}]}
-
-   {:condition :seven-badges
-    :prereqs [{:conditions-met #{}
-               :badges #{}
-               :badge-count 7
-               :items-obtained #{}}]}
 
    {:condition :defeat-red-gyarados
     :prereqs [{:conditions-met #{:can-surf :ecruteak}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :trigger-radio-tower-takeover
     :prereqs [{:conditions-met #{:seven-badges}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :underground-warehouse
     :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:BASEMENT_KEY}}]}
 
    {:condition :defeat-team-rocket
     :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:CARD_KEY}}]}
 
    {:condition :blackthorn
     :prereqs [{:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :kanto
     :prereqs [{:conditions-met #{:ecruteak}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:S_S_TICKET}}
 
               {:conditions-met #{:goldenrod}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:PASS}}]}
 
    {:condition :talk-to-power-plant-manager
     :prereqs [{:conditions-met #{:can-surf :kanto}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :fix-power-plant
     :prereqs [{:conditions-met #{:talk-to-power-plant-manager}
                :badges #{}
-               :badge-count 0
                :items-obtained #{:MACHINE_PART}}]}
 
    {:condition :pewter
     :prereqs [{:conditions-met #{:fix-power-plant :can-cut}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}]}
 
    {:condition :defeat-elite-4
     :prereqs [{:conditions-met #{:pewter}
                :badges #{}
-               :badge-count 0
                :items-obtained #{}}
 
-              {:conditions-met #{:can-cut :can-waterfall}
+              {:conditions-met #{:eight-badges :can-cut :can-waterfall}
                :badges #{}
-               :badge-count 8
                :items-obtained #{}}]}
 
    {:condition :defeat-red
-    :prereqs [{:conditions-met #{}
+    :prereqs [{:conditions-met #{:sixteen-badges}
                :badges #{}
-               :badge-count 16
                :items-obtained #{}}]}])
 
 (def item-prereqs
