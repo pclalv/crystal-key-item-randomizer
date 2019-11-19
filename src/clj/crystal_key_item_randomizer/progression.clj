@@ -286,7 +286,7 @@
 
 (defn can-collect-badges? [args]
   (reduce can-satisfy-badge-prereq?
-          (assoc args :badges #{})
+          args
           badge-prereqs))
 
 (defn beatable? [swaps {:keys [speedchoice?]}]
@@ -298,9 +298,10 @@
         ;; difference, just asusme that the user can-whirlpool from
         ;; the get-go if we're dealing with speedchoice.
         initial-conditions (if speedchoice? #{:can-whirlpool} #{})
-        early-linear-progression-result (->> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions}
-                                             can-reach-goldenrod?
-                                             can-reach-ecruteak?)]
+        early-linear-progression-result (-> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions}
+                                            can-reach-goldenrod?
+                                            can-reach-ecruteak?
+                                            (assoc :badges #{}))]
     (if (not (-> early-linear-progression-result :conditions-met :ecruteak))
       (assoc early-linear-progression-result :beatable? false)
       (let [;; we need to be strategic about further analysis, because
