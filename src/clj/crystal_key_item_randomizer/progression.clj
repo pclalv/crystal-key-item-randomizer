@@ -65,28 +65,22 @@
 ;; conditions ;;
 ;;;;;;;;;;;;;;;;
 
-(defn can-satisfy-condition-prereq? [{player-conditions-met :conditions-met
-                                      player-items-obtained :items-obtained
-                                      player-badges :badges
-                                      :as args}
-                                     {:keys [badges conditions-met items-obtained]}]
-  (let [badges-satisfied? (every? player-badges
-                                  (or badges #{}))
-        conditions-satisfied? (every? player-conditions-met
-                                      (or conditions-met #{}))
-        items-satisfied? (every? player-items-obtained
-                                 (or items-obtained #{}))]
-    (and badges-satisfied?
-         conditions-satisfied?
-         items-satisfied?)))
-
-(defn can-satisfy-condition-prereqs? [{player-conditions-met :conditions-met :as result}
-                                      {:keys [condition prereqs]}]
+(defn can-satisfy-condition-prereqs? [{player-conditions-met :conditions-met
+                                       player-items-obtained :items-obtained
+                                       :as result}
+                                      {condition :condition
+                                       {:keys [conditions-met items-obtained]} :prereqs}]
   (if (player-conditions-met condition)
     result
-    (if (any? #(can-satisfy-condition-prereq? result %) prereqs)
-      (assoc result :conditions-met (conj player-conditions-met condition))
-      result)))
+    (let [conditions-satisfied? (every? player-conditions-met
+                                        (or conditions-met #{}))
+          items-satisfied? (every? player-items-obtained
+                                   (or items-obtained #{}))
+          satisfied? (and conditions-satisfied?
+                          items-satisfied?)]
+      (if satisfied?
+        (assoc result :conditions-met (conj player-conditions-met condition))
+        result))))
 
 (defn analyze-conditions [result]
   (reduce can-satisfy-condition-prereqs?

@@ -86,65 +86,68 @@
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
   [{:condition :goldenrod
-    :prereqs [{:conditions-met #{}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{}
+              :items-obtained #{}}}
 
+   ;; there are TWO ways of getting to ecruteak
    {:condition :ecruteak
-    :prereqs [{:conditions-met #{}
-               :items-obtained #{:SQUIRTBOTTLE}}
-
-              {:conditions-met #{}
-               :items-obtained #{:PASS :S_S_TICKET}}]}
+    :prereqs {:conditions-met #{}
+              :items-obtained #{:SQUIRTBOTTLE}}}
+   {:condition :ecruteak
+    :prereqs {:conditions-met #{}
+              :items-obtained #{:PASS :S_S_TICKET}}}
 
    {:condition :defeat-red-gyarados
-    :prereqs [{:conditions-met #{:can-surf :ecruteak}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:can-surf :ecruteak}
+              :items-obtained #{}}}
 
    {:condition :trigger-radio-tower-takeover
-    :prereqs [{:conditions-met #{:seven-badges}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:seven-badges}
+              :items-obtained #{}}}
 
    {:condition :underground-warehouse
-    :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
-               :items-obtained #{:BASEMENT_KEY}}]}
+    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+              :items-obtained #{:BASEMENT_KEY}}}
 
    {:condition :defeat-team-rocket
-    :prereqs [{:conditions-met #{:trigger-radio-tower-takeover}
-               :items-obtained #{:CARD_KEY}}]}
+    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+              :items-obtained #{:CARD_KEY}}}
 
    {:condition :blackthorn
-    :prereqs [{:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
+              :items-obtained #{}}}
 
+   ;; there are TWO ways of getting to kanto
    {:condition :kanto
-    :prereqs [{:conditions-met #{:ecruteak}
-               :items-obtained #{:S_S_TICKET}}
-
-              {:conditions-met #{:goldenrod}
-               :items-obtained #{:PASS}}]}
+    :prereqs {:conditions-met #{:ecruteak}
+              :items-obtained #{:S_S_TICKET}}}
+   {:condition :kanto
+    :prereqs {:conditions-met #{:goldenrod}
+              :items-obtained #{:PASS}}}
 
    {:condition :talk-to-power-plant-manager
-    :prereqs [{:conditions-met #{:can-surf :kanto}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:can-surf :kanto}
+              :items-obtained #{}}}
 
    {:condition :fix-power-plant
-    :prereqs [{:conditions-met #{:talk-to-power-plant-manager}
-               :items-obtained #{:MACHINE_PART}}]}
+    :prereqs {:conditions-met #{:talk-to-power-plant-manager}
+              :items-obtained #{:MACHINE_PART}}}
 
    {:condition :pewter
-    :prereqs [{:conditions-met #{:fix-power-plant :can-cut}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:fix-power-plant :can-cut}
+              :items-obtained #{}}}
 
+   ;; there are TWO ways of getting to the E4
    {:condition :defeat-elite-4
-    :prereqs [{:conditions-met #{:pewter}
-               :items-obtained #{}}
-
-              {:conditions-met #{:eight-badges :can-surf :can-waterfall}
-               :items-obtained #{}}]}
+    :prereqs {:conditions-met #{:pewter}
+              :items-obtained #{}}}
+   {:condition :defeat-elite-4
+    :prereqs {:conditions-met #{:eight-badges :can-surf :can-waterfall}
+              :items-obtained #{}}}
 
    {:condition :defeat-red
-    :prereqs [{:conditions-met #{:sixteen-badges}
-               :items-obtained #{}}]}])
+    :prereqs {:conditions-met #{:sixteen-badges}
+              :items-obtained #{}}}])
 
 (def item-prereqs
   [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
