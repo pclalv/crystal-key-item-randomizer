@@ -295,58 +295,59 @@
           args
           badge-prereqs))
 
+(defn analyze [result]
+  (->> result
+       can-reach-goldenrod?
+       can-reach-ecruteak?
+       can-collect-badges?
+       can-cut?
+       can-strength?
+       can-surf?
+       can-whirlpool?
+       can-waterfall?
+       can-defeat-red-gyarados?
+       can-get-chucks-wifes-item?
+       can-trigger-radio-tower-takeover?
+       can-get-ice-path-item?
+       can-reach-underground-warehouse?
+       can-defeat-team-rocket?
+       can-reach-blackthorn?
+       can-reach-kanto?
+       can-talk-to-power-plant-manager?
+       can-fix-power-plant?
+       can-get-copycat-item?
+       can-reach-pewter?
+       can-defeat-elite-4?
+       can-defeat-red?))
+
 (defn beatable? [swaps {:keys [speedchoice?]}]
-  (let [initial-items (get-swaps swaps guaranteed-items)
-        ;; in vanilla, the player needs whirlpool only to get the
-        ;; RISINGBADGE.  in speedchoice, the player doesn't need
-        ;; whirlpool at all.  so that we don't have to make more
-        ;; complex logical changes to account for this minor
-        ;; difference, just asusme that the user can-whirlpool from
-        ;; the get-go if we're dealing with speedchoice.
-        initial-conditions (if speedchoice? #{:can-whirlpool} #{})
-        early-linear-progression-result (-> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions :badges #{}}
-                                            can-reach-goldenrod?
-                                            can-reach-ecruteak?)]
-    (if (not (-> early-linear-progression-result :conditions-met :ecruteak))
-      (assoc early-linear-progression-result :beatable? false)
+  (if (not speedchoice?)
+    ;; there's some not-straightforward stuff we'd need to do to
+    ;; support vanilla. we'd need to either change the logic around
+    ;; collecting 7 badges, or otherwise patch the rom with new code
+    ;; so taht the Team Rocket Radio Tower takeover can be activated
+    ;; after collecting any 7 badges.
+    false
+    (let [initial-items (get-swaps swaps guaranteed-items)
+          ;; in vanilla, the player needs whirlpool only to get the
+          ;; RISINGBADGE.  in speedchoice, the player doesn't need
+          ;; whirlpool at all.  so that we don't have to make more
+          ;; complex logical changes to account for this minor
+          ;; difference, just asusme that the user can-whirlpool from
+          ;; the get-go if we're dealing with speedchoice.
+          initial-conditions (if speedchoice? #{:can-whirlpool} #{})]
       (let [;; we need to be strategic about further analysis, because
             ;; progression is necessarily nonlinear. try the remaining
             ;; functions in loop, breaking if there was no change
             ;; after the last round of checks.
-            final-progression-result (loop [previous-result nil
-                                            result early-linear-progression-result]
-                                       (if (= (select-keys previous-result
-                                                           [:items-obtained :conditions-met :badges])
-                                              (select-keys result
-                                                           [:items-obtained :conditions-met :badges]))
+            final-progression-result (loop [previous-result {}
+                                            result (analyze {:swaps swaps
+                                                             :items-obtained initial-items
+                                                             :conditions-met initial-conditions
+                                                             :badges #{}})]
+                                       (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
+                                              (select-keys result [:items-obtained :conditions-met :badges]))
                                          result
                                          (recur result
-                                                (->> result
-                                                     can-collect-badges?
-                                                     can-cut?
-                                                     can-strength?
-                                                     can-surf?
-                                                     can-whirlpool?
-                                                     can-waterfall?
-                                                     can-defeat-red-gyarados?
-                                                     can-get-chucks-wifes-item?
-                                                     can-trigger-radio-tower-takeover?
-                                                     can-get-ice-path-item?
-                                                     can-reach-underground-warehouse?
-                                                     can-defeat-team-rocket?
-                                                     can-reach-blackthorn?
-                                                     can-reach-kanto?
-                                                     can-talk-to-power-plant-manager?
-                                                     can-fix-power-plant?
-                                                     can-get-copycat-item?
-                                                     can-reach-pewter?
-                                                     can-defeat-elite-4?
-                                                     can-defeat-red?))))]
-        (assoc final-progression-result :beatable? (if (not speedchoice?)
-                                                     ;; there's some not-straightforward stuff we'd need to do to
-                                                     ;; support vanilla. we'd need to either change the logic around
-                                                     ;; collecting 7 badges, or otherwise patch the rom with new code
-                                                     ;; so taht the Team Rocket Radio Tower takeover can be activated
-                                                     ;; after collecting any 7 badges.
-                                                     false
-                                                     (contains? (final-progression-result :conditions-met) :defeat-red)))))))
+                                                (analyze result))))]
+        (assoc final-progression-result :beatable? (contains? (final-progression-result :conditions-met) :defeat-red))))))
