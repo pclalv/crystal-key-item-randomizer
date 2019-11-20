@@ -5,6 +5,7 @@
 (def input-hidden? (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
+(def randomized-rom (r/atom nil))
 (def no-early-super-rod? (r/atom true))
 (def early-bicycle? (r/atom true))
 (def seed-id (r/atom ""))
@@ -23,18 +24,6 @@
             .-value)
         "")
   (reset! input-hidden? false))
-
-(defn download-link [href filename]
-  [:a {:href href
-       :download filename}
-   "Download!"])
-
-(defn embed-download-link [rom filename]
-  (let [parent (-> js/document
-                   (.getElementById "download"))
-        blob (js/Blob. [rom])
-        href (js/window.webkitURL.createObjectURL blob)]
-    (r/render [download-link href filename] parent)))
 
 (defn apply-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
@@ -97,11 +86,12 @@
                  (if (.-error json)
                    (do (render-as-error (.-error json))
                        (reset-form))
-                   (let [{:keys [swaps patches id]} (-> json (aget "seed") (js->clj :keywordize-keys true))]
+                   (let [{:keys [swaps patches id]} (-> json
+                                                        (aget "seed")
+                                                        (js->clj :keywordize-keys true))]
                      (reset! swaps-table swaps)
-                     (-> rom-bytes
-                         (patch-rom {:swaps swaps :patches patches})
-                         (embed-download-link (str "pokecrystal-key-item-randomized-seed-" id ".gbc")))))))
+                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:swaps swaps :patches patches})
+                                             :filename (str "pokecrystal-key-item-randomized-seed-" id ".gbc")})))))
         (.catch (fn [resp]
                   (if (.-error resp)
                     (do (render-as-error (.-error resp))
@@ -182,6 +172,14 @@
        (when @show-spoilers?
          [spoilers-table @swaps-table])])))
 
+(defn download-link []
+  (when @randomized-rom
+    (let [{:keys [rom filename]} @randomized-rom
+          blob (js/Blob. [rom])
+          href (js/window.webkitURL.createObjectURL blob)]
+      [:a {:href href
+           :download filename}
+       "Download!"])))
 
 (r/render [error-display] (-> js/document
                               (.getElementById "error")))
@@ -191,6 +189,9 @@
 
 (r/render [options] (-> js/document
                         (.getElementById "options")))
+
+(r/render [download-link] (-> js/document
+                               (.getElementById "download")))
 
 (r/render [rom-input] (-> js/document
                           (.getElementById "input")))
