@@ -51,7 +51,7 @@
          :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
          :conditions-met (conj conditions-met :goldenrod)))
 
-(defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons badges] :as args}]
   ;; note, it's okay to get the Copycat's reward at any time because
   ;; we patch the game so that you can get tHE LOST_ITEM at any time
   ;; after fixing the Power Plant.
@@ -60,33 +60,40 @@
           items-obtained' (conj items-obtained pass-swap)]
       (if (contains? #{:SQUIRTBOTTLE :S_S_TICKET} pass-swap)
         {:swaps swaps
+         :badges badges
          :items-obtained items-obtained'
          :conditions-met (conj conditions-met :ecruteak :copycat-item)}
         {:swaps swaps
+         :badges badges
          :items-obtained items-obtained'
          :conditions-met (conj conditions-met :copycat-item)
          :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
     {:swaps swaps
+     :badges badges
      :items-obtained items-obtained
      :conditions-met conditions-met
      :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
 
-(defn can-reach-ecruteak-via-saffron-detour? [{:keys [swaps items-obtained conditions-met] :as args}]
+(defn can-reach-ecruteak-via-saffron-detour? [{:keys [swaps items-obtained conditions-met badges] :as args}]
   (if (any? #(items-obtained %1) '(:SQUIRTBOTTLE :S_S_TICKET))
     {:swaps swaps
+     :badges badges
      :items-obtained items-obtained
      :conditions-met (conj conditions-met :ecruteak)}
     (can-reach-ecruteak-with-copycats-reward? {:swaps swaps
+                                               :badges badges
                                                :items-obtained items-obtained
                                                :conditions-met conditions-met})))
 
-(defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
+(defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons badges] :as args}]
   (if (items-obtained :SQUIRTBOTTLE)
     {:swaps swaps
+     :badges badges
      :items-obtained (cset/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
      :conditions-met (conj conditions-met :ecruteak)}
     (if (and (conditions-met :goldenrod) (items-obtained :PASS))
       (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
+                                                            :badges badges
                                                             :items-obtained (conj items-obtained (swaps :SUPER_ROD))
                                                             :conditions-met (conj conditions-met :kanto)})]
         (if (contains? (result :conditions-met) :ecruteak)
@@ -297,10 +304,9 @@
         ;; difference, just asusme that the user can-whirlpool from
         ;; the get-go if we're dealing with speedchoice.
         initial-conditions (if speedchoice? #{:can-whirlpool} #{})
-        early-linear-progression-result (-> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions}
+        early-linear-progression-result (-> {:swaps swaps :items-obtained initial-items :conditions-met initial-conditions :badges #{}}
                                             can-reach-goldenrod?
-                                            can-reach-ecruteak?
-                                            (assoc :badges #{}))]
+                                            can-reach-ecruteak?)]
     (if (not (-> early-linear-progression-result :conditions-met :ecruteak))
       (assoc early-linear-progression-result :beatable? false)
       (let [;; we need to be strategic about further analysis, because
