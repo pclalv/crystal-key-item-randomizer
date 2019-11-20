@@ -5,37 +5,6 @@
   (:require [clojure.set :as cset]
             [crystal-key-item-randomizer.prereqs :refer :all]))
 
-(def guaranteed-items
-  "Items that obtainable in every possible randomization."
-  [:MYSTERY_EGG
-   :HM_FLASH
-   :OLD_ROD
-   :HM_CUT])
-
-(def goldenrod-items
-  "Items that are obtainable if the player can arrive in Goldenrod."
-  [:BICYCLE
-   :BLUE_CARD
-   :COIN_CASE
-   :SQUIRTBOTTLE])
-
-(def ecruteak-and-olivine-items
-  "Items that are obtainable if the player can arrive in Ecruteak (e.g.,
-  by defeating the Sudowoodo, or by train and boat via Kanto)."
-  [:HM_SURF
-   :ITEMFINDER
-   :GOOD_ROD
-   :HM_STRENGTH])
-
-(def surf-required-items
-  "Items that are unlocked merely by being able to surf."
-  [;; Cianwood
-   :SECRETPOTION
-
-   ;; Lake of Rage/Mahogany Rockets sidequest
-   :RED_SCALE    
-   :HM_WHIRLPOOL])
-
 (defn any? [pred col]
   (not (not-any? pred col)))
 
@@ -43,234 +12,6 @@
   (into #{} (-> swaps
                 (select-keys originals)
                 (vals))))
-
-(defn can-reach-goldenrod? [{:keys [swaps items-obtained conditions-met] :as args}]
-  ;; the cuttable tree in Ilex Forest is removed by the randomizer, so
-  ;; goldenrod is always accessible
-  (assoc args
-         :items-obtained (cset/union items-obtained (get-swaps swaps goldenrod-items))
-         :conditions-met (conj conditions-met :goldenrod)))
-
-(defn can-reach-ecruteak-with-copycats-reward? [{:keys [swaps items-obtained conditions-met reasons badges] :as args}]
-  ;; note, it's okay to get the Copycat's reward at any time because
-  ;; we patch the game so that you can get tHE LOST_ITEM at any time
-  ;; after fixing the Power Plant.
-  (if (items-obtained :LOST_ITEM)
-    (let [pass-swap (swaps :PASS)
-          items-obtained' (conj items-obtained pass-swap)]
-      (if (contains? #{:SQUIRTBOTTLE :S_S_TICKET} pass-swap)
-        {:swaps swaps
-         :badges badges
-         :items-obtained items-obtained'
-         :conditions-met (conj conditions-met :ecruteak :copycat-item)}
-        {:swaps swaps
-         :badges badges
-         :items-obtained items-obtained'
-         :conditions-met (conj conditions-met :copycat-item)
-         :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
-    {:swaps swaps
-     :badges badges
-     :items-obtained items-obtained
-     :conditions-met conditions-met
-     :reasons (conj reasons "ecruteak: cannot reach without SQUIRTBOTTLE or S_S_TICKET")}))
-
-(defn can-reach-ecruteak-via-saffron-detour? [{:keys [swaps items-obtained conditions-met badges] :as args}]
-  (if (any? #(items-obtained %1) '(:SQUIRTBOTTLE :S_S_TICKET))
-    {:swaps swaps
-     :badges badges
-     :items-obtained items-obtained
-     :conditions-met (conj conditions-met :ecruteak)}
-    (can-reach-ecruteak-with-copycats-reward? {:swaps swaps
-                                               :badges badges
-                                               :items-obtained items-obtained
-                                               :conditions-met conditions-met})))
-
-(defn can-reach-ecruteak? [{:keys [swaps items-obtained conditions-met reasons badges] :as args}]
-  (if (items-obtained :SQUIRTBOTTLE)
-    {:swaps swaps
-     :badges badges
-     :items-obtained (cset/union items-obtained (get-swaps swaps ecruteak-and-olivine-items))
-     :conditions-met (conj conditions-met :ecruteak)}
-    (if (and (conditions-met :goldenrod) (items-obtained :PASS))
-      (let [result (can-reach-ecruteak-via-saffron-detour? {:swaps swaps
-                                                            :badges badges
-                                                            :items-obtained (conj items-obtained (swaps :SUPER_ROD))
-                                                            :conditions-met (conj conditions-met :kanto)})]
-        (if (contains? (result :conditions-met) :ecruteak)
-          (assoc result :items-obtained (cset/union (result :items-obtained)
-                                                    (get-swaps swaps ecruteak-and-olivine-items)))
-          result))
-      (assoc args :reasons (conj reasons "ecruteak: cannot reach without PASS or SQUIRTBOTTLE")))))
-
-(defn can-cut? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :can-cut) args
-        (and (items-obtained :HM_CUT)
-             (badges :HIVEBADGE)) (assoc args :conditions-met (conj conditions-met :can-cut))
-        :else (assoc args :reasons
-                     (conj reasons "can-cut: cannot without HM_CUT and HIVEBADGE"))))
-
-(defn can-strength? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :can-strength) args
-        (and (items-obtained :HM_STRENGTH)
-             (badges :PLAINBADGE)) (assoc args :conditions-met (conj conditions-met :can-strength))
-        :else (assoc args :reasons
-                     (conj reasons "can-strength: cannot without both PLAINBADGE and HM_STRENGTH"))))
-
-(defn can-surf? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :can-surf) args
-        (and (badges :FOGBADGE)
-             (items-obtained :HM_SURF)) (assoc args :conditions-met (conj conditions-met :can-surf))
-        :else (assoc args :reasons
-                     (conj reasons "can-surf: cannot without both FOGBADGE and HM_SURF"))))
-
-(defn can-whirlpool? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :can-whirlpool) args
-        (and (badges :GLACIERBADGE)
-             (items-obtained :HM_WHIRLPOOL)) (assoc args :conditions-met
-                                                    (conj conditions-met :can-whirlpool))
-        :else (assoc args :reasons
-                     (conj reasons "can-whirlpool: cannot without both GLACIERBADGE and HM_WHIRLPOOL"))))
-
-(defn can-waterfall? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :can-waterfall) args
-        (and (badges :RISINGBADGE)
-             (items-obtained :HM_WATERFALL)) (assoc args :conditions-met
-                                                    (conj conditions-met :can-waterfall))
-        :else (assoc args :reasons
-                     (conj reasons "can-waterfall: cannot without both RISINGBADGE and HM_WATERFALL"))))
-
-(defn can-get-chucks-wifes-item?[{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (items-obtained (swaps :HM_FLY)) args
-        ;; can-surf currently implies that the player can reach
-        ;; ecruteak, but that would not be guaranteed if badges were
-        ;; randomized.
-        (and (conditions-met :ecruteak)
-             (conditions-met :can-surf)
-             (conditions-met :can-strength)) (assoc args :items-obtained (conj items-obtained (swaps :HM_FLY)))
-        :else (assoc args :reasons
-                     (conj reasons "HM_FLY: cannot obtained with out being able to surf and being able to strength"))))
-
-(defn has-seven-badges? [badges]
-  (<= 7 (count badges)))
-
-(defn can-defeat-red-gyarados? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :defeat-red-gyarados) args
-        (and (conditions-met :can-surf)
-             (conditions-met :ecruteak)) (assoc args
-                                                :items-obtained (cset/union items-obtained (get-swaps swaps surf-required-items))
-                                                :conditions-met (conj conditions-met :defeat-red-gyarados))
-        :else (assoc args :reasons
-                     (conj reasons "defeat-red-gyarados: cannot without both surf and reaching ecruteak"))))
-
-(defn can-get-ice-path-item? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (items-obtained (swaps :HM_WATERFALL)) args
-        (and (conditions-met :trigger-radio-tower-takeover)
-             (conditions-met :ecruteak)) (assoc args :items-obtained (conj items-obtained (swaps :HM_WATERFALL)))
-        :else (assoc args :reasons
-                     (conj reasons "ice-path-item: cannot obtain without 7 badges and reaching ecruteak"))))
-
-(defn can-trigger-radio-tower-takeover? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :trigger-radio-tower-takeover) args
-        (has-seven-badges? badges) (assoc args
-                                          :items-obtained (conj items-obtained (swaps :BASEMENT_KEY))
-                                          :conditions-met (conj conditions-met :trigger-radio-tower-takeover))
-        :else (assoc args :reasons
-                     (conj reasons "trigger-radio-tower-takeover: cannot reach without 7 badges"))))
-
-(defn can-reach-underground-warehouse? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :underground-warehouse) args
-        (not (conditions-met :trigger-radio-tower-takeover)) (assoc args :reasons
-                                                                    (conj reasons "underground-warehouse: cannot reach without having triggered radio tower takeover"))
-        (not (items-obtained :BASEMENT_KEY)) (assoc args :reasons
-                                                    (conj reasons "underground-warehouse: cannot reach without BASEMENT_KEY"))
-        (and (conditions-met :trigger-radio-tower-takeover)
-             (items-obtained :BASEMENT_KEY)) (assoc args
-                                                    :items-obtained (conj items-obtained (swaps :CARD_KEY))
-                                                    :conditions-met (conj conditions-met :underground-warehouse))))
-
-(defn can-defeat-team-rocket? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :defeat-team-rocket) args
-        (and (items-obtained :CARD_KEY)
-             (conditions-met :trigger-radio-tower-takeover)) (assoc args
-                                                                    :items-obtained (conj items-obtained (swaps :CLEAR_BELL))
-                                                                    :conditions-met (conj conditions-met :defeat-team-rocket))
-        :else (assoc args :reasons
-                     (conj reasons "defeat-team-rocket: cannot reach without having triggered the radio tower takeover and having obtained CARD_KEY"))))
-
-(defn can-reach-blackthorn? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :blackthorn) args
-        (and (conditions-met :ecruteak)
-             (conditions-met :can-strength)
-             (conditions-met :trigger-radio-tower-takeover)) (assoc args :conditions-met (conj conditions-met :blackthorn))
-        :else (assoc args :reasons
-                     (conj reasons "blackthorn: cannot reach without having defeated team rocket and being able to use strength"))))
-
-(defn can-reach-kanto? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (if (conditions-met :kanto)
-    args
-    (let [kanto-via-train? (and (conditions-met :goldenrod)
-                                (items-obtained :PASS))
-          kanto-via-boat? (and (conditions-met :ecruteak)
-                               (items-obtained :S_S_TICKET))]
-      (if (or kanto-via-train? kanto-via-boat?)
-        (assoc args
-               :items-obtained (conj items-obtained (swaps :SUPER_ROD))
-               :conditions-met (conj conditions-met :kanto))
-        (assoc args :reasons (conj reasons "kanto: cannot reach without PASS or S_S_TICKET"))))))
-
-(defn can-talk-to-power-plant-manager? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (cond (conditions-met :talk-to-power-plant-manager) args
-        (and (conditions-met :can-surf)
-             (conditions-met :kanto)) (assoc args
-                                             :items-obtained (conj items-obtained (swaps :MACHINE_PART))
-                                             :conditions-met (conj conditions-met :talk-to-power-plant-manager))
-        :else (assoc args :reasons
-                     (conj reasons "talk-to-power-plant-manager: cannot reach without being able to surf and without having reached kanto"))))
-
-(defn can-fix-power-plant? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (cond (conditions-met :fix-power-plant) args
-        (and (items-obtained :MACHINE_PART)
-             (conditions-met :talk-to-power-plant-manager)) (assoc args
-                                                                   :items-obtained (conj items-obtained (swaps :LOST_ITEM))
-                                                                   :conditions-met (conj conditions-met :fix-power-plant))
-        :else (assoc args :reasons
-                     (conj reasons "fix-power-plant: cannot reach without having MACHINE_PART and being able to talk to the Power Plant manager"))))
-
-(defn can-reach-pewter? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (cond (conditions-met :pewter) args
-        (and (conditions-met :can-cut)
-             (conditions-met :fix-power-plant)) (assoc args
-                                                       :conditions-met (conj conditions-met :pewter)
-                                                       :items-obtained (conj items-obtained (swaps :SILVER_WING)))
-        :else (assoc args :reasons
-                     (conj reasons "pewter: cannot reach obtain without having fixed power plant and being able to use cut"))))
-
-(defn can-get-copycat-item? [{:keys [swaps items-obtained conditions-met reasons] :as args}]
-  (cond (conditions-met :copycat-item) args
-        (and (conditions-met :kanto)
-             (items-obtained :LOST_ITEM)) (assoc args
-                                                 :items-obtained (conj items-obtained (swaps :PASS))
-                                                 :conditions-met (conj conditions-met :copycat-item))
-        :else (assoc args :reasons
-                     (conj reasons "copycat-item: cannot reach without LOST_ITEM"))))
-
-(defn can-defeat-elite-4? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :defeat-elite-4) args
-        (and (>= (count badges) 8) (or ;; via Viridian
-                                    (conditions-met :pewter)
-                                    ;; via Tohjo Falls
-                                    (and (conditions-met :can-surf)
-                                         (conditions-met :can-waterfall)))) (assoc args
-                                                                                   :items-obtained (conj items-obtained (swaps :S_S_TICKET))
-                                                                                   :conditions-met (conj conditions-met :defeat-elite-4))
-        :else (assoc args :reasons
-                     (conj reasons "defeat-elite-4: can't without Victory Road access via Viridian or Tohjo Falls"))))
-
-(defn can-defeat-red? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
-  (cond (conditions-met :defeat-red) args
-        ;; is this check too lazy?
-        (= (count badges) 16) (assoc args :conditions-met (conj conditions-met :defeat-red))
-        :else (assoc args :reasons (conj reasons "defeat-red: cannot without 16 badges"))))
 
 ;;;;;;;;;;;;
 ;; badges ;;
@@ -290,64 +31,122 @@
         (assoc args :badges (conj badges badge))
         args))))
 
-(defn can-collect-badges? [args]
+(defn analyze-badges [result]
   (reduce can-satisfy-badge-prereq?
-          args
+          result
           badge-prereqs))
 
-(defn analyze [result]
-  (->> result
-       can-reach-goldenrod?
-       can-reach-ecruteak?
-       can-collect-badges?
-       can-cut?
-       can-strength?
-       can-surf?
-       can-whirlpool?
-       can-waterfall?
-       can-defeat-red-gyarados?
-       can-get-chucks-wifes-item?
-       can-trigger-radio-tower-takeover?
-       can-get-ice-path-item?
-       can-reach-underground-warehouse?
-       can-defeat-team-rocket?
-       can-reach-blackthorn?
-       can-reach-kanto?
-       can-talk-to-power-plant-manager?
-       can-fix-power-plant?
-       can-get-copycat-item?
-       can-reach-pewter?
-       can-defeat-elite-4?
-       can-defeat-red?))
+;;;;;;;;;;;
+;; items ;;
+;;;;;;;;;;;
 
-(defn beatable? [swaps {:keys [speedchoice?]}]
+(defn can-satisfy-item-prereqs? [swaps
+                                 {player-conditions-met :conditions-met
+                                  player-items-obtained :items-obtained
+                                  :as args}
+                                 {:keys [conditions-met items-obtained grants]}]
+  (let [conditions-satisfied? (every? player-conditions-met
+                                      (or conditions-met #{}))
+        items-satisfied? (every? player-items-obtained
+                                 (or items-obtained #{}))
+        satisfied? (and conditions-satisfied?
+                        items-satisfied?)]
+    (if satisfied?
+      (assoc args :items-obtained (cset/union player-items-obtained
+                                              (get-swaps swaps grants)))
+      args)))
+
+(defn analyze-items [result swaps]
+  (reduce (partial can-satisfy-item-prereqs? swaps)
+          result
+          item-prereqs))
+
+;;;;;;;;;;;;;;;;
+;; conditions ;;
+;;;;;;;;;;;;;;;;
+
+(defn can-satisfy-condition-prereq? [{player-conditions-met :conditions-met
+                                      player-items-obtained :items-obtained
+                                      player-badges :badges
+                                      :as args}
+                                     {:keys [badges conditions-met items-obtained]}]
+  (let [badges-satisfied? (every? player-badges
+                                  (or badges #{}))
+        conditions-satisfied? (every? player-conditions-met
+                                      (or conditions-met #{}))
+        items-satisfied? (every? player-items-obtained
+                                 (or items-obtained #{}))]
+    (and badges-satisfied?
+         conditions-satisfied?
+         items-satisfied?)))
+
+(defn can-satisfy-condition-prereqs? [{player-conditions-met :conditions-met :as result}
+                                      {:keys [condition prereqs]}]
+  (if (player-conditions-met condition)
+    result
+    (if (any? #(can-satisfy-condition-prereq? result %) prereqs)
+      (assoc result :conditions-met (conj player-conditions-met condition))
+      result)))
+
+(defn analyze-conditions [result]
+  (reduce can-satisfy-condition-prereqs?
+          result
+          condition-prereqs))
+
+;;;;;;;;;;;;;;;;;
+;; badge count ;;
+;;;;;;;;;;;;;;;;;
+
+(defn analyze-badge-count [{:keys [badges conditions-met] :as result}]
+  (let [badge-count (count badges)]
+    (cond (= badge-count 16) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges :sixteen-badges}))
+          (>= badge-count 8) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges}))
+          (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges}))
+          :else result)))
+
+(defn can-satisfy-hm-use-prereq? [{player-conditions-met :conditions-met
+                                   player-items-obtained :items-obtained
+                                   player-badges :badges
+                                   :as result}
+                                  {condition :condition
+                                   {:keys [badges items-obtained]} :prereqs}]
+  (let [badges-satisfied? (every? player-badges
+                                  (or badges #{}))
+        items-satisfied? (every? player-items-obtained
+                                 (or items-obtained #{}))
+        satisfied? (and badges-satisfied?
+                        items-satisfied?)]
+    (if satisfied?
+      (assoc result :conditions-met (conj player-conditions-met condition))
+      result)))
+
+(defn analyze-hm-use [result]
+  (reduce can-satisfy-hm-use-prereq?
+          result
+          hm-use-prereqs))
+
+(defn analyze [result swaps]
+  (-> result
+      analyze-badge-count
+      analyze-hm-use
+      analyze-badges
+      analyze-conditions
+      (analyze-items swaps)))
+
+(defn beatable? [swaps & {:keys [speedchoice?] :or {speedchoice? true}}]
   (if (not speedchoice?)
-    ;; there's some not-straightforward stuff we'd need to do to
-    ;; support vanilla. we'd need to either change the logic around
-    ;; collecting 7 badges, or otherwise patch the rom with new code
-    ;; so taht the Team Rocket Radio Tower takeover can be activated
-    ;; after collecting any 7 badges.
-    false
-    (let [initial-items (get-swaps swaps guaranteed-items)
-          ;; in vanilla, the player needs whirlpool only to get the
-          ;; RISINGBADGE.  in speedchoice, the player doesn't need
-          ;; whirlpool at all.  so that we don't have to make more
-          ;; complex logical changes to account for this minor
-          ;; difference, just asusme that the user can-whirlpool from
-          ;; the get-go if we're dealing with speedchoice.
-          initial-conditions (if speedchoice? #{:can-whirlpool} #{})]
-      (let [;; we need to be strategic about further analysis, because
-            ;; progression is necessarily nonlinear. try the remaining
-            ;; functions in loop, breaking if there was no change
-            ;; after the last round of checks.
-            final-progression-result (loop [previous-result {}
-                                            result (analyze {:swaps swaps
-                                                             :items-obtained initial-items
-                                                             :conditions-met initial-conditions
-                                                             :badges #{}})]
-                                       (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
-                                              (select-keys result [:items-obtained :conditions-met :badges]))
-                                         result
-                                         (recur result
-                                                (analyze result))))]
-        (assoc final-progression-result :beatable? (contains? (final-progression-result :conditions-met) :defeat-red))))))
+    {:beatable? false
+     :error "only speedchoice is currently supported."}
+    (let [result (loop [previous-result {}
+                        result (analyze {:items-obtained #{}
+                                         :conditions-met #{}
+                                         :badges #{}}
+                                        swaps)]
+                   (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
+                          (select-keys result [:items-obtained :conditions-met :badges]))
+                     result
+                     (recur result
+                            (analyze result swaps))))]
+      (assoc result
+             :swaps swaps
+             :beatable? (contains? (result :conditions-met) :defeat-red)))))
