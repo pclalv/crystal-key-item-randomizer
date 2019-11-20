@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.key-items :as key-items]))
 
-(def input-hidden? (r/atom false))
+(def handling-rom? (r/atom false))
 (def error (r/atom nil))
 (def swaps-table (r/atom {}))
 (def randomized-rom (r/atom nil))
@@ -23,7 +23,7 @@
             (.getElementById "rom-file")
             .-value)
         "")
-  (reset! input-hidden? false))
+  (reset! handling-rom? false))
 
 (defn apply-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
@@ -101,7 +101,7 @@
 (defn handle-rom-input [event]
   (when (not= "" (-> event .-target .-value))
     (reset! error nil)
-    (reset! input-hidden? true)
+    (reset! handling-rom? true)
     (let [^js/File rom-file (-> event .-target .-files (aget 0))
           reader (js/FileReader.)]
       (set! (.-onload reader) randomize-rom)
@@ -139,17 +139,21 @@
     [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
              :on-change (set-checkbox-value-on-atom no-early-super-rod?)
-             :checked (and (empty? @seed-id) @no-early-super-rod?)
-             :disabled (not (empty? @seed-id))}]]
+             :checked (and (empty? @seed-id)
+                           @no-early-super-rod?)
+             :disabled (or @handling-rom?
+                           (not (empty? @seed-id)))}]]
    [:p
     [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
     [:input {:id "early-bicycle" :type "checkbox"
              :on-change (set-checkbox-value-on-atom early-bicycle?)
-             :checked (and (empty? @seed-id) @early-bicycle?)
-             :disabled (not (empty? @seed-id))}]]])
+             :checked (and (empty? @seed-id)
+                           @early-bicycle?)
+             :disabled (or @handling-rom?
+                           (not (empty? @seed-id)))}]]])
 
 (defn rom-input []
-  [:label {:style (when @input-hidden? {:display "none"})} "Select ROM file"
+  [:label {:style (when @handling-rom? {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
 (defn spoilers-table [swaps]
