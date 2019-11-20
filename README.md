@@ -81,11 +81,18 @@ server` automatically reloads code.
 
 in priority order:
 
+- investigate bug with Buena
+  - steps to reproduce: do the Radio Card quiz before talking to
+    Buena
+  - don't forget to reenable the Buena patch
 - modify frontend to enable users to generate multiple seeds without
   refreshing
 - investigate possible issue loading "Download button on the webpage
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
+- investigate seed 177
+  - seems okay, but it forces the player to start the Radio Tower to
+    get Surf from the Ice Path
   
 ### logic
 
