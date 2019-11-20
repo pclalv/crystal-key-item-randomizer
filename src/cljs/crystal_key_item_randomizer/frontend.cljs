@@ -155,8 +155,8 @@
 
 (defn rom-input []
   [:p
-   [:label {:style (when @handling-rom? {:display "none"})} "Select ROM file"
-    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]]])
+   [:label {:for "rom-file" :style (when @handling-rom? {:display "none"})} "Select ROM file"]
+   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
 
 (defn spoilers-table [swaps]
   [:table {:id "swaps"}
