@@ -234,7 +234,7 @@
         (and (conditions-met :can-cut)
              (conditions-met :fix-power-plant)) (assoc args
                                                        :conditions-met (conj conditions-met :pewter)
-                                                       :items-obtained (conj items-obtained :SILVER_WING))
+                                                       :items-obtained (conj items-obtained (swaps :SILVER_WING)))
         :else (assoc args :reasons
                      (conj reasons "pewter: cannot reach obtain without having fixed power plant and being able to use cut"))))
 
