@@ -130,6 +130,34 @@
     [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
      "please report it."]]])
 
+(defn seed []
+  [:<>
+   [:p
+    [:label {:for "seed-id"} "Seed:"]
+    [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
+             :on-change #(reset! seed-id (.-target.value %))}]]
+   [:p
+    "You may input a seed value greater than or equal to 0 and less "
+    "than or equal to 9223372036854775807, or leave it blank to get a "
+    "random seed."]])
+
+(defn options []
+  [:<>
+   [:p
+    [:strong "Options (note that options don't apply if you manually input a seed)"]]
+   [:p
+    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
+    [:input {:id "no-early-super-rod" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom no-early-super-rod?)
+             :checked (and (empty? @seed-id) @no-early-super-rod?)
+             :disabled (not (empty? @seed-id))}]]
+   [:p
+    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
+    [:input {:id "early-bicycle" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom early-bicycle?)
+             :checked (and (empty? @seed-id) @early-bicycle?)
+             :disabled (not (empty? @seed-id))}]]])
+
 (defn rom-input []
   [:label {:style (when @input-hidden? {:display "none"})} "Select ROM file"
    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
@@ -154,33 +182,6 @@
        (when @show-spoilers?
          [spoilers-table @swaps-table])])))
 
-(defn options []
-  [:<>
-   [:p
-    [:strong "Options (note that options don't apply if you manually input a seed)"]]
-   [:p
-    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
-    [:input {:id "no-early-super-rod" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom no-early-super-rod?)
-             :checked (and (empty? @seed-id) @no-early-super-rod?)
-             :disabled (not (empty? @seed-id))}]]
-   [:p
-    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
-    [:input {:id "early-bicycle" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom early-bicycle?)
-             :checked (and (empty? @seed-id) @early-bicycle?)
-             :disabled (not (empty? @seed-id))}]]])
-
-(defn seed []
-  [:<>
-   [:p
-    [:label {:for "seed-id"} "Seed:"]
-    [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
-             :on-change #(reset! seed-id (.-target.value %))}]]
-   [:p
-    "You may input a seed value greater than or equal to 0 and less "
-    "than or equal to 9223372036854775807, or leave it blank to get a "
-    "random seed."]])
 
 (r/render [error-display] (-> js/document
                               (.getElementById "error")))
