@@ -250,8 +250,7 @@
 (defn can-defeat-elite-4? [{:keys [swaps items-obtained conditions-met badges reasons] :as args}]
   (cond (conditions-met :defeat-elite-4) args
         (and (>= (count badges) 8) (or ;; via Viridian
-                                    (and (conditions-met :fix-power-plant)
-                                         (conditions-met :can-cut))
+                                    (conditions-met :pewter)
                                     ;; via Tohjo Falls
                                     (and (conditions-met :can-surf)
                                          (conditions-met :can-waterfall)))) (assoc args
