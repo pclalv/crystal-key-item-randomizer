@@ -477,6 +477,19 @@
 
     {
         "integer_values": {
+            "old": [ 52, 19, 0 ],
+            "new": [ 49, 61, 3 ]
+        },
+        "address_range": {
+            "begin": 382839,
+            "end": 382842
+        },
+        "name": "Buena.ckir_BEFORE_checkflag_ENGINE_ROCKETS_IN_RADIO_TOWER",
+        "description": "Permit player to get Buena's item even during the Radio Tower takeover"
+    },
+
+    {
+        "integer_values": {
             "old": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75, 206, 6 ],
             "new": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75,  26, 0 ]
         },
