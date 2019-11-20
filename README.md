@@ -125,8 +125,6 @@ in priority order:
     - `RED_SCALE`
     - `MYSTERY_EGG`
     - `LOST_ITEM`
-- verify that the Underground Warehouse itemball patch works for
-  arbitrary key items.
 - patch kanto gyms so that they can activate Team Rocket's takeover of
   the Radio Tower (vanilla, not speedchoice; won't fix?)
 
