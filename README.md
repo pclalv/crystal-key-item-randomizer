@@ -87,7 +87,6 @@ in priority order:
   - don't forget to reenable the Buena patch
 - modify frontend to enable users to generate multiple seeds without
   refreshing
-- investigate possible issue loading "Download button on the webpage
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
 - investigate seed 177
