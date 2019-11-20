@@ -153,8 +153,9 @@
                            (not (empty? @seed-id)))}]]])
 
 (defn rom-input []
-  [:label {:style (when @handling-rom? {:display "none"})} "Select ROM file"
-   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
+  [:p
+   [:label {:style (when @handling-rom? {:display "none"})} "Select ROM file"
+    [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]]])
 
 (defn spoilers-table [swaps]
   [:table {:id "swaps"}
@@ -168,7 +169,7 @@
 (defn spoilers-display []
   (let [show-spoilers? (r/atom false)]
     (fn spoilers-display* []
-      [:<>
+      [:p
        [:label {:for "show-spoilers"} "Show spoilers"]
        [:input {:id "show-spoilers ":type "checkbox"
                 :on-change (set-checkbox-value-on-atom show-spoilers?)
@@ -185,21 +186,14 @@
            :download filename}
        "Download!"])))
 
-(r/render [error-display] (-> js/document
-                              (.getElementById "error")))
+(defn randomizer []
+  [:<>
+   [error-display]
+   [seed]
+   [options]
+   [rom-input]
+   [download-link]
+   [spoilers-display]])
 
-(r/render [seed] (-> js/document
-                     (.getElementById "seed")))
-
-(r/render [options] (-> js/document
-                        (.getElementById "options")))
-
-(r/render [download-link] (-> js/document
-                               (.getElementById "download")))
-
-(r/render [rom-input] (-> js/document
-                          (.getElementById "input")))
-
-(r/render [spoilers-display] (-> js/document
-                                 (.getElementById "spoilers")))
-
+(r/render [randomizer] (-> js/document
+                           (.getElementById "randomizer")))
