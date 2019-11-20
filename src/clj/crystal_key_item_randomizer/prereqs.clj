@@ -139,7 +139,7 @@
     :prereqs [{:conditions-met #{:pewter}
                :items-obtained #{}}
 
-              {:conditions-met #{:eight-badges :can-cut :can-waterfall}
+              {:conditions-met #{:eight-badges :can-surf :can-waterfall}
                :items-obtained #{}}]}
 
    {:condition :defeat-red
