@@ -125,7 +125,8 @@
    [:p
     [:label {:for "seed-id"} "Seed:"]
     [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
-             :on-change #(reset! seed-id (.-target.value %))}]]
+             :on-change #(reset! seed-id (.-target.value %))
+             :disabled @handling-rom?}]]
    [:p
     "You may input a seed value greater than or equal to 0 and less "
     "than or equal to 9223372036854775807, or leave it blank to get a "
