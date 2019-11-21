@@ -59,10 +59,6 @@ collectable.
   `CARD KEY` early, the player cannot skip the battle with the fake Radio
   Tower director by using the key card to skip straight to the final
   Rocket executives.
-* During the Goldenrod Radio Tower takeover, the player cannot skip
-  the first Rocket Executive on the left side of the tower; before
-  that, it is impossible to battle the final executive on the right
-  side of the tower.
 
 ## development
 
