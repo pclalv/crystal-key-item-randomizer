@@ -115,8 +115,6 @@ in priority order:
     - `RED_SCALE`
     - `MYSTERY_EGG`
     - `LOST_ITEM`
-- patch kanto gyms so that they can activate Team Rocket's takeover of
-  the Radio Tower (vanilla, not speedchoice; won't fix?)
 
 [pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
 [pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
