@@ -15,7 +15,7 @@
 (defn throw-js [str]
   (throw (clj->js {:error str})))
 
-(defn render-as-error [text]
+(defn render-error [text]
   (reset! error text))
 
 (defn reset-form []
@@ -84,8 +84,8 @@
         (.then (fn [resp] (-> resp .json)))
         (.then (fn [json]
                  (if (.-error json)
-                   (do (render-as-error (.-error json))
-                       (reset-form))
+                   (do (reset-form)
+                       (render-error (.-error json)))
                    (let [{:keys [swaps patches id]} (-> json
                                                         (aget "seed")
                                                         (js->clj :keywordize-keys true))]
@@ -94,8 +94,8 @@
                                              :filename (str "pokecrystal-key-item-randomized-seed-" id ".gbc")})))))
         (.catch (fn [resp]
                   (if (.-error resp)
-                    (do (render-as-error (.-error resp))
-                        (reset-form))
+                    (do (reset-form)
+                        (render-error (.-error resp)))
                     (js/console.error "some kind of horrible error, sorry" resp)))))))
 
 (defn handle-rom-input [event]
