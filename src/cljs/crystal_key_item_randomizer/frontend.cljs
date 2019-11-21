@@ -114,13 +114,14 @@
     (reset! atom (-> event .-target .-checked))))
 
 (defn error-display []
-  [:div {:class ["error"] :style (when (nil? @error) {:display "none"})}
-   [:p (str "Error: " @error)]
-   ;; TODO: link to and create maintainer/contact anchor on the page,
-   ;; probably with links to github and discord
-   [:p "Please reload this page and try again. If this is a bug, "
-    [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
-     "please report it."]]])
+  (when-let [error @error]
+    [:div {:class ["error"]}
+     [:p (str "Error: " error)]
+     ;; TODO: link to and create maintainer/contact anchor on the page,
+     ;; probably with links to github and discord
+     [:p "Please reload this page and try again. If this is a bug, "
+      [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
+       "please report it."]]]))
 
 (defn seed []
   [:<>
@@ -156,9 +157,10 @@
                            (not (empty? @seed-id)))}]]])
 
 (defn rom-input []
-  [:p
-   [:label {:for "rom-file" :style (when @handling-rom? {:display "none"})} "Select ROM file"]
-   [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]])
+  (when (not @handling-rom?)
+    [:p
+     [:label {:for "rom-file"} "Select ROM file"]
+     [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]]))
 
 (defn spoilers-table [swaps]
   [:table {:id "swaps"}
