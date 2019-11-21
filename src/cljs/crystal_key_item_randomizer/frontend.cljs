@@ -25,7 +25,8 @@
   (reset! handling-rom? false)
   (reset! error nil)
   (reset! swaps-table {})
-  (reset! randomized-rom nil))
+  (reset! randomized-rom nil)
+  (reset! seed-id ""))
 
 (defn apply-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
@@ -128,6 +129,7 @@
    [:p
     [:label {:for "seed-id"} "Seed:"]
     [:input {:id "seed-id" :type "number" :min "0" :max "9223372036854775807"
+             :value @seed-id
              :on-change #(reset! seed-id (.-target.value %))
              :disabled @handling-rom?}]]
    [:p
