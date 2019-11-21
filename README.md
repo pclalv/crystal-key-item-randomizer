@@ -81,8 +81,6 @@ server` automatically reloads code.
 
 in priority order:
 
-- modify frontend to enable users to generate multiple seeds without
-  refreshing
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
 - investigate seed 177
