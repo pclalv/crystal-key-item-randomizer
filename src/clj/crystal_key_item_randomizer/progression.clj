@@ -98,6 +98,10 @@
           (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges}))
           :else result)))
 
+;;;;;;;;;;;;
+;; HM use ;;
+;;;;;;;;;;;;
+
 (defn can-satisfy-hm-use-prereq? [{player-conditions-met :conditions-met
                                    player-items-obtained :items-obtained
                                    player-badges :badges
@@ -121,11 +125,11 @@
 
 (defn analyze [result swaps]
   (-> result
-      analyze-badge-count
-      analyze-hm-use
-      analyze-badges
+      (analyze-items swaps)
       analyze-conditions
-      (analyze-items swaps)))
+      analyze-badges
+      analyze-badge-count
+      analyze-hm-use))
 
 (defn beatable? [swaps & {:keys [speedchoice?] :or {speedchoice? true}}]
   (if (not speedchoice?)
