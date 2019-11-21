@@ -19,11 +19,13 @@
   (reset! error text))
 
 (defn reset-form []
-  (set! (-> js/document
-            (.getElementById "rom-file")
-            .-value)
-        "")
-  (reset! handling-rom? false))
+  (when-let [rom-file-el (-> js/document
+                             (.getElementById "rom-file"))]
+    (set! (-> rom-file-el .-value) ""))
+  (reset! handling-rom? false)
+  (reset! error nil)
+  (reset! swaps-table {})
+  (reset! randomized-rom nil))
 
 (defn apply-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
@@ -178,6 +180,12 @@
        (when @show-spoilers?
          [spoilers-table @swaps-table])])))
 
+(defn reset []
+  (when @randomized-rom
+    [:p
+     [:button {:on-click reset-form}
+      "Generate a new ROM"]]))
+
 (defn download-link []
   (when @randomized-rom
     (let [{:keys [rom filename]} @randomized-rom
@@ -194,6 +202,7 @@
    [options]
    [rom-input]
    [download-link]
+   [reset]
    [spoilers-display]])
 
 (r/render [randomizer] (-> js/document
