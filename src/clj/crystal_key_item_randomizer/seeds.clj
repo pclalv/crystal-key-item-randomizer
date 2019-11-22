@@ -40,21 +40,21 @@
 
 (defn generate-random [options]
   (loop []
-    (let [{:keys [swaps seed-id]} (generate-swaps options)
-          progression-results (beatable? swaps)]
+    (let [{:keys [item-swaps seed-id]} (generate-item-swaps options)
+          progression-results (beatable? item-swaps)]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
-                   (assoc :patches (patches/generate swaps {:speedchoice? true}))
+                   (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
                    (assoc :id (str seed-id)))}
         (recur)))))
 
 (defn generate [seed-id]
-  (let [swaps (zipmap all-items
+  (let [item-swaps (zipmap all-items
                       (deterministic-shuffle all-items seed-id))
-        progression-results (beatable? swaps :speedchoice? true)]
+        progression-results (beatable? item-swaps :speedchoice? true)]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
-                 (assoc :patches (patches/generate swaps {:speedchoice? true}))
+                 (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
                  (assoc :id (str seed-id)))}
       {:error (str "Unbeatable seed: " seed-id)
        :seed (-> progression-results
