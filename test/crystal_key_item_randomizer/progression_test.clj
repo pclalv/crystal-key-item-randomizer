@@ -116,7 +116,7 @@
     ;; TODO: eventually fix the code so that it supports vanilla and
     ;; not just speedchoice.
     (is (= false (-> vanilla-swaps
-                     (beatable? :speedchoice? false)
+                     (beatable? {:speedchoice? false})
                      :beatable?))))
   (testing "when speedchoice, vanilla swaps are beatable"
     (is (= true (-> vanilla-swaps
@@ -126,6 +126,6 @@
   (testing "When speedchoice, the player gets every item"
     (is (= (set all-items) (-> vanilla-swaps
                                beatable?
-                               :swaps
+                               :item-swaps
                                vals
                                set)))))

@@ -4,8 +4,10 @@
 
 (def handling-rom? (r/atom false))
 (def error (r/atom nil))
-(def swaps-table (r/atom {}))
+(def item-swaps-table (r/atom {}))
 (def randomized-rom (r/atom nil))
+
+;; these atoms are inputs to the randomizer.
 (def no-early-super-rod? (r/atom true))
 (def early-bicycle? (r/atom true))
 (def seed-id (r/atom ""))
@@ -24,7 +26,7 @@
     (set! (-> rom-file-el .-value) ""))
   (reset! handling-rom? false)
   (reset! error nil)
-  (reset! swaps-table {})
+  (reset! item-swaps-table {})
   (reset! randomized-rom nil)
   (reset! seed-id ""))
 
@@ -69,9 +71,9 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
-(defn patch-rom [rom-bytes {:keys [swaps patches]}]
+(defn patch-rom [rom-bytes {:keys [item-swaps patches]}]
   (-> rom-bytes
-      (apply-swaps swaps)
+      (apply-swaps item-swaps)
       (apply-patches patches)))
 
 (defn randomize-rom [event]
@@ -89,11 +91,11 @@
                  (if (.-error json)
                    (do (reset-form)
                        (render-error (.-error json)))
-                   (let [{:keys [swaps patches id]} (-> json
-                                                        (aget "seed")
-                                                        (js->clj :keywordize-keys true))]
-                     (reset! swaps-table swaps)
-                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:swaps swaps :patches patches})
+                   (let [{:keys [item-swaps patches id]} (-> json
+                                                             (aget "seed")
+                                                             (js->clj :keywordize-keys true))]
+                     (reset! item-swaps-table item-swaps)
+                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:item-swaps item-swaps :patches patches})
                                              :filename (str "pokecrystal-key-item-randomized-seed-" id ".gbc")})))))
         (.catch (fn [resp]
                   (if (.-error resp)
@@ -182,7 +184,7 @@
                 :on-change (set-checkbox-value-on-atom show-spoilers?)
                 :checked @show-spoilers?}]
        (when @show-spoilers?
-         [spoilers-table @swaps-table])])))
+         [spoilers-table @item-swaps-table])])))
 
 (defn reset []
   (when @randomized-rom

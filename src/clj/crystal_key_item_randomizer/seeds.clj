@@ -24,7 +24,7 @@
   (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps early-items)]
     (contains? early-swaps item)))
 
-(defn generate-swaps [{:keys [early-bicycle? no-early-super-rod?] :as opts}]
+(defn generate-item-swaps [{:keys [early-bicycle? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
                  (new java.util.Random))]
     (let [seed-id (-> rng
@@ -36,7 +36,7 @@
                  (not (gives-early? :BICYCLE swaps))) (recur rng)
             (and no-early-super-rod?
                  (gives-early? :SUPER_ROD swaps)) (recur rng)
-            :else {:swaps swaps :seed-id seed-id}))))
+            :else {:item-swaps swaps :seed-id seed-id}))))
 
 (defn generate-random [options]
   (loop []
@@ -51,7 +51,7 @@
 (defn generate [seed-id]
   (let [item-swaps (zipmap all-items
                       (deterministic-shuffle all-items seed-id))
-        progression-results (beatable? item-swaps :speedchoice? true)]
+        progression-results (beatable? item-swaps)]
     (if (progression-results :beatable?)
       {:seed (-> progression-results
                  (assoc :patches (patches/generate item-swaps {:speedchoice? true}))

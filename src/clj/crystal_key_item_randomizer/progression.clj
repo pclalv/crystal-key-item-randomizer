@@ -131,20 +131,23 @@
       analyze-badge-count
       analyze-hm-use))
 
-(defn beatable? [swaps & {:keys [speedchoice?] :or {speedchoice? true}}]
-  (if (not speedchoice?)
-    {:beatable? false
-     :error "only speedchoice is currently supported."}
-    (let [result (loop [previous-result {}
-                        result (analyze {:items-obtained #{}
-                                         :conditions-met #{}
-                                         :badges #{}}
-                                        swaps)]
-                   (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
-                          (select-keys result [:items-obtained :conditions-met :badges]))
-                     result
-                     (recur result
-                            (analyze result swaps))))]
-      (assoc result
-             :swaps swaps
-             :beatable? (contains? (result :conditions-met) :defeat-red)))))
+(defn beatable?
+  ([item-swaps]
+   (beatable? item-swaps {:speedchoice? true}))
+  ([item-swaps {:keys [speedchoice?] :or {speedchoice? true}}]
+   (if (not speedchoice?)
+     {:beatable? false
+      :error "only speedchoice is currently supported."}
+     (let [result (loop [previous-result {}
+                         result (analyze {:items-obtained #{}
+                                          :conditions-met #{}
+                                          :badges #{}}
+                                         item-swaps)]
+                    (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
+                           (select-keys result [:items-obtained :conditions-met :badges]))
+                      result
+                      (recur result
+                             (analyze result item-swaps))))]
+       (assoc result
+              :item-swaps item-swaps
+              :beatable? (contains? (result :conditions-met) :defeat-red))))))
