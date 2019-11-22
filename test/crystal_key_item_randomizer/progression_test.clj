@@ -3,14 +3,14 @@
             [crystal-key-item-randomizer.progression :refer :all])
   (:use [crystal-key-item-randomizer.seeds :only [all-items]]))
 
-(def vanilla-swaps
+(def vanilla-item-swaps
   "A map of key items where the key and value are always equal."
   (zipmap all-items all-items))
 
 (deftest get-swaps-test
   (testing "returns the vanilla swaps"
     (is (= (set all-items)
-           (get-swaps vanilla-swaps
+           (get-swaps vanilla-item-swaps
                       all-items))))
 
   (testing "returns chocolate swaps"
@@ -18,7 +18,7 @@
           swaps (zipmap all-items
                         shuffled-items)]
       (is (= (set shuffled-items)
-             (get-swaps vanilla-swaps
+             (get-swaps vanilla-item-swaps
                         all-items))))))
 
 (deftest can-collect-badges?-test
@@ -115,16 +115,16 @@
   (testing "when not speedchoice, vanilla swaps aren't beatable"
     ;; TODO: eventually fix the code so that it supports vanilla and
     ;; not just speedchoice.
-    (is (= false (-> vanilla-swaps
+    (is (= false (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
                      (beatable? {:speedchoice? false})
                      :beatable?))))
   (testing "when speedchoice, vanilla swaps are beatable"
-    (is (= true (-> vanilla-swaps
+    (is (= true (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
                     beatable?
                     :beatable?))))
 
   (testing "When speedchoice, the player gets every item"
-    (is (= (set all-items) (-> vanilla-swaps
+    (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
                                beatable?
                                :item-swaps
                                vals

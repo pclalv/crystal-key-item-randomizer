@@ -51,7 +51,8 @@
 (defn generate-random [options]
   (loop []
     (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps options)
-          progression-results (beatable? item-swaps)]
+          progression-results (beatable? {:item-swaps item-swaps
+                                          :badge-swaps badge-swaps})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
                    (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
@@ -67,7 +68,8 @@
          badge-swaps (if randomize-badges?
                        (throw (Exception. "FIXME: actually randomize badges"))
                        (zipmap badges badges))
-         progression-results (beatable? item-swaps)]
+         progression-results (beatable? {:item-swaps item-swaps
+                                         :badge-swaps badge-swaps})]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :patches (patches/generate item-swaps {:speedchoice? true}))

@@ -132,9 +132,10 @@
       analyze-hm-use))
 
 (defn beatable?
-  ([item-swaps]
-   (beatable? item-swaps {:speedchoice? true}))
-  ([item-swaps {:keys [speedchoice?] :or {speedchoice? true}}]
+  ([swaps]
+   (beatable? swaps {:speedchoice? true}))
+  ([{:keys [item-swaps badge-swaps]}
+    {:keys [speedchoice?] :or {speedchoice? true}}]
    (if (not speedchoice?)
      {:beatable? false
       :error "only speedchoice is currently supported."}
@@ -150,4 +151,5 @@
                              (analyze result item-swaps))))]
        (assoc result
               :item-swaps item-swaps
+              :badge-swaps badge-swaps
               :beatable? (contains? (result :conditions-met) :defeat-red))))))
