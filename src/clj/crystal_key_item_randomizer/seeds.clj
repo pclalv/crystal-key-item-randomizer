@@ -1,7 +1,8 @@
 (ns crystal-key-item-randomizer.seeds
   (:require [crystal-key-item-randomizer.patches :as patches])
-  (:use [crystal-key-item-randomizer.randomizer :only [all-items]]
-        [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
+  (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
+
+(def all-items (vec (keys crystal-key-item-randomizer.key-items/speedchoice)))
 
 (def early-items #{:MYSTERY_EGG
                    :HM_FLASH

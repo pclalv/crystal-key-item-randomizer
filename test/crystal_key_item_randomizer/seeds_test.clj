@@ -9,7 +9,7 @@
             :OLD_ROD :COIN_CASE :MACHINE_PART :BASEMENT_KEY :SECRETPOTION
             :HM_STRENGTH :PASS :ITEMFINDER :SUPER_ROD :RED_SCALE :HM_WATERFALL
             :HM_CUT :HM_WHIRLPOOL :MYSTERY_EGG]
-           (deterministic-shuffle crystal-key-item-randomizer.randomizer/all-items 1)))))
+           (deterministic-shuffle all-items 1)))))
 
 (deftest generate-random-test
   (testing "when early-bicycle? is true"

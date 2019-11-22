@@ -1,25 +1,25 @@
 (ns crystal-key-item-randomizer.progression-test
   (:require [clojure.test :refer :all]
-            [crystal-key-item-randomizer.progression :refer :all]))
+            [crystal-key-item-randomizer.progression :refer :all])
+  (:use [crystal-key-item-randomizer.seeds :only [all-items]]))
 
 (def vanilla-swaps
   "A map of key items where the key and value are always equal."
-  (zipmap crystal-key-item-randomizer.randomizer/all-items
-          crystal-key-item-randomizer.randomizer/all-items))
+  (zipmap all-items all-items))
 
 (deftest get-swaps-test
   (testing "returns the vanilla swaps"
-    (is (= (set crystal-key-item-randomizer.randomizer/all-items)
+    (is (= (set all-items)
            (get-swaps vanilla-swaps
-                      crystal-key-item-randomizer.randomizer/all-items))))
+                      all-items))))
 
   (testing "returns chocolate swaps"
-    (let [shuffled-items (shuffle crystal-key-item-randomizer.randomizer/all-items)
-          swaps (zipmap crystal-key-item-randomizer.randomizer/all-items
+    (let [shuffled-items (shuffle all-items)
+          swaps (zipmap all-items
                         shuffled-items)]
       (is (= (set shuffled-items)
              (get-swaps vanilla-swaps
-                        crystal-key-item-randomizer.randomizer/all-items))))))
+                        all-items))))))
 
 (deftest can-collect-badges?-test
   (defn get-badge-prereqs [badge]
@@ -124,8 +124,8 @@
                     :beatable?))))
 
   (testing "When speedchoice, the player gets every item"
-    (is (= (set crystal-key-item-randomizer.randomizer/all-items) (-> vanilla-swaps
-                                                                      beatable?
-                                                                      :swaps
-                                                                      vals
-                                                                      set)))))
+    (is (= (set all-items) (-> vanilla-swaps
+                               beatable?
+                               :swaps
+                               vals
+                               set)))))
