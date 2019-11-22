@@ -17,7 +17,8 @@
 ;; badges ;;
 ;;;;;;;;;;;;
 
-(defn can-satisfy-badge-prereq? [{player-conditions-met :conditions-met
+(defn can-satisfy-badge-prereq? [badge-swaps
+                                 {player-conditions-met :conditions-met
                                   player-items-obtained :items-obtained
                                   badges :badges
                                   :as args}
@@ -31,8 +32,8 @@
         (assoc args :badges (conj badges badge))
         args))))
 
-(defn analyze-badges [result]
-  (reduce can-satisfy-badge-prereq?
+(defn analyze-badges [result badge-swaps]
+  (reduce (partial can-satisfy-badge-prereq? badge-swaps)
           result
           badge-prereqs))
 
@@ -123,11 +124,11 @@
           result
           hm-use-prereqs))
 
-(defn analyze [result swaps]
+(defn analyze [result {:keys [item-swaps badge-swaps]}]
   (-> result
-      (analyze-items swaps)
+      (analyze-items item-swaps)
       analyze-conditions
-      analyze-badges
+      (analyze-badges badge-swaps) 
       analyze-badge-count
       analyze-hm-use))
 
@@ -143,7 +144,8 @@
                          result (analyze {:items-obtained #{}
                                           :conditions-met #{}
                                           :badges #{}}
-                                         item-swaps)]
+                                         {:item-swaps item-swaps
+                                          :badge-swaps badge-swaps})]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
