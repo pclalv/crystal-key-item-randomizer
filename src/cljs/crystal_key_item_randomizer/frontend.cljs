@@ -10,6 +10,7 @@
 ;; these atoms are inputs to the randomizer.
 (def no-early-super-rod? (r/atom true))
 (def early-bicycle? (r/atom true))
+(def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
 
 (def wildcard "*")
@@ -81,7 +82,8 @@
                                       .-target
                                       .-result))
         body {:options {:early-bicycle? @early-bicycle?
-                        :no-early-super-rod? @no-early-super-rod?}}]
+                        :no-early-super-rod? @no-early-super-rod?
+                        :randomize-badges? @randomize-badges?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
@@ -142,7 +144,7 @@
 (defn options []
   [:<>
    [:p
-    [:strong "Options (note that options don't apply if you manually input a seed)"]]
+    [:strong "Options"]]
    [:p
     [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
@@ -158,7 +160,12 @@
              :checked (and (empty? @seed-id)
                            @early-bicycle?)
              :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]]])
+                           (not (empty? @seed-id)))}]]
+   [:p
+    [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
+    [:input {:id "randomize-badges" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom randomize-badges?)
+             :checked @randomize-badges?}]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
