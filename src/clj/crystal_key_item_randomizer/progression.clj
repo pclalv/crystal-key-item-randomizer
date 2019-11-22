@@ -20,16 +20,16 @@
 (defn can-satisfy-badge-prereq? [badge-swaps
                                  {player-conditions-met :conditions-met
                                   player-items-obtained :items-obtained
-                                  badges :badges
+                                  player-badges :badges
                                   :as args}
                                  {:keys [badge conditions-met items-obtained]}]
-  (if (badges badge)
+  (if (player-badges (badge-swaps badge))
     args
     (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
           items-satisfied? (every? player-items-obtained (or items-obtained #{}))
           satisfied? (and conditions-satisfied? items-satisfied?)]
       (if satisfied?
-        (assoc args :badges (conj badges badge))
+        (assoc args :badges (conj player-badges badge))
         args))))
 
 (defn analyze-badges [result badge-swaps]
@@ -135,7 +135,7 @@
 (defn beatable?
   ([swaps]
    (beatable? swaps {:speedchoice? true}))
-  ([{:keys [item-swaps badge-swaps]}
+  ([swaps
     {:keys [speedchoice?] :or {speedchoice? true}}]
    (if (not speedchoice?)
      {:beatable? false
@@ -144,14 +144,11 @@
                          result (analyze {:items-obtained #{}
                                           :conditions-met #{}
                                           :badges #{}}
-                                         {:item-swaps item-swaps
-                                          :badge-swaps badge-swaps})]
+                                         swaps)]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
                       (recur result
-                             (analyze result item-swaps))))]
-       (assoc result
-              :item-swaps item-swaps
-              :badge-swaps badge-swaps
-              :beatable? (contains? (result :conditions-met) :defeat-red))))))
+                             (analyze result swaps))))]
+       (-> (conj result swaps)
+           (assoc :beatable? (contains? (result :conditions-met) :defeat-red)))))))
