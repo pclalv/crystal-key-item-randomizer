@@ -17,3 +17,5 @@
                         :MARSHBADGE {:address 1612913 :value 40}
                         :VOLCANOBADGE {:address 1750307 :value 41}
                         :EARTHBADGE {:address 633417 :value 42}})
+
+(def speedchoice (conj speedchoice-johto speedchoice-kanto))

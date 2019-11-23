@@ -6,8 +6,7 @@
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
 (def all-items (vec (keys key-items/speedchoice)))
-(def johto-badges (vec (keys badges/speedchoice-johto)))
-(def kanto-badges (vec (keys badges/speedchoice-kanto)))
+(def badges (vec (keys badges/speedchoice)))
 
 (def early-items #{:MYSTERY_EGG
                    :HM_FLASH
@@ -37,10 +36,9 @@
                       java.lang.Math/abs)
           item-swaps (zipmap all-items
                              (deterministic-shuffle all-items seed-id))
-          badge-swaps (-> (if randomize-badges?
-                            (zipmap johto-badges (deterministic-shuffle johto-badges seed-id))
-                            (zipmap johto-badges johto-badges))
-                          (conj (zipmap kanto-badges kanto-badges)))]
+          badge-swaps (if randomize-badges?
+                        (zipmap badges (deterministic-shuffle badges seed-id))
+                        (zipmap badges badges))]
       (cond (and early-bicycle?
                  (not (gives-early? :BICYCLE item-swaps))) (recur rng)
             (and no-early-super-rod?
@@ -66,10 +64,9 @@
    (generate seed-id {:randomize-badges? false}))
   ([seed-id {:keys [randomize-badges?] :as options}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
-         badge-swaps (-> (if randomize-badges?
-                           (zipmap johto-badges (deterministic-shuffle johto-badges seed-id))
-                           (zipmap johto-badges johto-badges))
-                         (conj (zipmap kanto-badges kanto-badges)))
+         badge-swaps (if randomize-badges?
+                       (zipmap badges (deterministic-shuffle badges seed-id))
+                       (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps
                                          :badge-swaps badge-swaps})]
      (if (progression-results :beatable?)

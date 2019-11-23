@@ -1,12 +1,11 @@
 (ns crystal-key-item-randomizer.progression-test
   (:require [clojure.test :refer :all]
             [crystal-key-item-randomizer.progression :refer :all])
-  (:use [crystal-key-item-randomizer.seeds :only [all-items johto-badges kanto-badges]]))
+  (:use [crystal-key-item-randomizer.seeds :only [all-items badges]]))
 
 (def vanilla-badge-swaps
   "A map of key items where the key and value are always equal."
-  (let [badges (conj johto-badges kanto-badges)]
-    (zipmap badges badges)))
+  (zipmap badges badges))
 
 (def vanilla-item-swaps
   "A map of key items where the key and value are always equal."
