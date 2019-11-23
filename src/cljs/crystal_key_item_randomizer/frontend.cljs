@@ -41,8 +41,8 @@
     (aset rom-bytes original-address replacement-value)
     rom-bytes))
 
-(defn apply-swaps [rom-bytes swaps]
-  (reduce apply-swap rom-bytes (js->clj swaps)))
+(defn apply-item-swaps [rom-bytes swaps]
+  (reduce apply-item-swap rom-bytes (js->clj swaps)))
 
 (defn update-address [rom-bytes {:keys [address old-value new-value]}]
   (if (or (= old-value wildcard)
@@ -74,7 +74,7 @@
 
 (defn patch-rom [rom-bytes {:keys [item-swaps patches]}]
   (-> rom-bytes
-      (apply-swaps item-swaps)
+      (apply-item-swaps item-swaps)
       (apply-patches patches)))
 
 (defn randomize-rom [event]
