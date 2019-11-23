@@ -50,15 +50,16 @@
                    :seed-id seed-id}))))
 
 (defn generate-random [options]
-  (loop []
+  (loop [iterations 1]
     (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps options)
           progression-results (beatable? {:item-swaps item-swaps
                                           :badge-swaps badge-swaps})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
                    (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
-                   (assoc :id (str seed-id)))}
-        (recur)))))
+                   (assoc :id (str seed-id)))
+         :iterations iterations}
+        (recur (inc iterations))))))
 
 (defn generate
   ([seed-id]
