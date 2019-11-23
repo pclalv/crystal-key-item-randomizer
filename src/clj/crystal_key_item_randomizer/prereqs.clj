@@ -61,7 +61,13 @@
     :conditions-met #{:pewter}}])
 
 (def hm-use-prereqs
-  [{:condition :can-cut
+  [;; TODO: add a frontend option so that the player can choose to not
+   ;; have to go through Rock Tunnel without flash.
+   {:condition :can-flash
+    :prereqs {:badges #{:ZEPHYRBADGE}
+              :items-obtained #{:HM_FLASH}}}
+
+   {:condition :can-cut
     :prereqs {:badges #{:HIVEBADGE}
               :items-obtained #{:HM_CUT}}}
 
