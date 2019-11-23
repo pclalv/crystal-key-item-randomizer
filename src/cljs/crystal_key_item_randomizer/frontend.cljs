@@ -214,7 +214,7 @@
         [:input {:id "show-spoilers ":type "checkbox"
                  :on-change (set-checkbox-value-on-atom show-spoilers?)
                  :checked @show-spoilers?}]]
-       (when @show-spoilers?
+       (when (and @show-spoilers? @randomize-badges?)
          [spoilers-table @badge-swaps-table {:swap-type "badge"}])
        (when @show-spoilers?
          [spoilers-table @item-swaps-table {:swap-type "item"}])])))
