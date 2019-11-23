@@ -142,6 +142,9 @@
   (when-let [error @error]
     [:div {:class ["error"]}
      [:p (str "Error: " error)]
+     [:table
+      [:thead [:tr [:th "Option"] [:th "Value"]]]
+      [:tbody [:tr [:td "Randomize badges?"] [:td (str @randomize-badges?)]]]]
      ;; TODO: link to and create maintainer/contact anchor on the page,
      ;; probably with links to github and discord
      [:p "Please reload this page and try again. If this is a bug, "
@@ -186,7 +189,6 @@
     [:input {:id "randomize-badges" :type "checkbox"
              :on-change (set-checkbox-value-on-atom randomize-badges?)
              :checked @randomize-badges?}]]])
-   
 
 (defn rom-input []
   (when (not @handling-rom?)
