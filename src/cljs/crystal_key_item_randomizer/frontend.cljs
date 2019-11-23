@@ -160,13 +160,12 @@
              :checked (and (empty? @seed-id)
                            @early-bicycle?)
              :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]]])
-   ;; [:p
-   ;;  [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
-   ;;  [:input {:id "randomize-badges" :type "checkbox"
-   ;;           :on-change (set-checkbox-value-on-atom randomize-badges?)
-   ;;           :checked @randomize-badges?
-   ;;           :disabled true}]]
+                           (not (empty? @seed-id)))}]]
+   [:p
+    [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
+    [:input {:id "randomize-badges" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom randomize-badges?)
+             :checked @randomize-badges?}]]])
    
 
 (defn rom-input []
