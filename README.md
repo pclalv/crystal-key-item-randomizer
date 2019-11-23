@@ -29,6 +29,7 @@ in priority order:
 - investigate seed 177
   - seems okay, but it forces the player to start the Radio Tower to
     get Surf from the Ice Path
+- progressive fishing rods
   
 ### logic
 
