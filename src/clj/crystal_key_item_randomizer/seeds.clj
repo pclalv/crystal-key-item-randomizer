@@ -6,7 +6,8 @@
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
 (def all-items (vec (keys key-items/speedchoice)))
-(def badges (vec (keys badges/speedchoice)))
+(def johto-badges (vec (keys badges/speedchoice-johto)))
+(def kanto-badges (vec (keys badges/speedchoice-kanto)))
 
 (def early-items #{:MYSTERY_EGG
                    :HM_FLASH
@@ -29,7 +30,6 @@
     (contains? early-swaps item)))
 
 (defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-super-rod?] :as opts}]
-  (println "randomize-badges?" randomize-badges?)
   (loop [rng (or (:rng opts)
                  (new java.util.Random))]
     (let [seed-id (-> rng
@@ -37,9 +37,10 @@
                       java.lang.Math/abs)
           item-swaps (zipmap all-items
                              (deterministic-shuffle all-items seed-id))
-          badge-swaps (if randomize-badges?
-                        (zipmap badges (deterministic-shuffle badges seed-id))
-                        (zipmap badges badges))]
+          badge-swaps (-> (if randomize-badges?
+                            (zipmap johto-badges (deterministic-shuffle johto-badges seed-id))
+                            (zipmap johto-badges johto-badges))
+                          (conj (zipmap kanto-badges kanto-badges)))]
       (cond (and early-bicycle?
                  (not (gives-early? :BICYCLE item-swaps))) (recur rng)
             (and no-early-super-rod?
@@ -64,9 +65,10 @@
    (generate seed-id {:randomize-badges? false}))
   ([seed-id {:keys [randomize-badges?] :as options}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
-         badge-swaps (if randomize-badges?
-                       (zipmap badges (deterministic-shuffle badges seed-id))
-                       (zipmap badges badges))
+         badge-swaps (-> (if randomize-badges?
+                           (zipmap johto-badges (deterministic-shuffle johto-badges seed-id))
+                           (zipmap johto-badges johto-badges))
+                         (conj (zipmap kanto-badges kanto-badges)))
          progression-results (beatable? {:item-swaps item-swaps
                                          :badge-swaps badge-swaps})]
      (if (progression-results :beatable?)

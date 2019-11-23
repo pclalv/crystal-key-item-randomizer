@@ -12,27 +12,6 @@
            (deterministic-shuffle all-items 1)))))
 
 (deftest generate-random-test
-  (testing "when randomize-badges? is not true"
-    (is (= {:badge-swaps
-            {:PLAINBADGE :PLAINBADGE,
-             :MARSHBADGE :MARSHBADGE,
-             :RISINGBADGE :RISINGBADGE,
-             :FOGBADGE :FOGBADGE,
-             :ZEPHYRBADGE :ZEPHYRBADGE,
-             :RAINBOWBADGE :RAINBOWBADGE,
-             :STORMBADGE :STORMBADGE,
-             :VOLCANOBADGE :VOLCANOBADGE,
-             :SOULBADGE :SOULBADGE,
-             :EARTHBADGE :EARTHBADGE,
-             :THUNDERBADGE :THUNDERBADGE,
-             :HIVEBADGE :HIVEBADGE,
-             :MINERALBADGE :MINERALBADGE,
-             :BOULDERBADGE :BOULDERBADGE,
-             :CASCADEBADGE :CASCADEBADGE,
-             :GLACIERBADGE :GLACIERBADGE}}
-           (-> (generate-random {})
-               :seed
-               (select-keys [:badge-swaps])))))
   (testing "when early-bicycle? is true"
     (is (= {:item-swaps {:HM_FLASH :HM_CUT,
                          :SILVER_WING :HM_FLASH,
@@ -97,4 +76,26 @@
            (-> (generate-random {:no-early-super-rod? true
                                  :rng (new java.util.Random 1)})
                :seed
-               (select-keys [:item-swaps :id]))))))
+               (select-keys [:item-swaps :id])))))
+
+  (testing "when randomize-badges? is not true"
+    (is (= {:badge-swaps
+            {:PLAINBADGE :PLAINBADGE,
+             :MARSHBADGE :MARSHBADGE,
+             :RISINGBADGE :RISINGBADGE,
+             :FOGBADGE :FOGBADGE,
+             :ZEPHYRBADGE :ZEPHYRBADGE,
+             :RAINBOWBADGE :RAINBOWBADGE,
+             :STORMBADGE :STORMBADGE,
+             :VOLCANOBADGE :VOLCANOBADGE,
+             :SOULBADGE :SOULBADGE,
+             :EARTHBADGE :EARTHBADGE,
+             :THUNDERBADGE :THUNDERBADGE,
+             :HIVEBADGE :HIVEBADGE,
+             :MINERALBADGE :MINERALBADGE,
+             :BOULDERBADGE :BOULDERBADGE,
+             :CASCADEBADGE :CASCADEBADGE,
+             :GLACIERBADGE :GLACIERBADGE}}
+           (-> (generate-random {})
+               :seed
+               (select-keys [:badge-swaps]))))))
