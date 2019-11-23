@@ -78,6 +78,28 @@
                :seed
                (select-keys [:item-swaps :id])))))
 
+  (testing "when randomize-badges? is true"
+    (is (= {:badge-swaps {:PLAINBADGE :GLACIERBADGE,
+                          :MARSHBADGE :HIVEBADGE,
+                          :RISINGBADGE :SOULBADGE,
+                          :FOGBADGE :EARTHBADGE,
+                          :ZEPHYRBADGE :RAINBOWBADGE,
+                          :RAINBOWBADGE :BOULDERBADGE,
+                          :STORMBADGE :CASCADEBADGE,
+                          :VOLCANOBADGE :RISINGBADGE,
+                          :SOULBADGE :STORMBADGE,
+                          :EARTHBADGE :MINERALBADGE,
+                          :THUNDERBADGE :VOLCANOBADGE,
+                          :HIVEBADGE :ZEPHYRBADGE,
+                          :MINERALBADGE :FOGBADGE,
+                          :BOULDERBADGE :PLAINBADGE,
+                          :CASCADEBADGE :MARSHBADGE,
+                          :GLACIERBADGE :THUNDERBADGE}}
+           (-> (generate-random {:randomize-badges? true
+                                 :rng (new java.util.Random 1)})
+               :seed
+               (select-keys [:badge-swaps])))))
+
   (testing "when randomize-badges? is not true"
     (is (= {:badge-swaps
             {:PLAINBADGE :PLAINBADGE,
