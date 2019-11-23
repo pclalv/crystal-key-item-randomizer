@@ -165,7 +165,8 @@
     [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
     [:input {:id "randomize-badges" :type "checkbox"
              :on-change (set-checkbox-value-on-atom randomize-badges?)
-             :checked @randomize-badges?}]]])
+             :checked @randomize-badges?
+             :disabled true}]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
