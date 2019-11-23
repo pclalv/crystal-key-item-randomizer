@@ -23,14 +23,15 @@
                                   player-badges :badges
                                   :as args}
                                  {:keys [badge conditions-met items-obtained]}]
-  (if (player-badges (badge-swaps badge))
-    args
-    (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
-          items-satisfied? (every? player-items-obtained (or items-obtained #{}))
-          satisfied? (and conditions-satisfied? items-satisfied?)]
-      (if satisfied?
-        (assoc args :badges (conj player-badges badge))
-        args))))
+  (let [badge-to-grant (badge-swaps badge)]
+    (if (player-badges badge-to-grant)
+      args
+      (let [conditions-satisfied? (every? player-conditions-met (or conditions-met #{}))
+            items-satisfied? (every? player-items-obtained (or items-obtained #{}))
+            satisfied? (and conditions-satisfied? items-satisfied?)]
+        (if satisfied?
+          (assoc args :badges (conj player-badges badge-to-grant))
+          args)))))
 
 (defn analyze-badges [result badge-swaps]
   (reduce (partial can-satisfy-badge-prereq? badge-swaps)
