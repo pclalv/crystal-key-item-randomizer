@@ -32,9 +32,10 @@ in priority order:
   
 ### logic
 
-- **randomize pokegear cards**. this is primarily motivated by wanting
-  to randomize the kanto expansion card, which allows the player to
-  wake the snorlax and progress to pewter from vermilion.
+- **consider pokegear cards in prereqs logic**. this is primarily
+  motivated by wanting to randomize the kanto expansion card, which
+  allows the player to wake the snorlax and progress to pewter from
+  vermilion.
 - randomize which non-required item the copycat is looking for.
 - randomize badges
 - find out what happens if the player:
@@ -62,6 +63,14 @@ in priority order:
     - `RED_SCALE`
     - `MYSTERY_EGG`
     - `LOST_ITEM`
+- **Randomizer pokegear cards among items**. this is pretty
+  straightforward, because `giveitem`, `verbosegiveitem` and `setflag`
+  (pokegear cards are flags) are all three-byte instructions. the
+  exception, of course, is `itemball`. i think this would require
+  custom ASM that acts like an itemball on the overworld but instead
+  sets a game flag.
+  - itemballs can also be `person_event`s - see electrodes in
+    `TeamRocketBaseB2F.asm`
 
 [pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
 [pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
