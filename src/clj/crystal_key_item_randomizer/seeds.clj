@@ -38,7 +38,7 @@
           item-swaps (zipmap all-items
                              (deterministic-shuffle all-items seed-id))
           badge-swaps (if randomize-badges?
-                        (throw (Exception. "FIXME: actually randomize badges"))
+                        (zipmap badges (deterministic-shuffle badges seed-id))
                         (zipmap badges badges))]
       (cond (and early-bicycle?
                  (not (gives-early? :BICYCLE item-swaps))) (recur rng)
@@ -63,10 +63,9 @@
   ([seed-id]
    (generate seed-id {:randomize-badges? false}))
   ([seed-id {:keys [randomize-badges?] :as options}]
-   (let [item-swaps (zipmap all-items
-                            (deterministic-shuffle all-items seed-id))
+   (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if randomize-badges?
-                       (throw (Exception. "FIXME: actually randomize badges"))
+                       (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps
                                          :badge-swaps badge-swaps})]
