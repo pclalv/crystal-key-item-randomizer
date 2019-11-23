@@ -1,10 +1,12 @@
 (ns crystal-key-item-randomizer.frontend
   (:require [reagent.core :as r]
+            [crystal-key-item-randomizer.badges :as badges]
             [crystal-key-item-randomizer.key-items :as key-items]))
 
 (def handling-rom? (r/atom false))
 (def error (r/atom nil))
 (def item-swaps-table (r/atom {}))
+(def badge-swaps-table (r/atom {}))
 (def randomized-rom (r/atom nil))
 
 ;; these atoms are inputs to the randomizer.
@@ -31,7 +33,21 @@
   (reset! randomized-rom nil)
   (reset! seed-id ""))
 
-(defn apply-swap [rom-bytes [original replacement]]
+(defn apply-badge-swap [rom-bytes [original replacement]]
+  (println "[original replacement]" [original replacement])
+  (let [original-address (-> (keyword original)
+                             badges/speedchoice
+                             :address)
+        replacement-value (-> (keyword replacement)
+                              badges/speedchoice
+                              :value)]
+    (aset rom-bytes original-address replacement-value)
+    rom-bytes))
+
+(defn apply-badge-swaps [rom-bytes swaps]
+  (reduce apply-badge-swap rom-bytes (js->clj swaps)))
+
+(defn apply-item-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
                              key-items/speedchoice
                              :address)
@@ -72,9 +88,10 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
-(defn patch-rom [rom-bytes {:keys [item-swaps patches]}]
+(defn patch-rom [rom-bytes {:keys [item-swaps badge-swaps patches]}]
   (-> rom-bytes
       (apply-item-swaps item-swaps)
+      (apply-badge-swaps badge-swaps)
       (apply-patches patches)))
 
 (defn randomize-rom [event]
@@ -93,11 +110,14 @@
                  (if (.-error json)
                    (do (reset-form)
                        (render-error (.-error json)))
-                   (let [{:keys [item-swaps patches id]} (-> json
-                                                             (aget "seed")
-                                                             (js->clj :keywordize-keys true))]
+                   (let [{:keys [item-swaps badge-swaps patches id]} (-> json
+                                                                         (aget "seed")
+                                                                         (js->clj :keywordize-keys true))]
                      (reset! item-swaps-table item-swaps)
-                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:item-swaps item-swaps :patches patches})
+                     (reset! badge-swaps-table badge-swaps)
+                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:item-swaps item-swaps
+                                                                        :badge-swaps badge-swaps
+                                                                        :patches patches})
                                              :filename (str "pokecrystal-key-item-randomized-seed-" id ".gbc")})))))
         (.catch (fn [resp]
                   (if (.-error resp)
@@ -174,25 +194,28 @@
      [:label {:for "rom-file"} "Select ROM file"]
      [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]]))
 
-(defn spoilers-table [swaps]
+(defn spoilers-table [swaps {swap-type :swap-type}]
   [:table {:id "swaps"}
    [:thead [:tr
-            [:th "Vanilla item"] [:th "New item"]]]
+            [:th (str "Vanilla " swap-type)] [:th (str "New " swap-type)]]]
    [:tbody (for [swap swaps]
-             (let [orig-item (-> swap .-key)
-                   new-item (-> swap .-val)]
-               ^{:key orig-item} [:tr [:td orig-item] [:td new-item]]))]])
+             (let [orig (-> swap .-key)
+                   new (-> swap .-val)]
+               ^{:key orig} [:tr [:td orig] [:td new]]))]])
 
 (defn spoilers-display []
   (let [show-spoilers? (r/atom false)]
     (fn spoilers-display* []
-      [:p
-       [:label {:for "show-spoilers"} "Show spoilers"]
-       [:input {:id "show-spoilers ":type "checkbox"
-                :on-change (set-checkbox-value-on-atom show-spoilers?)
-                :checked @show-spoilers?}]
+      [:<>
+       [:p
+        [:label {:for "show-spoilers"} "Show spoilers"]
+        [:input {:id "show-spoilers ":type "checkbox"
+                 :on-change (set-checkbox-value-on-atom show-spoilers?)
+                 :checked @show-spoilers?}]]
        (when @show-spoilers?
-         [spoilers-table @item-swaps-table])])))
+         [spoilers-table @badge-swaps-table {:swap-type "badge"}])
+       (when @show-spoilers?
+         [spoilers-table @item-swaps-table {:swap-type "item"}])])))
 
 (defn reset []
   (when @randomized-rom
