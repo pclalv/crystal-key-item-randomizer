@@ -112,13 +112,18 @@
                        (render-error (.-error json)))
                    (let [{:keys [item-swaps badge-swaps patches id]} (-> json
                                                                          (aget "seed")
-                                                                         (js->clj :keywordize-keys true))]
+                                                                         (js->clj :keywordize-keys true))
+                         filename (str "pokecrystal-key-item-randomized-seed-"
+                                       (if @randomize-badges?
+                                         (str id "-badges")
+                                         id)
+                                       ".gbc")]
                      (reset! item-swaps-table item-swaps)
                      (reset! badge-swaps-table badge-swaps)
                      (reset! randomized-rom {:rom (patch-rom rom-bytes {:item-swaps item-swaps
                                                                         :badge-swaps badge-swaps
                                                                         :patches patches})
-                                             :filename (str "pokecrystal-key-item-randomized-seed-" id ".gbc")})))))
+                                             :filename filename})))))
         (.catch (fn [resp]
                   (if (.-error resp)
                     (do (reset-form)
