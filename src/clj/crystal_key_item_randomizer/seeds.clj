@@ -30,6 +30,7 @@
 
 (defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
+                 ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
     (let [seed-id (-> rng
                       .nextLong
