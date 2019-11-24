@@ -52,7 +52,8 @@
   (loop [iterations 1]
     (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps options)
           progression-results (beatable? {:item-swaps item-swaps
-                                          :badge-swaps badge-swaps})]
+                                          :badge-swaps badge-swaps}
+                                         {:endgame-condition :defeat-elite-4})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
                    (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
@@ -70,7 +71,7 @@
                        (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps
                                          :badge-swaps badge-swaps}
-                                        {:goal-condition :defeat-elite-4})]
+                                        {:endgame-condition :defeat-elite-4})]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
