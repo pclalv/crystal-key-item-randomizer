@@ -169,8 +169,12 @@
     :items-obtained #{}
     :grants #{:BICYCLE
               :BLUE_CARD 
-              :COIN_CASE
-              :SQUIRTBOTTLE}}
+              :COIN_CASE}}
+
+   {:conditions-met #{:goldenrod}
+    :items-obtained #{}
+    :badges #{:PLAINBADGE}
+    :grants #{:SQUIRTBOTTLE}}
 
    {:conditions-met #{:ecruteak}
     :items-obtained #{}
