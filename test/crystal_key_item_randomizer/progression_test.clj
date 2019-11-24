@@ -148,4 +148,11 @@
                                beatable?
                                :item-swaps
                                vals
-                               set)))))
+                               set))))
+
+  (testing "When speedchoice, the player gets every badge"
+    (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
+                            beatable?
+                            :badge-swaps
+                            vals
+                            set)))))
