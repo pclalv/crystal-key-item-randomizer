@@ -30,7 +30,11 @@ in priority order:
   - seems okay, but it forces the player to start the Radio Tower to
     get Surf from the Ice Path
 - progressive fishing rods
-  
+- update index
+  - let people know that you can get to E4 via Viridian merely by
+    reaching viridian
+- see if there's an easy and general way to improve trainer AI  
+
 ### logic
 
 - **consider pokegear cards in prereqs logic**. this is primarily
@@ -56,9 +60,9 @@ in priority order:
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
 - fix `giveitem` key items so that the player sees item is actually
   being given.
-  - hard way: change `giveitem` to `verbosegiveitem` and fill the rest
-    of the routine with `nop` and a final `end` to cut off any
-    unintended additional text
+  - plan: per Dabomstew on discord, create strings that will be
+    guaranteed to be less than or equal to the existing text, in terms
+    of length, and terminate them appropriately.
   - items:
 	- `SECRETPOTION`
     - `BICYCLE`
@@ -73,6 +77,7 @@ in priority order:
   sets a game flag.
   - itemballs can also be `person_event`s - see electrodes in
     `TeamRocketBaseB2F.asm`
+- try to create a person_event itemball that grants a pokegear card
 
 [pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
 [pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
