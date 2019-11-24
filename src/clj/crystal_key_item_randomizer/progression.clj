@@ -36,7 +36,7 @@
 (defn analyze-badges [result badge-swaps]
   (reduce (partial can-satisfy-badge-prereq? badge-swaps)
           result
-          badge-prereqs))
+          (badge-prereqs)))
 
 ;;;;;;;;;;;
 ;; items ;;
@@ -93,7 +93,7 @@
 (defn analyze-conditions [result]
   (reduce can-satisfy-condition-prereqs?
           result
-          condition-prereqs))
+          (condition-prereqs)))
 
 ;;;;;;;;;;;;;;;;;
 ;; badge count ;;
