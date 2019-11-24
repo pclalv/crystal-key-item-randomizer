@@ -143,7 +143,7 @@
   ([swaps]
    (beatable? swaps {:speedchoice? true}))
   ([swaps
-    {:keys [speedchoice?] :or {speedchoice? true}}]
+    {:keys [goal-condition speedchoice?] :or {speedchoice? true goal-condition :defeat-red}}]
    (if (not speedchoice?)
      {:beatable? false
       :error "only speedchoice is currently supported."}
@@ -158,4 +158,4 @@
                       (recur result
                              (analyze result swaps))))]
        (-> (conj result swaps)
-           (assoc :beatable? (contains? (result :conditions-met) :defeat-red)))))))
+           (assoc :beatable? (contains? (result :conditions-met) goal-condition)))))))

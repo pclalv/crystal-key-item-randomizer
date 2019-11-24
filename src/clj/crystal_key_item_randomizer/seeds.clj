@@ -69,7 +69,8 @@
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps
-                                         :badge-swaps badge-swaps})]
+                                         :badge-swaps badge-swaps}
+                                        {:goal-condition :defeat-elite-4})]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
