@@ -139,12 +139,12 @@
                      (beatable? {:speedchoice? false})
                      :beatable?))))
   (testing "when speedchoice, vanilla swaps are beatable"
-    (is (= true (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
+    (is (= true (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                     beatable?
                     :beatable?))))
 
   (testing "When speedchoice, the player gets every item"
-    (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
+    (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                beatable?
                                :item-swaps
                                vals
