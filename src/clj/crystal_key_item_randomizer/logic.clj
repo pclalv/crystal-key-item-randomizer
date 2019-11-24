@@ -1,6 +1,7 @@
-(ns crystal-key-item-randomizer.prereqs
-  "Data pertaining to the prereqs that must be satisfied in order to
-  meet conditions, collect badges and collect items.")
+(ns crystal-key-item-randomizer.logic
+  "The logic that in-game progression follows. Mostly, these are prereqs
+  that must be satisfied in order to meet conditions, collect badges
+  and collect items.")
 
 (defn badge-prereqs
   "A list detailing the various conditions that must be met to acquire a

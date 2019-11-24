@@ -3,7 +3,7 @@
   progress can be made, along with the particular items and progress
   the player has, to determine further progress."
   (:require [clojure.set :as cset]
-            [crystal-key-item-randomizer.prereqs :refer :all]))
+            [crystal-key-item-randomizer.logic :refer :all]))
 
 (defn any? [pred col]
   (not (not-any? pred col)))

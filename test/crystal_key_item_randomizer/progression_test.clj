@@ -27,7 +27,7 @@
 
 (deftest can-collect-badges?-test
   (defn get-badge-prereqs [badge]
-    (->> (crystal-key-item-randomizer.prereqs/badge-prereqs)
+    (->> (crystal-key-item-randomizer.logic/badge-prereqs)
          (filter #(= badge
                      (%1 :badge)))
          (first)))
