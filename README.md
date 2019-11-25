@@ -24,8 +24,6 @@ server` automatically reloads code.
 
 in priority order:
 
-- fix hardlock: the player should ALWAYS be able to get the radio
-  card, even during the radio tower takeover
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
 - investigate seed 177

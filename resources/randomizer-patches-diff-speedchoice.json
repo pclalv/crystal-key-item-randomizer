@@ -523,5 +523,17 @@
         },
         "name": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_3",
         "description": "Permit player to get the Bike Shop item even during the Radio Tower takeover"
+    },
+    {
+        "integer_values": {
+            "old": [ 36, 10, 16, 7, 0, 255, 255, 160, 0, 213, 77, 207,   6 ],
+            "new": [ 36, 10, 16, 7, 0, 255, 255, 160, 0, 213, 77, 255, 255 ]
+        },
+        "address_range": {
+            "begin": 382702,
+            "end": 382715
+        },
+        "name": "RadioTower1F_MapEventHeader.ckir_BEFORE_person_event_SPRITE_COOLTRAINER_F",
+        "description": "Permit player to get Radio Card even during the Radio Tower takeover"
     }
 ]
