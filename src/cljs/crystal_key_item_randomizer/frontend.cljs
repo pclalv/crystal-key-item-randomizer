@@ -157,8 +157,6 @@
      [:table
       [:thead [:tr [:th "Option"] [:th "Value"]]]
       [:tbody [:tr [:td "Randomize badges?"] [:td (str @randomize-badges?)]]]]
-     ;; TODO: link to and create maintainer/contact anchor on the page,
-     ;; probably with links to github and discord
      [:p "Please reload this page and try again. If this is a bug, "
       [:a {:href "https://github.com/pclalv/crystal-key-item-randomizer/issues"}
        "please report it."]]]))
