@@ -26,12 +26,6 @@
 (defn seed-handler [req]
   (let [req (json-body-request req {:keywords? true})
         {:keys [seed-id error]} (-> req :params :id parse-seed-id)
-        ;; currently, only speedchoice is supported. for vanilla
-        ;; crystal, there's always the opportunity for the player to
-        ;; softlock themselves by acquiring badges in the incorrect
-        ;; order and thereby preventing themselves from being able to
-        ;; trigger the team rocket radio tower takeover. it'd be great
-        ;; to fix that.
         {:keys [randomize-badges?] :as seed-options} (-> req :body :options (assoc :speedchoice? true))]
     (if error
       {:status 400
