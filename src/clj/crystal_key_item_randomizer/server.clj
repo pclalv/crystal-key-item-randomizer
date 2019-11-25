@@ -23,6 +23,25 @@
         {:seed-id seed-id-parsed}
         {:error (str "Invalid seed: " seed-id)})))
 
+(defn render-seed-or-error [seed error]
+  (if error
+    {:status 500
+     :headers {"Content-Type" "text/json"}
+     :body (json/write-str {:error error})}
+    (let [seed' (if dev?
+                  seed
+                  (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
+      {:status 200
+       :headers {"Content-Type" "text/json"}
+       :body (json/write-str {:seed seed'})})))
+
+(defn random-seed-handler [req]
+  (let [req (json-body-request req {:keywords? true})]
+    (let [{:keys [swaps-options endgame-condition]} (-> req :body :options)
+          {:keys [seed error]} (seeds/generate-random {:endgame-condition (keyword endgame-condition)
+                                                       :swaps-options swaps-options})]
+      (render-seed-or-error seed error))))
+
 (defn seed-handler [req]
   (let [req (json-body-request req {:keywords? true})
         {:keys [seed-id error]} (-> req :params :id parse-seed-id)]
@@ -31,26 +50,13 @@
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
       (let [{:keys [swaps-options endgame-condition]} (-> req :body :options)
-            seed-options {:endgame-condition (keyword endgame-condition)}
-            {:keys [seed error]} (if seed-id
-                                   (seeds/generate seed-id (assoc seed-options
-                                                                  :swaps-options {:randomize-badges? (:randomize-badges? swaps-options)}))
-                                   (seeds/generate-random (assoc seed-options
-                                                                 :swaps-options swaps-options)))]
-        (if error
-          {:status 500
-           :headers {"Content-Type" "text/json"}
-           :body (json/write-str {:error error})}
-          (let [seed' (if dev?
-                        seed
-                        (dissoc seed :items-obtained :badges :conditions-met :beatable? :reasons))]
-            {:status 200
-             :headers {"Content-Type" "text/json"}
-             :body (json/write-str {:seed seed'})}))))))
+            {:keys [seed error]} (seeds/generate seed-id {:endgame-condition (keyword endgame-condition)
+                                                          :swaps-options {:randomize-badges? (:randomize-badges? swaps-options)}})]
+        (render-seed-or-error seed error)))))
 
 (defroutes app-routes
-  (POST "/seed" [] seed-handler)
-  (POST "/seed/" [] seed-handler)
+  (POST "/seed" [] random-seed-handler)
+  (POST "/seed/" [] random-seed-handler)
   (POST "/seed/:id" [] seed-handler)
   (files "")
   (files "assets")
