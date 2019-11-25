@@ -24,6 +24,8 @@ server` automatically reloads code.
 
 in priority order:
 
+- fix hardlock: the player should ALWAYS be able to get the radio
+  card, even during the radio tower takeover
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
 - investigate seed 177
@@ -69,6 +71,7 @@ in priority order:
     - `RED_SCALE`
     - `MYSTERY_EGG`
     - `LOST_ITEM`
+- fix all badge text
 - **Randomizer pokegear cards among items**. this is pretty
   straightforward, because `giveitem`, `verbosegiveitem` and `setflag`
   (pokegear cards are flags) are all three-byte instructions. the
