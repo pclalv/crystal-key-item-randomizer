@@ -35,7 +35,6 @@
   (reset! seed-id ""))
 
 (defn apply-badge-swap [rom-bytes [original replacement]]
-  (println "[original replacement]" [original replacement])
   (let [original-address (-> (keyword original)
                              badges/speedchoice
                              :address)
