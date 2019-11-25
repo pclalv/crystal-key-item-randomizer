@@ -48,9 +48,10 @@
                    :badge-swaps badge-swaps
                    :seed-id seed-id}))))
 
-(defn generate-random [options]
+(defn generate-random [{:keys [endgame-condition swaps-options] :or {endgame-condition :defeat-elite-4
+                                                                     swaps-options {:randomize-badges? false}}}]
   (loop [iterations 1]
-    (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps options)
+    (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps swaps-options)
           progression-results (beatable? {:item-swaps item-swaps
                                           :badge-swaps badge-swaps}
                                          {:endgame-condition :defeat-elite-4})]
@@ -63,10 +64,11 @@
 
 (defn generate
   ([seed-id]
-   (generate seed-id {:randomize-badges? false}))
-  ([seed-id {:keys [randomize-badges?] :as options}]
+   (generate seed-id {:endgame-condition :defeat-elite-4
+                      :swaps-options {:randomize-badges? false}}))
+  ([seed-id {:keys [swaps-options endgame-condition]}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
-         badge-swaps (if randomize-badges?
+         badge-swaps (if (:randomize-badges? swaps-options )
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps

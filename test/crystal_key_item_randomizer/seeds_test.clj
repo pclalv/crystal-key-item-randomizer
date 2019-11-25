@@ -13,35 +13,35 @@
 
 (deftest generate-random-test
   (testing "when early-bicycle? is true"
-    (is (= {:item-swaps {:HM_FLASH :HM_CUT,
-                         :SILVER_WING :HM_FLASH,
-                         :LOST_ITEM :HM_STRENGTH,
-                         :ITEMFINDER :BASEMENT_KEY,
-                         :GOOD_ROD :LOST_ITEM,
-                         :CARD_KEY :S_S_TICKET,
-                         :COIN_CASE :HM_SURF,
-                         :BLUE_CARD :RED_SCALE,
-                         :CLEAR_BELL :CLEAR_BELL,
-                         :SQUIRTBOTTLE :SQUIRTBOTTLE,
-                         :HM_WHIRLPOOL :MACHINE_PART,
-                         :RED_SCALE :BLUE_CARD,
-                         :HM_WATERFALL :SILVER_WING,
-                         :SECRETPOTION :COIN_CASE,
-                         :BASEMENT_KEY :ITEMFINDER,
-                         :MACHINE_PART :HM_FLY,
-                         :MYSTERY_EGG :BICYCLE,
-                         :S_S_TICKET :GOOD_ROD,
-                         :PASS :SECRETPOTION,
-                         :HM_CUT :MYSTERY_EGG,
-                         :HM_FLY :HM_WHIRLPOOL,
-                         :HM_STRENGTH :CARD_KEY,
-                         :OLD_ROD :PASS,
-                         :BICYCLE :HM_WATERFALL,
-                         :HM_SURF :OLD_ROD,
-                         :SUPER_ROD :SUPER_ROD},
-            :id "1359243304"}
-           (-> (generate-random {:early-bicycle? true
-                                 :rng (new java.util.Random 1)})
+    (is (= {:item-swaps {:HM_FLASH :BICYCLE,
+                         :SILVER_WING :COIN_CASE,
+                         :LOST_ITEM :MACHINE_PART,
+                         :ITEMFINDER :S_S_TICKET,
+                         :GOOD_ROD :SECRETPOTION,
+                         :CARD_KEY :HM_WATERFALL,
+                         :COIN_CASE :SUPER_ROD,
+                         :BLUE_CARD :SQUIRTBOTTLE,
+                         :CLEAR_BELL :HM_CUT,
+                         :SQUIRTBOTTLE :HM_SURF,
+                         :HM_WHIRLPOOL :OLD_ROD,
+                         :RED_SCALE :HM_STRENGTH,
+                         :HM_WATERFALL :BLUE_CARD,
+                         :SECRETPOTION :GOOD_ROD,
+                         :BASEMENT_KEY :HM_WHIRLPOOL,
+                         :MACHINE_PART :BASEMENT_KEY,
+                         :MYSTERY_EGG :LOST_ITEM,
+                         :S_S_TICKET :HM_FLY,
+                         :PASS :PASS,
+                         :HM_CUT :RED_SCALE,
+                         :HM_FLY :SILVER_WING,
+                         :HM_STRENGTH :MYSTERY_EGG,
+                         :OLD_ROD :HM_FLASH,
+                         :BICYCLE :ITEMFINDER,
+                         :HM_SURF :CARD_KEY,
+                         :SUPER_ROD :CLEAR_BELL},
+            :id "2092024379"}
+           (-> (generate-random {:swaps-options {:early-bicycle? true
+                                                 :rng (new java.util.Random 1)}})
                :seed
                (select-keys [:item-swaps :id])))))
 
@@ -73,8 +73,8 @@
                          :HM_SURF :RED_SCALE,
                          :SUPER_ROD :CARD_KEY},
             :id "155629808"}
-           (-> (generate-random {:no-early-super-rod? true
-                                 :rng (new java.util.Random 1)})
+           (-> (generate-random {:swaps-options {:no-early-super-rod? true
+                                                 :rng (new java.util.Random 1)}})
                :seed
                (select-keys [:item-swaps :id])))))
 
@@ -95,8 +95,8 @@
                           :BOULDERBADGE :PLAINBADGE,
                           :CASCADEBADGE :MARSHBADGE,
                           :GLACIERBADGE :THUNDERBADGE}}
-           (-> (generate-random {:randomize-badges? true
-                                 :rng (new java.util.Random 1)})
+           (-> (generate-random {:swaps-options {:randomize-badges? true
+                                                 :rng (new java.util.Random 1)}})
                :seed
                (select-keys [:badge-swaps])))))
 
@@ -118,6 +118,6 @@
              :BOULDERBADGE :BOULDERBADGE,
              :CASCADEBADGE :CASCADEBADGE,
              :GLACIERBADGE :GLACIERBADGE}}
-           (-> (generate-random {})
+           (-> (generate-random {:swaps-options {:randomize-badges? false}})
                :seed
                (select-keys [:badge-swaps]))))))

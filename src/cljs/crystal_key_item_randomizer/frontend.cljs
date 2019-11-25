@@ -14,6 +14,7 @@
 (def early-bicycle? (r/atom true))
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
+(def endgame-condition (r/atom "defeat-elite-4"))
 
 (def wildcard "*")
 
@@ -98,9 +99,10 @@
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))
-        body {:options {:early-bicycle? @early-bicycle?
-                        :no-early-super-rod? @no-early-super-rod?
-                        :randomize-badges? @randomize-badges?}}]
+        body {:options {:endgame-condition @endgame-condition
+                        :swaps-options {:early-bicycle? @early-bicycle?
+                                        :no-early-super-rod? @no-early-super-rod?
+                                        :randomize-badges? @randomize-badges?}}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
@@ -142,6 +144,10 @@
 (defn set-checkbox-value-on-atom [atom]
   (fn [event]
     (reset! atom (-> event .-target .-checked))))
+
+(defn set-value-on-atom [atom]
+  (fn [event]
+    (reset! atom (-> event .-target .-value))))
 
 (defn error-display []
   (when-let [error @error]
@@ -193,7 +199,14 @@
     [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
     [:input {:id "randomize-badges" :type "checkbox"
              :on-change (set-checkbox-value-on-atom randomize-badges?)
-             :checked @randomize-badges?}]]])
+             :checked @randomize-badges?}]]
+   [:p
+    [:label {:for "endgame-condition"} "Endgame condition"]
+    [:select {:id "endgame-condition"
+              :on-change (set-value-on-atom endgame-condition)
+              :value @endgame-condition}
+     [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
+     [:option {:value "defeat-red"} "Defeat Red"]]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
