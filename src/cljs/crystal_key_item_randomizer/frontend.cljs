@@ -99,9 +99,11 @@
                                       .-target
                                       .-result))
         body {:options {:endgame-condition @endgame-condition
-                        :swaps-options {:early-bicycle? @early-bicycle?
-                                        :no-early-super-rod? @no-early-super-rod?
-                                        :randomize-badges? @randomize-badges?}}}]
+                        :swaps-options (if @seed-id
+                                         {:randomize-badges? @randomize-badges?}
+                                         {:early-bicycle? @early-bicycle?
+                                          :no-early-super-rod? @no-early-super-rod?
+                                          :randomize-badges? @randomize-badges?})}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
