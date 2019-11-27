@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.text-encoding)
 
+;; TODO: just define these tables in a sane format like EDN
 (def hex->token-jp
   (let [encoding-table-lines (-> "resources/gameboy_jap.tbl"
                                  slurp
