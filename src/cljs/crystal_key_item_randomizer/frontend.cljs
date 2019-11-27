@@ -71,11 +71,11 @@
 
 (defn apply-patch [rom-bytes {{old-values :old new-values :new} :integer_values
                               {begin-addr :begin end-addr :end} :address_range
-                              name :name
+                              label :label
                               :as patch}]
   (let [address-range (range begin-addr end-addr)]
     (if (not= (count address-range) (count old-values) (count new-values))
-      (throw (str "Mismatch between address range, old values and new values for \"" (patch :name) "\"."))
+      (throw (str "Mismatch between address range, old values and new values for \"" label "\"."))
       (let [address-values (map (fn [address old-value new-value]
                                   {:address address :old-value old-value :new-value new-value})
                                 address-range
