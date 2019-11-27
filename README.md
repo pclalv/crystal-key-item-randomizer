@@ -34,6 +34,8 @@ in priority order:
   - let people know that you can get to E4 via Viridian merely by
     reaching viridian
 - see if there's an easy and general way to improve trainer AI  
+- implement new trainer card page to view kanto badges
+- make an item and badge tracker
 
 ### logic
 
