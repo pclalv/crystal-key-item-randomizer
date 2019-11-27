@@ -33,7 +33,7 @@
                                                                   (if (= (name (if speedchoice?
                                                                                  UNDERGROUND-ITEM-BALL-SPEEDCHOICE
                                                                                  UNDERGROUND-ITEM-BALL))
-                                                                         (patch "name"))
+                                                                         (patch "label"))
                                                                     UNDERGROUND-ITEM-BALL
                                                                     :rest))))
         patch (first patch)
