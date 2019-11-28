@@ -53,6 +53,8 @@ in priority order:
   - players should probably not switch the order of 3. and 4., but
     what happens in that case anyway?
 - option to not have to do Rock Tunnel without Flash
+- investigate issues around obtaining badges and not being able to
+  fight gym leaders
 
 ### binary patching
 
