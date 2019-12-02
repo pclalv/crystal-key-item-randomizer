@@ -535,5 +535,101 @@
         },
         "label": "RadioTower1F_MapEventHeader.ckir_BEFORE_person_event_SPRITE_COOLTRAINER_F",
         "description": "Permit player to get Radio Card even during the Radio Tower takeover"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  35, 0 ],
+            "new": [ 49, 197, 4 ]
+        },
+        "address_range": {
+            "end": 1714281,
+            "begin": 1714278
+        },
+        "label": "BrockScript_0x1a2864.ckir_BEFORE_checkflag_ENGINE_BOULDERBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  36, 0 ],
+            "new": [ 49, 198, 4 ]
+        },
+        "address_range": {
+            "end": 1606711,
+            "begin": 1606708
+        },
+        "label": "MistyScript_0x188432.ckir_BEFORE_checkflag_ENGINE_CASCADEBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  37, 0 ],
+            "new": [ 49, 199, 4 ]
+        },
+        "address_range": {
+            "end": 1646770,
+            "begin": 1646767
+        },
+        "label": "SurgeScript_0x1920a5.ckir_BEFORE_checkflag_ENGINE_THUNDERBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  38, 0 ],
+            "new": [ 49, 200, 4 ]
+        },
+        "address_range": {
+            "end": 470190,
+            "begin": 470187
+        },
+        "label": "ErikaScript_0x72a6a.ckir_BEFORE_checkflag_ENGINE_RAINBOWBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  39, 0 ],
+            "new": [ 49, 201, 4 ]
+        },
+        "address_range": {
+            "end": 1662930,
+            "begin": 1662927
+        },
+        "label": "JanineScript_0x195db9.ckir_BEFORE_checkflag_ENGINE_SOULBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  40, 0 ],
+            "new": [ 49, 202, 4 ]
+        },
+        "address_range": {
+            "end": 1612871,
+            "begin": 1612868
+        },
+        "label": "SabrinaScript_0x189c2e.ckir_BEFORE_checkflag_ENGINE_MARSHBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  41, 0 ],
+            "new": [ 49, 203, 4 ]
+        },
+        "address_range": {
+            "end": 1750272,
+            "begin": 1750269
+        },
+        "label": "BlaineScript_0x1ab4fb.ckir_BEFORE_checkflag_ENGINE_VOLCANOBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+    },
+    {
+        "integer_values": {
+            "old": [ 52,  42, 0 ],
+            "new": [ 49, 204, 4 ]
+        },
+        "address_range": {
+            "end": 633387,
+            "begin": 633384
+        },
+        "label": "BlueScript_0x9aa26.ckir_BEFORE_checkflag_ENGINE_EARTHBADGE",
+        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
     }
 ]
