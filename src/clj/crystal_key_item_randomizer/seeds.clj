@@ -57,7 +57,9 @@
                                          {:endgame-condition :defeat-elite-4})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
-                   (assoc :patches (patches/generate item-swaps {:speedchoice? true}))
+                   (assoc :patches (patches/generate {:item-swaps item-swaps
+                                                      :badge-swaps badge-swaps}
+                                                     {:speedchoice? true}))
                    (assoc :id (str seed-id)))
          :iterations iterations}
         (recur (inc iterations))))))

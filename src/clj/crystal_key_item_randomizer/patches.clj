@@ -43,9 +43,9 @@
                                 (item-ball card-key-replacement {:speedchoice? speedchoice?}))]
     (conj rest updated-patch)))
 
-(defn generate [swaps {:keys [speedchoice?]}]
+(defn generate [{:keys [item-swaps badge-swaps]} {:keys [speedchoice?]}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
     (-> patches
-        (replace-underground-warehouse-ultra-ball-with-key-item swaps {:speedchoice? speedchoice?}))))
+        (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?}))))
