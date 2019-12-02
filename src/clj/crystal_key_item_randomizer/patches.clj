@@ -7,7 +7,8 @@
 (def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 
 (def vanilla-patches
-  "Contains data that the frontend can use to modify the ROM file with changes beyond the usual key item swaps."
+  "Contains data that the frontend can use to modify the ROM file with
+  changes beyond the usual key item swaps."
   (->> "randomizer-patches-diff.json"
        io/resource
        slurp
