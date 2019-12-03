@@ -1,5 +1,23 @@
 (ns crystal-key-item-randomizer.badges)
 
+(def ordering {:ZEPHYRBADGE {:order 0}
+               :HIVEBADGE {:order 1}
+               :PLAINBADGE {:order 2}
+               :FOGBADGE {:order 3}
+               :STORMBADGE {:order 4}
+               :MINERALBADGE {:order 5}
+               :GLACIERBADGE {:order 6}
+               :RISINGBADGE {:order 7}
+
+               :BOULDERBADGE {:order 8}
+               :CASCADEBADGE {:order 9}
+               :THUNDERBADGE {:order 10}
+               :SOULBADGE {:order 11}
+               :RAINBOWBADGE {:order 12}
+               :MARSHBADGE {:order 13}
+               :VOLCANOBADGE {:order 14}
+               :EARTHBADGE {:order 15}})
+
 (def speedchoice-johto {:ZEPHYRBADGE {:address 426992 :value 27}
                         :HIVEBADGE {:address 1633200 :value 28}
                         :PLAINBADGE {:address 344157 :value 29}

@@ -1,5 +1,22 @@
 (ns crystal-key-item-randomizer.key-items)
 
+(def ordering
+  "Looks like this: {:MYSTERY_EGG {:order 0} ...}"
+  (->> [:MYSTERY_EGG :HM_FLASH :OLD_ROD :HM_CUT
+        :COIN_CASE :BLUE_CARD :BICYCLE :SQUIRTBOTTLE
+        :GOOD_ROD :ITEMFINDER :HM_SURF :HM_STRENGTH
+        :SECRETPOTION :HM_FLY
+        :RED_SCALE :HM_WHIRLPOOL
+        :BASEMENT_KEY :CARD_KEY :CLEAR_BELL
+        :HM_WATERFALL
+        :S_S_TICKET
+        :SUPER_ROD
+        :MACHINE_PART :LOST_ITEM :PASS
+        :SILVER_WING]
+       (map-indexed (fn [idx key-item]
+                      [key-item {:order idx}]))
+       (into {})))
+
 (def vanilla {:BICYCLE {:address 345957
                         :value 7}
               :SQUIRTBOTTLE {:address 349058

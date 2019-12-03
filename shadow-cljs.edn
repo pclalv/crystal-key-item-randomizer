@@ -16,4 +16,10 @@
   {:target :browser
    :modules {:main {:entries [crystal-key-item-randomizer.frontend]}}
    :output-dir "public/assets/js"
+   :asset-path "/assets/js"}
+
+  :tracker
+  {:target :browser
+   :modules {:tracker {:entries [crystal-key-item-randomizer.tracker]}}
+   :output-dir "public/assets/js"
    :asset-path "/assets/js"}}}
