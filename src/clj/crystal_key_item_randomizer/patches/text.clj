@@ -15,6 +15,14 @@
                              :HM_WATERFALL "HM07"
                              :S_S_TICKET "S.S.TICKET"})
 
+(defn key-item->in-game-name [key-item]
+  (let [in-game-name (key-item-in-game-names key-item)]
+    (if in-game-name
+      in-game-name
+      (-> key-item
+          name
+          (clojure.string/replace "_" " ")))))
+
 (def giveitem-key-item-text-locations
   [{:key-item :MYSTERY_EGG
     :label "ckir_BEFORE_giveitem_text_MrPokemonsHouse_GotEggText",
@@ -59,7 +67,7 @@
                              :as giveitem-key-item-text-locations}]
   (let [orig-num-bytes (count old-integer-values)
         new-key-item (let [new-item (swaps key-item)
-                           in-game-name (get key-item-in-game-names new-item)]
+                           in-game-name (key-item->in-game-name new-item)]
                        (if in-game-name
                          in-game-name
                          (name key-item)))
@@ -69,13 +77,17 @@
         ;; then pad the rest with 0s.
         new-integer-values (->> new-text
                                 gsc-encode-with-terminator
-                                (pad orig-num-bytes 0))]
+                                (pad orig-num-bytes 0)
+                                vec)]
     (-> giveitem-key-item-text-locations
         (dissoc :name :integer_values)
         (assoc :integer_values {:old old-integer-values
                                 :new new-integer-values}))))
 
 (defn fix-giveitems [patches swaps]
-  (let [giveitem-patches (map #(giveitem-patch swaps %)
-                              giveitem-key-item-text-locations)]
-    (conj patches giveitem-patches)))
+  (reduce (fn [patches giveitem-key-item-text-location]
+            (conj patches
+                  (giveitem-patch swaps
+                                  giveitem-key-item-text-location)))
+          patches
+          giveitem-key-item-text-locations))
