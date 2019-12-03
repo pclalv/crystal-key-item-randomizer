@@ -35,7 +35,6 @@ in priority order:
     reaching viridian
 - see if there's an easy and general way to improve trainer AI  
 - implement new trainer card page to view kanto badges
-- make an item and badge tracker
 
 ### logic
 
@@ -44,7 +43,6 @@ in priority order:
   allows the player to wake the snorlax and progress to pewter from
   vermilion.
 - randomize which non-required item the copycat is looking for.
-- randomize badges
 - find out what happens if the player:
   1. trigger the Radio Tower takeover
   2. then trigger the Lake of Rage/Mahogany events
@@ -53,8 +51,6 @@ in priority order:
   - players should probably not switch the order of 3. and 4., but
     what happens in that case anyway?
 - option to not have to do Rock Tunnel without Flash
-- investigate issues around obtaining badges and not being able to
-  fight gym leaders
 
 ### binary patching
 
@@ -62,17 +58,6 @@ in priority order:
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
-- fix `giveitem` key items so that the player sees item is actually
-  being given.
-  - plan: per Dabomstew on discord, create strings that will be
-    guaranteed to be less than or equal to the existing text, in terms
-    of length, and terminate them appropriately.
-  - items:
-	- `SECRETPOTION`
-    - `BICYCLE`
-    - `RED_SCALE`
-    - `MYSTERY_EGG`
-    - `LOST_ITEM`
 - fix all badge text
 - **Randomizer pokegear cards among items**. this is pretty
   straightforward, because `giveitem`, `verbosegiveitem` and `setflag`
