@@ -1,4 +1,5 @@
-(ns crystal-key-item-randomizer.text-encoding)
+(ns crystal-key-item-randomizer.text-encoding
+  (:require [clojure.set :as cset]))
 
 ;; TODO: just define these tables in a sane format like EDN
 (def hex->token-jp
@@ -22,7 +23,7 @@
          (into {}))))
 
 (def hex->token (merge hex->token-jp hex->token-eng))
-(def token->hex (clojure.set/map-invert hex->token))
+(def token->hex (cset/map-invert hex->token))
 
 (def longest-token-length
   (->> token->hex
@@ -69,4 +70,7 @@
                 encoded
                 (dec assumed-token-length)))))))
 
-
+(defn gsc-encode-with-terminator [text]
+  (-> text
+      gsc-encode
+      (conj string-terminator)))

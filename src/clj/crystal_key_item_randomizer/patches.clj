@@ -2,7 +2,8 @@
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [crystal-key-item-randomizer.key-items :as key-items]
-            [crystal-key-item-randomizer.badges :as badges]))
+            [crystal-key-item-randomizer.badges :as badges])
+  (:use [crystal-key-item-randomizer.patches.text :only [fix-giveitems]]))        
 
 (def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 (def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
@@ -48,6 +49,10 @@
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
+;;;;;;;;;;;;;;;;;
+;; badge stuff ;;
+;;;;;;;;;;;;;;;;;
+
 (defn replace-underground-warehouse-ultra-ball-with-key-item [patches {card-key-replacement :CARD_KEY} {:keys [speedchoice?]}]
   (let [patch (assoc-in underground-warehouse-ultra-ball
                         [:integer_values :new]
@@ -87,4 +92,5 @@
     (-> patches
         (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
         (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
-        (replace-checkflag-for-badge :RISINGBADGE badge-swaps))))
+        (replace-checkflag-for-badge :RISINGBADGE badge-swaps)
+        (fix-giveitems swaps))))
