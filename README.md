@@ -30,9 +30,6 @@ in priority order:
   - seems okay, but it forces the player to start the Radio Tower to
     get Surf from the Ice Path
 - progressive fishing rods
-- update index
-  - let people know that you can get to E4 via Viridian merely by
-    reaching viridian
 - see if there's an easy and general way to improve trainer AI  
 - implement new trainer card page to view kanto badges
 
