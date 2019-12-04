@@ -1,6 +1,6 @@
-(ns crystal-key-item-randomizer.patches.badge-text-test
+(ns crystal-key-item-randomizer.patches.text.received-badge-test
   (:require [clojure.test :refer :all]
-            [crystal-key-item-randomizer.patches.badge-text :refer :all]))
+            [crystal-key-item-randomizer.patches.text.received-badge :refer :all]))
 
 (deftest fix-received-badge-texts-test
   (testing "it"

@@ -1,4 +1,4 @@
-(ns crystal-key-item-randomizer.patches.badge-text
+(ns crystal-key-item-randomizer.patches.text.received-badge
   (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]))
 
 (def received-badge-replacement-text-template

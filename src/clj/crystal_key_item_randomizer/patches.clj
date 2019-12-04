@@ -4,7 +4,7 @@
             [crystal-key-item-randomizer.key-items :as key-items])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
-        [crystal-key-item-randomizer.patches.badge-text :only [fix-received-badge-texts]]))
+        [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
 
 (def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 (def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
