@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.patches.text.received-badge
-  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]))
+  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]
+        [crystal-key-item-randomizer.patches.text :only [pad]]))
 
 (def received-badge-replacement-text-template
   "This replacement text is guaranteed to be shorter than any original
@@ -88,9 +89,6 @@
     :address_range {:begin 633891 :end 633915}
     :integer_values [0 82 127 177 164 162 164 168 181 164 163 79 132
                      128 145 147 135 129 128 131 134 132 232 87]}])
-
-(defn pad [n val coll]
-  (take n (concat coll (repeat val))))
 
 (defn received-badge-patch [swaps {badge :badge
                                    old-integer-values :integer_values

@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.patches.text.giveitem
-  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]))
+  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]
+        [crystal-key-item-randomizer.patches.text :only [pad]]))
 
 (def replacement-text-template
   "For the giveitem key items, this replacement text is guaranteed to be
@@ -58,9 +59,6 @@
                      173 164 163 127 160 79 145
                      132 131 127 146 130 128 139
                      132 232 87]}])
-
-(defn pad [n val coll]
-  (take n (concat coll (repeat val))))
 
 (defn giveitem-patch [swaps {key-item :key-item
                              old-integer-values :integer_values
