@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [crystal-key-item-randomizer.key-items :as key-items])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
-        [crystal-key-item-randomizer.patches.text :only [fix-giveitems]]))
+        [crystal-key-item-randomizer.patches.text :only [fix-giveitems]]
+        [crystal-key-item-randomizer.patches.badge-text :only [fix-received-badge-texts]]))
 
 (def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
 (def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
@@ -51,4 +52,5 @@
         (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
         (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
         (replace-checkflag-for-badge :RISINGBADGE badge-swaps)
-        (fix-giveitems item-swaps))))
+        (fix-giveitems item-swaps)
+        (fix-received-badge-texts badge-swaps))))
