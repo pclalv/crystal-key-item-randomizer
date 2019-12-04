@@ -1,6 +1,6 @@
-(ns crystal-key-item-randomizer.patches.text-test
+(ns crystal-key-item-randomizer.patches.text.giveitem-test
   (:require [clojure.test :refer :all]
-            [crystal-key-item-randomizer.patches.text :refer :all])
+            [crystal-key-item-randomizer.patches.text.giveitem :refer :all])
   (:use [crystal-key-item-randomizer.seeds :only [deterministic-shuffle]]))
 
 (deftest fix-giveitems-test
