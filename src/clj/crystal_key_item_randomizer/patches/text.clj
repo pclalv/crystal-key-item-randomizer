@@ -64,7 +64,7 @@
 
 (defn giveitem-patch [swaps {key-item :key-item
                              old-integer-values :integer_values
-                             :as giveitem-key-item-text-locations}]
+                             :as giveitem-key-item-text-location}]
   (let [orig-num-bytes (count old-integer-values)
         new-key-item (let [new-item (swaps key-item)
                            in-game-name (key-item->in-game-name new-item)]
@@ -79,7 +79,7 @@
                                 gsc-encode-with-terminator
                                 (pad orig-num-bytes 0)
                                 vec)]
-    (-> giveitem-key-item-text-locations
+    (-> giveitem-key-item-text-location
         (dissoc :name :integer_values)
         (assoc :integer_values {:old old-integer-values
                                 :new new-integer-values}))))
