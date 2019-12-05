@@ -1,7 +1,8 @@
 (ns crystal-key-item-randomizer.patches
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
-            [crystal-key-item-randomizer.key-items :as key-items])
+            [crystal-key-item-randomizer.key-items :as key-items]
+            [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
@@ -53,4 +54,6 @@
         (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
         (replace-checkflag-for-badge :RISINGBADGE badge-swaps)
         (fix-giveitems item-swaps)
-        (fix-received-badge-texts badge-swaps))))
+        (fix-received-badge-texts badge-swaps)
+        (conj post-defeat/pre-badge-blurb-patches)
+        (conj post-defeat/post-badge-speech-patches))))
