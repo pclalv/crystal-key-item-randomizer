@@ -4,7 +4,7 @@
 (def replacement-text-template
   "For the giveitem key items, this replacement text is guaranteed to be
   shorter than any original game text."
-  "It's\\n{{key-item}}!\\e")
+  "<START>It's\\n{{key-item}}!\\e")
 
 (def key-item-in-game-names {:HM_CUT "HM01"
                              :HM_FLY "HM02"
@@ -74,14 +74,9 @@
         ;; then pad the rest with 0s.
         new-integer-values (gsc-encode-to-original-length new-text orig-num-bytes)]
     (-> giveitem-key-item-text-location
-        (dissoc :name :integer_values)
         (assoc :integer_values {:old old-integer-values
                                 :new new-integer-values}))))
 
-(defn fix-giveitems [patches swaps]
-  (reduce (fn [patches giveitem-key-item-text-location]
-            (conj patches
-                  (giveitem-patch swaps
-                                  giveitem-key-item-text-location)))
-          patches
-          giveitem-key-item-text-locations))
+(defn fix-giveitems [swaps]
+  (mapv #(giveitem-patch swaps %)
+        giveitem-key-item-text-locations))

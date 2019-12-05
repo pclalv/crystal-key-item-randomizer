@@ -52,7 +52,7 @@
         (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
               (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
               (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
-        (fix-giveitems item-swaps)
-        (fix-received-badge-texts badge-swaps)
-        (conj post-defeat/pre-badge-blurb-patches)
-        (conj post-defeat/post-badge-speech-patches))))
+        (concat (fix-giveitems item-swaps)
+                (fix-received-badge-texts badge-swaps)
+                post-defeat/pre-badge-blurb-patches
+                post-defeat/post-badge-speech-patches))))

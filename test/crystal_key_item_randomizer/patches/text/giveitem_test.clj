@@ -5,7 +5,7 @@
 
 (deftest fix-giveitems-test
   (testing "it"
-    (is (= [{:key-item :MYSTERY_EGG,          
+    (is (= [{:key-item :MYSTERY_EGG,
              :label "ckir_BEFORE_giveitem_text_MrPokemonsHouse_GotEggText",
              :address_range {:begin 1667591, :end 1667616},
              :integer_values {:old [0 82 127 177 164 162 164 168 181 164 163 79 140 152 146 147 132 145 152 127 132 134 134 232 87]
@@ -30,5 +30,5 @@
              :address_range {:begin 460315, :end 460340},
              :integer_values {:old [0 82 127 174 161 179 160 168 173 164 163 127 160 79 145 132 131 127 146 130 128 139 132 232 87]
                               :new [0 136 179 212 79 145 132 131 127 146 130 128 139 132 231 87 80 0 0 0 0 0 0 0 0]}}]
-           (do (fix-giveitems [] (let [giveitems (map :key-item giveitem-key-item-text-locations)]
-                                   (zipmap giveitems giveitems))))))))
+           (fix-giveitems (let [giveitems (map :key-item giveitem-key-item-text-locations)]
+                            (zipmap giveitems giveitems)))))))

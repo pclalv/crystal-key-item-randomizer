@@ -105,10 +105,5 @@
                                                          :new new-integer-values})))
         
 
-(defn fix-received-badge-texts [patches swaps]
-  (reduce (fn [patches received-badge-text-location]
-            (conj patches
-                  (received-badge-patch swaps
-                                        received-badge-text-location)))
-          patches
-          received-badge-text-locations))
+(defn fix-received-badge-texts [swaps]
+  (map #(received-badge-patch swaps %) received-badge-text-locations))

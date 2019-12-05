@@ -129,5 +129,5 @@
                                     87],
                               :new [0 136 179 212 79 132 128 145 147 135 129 128
                                     131 134 132 232 87 80 0 0 0 0 0 0]}}]
-           (fix-received-badge-texts [] (let [badges (map :badge received-badge-text-locations)]
-                                          (zipmap badges badges)))))))
+           (fix-received-badge-texts (let [badges (map :badge received-badge-text-locations)]
+                                       (zipmap badges badges)))))))
