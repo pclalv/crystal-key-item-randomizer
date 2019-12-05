@@ -10,7 +10,7 @@
                             :end 1658409}
             :integer_values {:old [52 34 0]
                              :new [52 27 0]}}
-           (first (replace-checkflag-for-badge [] :RISINGBADGE {:RISINGBADGE :ZEPHYRBADGE})))))
+           (replace-checkflag-for-badge :RISINGBADGE {:RISINGBADGE :ZEPHYRBADGE}))))
 
   (testing "PLAINBADGE"
     (is (= {:label "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE",
@@ -19,4 +19,4 @@
                             :end 344141}
             :integer_values {:old [52 29 0]
                              :new [52 27 0]}}
-           (first (replace-checkflag-for-badge [] :PLAINBADGE {:PLAINBADGE :ZEPHYRBADGE}))))))
+           (replace-checkflag-for-badge :PLAINBADGE {:PLAINBADGE :ZEPHYRBADGE})))))

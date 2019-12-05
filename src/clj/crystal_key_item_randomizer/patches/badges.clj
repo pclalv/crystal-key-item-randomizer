@@ -32,9 +32,8 @@
   to the fact that the vanilla game does not immediately grant either
   badge. Instead, we need to acutally check if the player has received
   the replacement badge."
-  [patches original-badge badge-swaps]
-  (let [replacement-badge (badge-swaps original-badge)
-        check-replacement-badge-patch (-> standalone-checkflag-badges
-                                          original-badge
-                                          (assoc-in [:integer_values :new] (checkflag replacement-badge)))]
-    (conj patches check-replacement-badge-patch)))
+  [original-badge badge-swaps]
+  (let [replacement-badge (badge-swaps original-badge)]
+    (-> standalone-checkflag-badges
+        original-badge
+        (assoc-in [:integer_values :new] (checkflag replacement-badge)))))

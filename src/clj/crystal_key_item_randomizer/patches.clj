@@ -39,20 +39,19 @@
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
-(defn replace-underground-warehouse-ultra-ball-with-key-item [patches {card-key-replacement :CARD_KEY} {:keys [speedchoice?]}]
-  (let [patch (assoc-in underground-warehouse-ultra-ball
+(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [speedchoice?]}]
+  (assoc-in underground-warehouse-ultra-ball
                         [:integer_values :new]
-                        (item-ball card-key-replacement {:speedchoice? speedchoice?}))]
-    (conj patches patch)))
+                        (item-ball card-key-replacement {:speedchoice? speedchoice?})))
 
 (defn generate [{:keys [item-swaps badge-swaps]} {:keys [speedchoice?]}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
     (-> patches
-        (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
-        (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
-        (replace-checkflag-for-badge :RISINGBADGE badge-swaps)
+        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
+              (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
+              (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
         (fix-giveitems item-swaps)
         (fix-received-badge-texts badge-swaps)
         (conj post-defeat/pre-badge-blurb-patches)
