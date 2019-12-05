@@ -32,7 +32,9 @@
        (apply max)))
 
 (def string-printed-text-end 87)
-(def string-terminator 80)
+(def string-terminator
+  "Represented by '@' in the disassembly; see charmap.asm."
+  80)
 
 (defn gsc-decode [hexs]
   (map hex->token hexs))
@@ -40,11 +42,7 @@
 (defn gsc-encode
   ([text]
    (gsc-encode text
-               ;; encoded string have an initial zero byte.
-               [0]))
-  ([text encoded]
-   (gsc-encode text
-               encoded
+               []
                ;; start by assuming that the token (one or more
                ;; characters) at the beginning of the string is the
                ;; maximum length.
@@ -70,7 +68,17 @@
                 encoded
                 (dec assumed-token-length)))))))
 
-(defn gsc-encode-with-terminator [text]
-  (-> text
-      gsc-encode
-      (conj string-terminator)))
+(defn pad [coll n val]
+  (vec (take n (concat coll (repeat val)))))
+
+(defn gsc-encode-to-original-length [text original-text-length]
+  (let [encoded (gsc-encode text)]
+    (cond
+      (= original-text-length (count encoded)) encoded
+      (> original-text-length (count encoded)) (-> encoded
+                                                   (conj string-terminator)
+                                                   (pad original-text-length 0))
+      ;; TODO: improve error handling...
+      (< original-text-length (count encoded)) (throw (Exception. (str "gsc-encode-to-original-length: Encoded text was longer than original text:"
+                                                                       "text: " text
+                                                                       "original-text-length: " original-text-length))))))

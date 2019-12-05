@@ -1,6 +1,5 @@
 (ns crystal-key-item-randomizer.patches.text.received-badge
-  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-with-terminator]]
-        [crystal-key-item-randomizer.patches.text :only [pad]]))
+  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-to-original-length]]))
 
 (def received-badge-replacement-text-template
   "This replacement text is guaranteed to be shorter than any original
@@ -101,10 +100,7 @@
         ;; all new texts are shorter than their corresponding original
         ;; text, so we'll unconditionally terminate the new text, and
         ;; then pad the rest with 0s.
-        new-integer-values (->> new-text
-                                gsc-encode-with-terminator
-                                (pad orig-num-bytes 0)
-                                vec)]
+        new-integer-values (gsc-encode-to-original-length new-text orig-num-bytes)]
     (assoc received-badge-text-location :integer_values {:old old-integer-values
                                                          :new new-integer-values})))
         
