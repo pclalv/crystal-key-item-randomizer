@@ -10,7 +10,7 @@
 
 (def mr-psychic-text-string
   "This choice of in-game text was arbitrary."
-  "TM29 is PSYCHIC.\\pIt may lower the\\ntarget's SPCL.DEF.\\e")
+  "<START>TM29 is PSYCHIC.\\pIt may lower the\\ntarget's SPCL.DEF.\\e")
 
 (deftest gsc-decode-test
   (testing "it decodes the Mr. Psychic text"
@@ -23,4 +23,3 @@
   (testing "it encodes the Mr. Psychic text"
     (is (= mr-psychic-text-bytes
            (gsc-encode mr-psychic-text-string)))))
-           

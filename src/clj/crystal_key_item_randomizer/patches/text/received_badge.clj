@@ -4,7 +4,7 @@
 (def received-badge-replacement-text-template
   "This replacement text is guaranteed to be shorter than any original
   game text."
-  "It's\\n{{badge}}.\\e")
+  "<START>It's\\n{{badge}}.\\e")
 
 (def received-badge-text-locations
   [{:badge :ZEPHYRBADGE
