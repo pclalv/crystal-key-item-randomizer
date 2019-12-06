@@ -54,7 +54,6 @@ in priority order:
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
-- fix all badge text
 - **Randomizer pokegear cards among items**. this is pretty
   straightforward, because `giveitem`, `verbosegiveitem` and `setflag`
   (pokegear cards are flags) are all three-byte instructions. the
