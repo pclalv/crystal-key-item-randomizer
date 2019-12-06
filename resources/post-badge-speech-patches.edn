@@ -167,8 +167,8 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0]},
   :char_length 131,
-  :old_text "BROCK: <PLAY_G>,\\nthanks. I enjoyed\\pbattling you, even\\nthough I am a bit\\lupset.\\pThat BOULDERBADGE\\nwill make your\\p<POKé>MON even more\\npowerful.\\e",
-  :new_text "<START>Here--take this\\ntoo.\\e"}
+  :old_text "<START>BROCK: <PLAY_G>,\\nthanks. I enjoyed\\pbattling you, even\\nthough I am a bit\\lupset.\\pThat BOULDERBADGE\\nwill make your\\p<POKé>MON even more\\npowerful.\\e",
+  :new_text "<START>BROCK: <PLAY_G>,\\nthanks. I enjoyed\\pbattling you, even\\nthough I am a bit\\lupset.\\pThat new badge\\nwill make your\\p<POKé>MON even more\\npowerful.\\e"}
  {:label "UnknownText_0x192291.ckir_BEFORE_text_THUNDERBADGE_unimportant",
   :address_range {:begin 1647277,
                   :end 1647391},
@@ -186,8 +186,8 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0]},
   :char_length 114,
-  :old_text "SURGE: THUNDER-\\nBADGE increases\\l[POKé]MON's speed. \\pConsider it proof\\nthat you defeated\\pme. You wear it\\nproudly, hear?\\e",
-  :new_text "<START>Here--take this\\ntoo.\\e"}
+  :old_text "<START>SURGE: THUNDER-\\nBADGE increases\\l[POKé]MON's speed. \\pConsider it proof\\nthat you defeated\\pme. You wear it\\nproudly, hear?\\e",
+  :new_text "<START>SURGE: That\\nbadge increases\\l[POKé]MON's speed. \\pConsider it proof\\nthat you defeated\\pme. You wear it\\nproudly, hear?\\e"}
  {:label "UnknownText_0x189ead.ckir_BEFORE_text_MARSHBADGE_unimportant",
   :address_range {:begin 1613525,
                   :end 1613716},
@@ -213,5 +213,5 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0]},
   :char_length 191,
-  :old_text "SABRINA: MARSH-\\nBADGE draws out\\pyour subliminal\\npowers…\\pAlthough I failed\\nto accurately pre-\\ldict your power,\\lthis much I know\\lto be true.\\pYou will become a\\ncelebrated and\\lbeloved CHAMPION!\\e",
-  :new_text "<START>Here--take this\\ntoo.\\e"}]
+  :old_text "<START>SABRINA: MARSH-\\nBADGE draws out\\pyour subliminal\\npowers…\\pAlthough I failed\\nto accurately pre-\\ldict your power,\\lthis much I know\\lto be true.\\pYou will become a\\ncelebrated and\\lbeloved CHAMPION!\\e",
+  :new_text "<START>SABRINA: That\\nbadge draws out\\pyour subliminal\\npowers…\\pAlthough I failed\\nto accurately pre-\\ldict your power,\\lthis much I know\\lto be true.\\pYou will become a\\ncelebrated and\\lbeloved CHAMPION!\\e"}]
