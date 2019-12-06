@@ -16,7 +16,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
   :char_length 128,
-  :old_text "ZEPHYRBADGE\\nraises the attack\\lpower of [POKé]MON.\\pIt also enables\\n[POKé]MON to use\\pFLASH, if they\\nhave it, anytime.\\pHere--take this\\ntoo.\\e",
+  :old_text "<START>ZEPHYRBADGE\\nraises the attack\\lpower of [POKé]MON.\\pIt also enables\\n[POKé]MON to use\\pFLASH, if they\\nhave it, anytime.\\pHere--take this\\ntoo.\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x5428b.ckir_BEFORE_text_PLAINBADGE_unimportant",
   :address_range {:begin 344715,
@@ -36,7 +36,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0]},
   :char_length 119,
-  :old_text "PLAINBADGE lets\\nyour [POKé]MON use\\pSTRENGTH outside\\nof battle.\\pIt also boosts\\nyour [POKé]MON's\\lSPEED.\\pOh, you can have\\nthis too!\\e",
+  :old_text "<START>PLAINBADGE lets\\nyour [POKé]MON use\\pSTRENGTH outside\\nof battle.\\pIt also boosts\\nyour [POKé]MON's\\lSPEED.\\pOh, you can have\\nthis too!\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x9a059.ckir_BEFORE_text_FOGBADGE_unimportant",
   :address_range {:begin 630873,
@@ -58,7 +58,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
   :char_length 147,
-  :old_text "By having FOG-\\nBADGE, [POKé]MON up\\pto L50 will obey\\nyou.\\pAlso, [POKé]MON that\\nknow SURF will be\\pable to use that\\nmove anytime.\\pI want you to have\\nthis too.\\e",
+  :old_text "<START>By having FOG-\\nBADGE, [POKé]MON up\\pto L50 will obey\\nyou.\\pAlso, [POKé]MON that\\nknow SURF will be\\pable to use that\\nmove anytime.\\pI want you to have\\nthis too.\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x9d84d.ckir_BEFORE_text_STORMBADGE_unimportant",
   :address_range {:begin 645200,
@@ -80,7 +80,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0]},
   :char_length 141,
-  :old_text "STORMBADGE makes\\nall [POKé]MON up to\\pL70 obey, even\\ntraded ones.\\pIt also lets your\\n[POKé]MON use FLY\\pwhen you're not in\\na battle.\\pHere, take this\\ntoo!\\e",
+  :old_text "<START>STORMBADGE makes\\nall [POKé]MON up to\\pL70 obey, even\\ntraded ones.\\pIt also lets your\\n[POKé]MON use FLY\\pwhen you're not in\\na battle.\\pHere, take this\\ntoo!\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x9c354.ckir_BEFORE_text_MINERALBADGE_unimportant",
   :address_range {:begin 639828,
@@ -94,7 +94,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0]},
   :char_length 63,
-  :old_text "MINERALBADGE\\nraises [POKé]MON's\\lDEFENSE.\\p…Um… Please take\\nthis too…\\e",
+  :old_text "<START>MINERALBADGE\\nraises [POKé]MON's\\lDEFENSE.\\p…Um… Please take\\nthis too…\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x199d55.ckir_BEFORE_text_GLACIERBADGE_unimportant",
   :address_range {:begin 1678933,
@@ -117,7 +117,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
   :char_length 154,
-  :old_text "That BADGE will\\nraise the SPECIAL\\lstats of [POKé]MON.\\pIt also lets your\\n[POKé]MON use WHIRL-\\lPOOL to get across\\lreal whirlpools.\\pAnd this… This is\\na gift from me!\\e",
+  :old_text "<START>That BADGE will\\nraise the SPECIAL\\lstats of [POKé]MON.\\pIt also lets your\\n[POKé]MON use WHIRL-\\lPOOL to get across\\lreal whirlpools.\\pAnd this… This is\\na gift from me!\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "BlackthornGymClairText_DescribeBadge.ckir_BEFORE_text_RISINGBADGE_unimportant",
   :address_range {:begin 1659569,
@@ -144,7 +144,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
   :char_length 199,
-  :old_text "RISINGBADGE will\\nenable your\\p[POKé]MON to use the\\nmove for climbing\\lwaterfalls.\\pAlso, all [POKé]MON\\nwill recognize you\\pas a trainer and\\nobey your every\\pcommand without\\nquestion.\\pAnd here, have\\nthis junk too.\\e",
+  :old_text "<START>RISINGBADGE will\\nenable your\\p[POKé]MON to use the\\nmove for climbing\\lwaterfalls.\\pAlso, all [POKé]MON\\nwill recognize you\\pas a trainer and\\nobey your every\\pcommand without\\nquestion.\\pAnd here, have\\nthis junk too.\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
 
  ;; fix all of these Kanto dialogs
