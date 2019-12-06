@@ -18,6 +18,40 @@
   :char_length 128,
   :old_text "<START>ZEPHYRBADGE\\nraises the attack\\lpower of <POKé>MON.\\pIt also enables\\n<POKé>MON to use\\pFLASH, if they\\nhave it, anytime.\\pHere--take this\\ntoo.\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
+ {:label "BugsyText_HiveBadgeSpeech.ckir_BEFORE_text_HIVEBADGE_unimportant",
+  :address_range {:end 1633897,
+                  :begin 1633690},
+  :integer_values {:old [0 131 174 127 184 174 180 127 170 173 174 182
+                         127 179 167 164 79 161 164 173 164 165 168
+                         179 178 127 174 165 127 135 136 149 132 227
+                         85 129 128 131 134 132 230 81 136 165 127 184
+                         174 180 127 167 160 181 164 127 168 179 244
+                         79 84 140 142 141 127 180 175 127 179 174 127
+                         139 249 246 81 182 168 171 171 127 174 161
+                         164 184 127 184 174 180 244 79 164 181 164
+                         173 127 179 177 160 163 164 163 127 174 173
+                         164 178 232 81 84 140 142 141 127 179 167 160
+                         179 127 170 173 174 182 79 130 148 147 127
+                         182 168 171 171 127 161 164 127 160 161 171
+                         164 81 179 174 127 180 178 164 127 168 179
+                         127 174 180 179 178 168 163 164 79 174 165
+                         127 161 160 179 179 171 164 127 179 174 174
+                         232 81 135 164 177 164 244 127 136 127 160
+                         171 178 174 127 182 160 173 179 79 184 174
+                         180 127 179 174 127 167 160 181 164 127 179
+                         167 168 178 232 87],
+                   :new [0 135 164 177 164 227 227 179 160 170 164 127
+                         179 167 168 178 79 179 174 174 232 87 80 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
+  :old_text  "<START>Do you know the\\nbenefits of HIVE-\\lBADGE?\\pIf you have it,\\n<POKé>MON up to L30\\pwill obey you,\\neven traded ones.\\p<POKé>MON that know\\nCUT will be able\\pto use it outside\\nof battle too.\\pHere, I also want\\nyou to have this.\\e",
+  :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x5428b.ckir_BEFORE_text_PLAINBADGE_unimportant",
   :address_range {:begin 344715,
                   :end 344834},
