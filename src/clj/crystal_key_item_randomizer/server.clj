@@ -5,9 +5,10 @@
             [crystal-key-item-randomizer.patches :as patches]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [json-body-request]]
-            [ring.middleware.defaults :refer :all])
-  (:use [compojure.route :only [files not-found]]
-        [compojure.core :only [defroutes POST]]))
+            [ring.middleware.defaults :refer :all]
+            [ring.util.response :as resp])
+  (:use [compojure.route :only [resources not-found]]
+        [compojure.core :only [defroutes GET POST]]))
 
 (def dev? (= "dev" (System/getenv "RUNTIME_ENV")))
 
@@ -55,11 +56,11 @@
         (render-seed-or-error seed error)))))
 
 (defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
   (POST "/seed" [] random-seed-handler)
   (POST "/seed/" [] random-seed-handler)
   (POST "/seed/:id" [] seed-handler)
-  (files "")
-  (files "assets")
+  (resources "/")
   (not-found {:error "not found"}))
 
 (defn wrap-logger [handler]
