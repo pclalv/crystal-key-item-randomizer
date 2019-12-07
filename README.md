@@ -1,24 +1,36 @@
 # [crystal-key-item-randomizer](https://crystal-key-item-randomizer.herokuapp.com/)
 
-A Clojure + Clojurescript application for randomizing the key items
+A Clojure + ClojureScript application for randomizing the key items
 (including HMs) in the speedchoice fork of Pokemon Crystal.
 
 ## changes, known issues
 
 See the [homepage](https://crystal-key-item-randomizer.herokuapp.com/).
 
-## development
+## environments
 
 ### dependencies
 
 * [clojure](https://clojure.org)
 * [leiningen](https://leiningen.org)
-* [shadow-cljs](http://shadow-cljs.org/)
+* [shadow-cljs](http://shadow-cljs.org/) (development only)
 
-To run this application locally, run `lein ring server` at the command
-line. At that point, you should be able to see the randomizer home
-page in your browser at `http://localhost:3000`. Note that `lein ring
-server` automatically reloads code.
+### production
+
+1. **Build the uberjar**: `lein with-profile production uberjar`
+1. **Run the uberjar**: `java -cp target/uberjar/crystal-key-item-randomizer.jar clojure.main -m crystal-key-item-randomizer.server`
+
+You should be able to see the randomizer home page in your browser at
+`http://localhost:8080`.
+
+### local development
+
+1. **Compile the ClojureScript with shadow-cljs**
+1. **Run the HTTP server**: `lein ring server`
+
+At that point, you should be able to see the randomizer home page in
+your browser at `http://localhost:3000`. Note that `lein ring server`
+automatically reloads server-side code.
 
 ## to do
 
