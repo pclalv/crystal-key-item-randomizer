@@ -1,9 +1,11 @@
 (ns crystal-key-item-randomizer.text-encoding
-  (:require [clojure.set :as cset]))
+  (:require [clojure.set :as cset]
+            [clojure.java.io :as io]))
 
 ;; TODO: just define these tables in a sane format like EDN
 (def hex->token-jp
-  (let [encoding-table-lines (-> "resources/gameboy_jap.tbl"
+  (let [encoding-table-lines (-> "gameboy_jap.tbl"
+                                 io/resource
                                  slurp
                                  (clojure.string/split #"\n"))]
     (->> encoding-table-lines
@@ -13,7 +15,8 @@
          (into {}))))
 
 (def hex->token-eng
-  (let [encoding-table-lines (-> "resources/gsc_english.tbl"
+  (let [encoding-table-lines (-> "gsc_english.tbl"
+                                 io/resource
                                  slurp
                                  (clojure.string/split #"\n"))]
     (->> encoding-table-lines
