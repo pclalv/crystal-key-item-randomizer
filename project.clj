@@ -38,6 +38,6 @@
                                                                       :output-to "resources/public/assets/js/tracker.js"}
 
                                                                      :cljs-base
-                                                                     {:output-to "resources/public/assets/js/cljs_base.js"}}
+                                                                     {:output-to "resources/public/assets/js/cljs-base.js"}}
                                                            :optimizations :advanced}}]}}}
   :uberjar-name "crystal-key-item-randomizer.jar")

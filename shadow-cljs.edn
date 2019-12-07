@@ -12,14 +12,17 @@
  {:port 8202}
 
  :builds
- {:frontend
+ {:dev
   {:target :browser
-   :modules {:main {:entries [crystal-key-item-randomizer.frontend]}}
-   :output-dir "resources/public/assets/js"
-   :asset-path "/assets/js"}
+   :modules {:main
+             {:entries [crystal-key-item-randomizer.frontend]
+              :depends-on #{:cljs-base}}
 
-  :tracker
-  {:target :browser
-   :modules {:tracker {:entries [crystal-key-item-randomizer.tracker]}}
+             :tracker
+             {:entries [crystal-key-item-randomizer.tracker]
+              :depends-on #{:cljs-base}}
+             
+             :cljs-base
+             {:entries []}}
    :output-dir "resources/public/assets/js"
    :asset-path "/assets/js"}}}
