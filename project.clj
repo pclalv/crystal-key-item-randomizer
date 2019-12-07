@@ -17,18 +17,27 @@
   :source-paths ["src/clj" "src/cljc"]
   :target-path "target/%s"
 
-  :plugins [[lein-ring "0.12.5"]
-            [lein-cljsbuild "1.1.7"]]
+  :plugins [[lein-ring "0.12.5"]]
   :ring {:handler crystal-key-item-randomizer.server/app}
-  :hooks [leiningen.cljsbuild]
-
-  :cljsbuild {:builds {:prod {:source-paths ["src/cljs"]
-                              :jar true
-                              :compiler {:output-to "public/assets/js/main.js"
-                                         :optimizations :advanced}}}}
-
+  
   :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
-             :production {:env {:production true}}}
-  :uberjar-name "crystal-key-item-randomizer.jar"
+             :production {:aot :all
+                          :env {:production true}
+                          :plugins [[lein-cljsbuild "1.1.7"]]
+                          :prep-tasks ["compile" ["cljsbuild" "once"]]
+                          :cljsbuild {:builds [{:id :frontend
+                                                :source-paths ["src/cljs/crystal_key_item_randomizer"]
+                                                :main "crystal-key-item-randomizer.frontend"
+                                                :jar true
+                                                :compiler {:modules {:main
+                                                                     {:entries [crystal-key-item-randomizer.frontend]
+                                                                      :output-to "resources/public/assets/js/main.js"}
 
-  )
+                                                                     :tracker
+                                                                     {:entries [crystal-key-item-randomizer.tracker]
+                                                                      :output-to "resources/public/assets/js/tracker.js"}
+
+                                                                     :cljs-base
+                                                                     {:output-to "resources/public/assets/js/cljs_base.js"}}
+                                                           :optimizations :advanced}}]}}}
+  :uberjar-name "crystal-key-item-randomizer.jar")
