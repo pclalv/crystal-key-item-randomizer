@@ -20,16 +20,15 @@
   :plugins [[lein-ring "0.12.5"]
             [lein-cljsbuild "1.1.7"]]
   :ring {:handler crystal-key-item-randomizer.server/app}
+  :hooks [leiningen.cljsbuild]
+
+  :cljsbuild {:builds {:prod {:source-paths ["src/cljs"]
+                              :jar true
+                              :compiler {:output-to "public/assets/js/main.js"
+                                         :optimizations :advanced}}}}
 
   :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
-             :production {:env {:production true}
-                          :hooks [leiningen.cljsbuild]
-                          :cljsbuild {:builds {:frontend {:source-paths ["src/cljs/crystal-key-item-randomizer/frontend.cljs"]
-                                                          :jar true
-                                                          :compiler {:output-to "public/assets/js/main.js"
-                                                                     :optimizations :advanced}}
-                                               :tracker {:source-paths ["src/cljscrystal-key-item-randomizer/tracker.cljs"]
-                                                         :jar true
-                                                         :compiler {:output-to "public/assets/js/tracker.js"
-                                                                    :optimizations :advanced}}}}}}
-  :uberjar-name "crystal-key-item-randomizer.jar")
+             :production {:env {:production true}}}
+  :uberjar-name "crystal-key-item-randomizer.jar"
+
+  )
