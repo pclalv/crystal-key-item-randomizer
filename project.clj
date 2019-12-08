@@ -27,8 +27,6 @@
                           :prep-tasks ["compile" ["cljsbuild" "once"]]
                           :cljsbuild {:builds [{:id :frontend
                                                 :source-paths ["src/cljs/crystal_key_item_randomizer"]
-                                                :main "crystal-key-item-randomizer.frontend"
-                                                :jar true
                                                 :compiler {:modules {:main
                                                                      {:entries [crystal-key-item-randomizer.frontend]
                                                                       :output-to "resources/public/assets/js/main.js"}
