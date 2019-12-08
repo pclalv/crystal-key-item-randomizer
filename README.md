@@ -18,19 +18,33 @@ See the [homepage](https://crystal-key-item-randomizer.herokuapp.com/).
 ### production
 
 1. **Build the uberjar**: `lein with-profile production uberjar`
-1. **Run the uberjar**: `java -cp target/uberjar/crystal-key-item-randomizer.jar clojure.main -m crystal-key-item-randomizer.server`
+1. **Run the uberjar**: 
+   ```
+   java \
+     -cp target/uberjar/crystal-key-item-randomizer.jar \
+     clojure.main \
+     -m crystal-key-item-randomizer.server
+   ```
 
 You should be able to see the randomizer home page in your browser at
 `http://localhost:8080`.
 
 ### local development
 
-1. **Compile the ClojureScript with shadow-cljs**
+1. **Compile the frontend code with shadow-cljs**: The simplest way is
+   to run `shadow-cljs compile dev` at the command line; you might
+   also run continuous builds with `shadow-cljs watch dev`, or
+   otherwise run shadow-cljs from within your editor.
 1. **Run the HTTP server**: `lein ring server`
 
 At that point, you should be able to see the randomizer home page in
 your browser at `http://localhost:3000`. Note that `lein ring server`
 automatically reloads server-side code.
+
+### tests
+
+Currently, only the Clojure code is tested. To run the tests, run
+`lein test`.
 
 ## to do
 
