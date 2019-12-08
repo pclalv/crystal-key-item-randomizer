@@ -42,8 +42,21 @@ in priority order:
   - seems okay, but it forces the player to start the Radio Tower to
     get Surf from the Ice Path
 - progressive fishing rods
-- see if there's an easy and general way to improve trainer AI  
+- see if there's an easy and general way to improve trainer AI
 - implement new trainer card page to view kanto badges
+
+### tracker
+
+- add a way to shrink the icons or something so it can be fit on a
+  stream nicely
+- hard to tell a square is on/off, especially for the badges
+- reorganize; 
+  - group the HMs together
+  - group the fishing rods together
+  - etc.
+- fix broken images
+  - for the different HMs, disks with a number beside it would be okay
+  - try to change the marked/unmarked colors so that they are visible.
 
 ### logic
 
