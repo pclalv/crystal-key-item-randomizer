@@ -22,11 +22,11 @@
                               (clojure.string/replace "BADGE" "-badge")
                               clojure.string/lower-case)
                           ".png")]
-        [:img {:class (if @clicked
-                        [:clicked]
-                        [])
-               :src (str "/assets/images/" filename)
-               :on-click #(reset! clicked (not @clicked))}]))))
+        ^{:key badge} [:img {:class (if @clicked
+                                      [:clicked]
+                                      [])
+                             :src (str "/assets/images/" filename)
+                             :on-click #(reset! clicked (not @clicked))}]))))
 
 (defn key-item-grid-element [key-item]
   (let [clicked (r/atom false)]
@@ -50,7 +50,7 @@
                                    (assoc data :badge badge)))
                             (sort-by :order))]
      (for [{badge :badge} sorted-badges]
-       ^{:key badge} [badge-grid-element badge]))])
+       [badge-grid-element badge]))])
 
 (defn key-item-tracker []
   [:<>
