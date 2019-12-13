@@ -1,9 +1,11 @@
 #advice {
   font-size: 24px;
   justify-content: center;
+  color: white;
 }
 
 body {
+  background-color: black;
   /* TODO: replace vw with rem? */
   /* https://css-tricks.com/theres-more-to-the-css-rem-unit-than-font-sizing/ */
   font-size: 7vw;
@@ -20,7 +22,6 @@ body {
    markedness
    */
 #tracker img {
-  background: rgba(0,0,0,0.1);
   border: 1px white solid;
   transition: all 0s;
   width: 1em;
@@ -32,5 +33,5 @@ body {
 }
 
 #tracker img.clicked {
-  background: rgba(0,0,0,0);
+  background: white;
 }
