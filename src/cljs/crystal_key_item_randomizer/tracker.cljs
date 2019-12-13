@@ -3,8 +3,33 @@
             [crystal-key-item-randomizer.badges :as badges]
             [crystal-key-item-randomizer.key-items :as key-items]))
 
+(def badge-regions {:ZEPHYRBADGE :johto,
+                    :HIVEBADGE :johto,
+                    :PLAINBADGE :johto,
+                    :FOGBADGE :johto,
+                    :STORMBADGE :johto,
+                    :MINERALBADGE :johto,
+                    :GLACIERBADGE :johto,
+                    :RISINGBADGE :johto
+
+                    :BOULDERBADGE :kanto,
+                    :CASCADEBADGE :kanto,
+                    :THUNDERBADGE :kanto,
+                    :SOULBADGE :kanto,
+                    :RAINBOWBADGE :kanto,
+                    :MARSHBADGE :kanto,
+                    :VOLCANOBADGE :kanto,
+                    :EARTHBADGE :kanto})
+
 (def hms
-  [:HM_CUT :HM_FLY :HM_SURF :HM_STRENGTH :HM_FLASH :HM_WHIRLPOOL :HM_WATERFALL])
+  [:HM_CUT ; green
+   :HM_FLY ; multi/dragon
+   :HM_SURF
+   :HM_STRENGTH ; brown
+   :HM_FLASH ; yellow
+   :HM_WHIRLPOOL
+   :HM_WATERFALL])
+
 (def rods
   [:OLD_ROD :GOOD_ROD :SUPER_ROD])
 (def transportation
@@ -43,22 +68,27 @@
                                 :on-click #(reset! clicked (not @clicked))}]))))
 
 (defn badge-tracker []
-  [:<>
-   (let [sorted-badges (->> badges/speedchoice
-                            (merge-with into badges/ordering)
-                            (map (fn [[badge data]]
-                                   (assoc data :badge badge)))
-                            (sort-by :order))]
-     (for [{badge :badge} sorted-badges]
-       [badge-grid-element badge]))])
+  (let [sorted-badges (->> badges/speedchoice
+                           (merge-with into badges/ordering)
+                           (map (fn [[badge data]]
+                                  (assoc data :badge badge)))
+                           (sort-by :order))
+        {:keys [johto kanto]} (group-by (comp badge-regions
+                                              :badge)
+                                        sorted-badges)]
+    [:<>
+     [:div {:class "row"} (for [{badge :badge} johto]
+                            [badge-grid-element badge])]
+     [:div {:class "row"} (for [{badge :badge} kanto]
+                            [badge-grid-element badge])]]))
 
 (defn key-item-tracker []
   [:<>
-   (map (fn [ki] [key-item-grid-element ki]) hms)
-   (map (fn [ki] [key-item-grid-element ki]) rods)
-   (map (fn [ki] [key-item-grid-element ki]) transportation)
-   (map (fn [ki] [key-item-grid-element ki]) progression)
-   (map (fn [ki] [key-item-grid-element ki]) useless)])
+   [:div {:class "row"} (map (fn [ki] [key-item-grid-element ki]) rods)]
+   [:div {:class "row"} (map (fn [ki] [key-item-grid-element ki]) transportation)]
+   [:div {:class "row"} (map (fn [ki] [key-item-grid-element ki]) progression)]
+   [:div {:class "row"} (map (fn [ki] [key-item-grid-element ki]) useless)]
+   [:div {:class "row"} (map (fn [ki] [key-item-grid-element ki]) hms)]])
 
 (r/render [badge-tracker] (-> js/document
                               (.getElementById "badges")))

@@ -1,4 +1,15 @@
-.grid .row {
+#advice {
+  font-size: 24px;
+  justify-content: center;
+}
+
+body {
+  /* TODO: replace vw with rem? */
+  /* https://css-tricks.com/theres-more-to-the-css-rem-unit-than-font-sizing/ */
+  font-size: 7vw;
+}
+
+#tracker .row {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,16 +19,18 @@
    don't obscure the background, because the background indicates
    markedness
    */
-.grid img {
+#tracker img {
   background: rgba(0,0,0,0.1);
   border: 1px white solid;
   transition: all 0s;
+  width: 1em;
+  height: 1em;
 }
 
-.grid img:hover {
+#tracker img:hover {
   transform: scale(1.1);
 }
 
-.grid img.clicked {
+#tracker img.clicked {
   background: rgba(0,0,0,0);
 }
