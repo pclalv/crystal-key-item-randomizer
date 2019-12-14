@@ -66,6 +66,10 @@ in priority order:
 
 ### logic
 
+- **new option: no-grind** so that players don't have to go from
+  Goldenrod to Saffron and immediately defeat Sabrina
+  - easy way to accomplish this might be ensuring that Sabrina doesn't
+    have an early game badge - anything after FOGBADGE should be fine
 - **consider pokegear cards in prereqs logic**. this is primarily
   motivated by wanting to randomize the kanto expansion card, which
   allows the player to wake the snorlax and progress to pewter from
