@@ -85,6 +85,8 @@ in priority order:
 
 ### binary patching
 
+- enable player to view Kanto pokedex area from the beginning of the
+  game
 - prevent players from visiting the Underground Warehouse before
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
