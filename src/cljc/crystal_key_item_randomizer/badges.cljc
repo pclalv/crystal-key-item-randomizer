@@ -12,8 +12,8 @@
                :BOULDERBADGE {:order 8}
                :CASCADEBADGE {:order 9}
                :THUNDERBADGE {:order 10}
-               :SOULBADGE {:order 11}
-               :RAINBOWBADGE {:order 12}
+               :RAINBOWBADGE {:order 11}
+               :SOULBADGE {:order 12}
                :MARSHBADGE {:order 13}
                :VOLCANOBADGE {:order 14}
                :EARTHBADGE {:order 15}})
