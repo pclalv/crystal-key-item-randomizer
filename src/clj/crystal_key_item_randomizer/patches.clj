@@ -2,7 +2,8 @@
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [crystal-key-item-randomizer.key-items :as key-items]
-            [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat])
+            [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat]
+            [clojure.spec.alpha :as s])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
@@ -16,6 +17,30 @@
    :integer_values {:old ["*", 1]}
    :address_range {:begin 514536
                    :end 514538}})
+
+(s/def ::rom-address int?) ;; less than 2MiB, tbh
+(s/def ::begin ::rom-address)
+(s/def ::end ::rom-address)
+(s/def ::address_range (s/keys :req-un [::begin ::end]))
+
+(s/def ::wildcard-byte #{"*"})
+(s/def ::byte (s/int-in 0 256))
+(s/def ::byte-or-wildcard (s/or :byte ::byte
+                                :wildcard ::wildcard-byte))
+(s/def ::new (s/coll-of ::byte :kind vector?))
+(s/def ::old (s/coll-of ::byte-or-wildcard
+                        :kind vector?))
+;; wtf, old and new are horrible names for specs.
+(s/def ::integer_values (s/keys :req-un [::old ::new]))
+
+(s/def ::description string?)
+(s/def ::label string?)
+(s/def ::patch
+  (s/keys :req-un [::integer_values ::address_range]
+          :opt-un [::label ::description]))
+
+(s/def ::patches (s/coll-of ::patch
+                            :kind? vector))
 
 (def vanilla-patches
   "Contains data that the frontend can use to modify the ROM file with
