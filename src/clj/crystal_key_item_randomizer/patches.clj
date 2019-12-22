@@ -45,19 +45,19 @@
 (def vanilla-patches
   "Contains data that the frontend can use to modify the ROM file with
   changes beyond the usual key item swaps."
-  (->> "randomizer-patches-diff.json"
-       io/resource
-       slurp
-       json/read-str))
+  (-> "randomizer-patches-diff.json"
+      io/resource
+      slurp
+      (json/read-str :key-fn keyword)))
 
 (def speedchoice-patches
   "Contains data specific to crystal-speedchoice.gbc that the frontend
   can use to modify the ROM file with changes beyond the usual key
   item swaps."
-  (->> "randomizer-patches-diff-speedchoice.json"
-       io/resource
-       slurp
-       json/read-str))
+  (-> "randomizer-patches-diff-speedchoice.json"
+      io/resource
+      slurp
+      (json/read-str :key-fn keyword)))
 
 (defn item-ball [key-item {:keys [speedchoice?]}]
   (let [key-items' (if speedchoice? key-items/speedchoice key-items/vanilla)
