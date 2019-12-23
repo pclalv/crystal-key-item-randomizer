@@ -8,9 +8,6 @@
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
 
-(def UNDERGROUND-ITEM-BALL :GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
-(def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
-
 (def underground-warehouse-ultra-ball
   {:label "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL"
    :description "Change the contents of the item ball from ULTRA_BALL to whatever replaces the CARD_KEY (a backup key item so that the player doesn't get softlocked). integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
