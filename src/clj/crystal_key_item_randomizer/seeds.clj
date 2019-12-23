@@ -2,7 +2,8 @@
   (:require 
    [crystal-key-item-randomizer.patches :as patches]
    [crystal-key-item-randomizer.key-items :as key-items]
-   [crystal-key-item-randomizer.badges :as badges])
+   [crystal-key-item-randomizer.badges :as badges]
+   [clojure.spec.alpha :as s])
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
 (def all-items (vec (keys key-items/speedchoice)))
@@ -26,7 +27,8 @@
 
 (defn gives-early? [item swaps]
   (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps early-items)]
-    (contains? early-swaps item)))
+    (-> early-swaps
+        (contains? item))))
 
 (defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
@@ -64,13 +66,27 @@
          :iterations iterations}
         (recur (inc iterations))))))
 
+(s/def ::seed
+  (s/keys :req-un [::patches ::id]))
+(s/def ::error string?)
+(s/def ::iterations int?)
+
+;; is this wrapping useless? is this name bad?
+(s/def ::generate-result
+  (s/or :ok (s/keys :req-un [::seed])
+        :err (s/keys :req-un [::error])))
+
+(s/fdef generate-random
+  :args (s/cat :options map?)
+  :ret ::generate-result)
+
 (defn generate
   ([seed-id]
    (generate seed-id {:endgame-condition :defeat-elite-4
                       :swaps-options {:randomize-badges? false}}))
   ([seed-id {:keys [swaps-options endgame-condition]}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
-         badge-swaps (if (:randomize-badges? swaps-options )
+         badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
          progression-results (beatable? {:item-swaps item-swaps
@@ -85,3 +101,7 @@
        {:error (str "Unbeatable seed: " seed-id)
         :seed (-> progression-results
                   (assoc :id (str seed-id)))}))))
+
+(s/fdef generate
+  :args (s/cat :seed-id int?)
+  :ret ::generate-result)
