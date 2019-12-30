@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [crystal-key-item-randomizer.patches :refer :all]))
 
+(def UNDERGROUND-ITEM-BALL-SPEEDCHOICE :UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL)
+
 (def speedchoice-item-ball
   (->> speedchoice-patches
        (filter #(= (% "name")
