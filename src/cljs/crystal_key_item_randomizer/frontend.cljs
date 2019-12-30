@@ -1,7 +1,10 @@
 (ns crystal-key-item-randomizer.frontend
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.badges :as badges]
-            [crystal-key-item-randomizer.key-items :as key-items]))
+            [crystal-key-item-randomizer.key-items :as key-items]
+            [cljs.spec.alpha :as s]
+            ;; [cljs.spec.test.alpha :as stest]
+            [crystal-key-item-randomizer.specs]))
 
 (def handling-rom? (r/atom false))
 (def error (r/atom nil))
@@ -94,6 +97,16 @@
       (apply-badge-swaps badge-swaps)
       (apply-patches patches)))
 
+;; TODO: add with-gen for this JS object
+;; https://stackoverflow.com/questions/41176696/clojure-spec-custom-generator-for-java-objects
+;; it'd be nice if we could actually assert on this thing as a collection;
+;; otherwise, just use simpler objects...
+(s/def ::uint8array (partial instance? js/Uint8Array))
+
+(s/fdef patch-rom
+  :args (s/cat :rom-bytes ::uint8array
+               :seed :crystal-key-item-randomizer.specs/seed))
+
 (defn randomize-rom [event]
   (let [rom-bytes (js/Uint8Array. (-> event
                                       .-target
@@ -113,9 +126,9 @@
                  (if (.-error json)
                    (do (reset-form)
                        (render-error (.-error json)))
-                   (let [{:keys [item-swaps badge-swaps patches id]} (-> json
-                                                                         (aget "seed")
-                                                                         (js->clj :keywordize-keys true))
+                   (let [{:keys [item-swaps badge-swaps patches id] :as seed} (-> json
+                                                                                  (aget "seed")
+                                                                                  (js->clj :keywordize-keys true))
                          filename (str "pokecrystal-key-item-randomized-seed-"
                                        (if @randomize-badges?
                                          (str id "-badges")
@@ -123,9 +136,7 @@
                                        ".gbc")]
                      (reset! item-swaps-table item-swaps)
                      (reset! badge-swaps-table badge-swaps)
-                     (reset! randomized-rom {:rom (patch-rom rom-bytes {:item-swaps item-swaps
-                                                                        :badge-swaps badge-swaps
-                                                                        :patches patches})
+                     (reset! randomized-rom {:rom (patch-rom rom-bytes seed)
                                              :filename filename})))))
         (.catch (fn [resp]
                   (if (.-error resp)
@@ -263,3 +274,6 @@
 
 (r/render [randomizer] (-> js/document
                            (.getElementById "randomizer")))
+
+;; TODO: find a way to conditionally enable instrumentation in development builds
+;; (stest/instrument)
