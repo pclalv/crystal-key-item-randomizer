@@ -3,7 +3,8 @@
   progress can be made, along with the particular items and progress
   the player has, to determine further progress."
   (:require [clojure.set :as cset]
-            [crystal-key-item-randomizer.logic :refer :all]))
+            [crystal-key-item-randomizer.logic :refer :all]
+            [clojure.spec.alpha :as s]))
 
 (defn any? [pred col]
   (not (not-any? pred col)))
@@ -159,3 +160,18 @@
                              (analyze result swaps))))]
        (-> (conj result swaps)
            (assoc :beatable? (contains? (result :conditions-met) endgame-condition)))))))
+
+(s/def ::conditions-met
+  (s/coll-of keyword? :kind set?))
+(s/def ::badges
+  (s/coll-of keyword? :kind set?))
+(s/def ::items-obtained
+  (s/coll-of keyword? :kind set?))
+(s/def ::swaps (s/keys :req-in [::item-swaps ::badge-swaps]))
+(s/def ::beatable? boolean?)
+(s/def ::progression-result
+  (s/keys :req-un [::beatable? ::swaps ::items-obtained ::conditions-met ::badges]))
+
+(s/fdef beatable?
+  ;; :args (s/cat :just-an-int int?)
+  :ret ::progression-result)
