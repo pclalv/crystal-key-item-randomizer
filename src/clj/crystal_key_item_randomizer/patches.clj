@@ -82,3 +82,12 @@
                 (fix-received-badge-texts badge-swaps)
                 post-defeat/pre-badge-blurb-patches
                 post-defeat/post-badge-speech-patches))))
+
+(s/def ::speedchoice? boolean?)
+(s/def ::generate-options
+  (s/keys :req-un [::speedchoice?]))
+
+(s/fdef generate
+  :args (s/cat :swaps :crystal-key-item-randomizer.progression/swaps
+               :options ::generate-options)
+  :ret (s/coll-of ::patches :kind vector?))
