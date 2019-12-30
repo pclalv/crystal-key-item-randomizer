@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [crystal-key-item-randomizer.key-items :as key-items]
             [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat]
-            [clojure.spec.alpha :as s])
+            [clojure.spec.alpha :as s]
+            [crystal-key-item-randomizer.rom])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
@@ -11,6 +12,10 @@
 (def underground-warehouse-ultra-ball
   {:label "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL"
    :description "Change the contents of the item ball from ULTRA_BALL to whatever replaces the CARD_KEY (a backup key item so that the player doesn't get softlocked). integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
+   ;; there's a wildcard here because item randomiztion might've
+   ;; turned this ultra ball into some other item; CKIR should be
+   ;; compatible with that, so we can't guarantee the value of this
+   ;; byte.
    :integer_values {:old ["*", 1]}
    :address_range {:begin 514536
                    :end 514538}})
@@ -21,8 +26,7 @@
 (s/def ::address_range (s/keys :req-un [::begin ::end]))
 
 (s/def ::wildcard-byte #{"*"})
-(s/def ::byte (s/int-in 0 256))
-(s/def ::byte-or-wildcard (s/or :byte ::byte
+(s/def ::byte-or-wildcard (s/or :byte :crystal-key-item-randomizer.rom/byte
                                 :wildcard ::wildcard-byte))
 (s/def ::new (s/coll-of ::byte :kind vector?))
 (s/def ::old (s/coll-of ::byte-or-wildcard
