@@ -138,11 +138,15 @@
                      (reset! badge-swaps-table badge-swaps)
                      (reset! randomized-rom {:rom (patch-rom rom-bytes seed)
                                              :filename filename})))))
+        ;; the arg name 'resp' is not accurate in all cases but i'm
+        ;; not sure what else to call it.
         (.catch (fn [resp]
-                  (if (.-error resp)
+                  (let [error (if (.-error resp)
+                                (.-error resp)
+                                resp)
+                        _ (js/console.error "in catch; error" (clj->js error))]
                     (do (reset-form)
-                        (render-error (.-error resp)))
-                    (js/console.error "some kind of horrible error, sorry" resp)))))))
+                        (render-error error))))))))
 
 (defn handle-rom-input [event]
   (when (not= "" (-> event .-target .-value))
