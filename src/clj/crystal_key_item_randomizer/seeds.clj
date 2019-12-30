@@ -3,7 +3,8 @@
    [crystal-key-item-randomizer.patches :as patches]
    [crystal-key-item-randomizer.key-items :as key-items]
    [crystal-key-item-randomizer.badges :as badges]
-   [clojure.spec.alpha :as s])
+   [clojure.spec.alpha :as s]
+   [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
 (def all-items (vec (keys key-items/speedchoice)))
@@ -66,14 +67,12 @@
          :iterations iterations}
         (recur (inc iterations))))))
 
-(s/def ::seed
-  (s/keys :req-un [::patches ::id]))
 (s/def ::error string?)
 (s/def ::iterations int?)
 
 ;; is this wrapping useless? is this name bad?
 (s/def ::generate-result
-  (s/or :ok (s/keys :req-un [::seed])
+  (s/or :ok (s/keys :req-un [:crystal-key-item-randomizer.specs/seed])
         :err (s/keys :req-un [::error])))
 
 (s/fdef generate-random
