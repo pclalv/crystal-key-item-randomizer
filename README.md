@@ -50,6 +50,10 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 in priority order:
 
+- make all pokemon level 100 in order to mitigate how broken the
+  level-up system is.
+  - what about moves? maybe this should only be a feature for roms
+    with randomized moves
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
 - investigate seed 177
@@ -58,6 +62,14 @@ in priority order:
 - progressive fishing rods
 - see if there's an easy and general way to improve trainer AI
 - implement new trainer card page to view kanto badges
+- consider adding start points other than newbark?
+  - ecruteak?
+  - goldenrod + bill's eevee, restore cut tree in Ilex to block the
+    player in?
+- add new optional locations?
+  - whirl islands
+  - mt mortar
+  - dark cave
 
 ### tracker
 
@@ -70,6 +82,10 @@ in priority order:
   Goldenrod to Saffron and immediately defeat Sabrina
   - easy way to accomplish this might be ensuring that Sabrina doesn't
     have an early game badge - anything after FOGBADGE should be fine
+  - alternatively, is there some way of telling if the player would
+    have access to a high level pokemon before facing down high-level
+    gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for
+    roamers) would have to be a requirement for those leaders.
 - **consider pokegear cards in prereqs logic**. this is primarily
   motivated by wanting to randomize the kanto expansion card, which
   allows the player to wake the snorlax and progress to pewter from
@@ -85,6 +101,12 @@ in priority order:
 
 ### binary patching
 
+- QOL
+  - currently the player has to surf from Cinnabar to Fuchsia to clear
+    the barricades in Fuchsia - can we improve this for players?
+    https://github.com/pret/pokecrystal/blob/745339014c39a4d47d8a4bdee05bbe8e573933ec/maps/Route20.asm#L10
+- **new option: early radio tower** reduce the required badge counts
+  from 6 and 7 to 3 and 4 respectively
 - enable player to view Kanto pokedex area from the beginning of the
   game
 - prevent players from visiting the Underground Warehouse before
