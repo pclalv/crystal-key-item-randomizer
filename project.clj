@@ -16,13 +16,17 @@
   :main ^:skip-aot crystal-key-item-randomizer.server
   :source-paths ["src/clj" "src/cljc"]
   :target-path "target/%s"
-
-  :plugins [[lein-ring "0.12.5"]]
-  :ring {:handler crystal-key-item-randomizer.server/app}
   
-  :profiles {:dev {:dependencies [[ring/ring-devel "1.4.0"]]}
+  :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]
+                                  [ring/ring-devel "1.4.0"]]
+                   :plugins [[lein-ring "0.12.5"]]
+                   :ring {:handler crystal-key-item-randomizer.server/app}
+                   :injections [(require 'crystal-key-item-randomizer.server) ;; all instrumented fns should be loaded here
+                                (require 'clojure.spec.test.alpha)
+                                (clojure.spec.test.alpha/instrument)]}
              :uberjar {:aot :all
                        :env {:production true}
+                       :injections ^:replace []
                        :plugins [[lein-cljsbuild "1.1.7"]]
                        :prep-tasks ["compile" ["cljsbuild" "once"]]
                        :cljsbuild {:builds [{:id :frontend
