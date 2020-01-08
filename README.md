@@ -113,12 +113,15 @@ in priority order:
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
-- **Randomizer pokegear cards among items**. this is pretty
-  straightforward, because `giveitem`, `verbosegiveitem` and `setflag`
-  (pokegear cards are flags) are all three-byte instructions. the
-  exception, of course, is `itemball`. i think this would require
-  custom ASM that acts like an itemball on the overworld but instead
-  sets a game flag.
+- **Randomizer pokegear cards among items**. `giveitem` and
+  `verbosegiveitem` are 3-byte instructions; `setflag` and `itemball`
+  are (pokegear cards are flags) are 2-byte instructions. how to
+  reconcile this? i think this would require custom ASM that acts like
+  an itemball on the overworld but instead sets a game flag.
+  - problem: fit instructions that behave like `{,verbose}giveitem`
+    into 2 bytes
+  - problem: fit instructions that behave like `setflag` and
+    `itemball` into 3 bytes
   - itemballs can also be `person_event`s - see electrodes in
     `TeamRocketBaseB2F.asm`
 - try to create a person_event itemball that grants a pokegear card
