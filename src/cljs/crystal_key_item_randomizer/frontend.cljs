@@ -1,4 +1,4 @@
-(ns crystal-key-item-randomizer.frontend
+(ns ^:dev/always crystal-key-item-randomizer.frontend
   (:require [reagent.core :as r]
             [crystal-key-item-randomizer.badges :as badges]
             [crystal-key-item-randomizer.key-items :as key-items]
@@ -279,5 +279,6 @@
 (r/render [randomizer] (-> js/document
                            (.getElementById "randomizer")))
 
-;; TODO: find a way to conditionally enable instrumentation in development builds
-;; (stest/instrument)
+(defn ^:dev/after-load instrument []
+  (st/instrument)
+  (js/console.log "instrument called"))
