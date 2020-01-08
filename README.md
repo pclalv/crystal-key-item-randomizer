@@ -50,6 +50,8 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 in priority order:
 
+- patch vanilla crystal roms into the speedchoice rom 
+  - i believe we can determine this by reading some header
 - make all pokemon level 100 in order to mitigate how broken the
   level-up system is.
   - what about moves? maybe this should only be a feature for roms
