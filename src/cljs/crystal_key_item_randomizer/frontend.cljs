@@ -213,12 +213,14 @@
     [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
     [:input {:id "randomize-badges" :type "checkbox"
              :on-change (set-checkbox-value-on-atom randomize-badges?)
-             :checked @randomize-badges?}]]
+             :checked @randomize-badges?
+             :disabled @handling-rom?}]]
    [:p
     [:label {:for "endgame-condition"} "Endgame condition"]
     [:select {:id "endgame-condition"
               :on-change (set-value-on-atom endgame-condition)
-              :value @endgame-condition}
+              :value @endgame-condition
+              :disabled @handling-rom?}
      [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
      [:option {:value "defeat-red"} "Defeat Red"]]]])
 
