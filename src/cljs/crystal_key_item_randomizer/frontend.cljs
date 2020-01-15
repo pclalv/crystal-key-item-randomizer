@@ -3,7 +3,7 @@
             [crystal-key-item-randomizer.badges :as badges]
             [crystal-key-item-randomizer.key-items :as key-items]
             [cljs.spec.alpha :as s]
-            ;; [cljs.spec.test.alpha :as stest]
+            [cljs.spec.test.alpha :as st]
             [crystal-key-item-randomizer.specs]))
 
 (def handling-rom? (r/atom false))
