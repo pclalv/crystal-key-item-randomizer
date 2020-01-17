@@ -70,7 +70,8 @@
         rom-bytes)
     (throw-js (str "Expected \"" old-value
                    "\" at address \"" address
-                   "\" but found \"" (aget rom-bytes address) "\"."))))
+                   "\" but found \"" (aget rom-bytes address)
+                   "\". Make sure to select a Speedchoice v6 ROM (with or without other randomizations)."))))
 
 (defn apply-patch [rom-bytes {{old-values :old new-values :new} :integer_values
                               {begin-addr :begin end-addr :end} :address_range
