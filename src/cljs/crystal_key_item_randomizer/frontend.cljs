@@ -18,6 +18,7 @@
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
 (def endgame-condition (r/atom "defeat-elite-4"))
+(def early-rockets? (r/atom false))
 
 (def wildcard "*")
 
@@ -117,7 +118,8 @@
                                          {:early-bicycle? @early-bicycle?
                                           :no-early-super-rod? @no-early-super-rod?
                                           :randomize-badges? @randomize-badges?}
-                                         {:randomize-badges? @randomize-badges?})}}]
+                                         {:randomize-badges? @randomize-badges?})
+                        :early-rockets? @early-rockets?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
@@ -210,6 +212,12 @@
                            @early-bicycle?)
              :disabled (or @handling-rom?
                            (not (empty? @seed-id)))}]]
+   [:p
+    [:label {:for "early-rockets"} "Trigger Team Rocket events after obtaining 4 badges instead of 7"]
+    [:input {:id "early-rockets" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom early-rockets?)
+             :checked @early-rockets?
+             :disabled @handling-rom?}]]
    [:p
     [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
     [:input {:id "randomize-badges" :type "checkbox"

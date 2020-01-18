@@ -91,10 +91,10 @@
         (assoc result :conditions-met (conj player-conditions-met condition))
         result))))
 
-(defn analyze-conditions [result]
+(defn analyze-conditions [result condition-options]
   (reduce can-satisfy-condition-prereqs?
           result
-          (condition-prereqs)))
+          (condition-prereqs condition-options)))
 
 ;;;;;;;;;;;;;;;;;
 ;; badge count ;;
@@ -102,9 +102,11 @@
 
 (defn analyze-badge-count [{:keys [badges conditions-met] :as result}]
   (let [badge-count (count badges)]
-    (cond (= badge-count 16) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges :sixteen-badges}))
-          (>= badge-count 8) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges :eight-badges}))
-          (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:seven-badges}))
+    (cond (= badge-count 16) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges :sixteen-badges}))
+          (>= badge-count 8) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges}))
+          (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges}))
+          ;; for early-rockets
+          (>= badge-count 4) (assoc result :conditions-met (cset/union conditions-met #{:four-badges}))
           :else result)))
 
 ;;;;;;;;;;;;
@@ -132,19 +134,21 @@
           result
           hm-use-prereqs))
 
-(defn analyze [result {:keys [item-swaps badge-swaps]}]
+(defn analyze [result {:keys [item-swaps badge-swaps]} {:keys [condition-options]}]
   (-> result
       (analyze-items item-swaps)
-      analyze-conditions
+      (analyze-conditions condition-options)
       (analyze-badges badge-swaps) 
       analyze-badge-count
       analyze-hm-use))
 
 (defn beatable?
   ([swaps]
-   (beatable? swaps {:speedchoice? true}))
-  ([swaps
-    {:keys [endgame-condition speedchoice?] :or {speedchoice? true endgame-condition :defeat-red}}]
+   (beatable? swaps {}))
+  ([swaps {:keys [endgame-condition speedchoice? early-rockets?]
+           :or {speedchoice? true
+                endgame-condition :defeat-red
+                early-rockets? false}}]
    (if (not speedchoice?)
      {:beatable? false
       :error "only speedchoice is currently supported."}
@@ -152,12 +156,15 @@
                          result (analyze {:items-obtained #{}
                                           :conditions-met #{}
                                           :badges #{}}
-                                         swaps)]
+                                         swaps
+                                         {:condition-options {:early-rockets? early-rockets?
+                                                              :no-blind-rock-tunnel? true}})]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
                       (recur result
-                             (analyze result swaps))))]
+                             (analyze result swaps {:condition-options {:early-rockets? early-rockets?
+                                                                        :no-blind-rock-tunnel? true}}))))]
        (-> (conj result swaps)
            (assoc :beatable? (contains? (result :conditions-met) endgame-condition)))))))
 

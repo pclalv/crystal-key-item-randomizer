@@ -89,8 +89,9 @@
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
   ([]
-   (condition-prereqs {:no-blind-rock-tunnel? true}))
-  ([{:keys [no-blind-rock-tunnel?]}]
+   (condition-prereqs {:no-blind-rock-tunnel? true
+                       :early-rockets? false}))
+  ([{:keys [no-blind-rock-tunnel? early-rockets?]}]
    [{:condition :goldenrod
      :prereqs {:conditions-met #{}
                :items-obtained #{}}}
@@ -108,7 +109,9 @@
                :items-obtained #{}}}
 
     {:condition :trigger-radio-tower-takeover
-     :prereqs {:conditions-met #{:seven-badges}
+     :prereqs {:conditions-met (if early-rockets?
+                                 #{:four-badges}
+                                 #{:seven-badges})
                :items-obtained #{}}}
 
     {:condition :underground-warehouse

@@ -4,7 +4,8 @@
             [crystal-key-item-randomizer.key-items :as key-items]
             [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat]
             [clojure.spec.alpha :as s]
-            [crystal-key-item-randomizer.rom])
+            [crystal-key-item-randomizer.rom]
+            [crystal-key-item-randomizer.patches.rockets])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
@@ -74,7 +75,9 @@
                         [:integer_values :new]
                         (item-ball card-key-replacement {:speedchoice? speedchoice?})))
 
-(defn generate [{:keys [item-swaps badge-swaps]} {:keys [speedchoice?]}]
+(defn generate [{:keys [item-swaps badge-swaps]}
+                {:keys [speedchoice? early-rockets?] :or {speedchoice true
+                                                          early-rockets? false}}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
@@ -85,7 +88,10 @@
         (concat (fix-giveitems item-swaps)
                 (fix-received-badge-texts badge-swaps)
                 post-defeat/pre-badge-blurb-patches
-                post-defeat/post-badge-speech-patches))))
+                post-defeat/post-badge-speech-patches
+                (if early-rockets?
+                  crystal-key-item-randomizer.patches.rockets/trigger-early
+                  [])))))
 
 (s/def ::speedchoice? boolean?)
 (s/def ::generate-options

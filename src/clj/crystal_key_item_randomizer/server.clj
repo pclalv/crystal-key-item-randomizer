@@ -38,9 +38,10 @@
 
 (defn random-seed-handler [req]
   (let [req (json-body-request req {:keywords? true})]
-    (let [{:keys [swaps-options endgame-condition]} (-> req :body :options)
+    (let [{:keys [swaps-options endgame-condition early-rockets?]} (-> req :body :options)
           {:keys [seed error]} (seeds/generate-random {:endgame-condition (keyword endgame-condition)
-                                                       :swaps-options swaps-options})]
+                                                       :swaps-options swaps-options
+                                                       :early-rockets? early-rockets?})]
       (render-seed-or-error seed error))))
 
 (defn seed-handler [req]
@@ -50,9 +51,10 @@
       {:status 400
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
-      (let [{:keys [swaps-options endgame-condition]} (-> req :body :options)
+      (let [{:keys [swaps-options endgame-condition early-rockets?]} (-> req :body :options)
             {:keys [seed error]} (seeds/generate seed-id {:endgame-condition (keyword endgame-condition)
-                                                          :swaps-options {:randomize-badges? (:randomize-badges? swaps-options)}})]
+                                                          :swaps-options {:randomize-badges? (:randomize-badges? swaps-options)}
+                                                          :early-rockets? early-rockets?})]
         (render-seed-or-error seed error)))))
 
 (defroutes app-routes
