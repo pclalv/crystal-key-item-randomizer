@@ -11,7 +11,11 @@
 
 (def underground-warehouse-ultra-ball
   {:label "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL"
-   :description "Change the contents of the item ball from ULTRA_BALL to whatever replaces the CARD_KEY (a backup key item so that the player doesn't get softlocked). integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
+   :description "Change the contents of the item ball from ULTRA_BALL
+   to whatever replaces the CARD_KEY (a backup key item so that the
+   player doesn't get softlocked). integer_values.new doesn't exist so
+   that things will fail hard if the patches aren't update properly"
+
    ;; there's a wildcard here because item randomiztion might've
    ;; turned this ultra ball into some other item; CKIR should be
    ;; compatible with that, so we can't guarantee the value of this
