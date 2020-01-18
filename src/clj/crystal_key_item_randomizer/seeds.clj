@@ -102,5 +102,8 @@
                   (assoc :id (str seed-id)))}))))
 
 (s/fdef generate
-  :args (s/cat :seed-id int?)
+  :args (s/alt :unary (s/cat :seed-id int?)
+               :with-options (s/cat :seed-id int?
+                                    :options map?))
+
   :ret ::generate-result)
