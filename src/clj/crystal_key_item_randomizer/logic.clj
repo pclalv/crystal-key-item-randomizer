@@ -6,58 +6,57 @@
 (defn badge-prereqs
   "A list detailing the various conditions that must be met to acquire a
   particular badge."
-  ([]
-   (badge-prereqs {:speedchoice? true}))
-  ([{:keys [speedchoice?]}]
-   [{:badge :ZEPHYRBADGE}
-    {:badge :HIVEBADGE}
-    {:badge :PLAINBADGE
-     :conditions-met #{:goldenrod}}
+  [{:keys [speedchoice?]
+    :or {speedchoice? true}}]
+  [{:badge :ZEPHYRBADGE}
+   {:badge :HIVEBADGE}
+   {:badge :PLAINBADGE
+    :conditions-met #{:goldenrod}}
 
-    {:badge :FOGBADGE
-     :conditions-met #{:ecruteak}}
+   {:badge :FOGBADGE
+    :conditions-met #{:ecruteak}}
 
-    {:badge :STORMBADGE
-     :conditions-met #{:can-surf :can-strength}}
+   {:badge :STORMBADGE
+    :conditions-met #{:can-surf :can-strength}}
 
-    {:badge :MINERALBADGE
-     :conditions-met #{:ecruteak}
-     :items-obtained #{:SECRETPOTION}}
+   {:badge :MINERALBADGE
+    :conditions-met #{:ecruteak}
+    :items-obtained #{:SECRETPOTION}}
 
-    {:badge :GLACIERBADGE
-     :conditions-met #{:can-surf}}
+   {:badge :GLACIERBADGE
+    :conditions-met #{:can-surf}}
 
-    {:badge :RISINGBADGE
-     :conditions-met (if speedchoice?
-                       #{:defeat-team-rocket
-                         :blackthorn}
-                       #{:can-whirlpool
-                         :defeat-team-rocket
-                         :blackthorn})}
+   {:badge :RISINGBADGE
+    :conditions-met (if speedchoice?
+                      #{:defeat-team-rocket
+                        :blackthorn}
+                      #{:can-whirlpool
+                        :defeat-team-rocket
+                        :blackthorn})}
 
-    {:badge :BOULDERBADGE
-     :conditions-met #{:pewter}}
+   {:badge :BOULDERBADGE
+    :conditions-met #{:pewter}}
 
-    {:badge :CASCADEBADGE
-     :conditions-met #{:kanto :talk-to-power-plant-manager}}
+   {:badge :CASCADEBADGE
+    :conditions-met #{:kanto :talk-to-power-plant-manager}}
 
-    {:badge :THUNDERBADGE
-     :conditions-met #{:kanto :can-cut}}
+   {:badge :THUNDERBADGE
+    :conditions-met #{:kanto :can-cut}}
 
-    {:badge :RAINBOWBADGE
-     :conditions-met #{:kanto :can-cut}}
+   {:badge :RAINBOWBADGE
+    :conditions-met #{:kanto :can-cut}}
 
-    {:badge :SOULBADGE
-     :conditions-met #{:kanto}}
+   {:badge :SOULBADGE
+    :conditions-met #{:kanto}}
 
-    {:badge :MARSHBADGE
-     :conditions-met #{:kanto}}
+   {:badge :MARSHBADGE
+    :conditions-met #{:kanto}}
 
-    {:badge :VOLCANOBADGE
-     :conditions-met #{:pewter}}
+   {:badge :VOLCANOBADGE
+    :conditions-met #{:pewter}}
 
-    {:badge :EARTHBADGE
-     :conditions-met #{:pewter}}]))
+   {:badge :EARTHBADGE
+    :conditions-met #{:pewter}}])
 
 (def hm-use-prereqs
   [{:condition :can-flash
@@ -88,86 +87,85 @@
 (defn condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
-  ([]
-   (condition-prereqs {:no-blind-rock-tunnel? true
-                       :early-rockets? false}))
-  ([{:keys [no-blind-rock-tunnel? early-rockets?]}]
-   [{:condition :goldenrod
-     :prereqs {:conditions-met #{}
-               :items-obtained #{}}}
+  [{:keys [no-blind-rock-tunnel? early-rockets?]
+    :or {nno-blind-rock-tunnel? true
+         early-rockets? false}}]
+  [{:condition :goldenrod
+    :prereqs {:conditions-met #{}
+              :items-obtained #{}}}
 
-    ;; there are TWO ways of getting to ecruteak
-    {:condition :ecruteak
-     :prereqs {:conditions-met #{}
-               :items-obtained #{:SQUIRTBOTTLE}}}
-    {:condition :ecruteak
-     :prereqs {:conditions-met #{}
-               :items-obtained #{:PASS :S_S_TICKET}}}
+   ;; there are TWO ways of getting to ecruteak
+   {:condition :ecruteak
+    :prereqs {:conditions-met #{}
+              :items-obtained #{:SQUIRTBOTTLE}}}
+   {:condition :ecruteak
+    :prereqs {:conditions-met #{}
+              :items-obtained #{:PASS :S_S_TICKET}}}
 
-    {:condition :defeat-red-gyarados
-     :prereqs {:conditions-met #{:can-surf :ecruteak}
-               :items-obtained #{}}}
+   {:condition :defeat-red-gyarados
+    :prereqs {:conditions-met #{:can-surf :ecruteak}
+              :items-obtained #{}}}
 
-    {:condition :trigger-radio-tower-takeover
-     :prereqs {:conditions-met (if early-rockets?
-                                 #{:four-badges}
-                                 #{:seven-badges})
-               :items-obtained #{}}}
+   {:condition :trigger-radio-tower-takeover
+    :prereqs {:conditions-met (if early-rockets?
+                                #{:four-badges}
+                                #{:seven-badges})
+              :items-obtained #{}}}
 
-    {:condition :underground-warehouse
-     :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
-               :items-obtained #{:BASEMENT_KEY}}}
+   {:condition :underground-warehouse
+    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+              :items-obtained #{:BASEMENT_KEY}}}
 
-    {:condition :defeat-team-rocket
-     :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
-               :items-obtained #{:CARD_KEY}}}
+   {:condition :defeat-team-rocket
+    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+              :items-obtained #{:CARD_KEY}}}
 
-    {:condition :blackthorn
-     :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
-               :items-obtained #{}}}
+   {:condition :blackthorn
+    :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
+              :items-obtained #{}}}
 
-    ;; there are TWO ways of getting to kanto
-    {:condition :kanto
-     :prereqs {:conditions-met #{:ecruteak}
-               :items-obtained #{:S_S_TICKET}}}
-    {:condition :kanto
-     :prereqs {:conditions-met #{:goldenrod}
-               :items-obtained #{:PASS}}}
+   ;; there are TWO ways of getting to kanto
+   {:condition :kanto
+    :prereqs {:conditions-met #{:ecruteak}
+              :items-obtained #{:S_S_TICKET}}}
+   {:condition :kanto
+    :prereqs {:conditions-met #{:goldenrod}
+              :items-obtained #{:PASS}}}
 
-    ;; if the player doesn't want to do blind rock tunnel, the they
-    ;; need to use either Cut or Flash.
-    ;; otherwise, there's only one way; it doesn't matter that it's
-    ;; listed twice.
-    {:condition :talk-to-power-plant-manager
-     :prereqs {:conditions-met (if no-blind-rock-tunnel?
-                                 #{:can-flash :can-surf :kanto}
-                                 #{:can-surf :kanto})
-               :items-obtained #{}}}
-    {:condition :talk-to-power-plant-manager
-     :prereqs {:conditions-met (if no-blind-rock-tunnel?
-                                 #{:can-cut :can-surf :kanto}
-                                 #{:can-surf :kanto})
-               :items-obtained #{}}}
+   ;; if the player doesn't want to do blind rock tunnel, the they
+   ;; need to use either Cut or Flash.
+   ;; otherwise, there's only one way; it doesn't matter that it's
+   ;; listed twice.
+   {:condition :talk-to-power-plant-manager
+    :prereqs {:conditions-met (if no-blind-rock-tunnel?
+                                #{:can-flash :can-surf :kanto}
+                                #{:can-surf :kanto})
+              :items-obtained #{}}}
+   {:condition :talk-to-power-plant-manager
+    :prereqs {:conditions-met (if no-blind-rock-tunnel?
+                                #{:can-cut :can-surf :kanto}
+                                #{:can-surf :kanto})
+              :items-obtained #{}}}
 
-    {:condition :fix-power-plant
-     :prereqs {:conditions-met #{:talk-to-power-plant-manager}
-               :items-obtained #{:MACHINE_PART}}}
+   {:condition :fix-power-plant
+    :prereqs {:conditions-met #{:talk-to-power-plant-manager}
+              :items-obtained #{:MACHINE_PART}}}
 
-    {:condition :pewter
-     :prereqs {:conditions-met #{:fix-power-plant :can-cut}
-               :items-obtained #{}}}
+   {:condition :pewter
+    :prereqs {:conditions-met #{:fix-power-plant :can-cut}
+              :items-obtained #{}}}
 
-    ;; there are TWO ways of getting to the E4
-    {:condition :defeat-elite-4
-     :prereqs {:conditions-met #{:pewter}
-               :items-obtained #{}}}
-    {:condition :defeat-elite-4
-     :prereqs {:conditions-met #{:eight-badges :can-surf :can-waterfall}
-               :items-obtained #{}}}
+   ;; there are TWO ways of getting to the E4
+   {:condition :defeat-elite-4
+    :prereqs {:conditions-met #{:pewter}
+              :items-obtained #{}}}
+   {:condition :defeat-elite-4
+    :prereqs {:conditions-met #{:eight-badges :can-surf :can-waterfall}
+              :items-obtained #{}}}
 
-    {:condition :defeat-red
-     :prereqs {:conditions-met #{:sixteen-badges}
-               :items-obtained #{}}}]))
+   {:condition :defeat-red
+    :prereqs {:conditions-met #{:sixteen-badges}
+              :items-obtained #{}}}])
 
 (def item-prereqs
   [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
