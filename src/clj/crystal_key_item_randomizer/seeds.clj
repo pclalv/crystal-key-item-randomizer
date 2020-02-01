@@ -10,15 +10,14 @@
 (def all-items (vec (keys key-items/speedchoice)))
 (def badges (vec (keys badges/speedchoice)))
 
-(def early-items #{:MYSTERY_EGG
-                   :HM_FLASH
-                   :OLD_ROD
-                   :HM_CUT
-                   ;; goldenrod
-                   :BICYCLE
-                   :BLUE_CARD
-                   :COIN_CASE
-                   :SQUIRTBOTTLE})
+(defn early-items
+  "All items that the player is guaranteed to get early on."
+  [{:keys [include-squirtbottle?]}]
+  (->> #{:MYSTERY_EGG :HM_FLASH :OLD_ROD :HM_CUT
+         :BICYCLE :BLUE_CARD :COIN_CASE (when include-squirtbottle?
+                                          :SQUIRTBOTTLE)}
+       (remove nil?)
+       (into #{})))
 
 (defn deterministic-shuffle [^java.util.Collection coll seed]
   (let [al (java.util.ArrayList. coll)
@@ -26,8 +25,12 @@
     (java.util.Collections/shuffle al rng)
     (clojure.lang.RT/vector (.toArray al))))
 
-(defn gives-early? [item swaps]
-  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps early-items)]
+(defn gives-early? [item swaps {:keys [randomize-badges?] :as opts}]
+  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps
+                                                                       ;; if badges are randomized, then we cannot guarantee that the SQUIRTBOTTLE will be an early item;
+                                                                       ;; in other words, we don't want to the BICYCLE to be locked behind the PLAINBADGE in badge rando.
+                                                                       (early-items {:include-squirtbottle? (not (and randomize-badges?
+                                                                                                                      (= item :BICYCLE)))}))]
     (-> early-swaps
         (contains? item))))
 
@@ -43,10 +46,8 @@
           badge-swaps (if randomize-badges?
                         (zipmap badges (deterministic-shuffle badges seed-id))
                         (zipmap badges badges))]
-      (cond (and early-bicycle?
-                 (not (gives-early? :BICYCLE item-swaps))) (recur rng)
-            (and no-early-super-rod?
-                 (gives-early? :SUPER_ROD item-swaps)) (recur rng)
+      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
+            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
             :else {:item-swaps item-swaps
                    :badge-swaps badge-swaps
                    :seed-id seed-id}))))
