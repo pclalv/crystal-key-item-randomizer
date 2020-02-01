@@ -103,6 +103,7 @@ in priority order:
 
 ### binary patching
 
+- randomize which janine is the real janine in fuchsia gym
 - QOL
   - currently the player has to surf from Cinnabar to Fuchsia to clear
     the barricades in Fuchsia - can we improve this for players?
