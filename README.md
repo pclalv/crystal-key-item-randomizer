@@ -101,8 +101,6 @@ in priority order:
   - currently the player has to surf from Cinnabar to Fuchsia to clear
     the barricades in Fuchsia - can we improve this for players?
     https://github.com/pret/pokecrystal/blob/745339014c39a4d47d8a4bdee05bbe8e573933ec/maps/Route20.asm#L10
-- **new option: early radio tower** reduce the required badge counts
-  from 6 and 7 to 3 and 4 respectively
 - enable player to view Kanto pokedex area from the beginning of the
   game
 - prevent players from visiting the Underground Warehouse before
