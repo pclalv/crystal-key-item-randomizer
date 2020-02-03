@@ -204,7 +204,6 @@
                           (not (empty? @seed-id)))}]
    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"] " - Ensure that " [:tt "SUPER_ROD"] " is not obtainable until after the player has left Goldenrod."]
    [:br]
-
    
    [:input {:id "early-bicycle" :type "checkbox"
             :on-change (set-checkbox-value-on-atom early-bicycle?)
@@ -221,7 +220,7 @@
                           @no-early-sabrina?)
             :disabled (or @handling-rom?
                           (not (empty? @seed-id)))}]
-   [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
+   [:label {:for "no-early-sabrina"} "No early Sabrina (experimental) - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
    [:br]
 
    ;; TODO: test all this code; mainly via frontend, just make sure
@@ -231,14 +230,14 @@
             :on-change (set-checkbox-value-on-atom early-rockets?)
             :checked @early-rockets?
             :disabled @handling-rom?}]
-   [:label {:for "early-rockets"} "Early Rocket sequence - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]
+   [:label {:for "early-rockets"} "Early Rocket sequence (experimental) - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]
    [:br]
 
    [:input {:id "randomize-badges" :type "checkbox"
             :on-change (set-checkbox-value-on-atom randomize-badges?)
             :checked @randomize-badges?
             :disabled @handling-rom?}]
-   [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
+   [:label {:for "randomize-badges"} "Randomize badges"]
    [:br]
 
    [:select {:id "endgame-condition"
