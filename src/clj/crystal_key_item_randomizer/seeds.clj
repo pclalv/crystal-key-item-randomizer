@@ -10,7 +10,7 @@
 (def all-items (vec (keys key-items/speedchoice)))
 (def badges (vec (keys badges/speedchoice)))
 
-(def early-badges #{:ZEPHYRBADGE :HIVEBADGE:PLAINBADGE :FOGBADGE})
+(def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
 
 (defn early-items
   "All items that the player is guaranteed to get early on."
