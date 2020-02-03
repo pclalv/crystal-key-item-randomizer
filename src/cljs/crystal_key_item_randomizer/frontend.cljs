@@ -194,57 +194,60 @@
     "random seed."]])
 
 (defn options []
-  [:<>
-   [:p
-    [:strong "Options"]]
-   [:p
-    [:input {:id "no-early-super-rod" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom no-early-super-rod?)
-             :checked (and (empty? @seed-id)
-                           @no-early-super-rod?)
-             :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]
-    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"] " - Ensure that " [:tt "SUPER_ROD"] " is not obtainable until after the player has left Goldenrod."]]
-   [:p
-    [:input {:id "early-bicycle" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom early-bicycle?)
-             :checked (and (empty? @seed-id)
-                           @early-bicycle?)
-             :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]
-    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"] " - Ensure that " [:tt "BICYCLE"] " is obtainable before the player has left Goldenrod."]]
-   [:p
-    [:input {:id "no-early-sabrina" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom no-early-sabrina?)
-             :checked (and (empty? @seed-id)
-                           @no-early-sabrina?)
-             :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]
-    [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]]
+  [:fieldset
+   [:legend "Options"]
+   [:input {:id "no-early-super-rod" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom no-early-super-rod?)
+            :checked (and (empty? @seed-id)
+                          @no-early-super-rod?)
+            :disabled (or @handling-rom?
+                          (not (empty? @seed-id)))}]
+   [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"] " - Ensure that " [:tt "SUPER_ROD"] " is not obtainable until after the player has left Goldenrod."]
+   [:br]
+
+   
+   [:input {:id "early-bicycle" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom early-bicycle?)
+            :checked (and (empty? @seed-id)
+                          @early-bicycle?)
+            :disabled (or @handling-rom?
+                          (not (empty? @seed-id)))}]
+   [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"] " - Ensure that " [:tt "BICYCLE"] " is obtainable before the player has left Goldenrod."]
+   [:br]
+
+   [:input {:id "no-early-sabrina" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom no-early-sabrina?)
+            :checked (and (empty? @seed-id)
+                          @no-early-sabrina?)
+            :disabled (or @handling-rom?
+                          (not (empty? @seed-id)))}]
+   [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
+   [:br]
+
    ;; TODO: test all this code; mainly via frontend, just make sure
    ;; things seem to work with both a random seed and a predetermined
    ;; seed
-   [:p
-    [:input {:id "early-rockets" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom early-rockets?)
-             :checked @early-rockets?
-             :disabled @handling-rom?}]
-    [:label {:for "early-rockets"} "Early Rocket sequence - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]]
-    
-   [:p
-    [:input {:id "randomize-badges" :type "checkbox"
-             :on-change (set-checkbox-value-on-atom randomize-badges?)
-             :checked @randomize-badges?
-             :disabled @handling-rom?}]
-    [:label {:for "randomize-badges"} "Randomize badges (experimental)"]]
-   [:p
-    [:select {:id "endgame-condition"
-              :on-change (set-value-on-atom endgame-condition)
-              :value @endgame-condition
-              :disabled @handling-rom?}
-     [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
-     [:option {:value "defeat-red"} "Defeat Red"]]
-    [:label {:for "endgame-condition"} "Endgame condition"]]])
+   [:input {:id "early-rockets" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom early-rockets?)
+            :checked @early-rockets?
+            :disabled @handling-rom?}]
+   [:label {:for "early-rockets"} "Early Rocket sequence - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]
+   [:br]
+
+   [:input {:id "randomize-badges" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom randomize-badges?)
+            :checked @randomize-badges?
+            :disabled @handling-rom?}]
+   [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
+   [:br]
+
+   [:select {:id "endgame-condition"
+             :on-change (set-value-on-atom endgame-condition)
+             :value @endgame-condition
+             :disabled @handling-rom?}
+    [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
+    [:option {:value "defeat-red"} "Defeat Red"]]
+   [:label {:for "endgame-condition"} "Endgame condition"]])
 
 (defn rom-input []
   (when (not @handling-rom?)
