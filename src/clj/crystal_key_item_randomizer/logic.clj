@@ -107,6 +107,7 @@
               :items-obtained #{}}}
 
    {:condition :trigger-radio-tower-takeover
+    ;; TODO: is the PHONE_CARD a prereq here?
     :prereqs {:conditions-met (if early-rockets?
                                 #{:four-badges}
                                 #{:seven-badges})
@@ -152,7 +153,8 @@
               :items-obtained #{:MACHINE_PART}}}
 
    {:condition :pewter
-    :prereqs {:conditions-met #{:fix-power-plant :can-cut}
+    :prereqs {:conditions-met #{:can-cut}
+              :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
               :items-obtained #{}}}
 
    ;; there are TWO ways of getting to the E4
@@ -244,3 +246,22 @@
    {:conditions-met #{:pewter}
     :items-obtained #{}
     :grants #{:SILVER_WING}}])
+
+;; wip - eventually, pokegear cards should count as items
+
+;; TODO: patch out the map card walking around thing
+(def pokegear-card-prereqs
+  ;; what happens if you get 7 badges but don't have the phone card?
+  ;; does the game call you anyway? or do you get softlocked because
+  ;; you can't receive the call?
+  [{:prereqs {:conditions-met #{}}
+    :pokegear-card :PHONE_CARD}
+
+   {:prereqs {:conditions-met #{}}
+    :pokegear-card :MAP_CARD}
+
+   {:prereqs {:conditions-met #{:goldenrod}}
+    :pokegear-card :RADIO_CARD}
+
+   {:prereqs {:conditions-met #{:fix-power-plant}}
+    :pokegear-card :EXPN_CARD}])

@@ -76,17 +76,21 @@
 
 (defn can-satisfy-condition-prereqs? [{player-conditions-met :conditions-met
                                        player-items-obtained :items-obtained
+                                       player-pokegear-cards :pokegear-cards
                                        :as result}
                                       {condition :condition
-                                       {:keys [conditions-met items-obtained]} :prereqs}]
+                                       {:keys [conditions-met items-obtained pokegear-cards]} :prereqs}]
   (if (player-conditions-met condition)
     result
     (let [conditions-satisfied? (every? player-conditions-met
                                         (or conditions-met #{}))
           items-satisfied? (every? player-items-obtained
                                    (or items-obtained #{}))
+          pokegear-cards-satisfied? (every? player-pokegear-cards
+                                            (or pokegear-cards #{}))
           satisfied? (and conditions-satisfied?
-                          items-satisfied?)]
+                          items-satisfied?
+                          pokegear-cards-satisfied?)]
       (if satisfied?
         (assoc result :conditions-met (conj player-conditions-met condition))
         result))))
@@ -134,13 +138,34 @@
           result
           hm-use-prereqs))
 
+;;;;;;;;;;;;;;;;;;;;
+;; pokegear cards ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(defn satisfies-pokegear-card-prereq? [{player-conditions-met :conditions-met
+                                        pokegear-cards :pokegear-cards
+                                        :as result}
+                                       {pokegear-card :pokegear-card
+                                        {conditions-met :conditions-met} :prereqs}]
+  (let [conditions-satisfied? (every? player-conditions-met
+                                      (or conditions-met #{}))]
+    (if (not conditions-satisfied?)
+      result
+      (assoc result :pokegear-cards (conj pokegear-cards pokegear-card)))))
+
+(defn analyze-pokegear-cards [result]
+  (reduce satisfies-pokegear-card-prereq?
+          result
+          pokegear-card-prereqs))
+
 (defn analyze [result {:keys [item-swaps badge-swaps]} {:keys [condition-options]}]
   (-> result
       (analyze-items item-swaps)
       (analyze-conditions condition-options)
       (analyze-badges badge-swaps) 
       analyze-badge-count
-      analyze-hm-use))
+      analyze-hm-use
+      analyze-pokegear-cards))
 
 (defn beatable?
   ([swaps]
@@ -155,7 +180,8 @@
      (let [result (loop [previous-result {}
                          result (analyze {:items-obtained #{}
                                           :conditions-met #{}
-                                          :badges #{}}
+                                          :badges #{}
+                                          :pokegear-cards #{}}
                                          swaps
                                          {:condition-options {:early-rockets? early-rockets?
                                                               :no-blind-rock-tunnel? true}})]
