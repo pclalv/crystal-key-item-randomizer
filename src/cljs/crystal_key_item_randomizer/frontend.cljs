@@ -14,6 +14,7 @@
 
 ;; these atoms are inputs to the randomizer.
 (def no-early-super-rod? (r/atom true))
+(def no-early-sabrina? (r/atom true))
 (def early-bicycle? (r/atom true))
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
@@ -197,47 +198,59 @@
    [:p
     [:strong "Options"]]
    [:p
-    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"]]
     [:input {:id "no-early-super-rod" :type "checkbox"
              :on-change (set-checkbox-value-on-atom no-early-super-rod?)
              :checked (and (empty? @seed-id)
                            @no-early-super-rod?)
              :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]]
+                           (not (empty? @seed-id)))}]
+    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"] " - Ensure that " [:tt "SUPER_ROD"] " is not obtainable until after the player has left Goldenrod."]]
    [:p
-    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"]]
     [:input {:id "early-bicycle" :type "checkbox"
              :on-change (set-checkbox-value-on-atom early-bicycle?)
              :checked (and (empty? @seed-id)
                            @early-bicycle?)
              :disabled (or @handling-rom?
-                           (not (empty? @seed-id)))}]]
+                           (not (empty? @seed-id)))}]
+    [:label {:for "early-bicycle"} "Early " [:tt "BICYCLE"] " - Ensure that " [:tt "BICYCLE"] " is obtainable before the player has left Goldenrod."]]
    [:p
-    [:label {:for "early-rockets"} "Trigger Team Rocket events after obtaining 4 badges instead of 7"]
+    [:input {:id "no-early-sabrina" :type "checkbox"
+             :on-change (set-checkbox-value-on-atom no-early-sabrina?)
+             :checked (and (empty? @seed-id)
+                           @no-early-sabrina?)
+             :disabled (or @handling-rom?
+                           (not (empty? @seed-id)))}]
+    [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]]
+   ;; TODO: test all this code; mainly via frontend, just make sure
+   ;; things seem to work with both a random seed and a predetermined
+   ;; seed
+   [:p
     [:input {:id "early-rockets" :type "checkbox"
              :on-change (set-checkbox-value-on-atom early-rockets?)
              :checked @early-rockets?
-             :disabled @handling-rom?}]]
+             :disabled @handling-rom?}]
+    [:label {:for "early-rockets"} "Early Rocket sequence - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]]
+    
    [:p
-    [:label {:for "randomize-badges"} "Randomize badges (experimental)"]
     [:input {:id "randomize-badges" :type "checkbox"
              :on-change (set-checkbox-value-on-atom randomize-badges?)
              :checked @randomize-badges?
-             :disabled @handling-rom?}]]
+             :disabled @handling-rom?}]
+    [:label {:for "randomize-badges"} "Randomize badges (experimental)"]]
    [:p
-    [:label {:for "endgame-condition"} "Endgame condition"]
     [:select {:id "endgame-condition"
               :on-change (set-value-on-atom endgame-condition)
               :value @endgame-condition
               :disabled @handling-rom?}
      [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
-     [:option {:value "defeat-red"} "Defeat Red"]]]])
+     [:option {:value "defeat-red"} "Defeat Red"]]
+    [:label {:for "endgame-condition"} "Endgame condition"]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
     [:p
-     [:label {:for "rom-file"} "Select ROM file"]
-     [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]]))
+     [:input {:id "rom-file" :type "file" :accept ".gbc" :on-change handle-rom-input}]
+     [:label {:for "rom-file"} "Select Pokemon Crystal Speedchoice ROM file"]]))
 
 (defn spoilers-table [swaps {swap-type :swap-type}]
   [:table {:id "swaps"}

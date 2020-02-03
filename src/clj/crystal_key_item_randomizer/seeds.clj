@@ -10,6 +10,8 @@
 (def all-items (vec (keys key-items/speedchoice)))
 (def badges (vec (keys badges/speedchoice)))
 
+(def early-badges #{:ZEPHYRBADGE :HIVEBADGE:PLAINBADGE :FOGBADGE})
+
 (defn early-items
   "All items that the player is guaranteed to get early on."
   [{:keys [include-squirtbottle?]}]
@@ -34,7 +36,12 @@
     (-> early-swaps
         (contains? item))))
 
-(defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-super-rod?] :as opts}]
+(defn early-sabrina? [badge-swaps]
+  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps badge-swaps early-badges)]
+    (-> early-swaps
+        (contains? :MARSHBADGE))))
+
+(defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
@@ -48,6 +55,7 @@
                         (zipmap badges badges))]
       (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
             (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
+            (and no-early-sabrina? (early-sabrina? badge-swaps)) (recur rng)
             :else {:item-swaps item-swaps
                    :badge-swaps badge-swaps
                    :seed-id seed-id}))))
