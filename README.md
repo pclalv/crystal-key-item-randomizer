@@ -58,9 +58,6 @@ in priority order:
     with randomized moves
 - convert JSON patch files into a more readable, commentable format
   (yaml probably)
-- investigate seed 177
-  - seems okay, but it forces the player to start the Radio Tower to
-    get Surf from the Ice Path
 - progressive fishing rods
 - see if there's an easy and general way to improve trainer AI
 - implement new trainer card page to view kanto badges
