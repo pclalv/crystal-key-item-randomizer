@@ -5,3 +5,8 @@
     margin: 10px 0px;
     padding: 12px;
 }
+
+label {
+    display: inline-block;
+    padding: 6px;
+}
