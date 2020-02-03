@@ -36,6 +36,10 @@
     (-> early-swaps
         (contains? item))))
 
+;; alternatively, is there some way of telling if the player would
+;; have access to a high level pokemon before facing down high-level
+;; gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for)
+;; roamers) would have to be a requirement for those leaders.
 (defn early-sabrina? [badge-swaps]
   (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps badge-swaps early-badges)]
     (-> early-swaps

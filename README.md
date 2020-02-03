@@ -80,14 +80,6 @@ in priority order:
 
 ### logic
 
-- **new option: no-grind** so that players don't have to go from
-  Goldenrod to Saffron and immediately defeat Sabrina
-  - easy way to accomplish this might be ensuring that Sabrina doesn't
-    have an early game badge - anything after FOGBADGE should be fine
-  - alternatively, is there some way of telling if the player would
-    have access to a high level pokemon before facing down high-level
-    gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for
-    roamers) would have to be a requirement for those leaders.
 - **consider pokegear cards in prereqs logic**. this is primarily
   motivated by wanting to randomize the kanto expansion card, which
   allows the player to wake the snorlax and progress to pewter from
