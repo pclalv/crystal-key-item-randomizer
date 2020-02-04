@@ -50,6 +50,7 @@
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]},
+  :char_length 207,
   :old_text  "<START>Do you know the\\nbenefits of HIVE-\\lBADGE?\\pIf you have it,\\n<POKé>MON up to L30\\pwill obey you,\\neven traded ones.\\p<POKé>MON that know\\nCUT will be able\\pto use it outside\\nof battle too.\\pHere, I also want\\nyou to have this.\\e",
   :new_text "<START>Here--take this\\ntoo.\\e"}
  {:label "UnknownText_0x5428b.ckir_BEFORE_text_PLAINBADGE_unimportant",
