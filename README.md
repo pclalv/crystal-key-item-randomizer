@@ -92,7 +92,6 @@ in priority order:
 
 ### binary patching
 
-- fix glitchy clair text
 - randomize which janine is the real janine in fuchsia gym
 - QOL
   - currently the player has to surf from Cinnabar to Fuchsia to clear

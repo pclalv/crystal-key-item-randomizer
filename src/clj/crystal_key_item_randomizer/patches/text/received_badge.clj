@@ -6,6 +6,10 @@
   game text."
   "<START>It's\\n{{badge}}.\\e")
 
+(def received-risingbadge-replacement-text-template
+  "Unlike the general case, Clair's text begins with 'para'."
+  (clojure.string/replace received-badge-replacement-text-template "<START>" "\\p"))
+
 (def received-badge-text-locations
   [{:badge :ZEPHYRBADGE
     :label "UnknownText_0x685af.ckir_BEFORE_text_ZEPHYRBADGE_received"
@@ -94,9 +98,10 @@
                                    :as received-badge-text-location}]
   (let [orig-num-bytes (count old-integer-values)
         new-badge (-> badge swaps name)
-        new-text (clojure.string/replace received-badge-replacement-text-template
-                                         "{{badge}}"
-                                         new-badge)
+        template (if (= badge :RISINGBADGE)                   
+                   received-risingbadge-replacement-text-template
+                   received-badge-replacement-text-template)
+        new-text (clojure.string/replace template "{{badge}}" new-badge)
         ;; all new texts are shorter than their corresponding original
         ;; text, so we'll unconditionally terminate the new text, and
         ;; then pad the rest with 0s.
