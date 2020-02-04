@@ -64,7 +64,7 @@
              :integer_values {:old [81 82 127 177 164 162 164 168 181 164 163 79
                                     145 136 146 136 141 134 129 128 131 134 132
                                     232 87],
-                              :new [0 136 179 212 79 145 136 146 136 141 134 129
+                              :new [81 136 179 212 79 145 136 146 136 141 134 129
                                     128 131 134 132 232 87 80 0 0 0 0 0 0]}}
             {:badge :BOULDERBADGE,
              :label "UnknownText_0x1a2a3d.ckir_BEFORE_text_BOULDERBADGE_received",
