@@ -50,8 +50,6 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 in priority order:
 
-- patch vanilla crystal roms into the speedchoice rom 
-  - i believe we can determine this by reading some header
 - make all pokemon level 100 in order to mitigate how broken the
   level-up system is.
   - what about moves? maybe this should only be a feature for roms
@@ -69,18 +67,19 @@ in priority order:
   - whirl islands
   - mt mortar
   - dark cave
+- patch vanilla crystal roms into the speedchoice rom 
+  - i believe we can determine this by reading some header
+  - low priority because people will wanna use other randomizations
+    first; it's unlikely people will be submitting vanilla ROMs
 
 ### tracker
 
+- add numbers to HMs
 - optionally show names of items, so that the tracker will be more
   immediately useful to those unfamiliar with it
 
 ### logic
 
-- **consider pokegear cards in prereqs logic**. this is primarily
-  motivated by wanting to randomize the kanto expansion card, which
-  allows the player to wake the snorlax and progress to pewter from
-  vermilion.
 - randomize which non-required item the copycat is looking for.
 - find out what happens if the player:
   1. trigger the Radio Tower takeover
