@@ -28,11 +28,15 @@
     (clojure.lang.RT/vector (.toArray al))))
 
 (defn gives-early? [item swaps {:keys [randomize-badges?] :as opts}]
-  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps swaps
-                                                                       ;; if badges are randomized, then we cannot guarantee that the SQUIRTBOTTLE will be an early item;
-                                                                       ;; in other words, we don't want to the BICYCLE to be locked behind the PLAINBADGE in badge rando.
-                                                                       (early-items {:include-squirtbottle? (not (and randomize-badges?
-                                                                                                                      (= item :BICYCLE)))}))]
+  (let [early-swaps (get-swaps swaps
+                               ;; if badges are randomized, then we
+                               ;; cannot guarantee that the
+                               ;; SQUIRTBOTTLE will be an early item;
+                               ;; in other words, we don't want to the
+                               ;; BICYCLE to be locked behind the
+                               ;; PLAINBADGE in badge rando.
+                               (early-items {:include-squirtbottle? (not (and randomize-badges?
+                                                                              (= item :BICYCLE)))}))]
     (-> early-swaps
         (contains? item))))
 
@@ -41,7 +45,7 @@
 ;; gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for)
 ;; roamers) would have to be a requirement for those leaders.
 (defn early-sabrina? [badge-swaps]
-  (let [early-swaps (crystal-key-item-randomizer.progression/get-swaps badge-swaps early-badges)]
+  (let [early-swaps (get-swaps badge-swaps early-badges)]
     (-> early-swaps
         (contains? :MARSHBADGE))))
 
