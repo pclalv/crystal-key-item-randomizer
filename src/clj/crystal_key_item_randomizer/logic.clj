@@ -169,7 +169,8 @@
     :prereqs {:conditions-met #{:sixteen-badges}
               :items-obtained #{}}}])
 
-(def item-prereqs
+(defn item-prereqs
+  [{:keys [copycat-item] :or {copycat-item :LOST_ITEM}}]
   [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
     ;; so goldenrod is always accessible
     :conditions-met #{}
@@ -236,7 +237,7 @@
     :grants #{:MACHINE_PART}}
 
    {:conditions-met #{:kanto}
-    :items-obtained #{:LOST_ITEM}
+    :items-obtained #{copycat-item}
     :grants #{:PASS}}
 
    {:conditions-met #{:fix-power-plant}

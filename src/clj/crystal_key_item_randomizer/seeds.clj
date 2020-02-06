@@ -10,6 +10,16 @@
 (def all-items (vec (keys key-items/speedchoice)))
 (def badges (vec (keys badges/speedchoice)))
 
+(def non-required-items
+  "These items aren't required to make any progress, nor are they
+  required for any bingo goals, so we might as well use them for
+  something if we can."
+  [:BLUE_CARD
+   :GOOD_ROD
+   :ITEMFINDER
+   :LOST_ITEM
+   :OLD_ROD])
+
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
 
 (defn early-items
@@ -26,6 +36,9 @@
         rng (java.util.Random. seed)]
     (java.util.Collections/shuffle al rng)
     (clojure.lang.RT/vector (.toArray al))))
+
+(defn deterministic-pick [coll seed]
+  (first (deterministic-shuffle coll seed)))
 
 (defn gives-early? [item swaps {:keys [randomize-badges?] :as opts}]
   (let [early-swaps (get-swaps swaps
@@ -47,7 +60,10 @@
 (defn early-sabrina? [badge-swaps]
   (contains? early-badges (badge-swaps :MARSHBADGE)))
 
-(defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod?] :as opts}]
+; (defrecord swaps-options [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?])
+
+(defn generate-swaps
+  [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?] :as opts}]
   (loop [rng (or (:rng opts)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
@@ -58,13 +74,29 @@
                              (deterministic-shuffle all-items seed-id))
           badge-swaps (if randomize-badges?
                         (zipmap badges (deterministic-shuffle badges seed-id))
-                        (zipmap badges badges))]
+                        (zipmap badges badges))
+          copycat-item (if randomize-copycat-item?
+                         (deterministic-pick non-required-items seed-id)
+                         :LOST_ITEM)]
       (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
             (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
             (and no-early-sabrina? (early-sabrina? badge-swaps)) (recur rng)
             :else {:item-swaps item-swaps
                    :badge-swaps badge-swaps
-                   :seed-id seed-id}))))
+                   :copycat-item copycat-item
+                   :seed-id seed-id
+                   :options opts}))))
+
+(def default-generate-options
+  "Would be nice if we could use this variable in the generate-random
+  and generate function signatures, namely in the arg list."
+  '{endgame-condition :defeat-elite-4
+    swaps-options {:randomize-badges? false
+                   :early-bicycle? false
+                   :no-early-sabrina? false
+                   :no-early-super-rod? false
+                   :randomize-copycat-item? false}
+    early-rockets? false})
 
 (s/def ::endgame-condition #{:defeat-elite-4 :defeat-red})
 
@@ -108,8 +140,12 @@
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
+         copycat-item (if (:randomize-copycat-item? swaps-options)
+                        (deterministic-pick non-required-items seed-id)
+                        :LOST_ITEM)
          swaps {:item-swaps item-swaps
                 :badge-swaps badge-swaps
+                :copycat-item copycat-item
                 :seed-id seed-id}
          progression-results (beatable? swaps {:endgame-condition endgame-condition
                                                :early-rockets? early-rockets?})

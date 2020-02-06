@@ -66,10 +66,10 @@
                                               (get-swaps swaps grants)))
       args)))
 
-(defn analyze-items [result swaps]
+(defn analyze-items [result swaps copycat-item]
   (reduce (partial can-satisfy-item-prereqs? swaps)
           result
-          item-prereqs))
+          (item-prereqs {:copycat-item copycat-item})))
 
 ;;;;;;;;;;;;;;;;
 ;; conditions ;;
@@ -159,9 +159,9 @@
           result
           pokegear-card-prereqs))
 
-(defn analyze [result {:keys [item-swaps badge-swaps]} {:keys [condition-options]}]
+(defn analyze [result {:keys [item-swaps badge-swaps copycat-item]} {:keys [condition-options]}]
   (-> result
-      (analyze-items item-swaps)
+      (analyze-items item-swaps copycat-item)
       (analyze-conditions condition-options)
       (analyze-badges badge-swaps) 
       analyze-badge-count

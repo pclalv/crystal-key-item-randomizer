@@ -20,6 +20,7 @@
 (def seed-id (r/atom ""))
 (def endgame-condition (r/atom "defeat-elite-4"))
 (def early-rockets? (r/atom false))
+(def randomize-copycat-item? (r/atom false))
 
 (def wildcard "*")
 
@@ -125,7 +126,8 @@
                                            (assoc always-options
                                                   :early-bicycle? @early-bicycle?
                                                   :no-early-sabrina? @no-early-sabrina?
-                                                  :no-early-super-rod? @no-early-super-rod?)))
+                                                  :no-early-super-rod? @no-early-super-rod?
+                                                  :randomize-copycat-item? @randomize-copycat-item)))
                         :early-rockets? @early-rockets?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
@@ -245,6 +247,13 @@
             :checked @randomize-badges?
             :disabled @handling-rom?}]
    [:label {:for "randomize-badges"} "Randomize badges"]
+   [:br]
+
+   [:input {:id "randomize-copycat-item" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom randomize-copycat-item?)
+            :checked @randomize-copycat-item?
+            :disabled @handling-rom?}
+    [:label {:for "randomize-copycat-item"} "Randomize Copycat item (experimental) - Randomize which item the Copycat is looking for; the replacement will be a non-progression key item."]]
    [:br]
 
    [:select {:id "endgame-condition"
