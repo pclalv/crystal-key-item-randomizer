@@ -76,7 +76,7 @@
                         (item-ball card-key-replacement {:speedchoice? speedchoice?})))
 
 (defn generate [{:keys [item-swaps badge-swaps]}
-                {:keys [speedchoice? early-rockets?] :or {speedchoice true
+                {:keys [speedchoice? early-rockets?] :or {speedchoice? true
                                                           early-rockets? false}}]
   (let [patches (if speedchoice?
                   speedchoice-patches
