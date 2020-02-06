@@ -1,4 +1,4 @@
-{0 "<START>",
+{0 "<START>", ; 'text' in pokecrystal
  5 "ガ",
  6 "ギ",
  7 "グ",
@@ -49,12 +49,12 @@
  71 "ぺ",
  72 "ぽ",
  74 "<pk>",
- 79 "\\n",
- 81 "\\p",
+ 79 "\\n", ; '(new)line' in pokecrystal
+ 81 "\\p", ; 'para' in pokecrystal
  82 "<PLAYER>",
  84 "<POKé>"
- 85 "\\l",
- 87 "\\e",
+ 85 "\\l", ; 'cont' in pokecrystal
+ 87 "\\e", ; 'done' in pokecrystal
  88 "\\r",
  116 "№",
  117 "…",
