@@ -59,7 +59,6 @@
       (> original-text-length (count encoded)) (-> encoded
                                                    (conj string-terminator)
                                                    (pad original-text-length 0))
-      ;; TODO: improve error handling...
       (< original-text-length (count encoded)) (throw (Exception. (str "gsc-encode-to-original-length: Encoded text was longer than original text:"
                                                                        "text: " text
                                                                        "original-text-length: " original-text-length))))))
