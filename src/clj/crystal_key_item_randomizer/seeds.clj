@@ -66,19 +66,20 @@
 
 (defn generate-random [{:keys [endgame-condition swaps-options early-rockets?]
                         :or {endgame-condition :defeat-elite-4
+                             ;; TODO: accept seed-options and swap-options as separate args
                              swaps-options {}
                              early-rockets? false}}]
-  (loop [iterations 1]
-    (let [{:keys [item-swaps badge-swaps copycat-item seed-id] :as swaps} (generate-swaps swaps-options)
-          progression-results (beatable? swaps {:endgame-condition endgame-condition
-                                                :early-rockets? early-rockets?})]
-      (if (progression-results :beatable?)
-        {:seed (-> progression-results
-                   (assoc :patches (patches/generate swaps {:speedchoice? true
-                                                            :early-rockets? early-rockets?}))
-                   (assoc :id (str seed-id)))
-         :iterations iterations}
-        (recur (inc iterations))))))
+  (let [seed-options {:endgame-condition endgame-condition
+                      :early-rockets? early-rockets?}]
+    (loop [iterations 1]
+      (let [swaps (generate-swaps swaps-options)
+            progression-results (beatable? swaps seed-options)]
+        (if (progression-results :beatable?)
+          {:seed (-> progression-results
+                     (assoc :patches (patches/generate swaps seed-options))
+                     (assoc :id (str (:seed-id swaps))))
+           :iterations iterations}
+          (recur (inc iterations)))))))
 
 (s/def ::error string?)
 (s/def ::iterations int?)
