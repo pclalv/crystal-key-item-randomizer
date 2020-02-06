@@ -100,7 +100,7 @@
                :seed
                (select-keys [:badge-swaps])))))
 
-  (testing "when randomize-badges? is not true"
+  (testing "when randomize-badges? is false"
     (is (= {:badge-swaps
             {:PLAINBADGE :PLAINBADGE,
              :MARSHBADGE :MARSHBADGE,
