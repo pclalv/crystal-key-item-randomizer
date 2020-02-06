@@ -65,15 +65,17 @@
 (defn apply-item-swaps [rom-bytes swaps]
   (reduce apply-item-swap rom-bytes (js->clj swaps)))
 
-(defn update-address [rom-bytes {:keys [address old-value new-value]}]
-  (if (or (= old-value wildcard)
-          (= old-value (aget rom-bytes address)))
-    (do (aset rom-bytes address new-value)
-        rom-bytes)
-    (throw-js (str "Expected \"" old-value
-                   "\" at address \"" address
-                   "\" but found \"" (aget rom-bytes address)
-                   "\". Make sure to select a Speedchoice v6 ROM (with or without other randomizations)."))))
+(defn update-address [label]
+  (fn [rom-bytes {:keys [address old-value new-value]}]
+    (if (or (= old-value wildcard)
+            (= old-value (aget rom-bytes address)))
+      (do (aset rom-bytes address new-value)
+          rom-bytes)
+      (throw-js (str "Expected \"" old-value
+                     "\" at address \"" address
+                     "\" but found \"" (aget rom-bytes address)
+                     "\" for label \"" label "\""
+                     "\". Make sure to select a Speedchoice v6 ROM (with or without other randomizations).")))))
 
 (defn apply-patch [rom-bytes {{old-values :old new-values :new} :integer_values
                               {begin-addr :begin end-addr :end} :address_range
@@ -87,7 +89,7 @@
                                 address-range
                                 old-values
                                 new-values)]
-        (reduce update-address
+        (reduce (update-address label)
                 rom-bytes
                 address-values)))))
 
