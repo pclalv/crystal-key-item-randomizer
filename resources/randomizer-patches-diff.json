@@ -8,7 +8,7 @@
             "begin": 1711229,
             "end": 1711242
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_YOUNGSTER_EVENT_ROUTE_30_BATTLE",
+        "label": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_YOUNGSTER_EVENT_ROUTE_30_BATTLE",
 	"description": "Disable the important battle"
     },
     {
@@ -20,7 +20,7 @@
             "begin": 1711294,
             "end": 1711307
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0",
+        "label": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0",
 	"description": "Disable the important battle"
     },
     {
@@ -32,7 +32,7 @@
             "begin": 1711307,
             "end": 1711320
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1",
+        "label": "Route30_MapEvents.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1",
 	"description": "Disable the important battle"
     },
     {
@@ -44,7 +44,7 @@
             "begin": 1711242,
             "end": 1711255
         },
-        "name": "Route30_MapEvents.ckir_BEFORE_EVENT_ROUTE_30_YOUNGSTER_JOEY",
+        "label": "Route30_MapEvents.ckir_BEFORE_EVENT_ROUTE_30_YOUNGSTER_JOEY",
 	"description": "Make the battleable Youngster Joey appear"
     },
 
@@ -57,7 +57,7 @@
             "begin": 349021,
             "end": 349024
         },
-        "name": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
 	"description": "Ensure that the player can still get the Flower Shop item even, if they've already defeated/caught the Sudowoodo"
     },
     {
@@ -69,7 +69,7 @@
             "begin": 349039,
             "end": 349042
         },
-        "name": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_TALKED_TO_FLORIA_AT_FLOWER_SHOP",
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_TALKED_TO_FLORIA_AT_FLOWER_SHOP",
 	"description": "Allow the player to skip talking to Floria back at the Flower Shop"
     },
     {
@@ -81,7 +81,7 @@
             "begin": 348398,
             "end": 348401
         },
-        "name": "GoldenrodMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
+        "label": "GoldenrodMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
 	"description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
     },
 
@@ -94,7 +94,7 @@
 	    "begin": 477616,
             "end": 477620
         },
-        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_SATURDAY",
+        "label": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_SATURDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
     {
@@ -106,7 +106,7 @@
             "begin": 477624,
             "end": 477628
         },
-        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_WEDNESDAY",
+        "label": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_WEDNESDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
     {
@@ -118,7 +118,7 @@
             "begin": 477612,
             "end": 477616
         },
-        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_SUNDAY",
+        "label": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_SUNDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
     {
@@ -130,7 +130,7 @@
             "begin": 477628,
             "end": 477632
         },
-        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_THURSDAY",
+        "label": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_THURSDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
     {
@@ -142,7 +142,7 @@
             "begin": 477620,
             "end": 477624
         },
-        "name": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_TUESDAY",
+        "label": "OlivinePortSailorAfterHOFScript.ckir_BEFORE_IFEQUAL_WEEKDAY_TUESDAY",
 	"description": "Allow player to ride the SS Aqua on any day"
     },
 
@@ -155,7 +155,7 @@
             "begin": 477502,
             "end": 477506
         },
-        "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_SATURDAY"
+        "label": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_SATURDAY"
     },
     {
         "integer_values": {
@@ -166,7 +166,7 @@
             "begin": 477498,
             "end": 477502
         },
-        "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_SUNDAY"
+        "label": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_SUNDAY"
     },
     {
         "integer_values": {
@@ -177,7 +177,7 @@
             "begin": 477514,
             "end": 477518
         },
-        "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_THURSDAY"
+        "label": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_THURSDAY"
     },
     {
         "integer_values": {
@@ -188,7 +188,7 @@
             "begin": 477506,
             "end": 477510
         },
-        "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
+        "label": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
     },
     {
         "integer_values": {
@@ -199,7 +199,7 @@
             "begin": 477510,
             "end": 477514
         },
-        "name": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_WEDNESDAY"
+        "label": "OlivinePortWalkUpToShipScript.ckir_BEFORE_ifequal_WEDNESDAY"
     },
 
     {
@@ -211,7 +211,7 @@
             "begin": 478530,
             "end": 478543
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_0",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_0",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
     {
@@ -223,7 +223,7 @@
             "begin": 478556,
             "end": 478569
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_1",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_1",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
     {
@@ -235,7 +235,7 @@
             "begin": 478569,
             "end": 478582
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_2",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_2",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
     {
@@ -247,7 +247,7 @@
             "begin": 478595,
             "end": 478608
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_3",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_3",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
     {
@@ -259,7 +259,7 @@
             "begin": 478543,
             "end": 478556
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_0",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_0",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
     {
@@ -271,7 +271,7 @@
             "begin": 478582,
             "end": 478595
         },
-        "name": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1",
+        "label": "OlivinePort_MapEvents.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1",
 	"description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
     },
 
@@ -284,7 +284,7 @@
             "begin": 1644603,
             "end": 1644606
         },
-        "name": "PokemonFanClubClefairyGuyScript.ckir_BEFORE_CHECKEVENT_EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM",
+        "label": "PokemonFanClubClefairyGuyScript.ckir_BEFORE_CHECKEVENT_EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM",
 	"description": "Ensure Pokemon Fan Club item is obtainable even if the player has already given the real LOST ITEM  to the Copycat"
     },
     {
@@ -296,7 +296,7 @@
             "begin": 1609319,
             "end": 1609322
         },
-        "name": "PowerPlantManager.ckir_BEFORE_CHECKEVENT_EVENT_RETURNED_MACHINE_PART",
+        "label": "PowerPlantManager.ckir_BEFORE_CHECKEVENT_EVENT_RETURNED_MACHINE_PART",
 	"description": "Ensure Cerulean Gym item is obtainable even if the player has already given the real MACHINE PART to the Power Plant manager"
     },
 
@@ -309,7 +309,7 @@
             "begin": 1615904,
             "end": 1615907
         },
-        "name": "SaffronMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
+        "label": "SaffronMagnetTrainStationOfficerScript.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
 	"description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
     },
 
@@ -322,7 +322,7 @@
 	    "begin": 721295,
 	    "end": 721296
 	},
-	"name": "Remove cuttable tree in Ilex Forest",
+	"label": "Remove cuttable tree in Ilex Forest",
 	"description": "For variety :) otherwise we'd have to force HM_CUT to appear within the first four items"
     },
 
@@ -334,7 +334,7 @@
             "begin": 514536,
             "end": 514538
         },
-        "name": "GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL",
+        "label": "GoldenrodUndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL",
 	"description": "Change the contents of the item ball from ULTRA_BALL to whatever replaces the CARD_KEY (a backup key item so that the player doesn't get softlocked). integer_values.new doesn't exist so that things will fail hard if the patches aren't update properly"
     },
 
@@ -347,7 +347,7 @@
             "end": 515572,
             "begin": 515559
         },
-        "name": "GoldenrodUndergroundWarehouse_MapEvents.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
+        "label": "GoldenrodUndergroundWarehouse_MapEvents.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
 	"description": "Move the ULTRA_BALL item ball and make ita appear after Team Rocket is defeated"
     },
 
@@ -360,7 +360,7 @@
             "begin": 478785,
             "end": 478789
         },
-        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_FRIDAY"
+        "label": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_FRIDAY"
     },
     {
         "integer_values": {
@@ -371,7 +371,7 @@
             "begin": 478773,
             "end": 478777
         },
-        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_MONDAY"
+        "label": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_MONDAY"
     },
     {
         "integer_values": {
@@ -382,7 +382,7 @@
             "begin": 478789,
             "end": 478793
         },
-        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_SATURDAY"
+        "label": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_SATURDAY"
     },
     {
         "integer_values": {
@@ -393,7 +393,7 @@
             "begin": 478781,
             "end": 478785
         },
-        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_THURSDAY"
+        "label": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_THURSDAY"
     },
     {
         "integer_values": {
@@ -404,7 +404,7 @@
             "begin": 478777,
             "end": 478781
         },
-        "name": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
+        "label": "VermilionPortWalkUpToShipScript.ckir_BEFORE_ifequal_TUESDAY"
     },
 
     {
@@ -416,7 +416,7 @@
             "begin": 478893,
             "end": 478897
         },
-        "name": "VermilionPortSailorScript.ckir_BEFORE_ifequal_FRIDAY"
+        "label": "VermilionPortSailorScript.ckir_BEFORE_ifequal_FRIDAY"
     },
     {
         "integer_values": {
@@ -427,7 +427,7 @@
             "begin": 478881,
             "end": 478885
         },
-        "name": "VermilionPortSailorScript.ckir_BEFORE_ifequal_MONDAY"
+        "label": "VermilionPortSailorScript.ckir_BEFORE_ifequal_MONDAY"
     },
     {
         "integer_values": {
@@ -438,7 +438,7 @@
             "begin": 478897,
             "end": 478901
         },
-        "name": "VermilionPortSailorScript.ckir_BEFORE_ifequal_SATURDAY"
+        "label": "VermilionPortSailorScript.ckir_BEFORE_ifequal_SATURDAY"
     },
     {
         "integer_values": {
@@ -449,7 +449,7 @@
             "begin": 478889,
             "end": 478893
         },
-        "name": "VermilionPortSailorScript.ckir_BEFORE_ifequal_THURSDAY"
+        "label": "VermilionPortSailorScript.ckir_BEFORE_ifequal_THURSDAY"
     },
     {
         "integer_values": {
@@ -460,6 +460,6 @@
             "begin": 478885,
             "end": 478889
         },
-        "name": "VermilionPortSailorScript.ckir_BEFORE_ifequal_TUESDAY"
+        "label": "VermilionPortSailorScript.ckir_BEFORE_ifequal_TUESDAY"
     }
 ]
