@@ -21,6 +21,7 @@
   (map hex->token hexs))
 
 (defn gsc-encode
+  ;; TODO: error when it can't find a matching character
   ([text]
    (gsc-encode text
                []

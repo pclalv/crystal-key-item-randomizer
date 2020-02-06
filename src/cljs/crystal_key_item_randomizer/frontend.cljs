@@ -133,6 +133,7 @@
                    (let [{:keys [item-swaps badge-swaps patches id] :as seed} (-> json
                                                                                   (aget "seed")
                                                                                   (js->clj :keywordize-keys true))
+                         ;; TODO: add other options to the filename
                          filename (str "pokecrystal-key-item-randomized-seed-"
                                        (if @randomize-badges?
                                          (str id "-badges")
