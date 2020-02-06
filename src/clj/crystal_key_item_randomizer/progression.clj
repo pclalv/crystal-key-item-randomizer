@@ -1,7 +1,8 @@
 (ns crystal-key-item-randomizer.progression
-  "The code in this namespace uses what we know about the game and how
-  progress can be made, along with the particular items and progress
-  the player has, to determine further progress."
+  "Uses what we know about the game and how progress can be made, along
+  with the particular items and progress the player has, to determine
+  further progress, and ultimately whether an endgame conditon can be
+  met."
   (:require [clojure.set :as cset]
             [crystal-key-item-randomizer.logic :refer :all]
             [clojure.spec.alpha :as s]))
