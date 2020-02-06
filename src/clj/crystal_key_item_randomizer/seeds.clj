@@ -45,9 +45,7 @@
 ;; gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for)
 ;; roamers) would have to be a requirement for those leaders.
 (defn early-sabrina? [badge-swaps]
-  (let [early-swaps (get-swaps badge-swaps early-badges)]
-    (-> early-swaps
-        (contains? :MARSHBADGE))))
+  (contains? early-badges (badge-swaps :MARSHBADGE)))
 
 (defn generate-swaps [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod?] :as opts}]
   (loop [rng (or (:rng opts)
