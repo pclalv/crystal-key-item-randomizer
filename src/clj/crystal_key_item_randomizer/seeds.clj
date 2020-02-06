@@ -66,6 +66,8 @@
                    :badge-swaps badge-swaps
                    :seed-id seed-id}))))
 
+(s/def ::endgame-condition #{:defeat-elite-4 :defeat-red})
+
 (defn generate-random [{:keys [endgame-condition swaps-options early-rockets?]
                         :or {endgame-condition :defeat-elite-4
                              ;; TODO: accept seed-options and swap-options as separate args
