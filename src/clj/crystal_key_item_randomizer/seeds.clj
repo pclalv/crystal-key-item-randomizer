@@ -69,17 +69,13 @@
                              swaps-options {}
                              early-rockets? false}}]
   (loop [iterations 1]
-    (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps swaps-options)
-          progression-results (beatable? {:item-swaps item-swaps
-                                          :badge-swaps badge-swaps}
-                                         {:endgame-condition endgame-condition
-                                          :early-rockets? early-rockets?})]
+    (let [{:keys [item-swaps badge-swaps copycat-item seed-id] :as swaps} (generate-swaps swaps-options)
+          progression-results (beatable? swaps {:endgame-condition endgame-condition
+                                                :early-rockets? early-rockets?})]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
-                   (assoc :patches (patches/generate {:item-swaps item-swaps
-                                                      :badge-swaps badge-swaps}
-                                                     {:speedchoice? true
-                                                      :early-rockets? early-rockets?}))
+                   (assoc :patches (patches/generate swaps {:speedchoice? true
+                                                            :early-rockets? early-rockets?}))
                    (assoc :id (str seed-id)))
          :iterations iterations}
         (recur (inc iterations))))))
@@ -107,14 +103,14 @@
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
-         progression-results (beatable? {:item-swaps item-swaps
-                                         :badge-swaps badge-swaps}
-                                        {:endgame-condition endgame-condition
-                                         :early-rockets? early-rockets?})]
+         swaps {:item-swaps item-swaps
+                :badge-swaps badge-swaps
+                :seed-id seed-id}
+         progression-results (beatable? swaps {:endgame-condition endgame-condition
+                                               :early-rockets? early-rockets?})]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
-                  (assoc :patches (patches/generate {:item-swaps item-swaps
-                                                     :badge-swaps badge-swaps}
+                  (assoc :patches (patches/generate swaps
                                                     {:speedchoice? true
                                                      :early-rockets? early-rockets?}))
                   (assoc :id (str seed-id)))}
