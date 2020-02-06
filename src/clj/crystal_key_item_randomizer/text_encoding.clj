@@ -21,7 +21,6 @@
   (map hex->token hexs))
 
 (defn gsc-encode
-  ;; TODO: error when it can't find a matching character
   ([text]
    (gsc-encode text
                []
@@ -30,25 +29,25 @@
                ;; maximum length.
                longest-token-length))
   ([text encoded assumed-token-length]
-   (if (empty? text)
-     encoded
-     (let [length-to-encode (count text)
-           minimum-safe-bounds (min length-to-encode
-                                    assumed-token-length)
-           substring-length (max minimum-safe-bounds
-                                 1)
-           token (subs text 0 substring-length)
-           hex (get token->hex token)]
-       (if hex
-         (recur (subs text substring-length length-to-encode)
-                (conj encoded hex)
-                longest-token-length)
-         ;; the token of assumed-token-length was not a real
-         ;; token; next, we have to check if we can get a valid
-         ;; token by chopping off the last character.
-         (recur text
-                encoded
-                (dec assumed-token-length)))))))
+   (cond (empty? text) encoded
+         (< assumed-token-length 1) (throw (Exception. (str "cannot encode text: invalid token: " text)))
+         :else (let [length-to-encode (count text)
+                     minimum-safe-bounds (min length-to-encode
+                                              assumed-token-length)
+                     substring-length (max minimum-safe-bounds
+                                           1)
+                     token (subs text 0 substring-length)
+                     hex (get token->hex token)]
+                 (if hex
+                   (recur (subs text substring-length length-to-encode)
+                          (conj encoded hex)
+                          longest-token-length)
+                   ;; the token of assumed-token-length was not a real
+                   ;; token; next, we have to check if we can get a valid
+                   ;; token by chopping off the last character.
+                   (recur text
+                          encoded
+                          (dec assumed-token-length)))))))
 
 (defn pad [coll n val]
   (vec (take n (concat coll (repeat val)))))
