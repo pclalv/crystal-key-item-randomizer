@@ -2,30 +2,8 @@
   (:require [clojure.set :as cset]
             [clojure.java.io :as io]))
 
-;; TODO: just define these tables in a sane format like EDN
-(def hex->token-jp
-  (let [encoding-table-lines (-> "gameboy_jap.tbl"
-                                 io/resource
-                                 slurp
-                                 (clojure.string/split #"\n"))]
-    (->> encoding-table-lines
-         (map #(clojure.string/split % #"="))
-         (map (fn [[k v]]
-                [(Integer/parseInt k 16) v]))
-         (into {}))))
-
-(def hex->token-eng
-  (let [encoding-table-lines (-> "gsc_english.tbl"
-                                 io/resource
-                                 slurp
-                                 (clojure.string/split #"\n"))]
-    (->> encoding-table-lines
-         (map #(clojure.string/split % #"="))
-         (map (fn [[k v]]
-                [(Integer/parseInt k 16) v]))
-         (into {}))))
-
-(def hex->token (merge hex->token-jp hex->token-eng))
+(def hex->token
+  (-> "text-encoding.edn" io/resource slurp clojure.edn/read-string))
 (def token->hex (cset/map-invert hex->token))
 
 (def longest-token-length
