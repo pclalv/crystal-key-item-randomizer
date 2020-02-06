@@ -112,16 +112,13 @@
                 :badge-swaps badge-swaps
                 :seed-id seed-id}
          progression-results (beatable? swaps {:endgame-condition endgame-condition
-                                               :early-rockets? early-rockets?})]
+                                               :early-rockets? early-rockets?})
+         result (assoc progression-results :id (str seed-id))]
      (if (progression-results :beatable?)
-       {:seed (-> progression-results
-                  (assoc :patches (patches/generate swaps
-                                                    {:speedchoice? true
-                                                     :early-rockets? early-rockets?}))
-                  (assoc :id (str seed-id)))}
-       {:error (str "Unbeatable seed: " seed-id)
-        :seed (-> progression-results
-                  (assoc :id (str seed-id)))}))))
+       (assoc result :patches (patches/generate swaps
+                                                {:speedchoice? true
+                                                 :early-rockets? early-rockets?}))
+       (assoc result :error (str "Unbeatable seed: " seed-id))))))
 
 (s/fdef generate
   :args (s/alt :unary (s/cat :seed-id int?)
