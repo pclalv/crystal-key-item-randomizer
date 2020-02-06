@@ -66,7 +66,7 @@
 
 (defn generate-random [{:keys [endgame-condition swaps-options early-rockets?]
                         :or {endgame-condition :defeat-elite-4
-                             swaps-options {:randomize-badges? false}
+                             swaps-options {}
                              early-rockets? false}}]
   (loop [iterations 1]
     (let [{:keys [item-swaps badge-swaps seed-id]} (generate-swaps swaps-options)
@@ -98,10 +98,11 @@
 
 (defn generate
   ([seed-id]
-   (generate seed-id {:endgame-condition :defeat-elite-4
-                      :swaps-options {:randomize-badges? false}
-                      :early-rockets? false}))
-  ([seed-id {:keys [swaps-options endgame-condition early-rockets?]}]
+   (generate seed-id {}))
+  ([seed-id {:keys [swaps-options endgame-condition early-rockets?]
+             :or {endgame-condition :defeat-elite-4
+                  swaps-options {}
+                  early-rockets? false}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
