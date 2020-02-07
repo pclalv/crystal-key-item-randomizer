@@ -80,14 +80,6 @@ in priority order:
 
 ### logic
 
-- find out what happens if the player:
-  1. trigger the Radio Tower takeover
-  2. then trigger the Lake of Rage/Mahogany events
-  3. then defeat Team Rocket at Mahogany Town
-  4. finally defeat Team Rocket at the Radio Tower
-  - players should probably not switch the order of 3. and 4., but
-    what happens in that case anyway?
-
 ### binary patching
 
 - randomize which janine is the real janine in fuchsia gym
