@@ -80,7 +80,6 @@ in priority order:
 
 ### logic
 
-- randomize which non-required item the copycat is looking for.
 - find out what happens if the player:
   1. trigger the Radio Tower takeover
   2. then trigger the Lake of Rage/Mahogany events
