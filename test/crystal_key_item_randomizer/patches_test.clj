@@ -36,12 +36,49 @@
                                                                    {:speedchoice? true})))))
 
 (deftest generate-test
+  (testing "includes undreground warehouse itemball patch"
+    (is (subseq? [(replace-underground-warehouse-ultra-ball-with-key-item vanilla-item-swaps {:speedchoice? true})]
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps} 
+                           {}))))
+
+  (testing "includes patches for badge checkflag occurrences"
+    (is (subseq? [(crystal-key-item-randomizer.patches.badges/replace-checkflag-for-badge :PLAINBADGE {:PLAINBADGE :PLAINBADGE})
+                  (crystal-key-item-randomizer.patches.badges/replace-checkflag-for-badge :RISINGBADGE {:RISINGBADGE :RISINGBADGE})]
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps} 
+                           {}))))
+
+  (testing "includes giveitem patches"
+    (is (subseq? (crystal-key-item-randomizer.patches.text.giveitem/fix-giveitems vanilla-item-swaps)
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps}
+                           {}))))
+
+  (testing "includes received badge text patches"
+    (is (subseq? (crystal-key-item-randomizer.patches.text.received-badge/fix-received-badge-texts vanilla-badge-swaps)
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps} 
+                           {}))))
+
+  (testing "includes pre-badge blurb patches"
+    (is (subseq? crystal-key-item-randomizer.patches.text.gym-leader-post-defeat/pre-badge-blurb-patches
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps} 
+                           {}))))
+
+  (testing "includes post-defeat speech patches"
+    (is (subseq? crystal-key-item-randomizer.patches.text.gym-leader-post-defeat/post-badge-speech-patches
+                 (generate {:item-swaps vanilla-item-swaps
+                            :badge-swaps vanilla-badge-swaps} 
+                           {}))))
+  
   (testing "early-rockets"
     (is (= true (subseq? crystal-key-item-randomizer.patches.rockets/trigger-early
                          (generate {:item-swaps vanilla-item-swaps
                                     :badge-swaps vanilla-badge-swaps} 
-                                   {:speedchoice? true :early-rockets? true}))))
+                                   {:early-rockets? true}))))
     (is (= #{} (clojure.set/intersection (set crystal-key-item-randomizer.patches.rockets/trigger-early)
                                          (set (generate {:item-swaps vanilla-item-swaps
                                                          :badge-swaps vanilla-badge-swaps} 
-                                                        {:speedchoice? true :early-rockets? false})))))))
+                                                        {:early-rockets? false})))))))
