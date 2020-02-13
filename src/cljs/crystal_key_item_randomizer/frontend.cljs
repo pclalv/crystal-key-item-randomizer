@@ -117,11 +117,15 @@
                                       .-target
                                       .-result))
         body {:options {:endgame-condition @endgame-condition
-                        :swaps-options (if (empty? @seed-id)
-                                         {:early-bicycle? @early-bicycle?
-                                          :no-early-super-rod? @no-early-super-rod?
-                                          :randomize-badges? @randomize-badges?}
-                                         {:randomize-badges? @randomize-badges?})
+                        :swaps-options (let [always-options {:randomize-badges? @randomize-badges?}]
+                                         ;; this use of seq is a clojrue idiom; see the docs for clojure.code/empty?
+                                         (if (seq @seed-id)
+                                           always-options
+                                           (assoc always-options
+                                                  :early-bicycle? @early-bicycle?
+                                                  :no-early-sabrina? @no-early-sabrina?
+                                                  :no-early-super-rod? @no-early-super-rod?)))
+                        
                         :early-rockets? @early-rockets?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
