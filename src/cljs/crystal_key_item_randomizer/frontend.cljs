@@ -36,6 +36,7 @@
   (reset! handling-rom? false)
   (reset! error nil)
   (reset! item-swaps-table {})
+  (reset! badge-swaps-table {})
   (reset! randomized-rom nil)
   (reset! seed-id ""))
 
