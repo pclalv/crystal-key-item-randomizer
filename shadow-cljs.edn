@@ -11,18 +11,16 @@
  :nrepl
  {:port 8202}
 
- :builds
- {:dev
-  {:target :browser
-   :modules {:main
-             {:entries [crystal-key-item-randomizer.frontend]
-              :depends-on #{:cljs-base}}
+ :builds {:dev {:target :browser
+                :modules {:main
+                          {:entries [crystal-key-item-randomizer.frontend]
+                           :depends-on #{:cljs-base}}
 
-             :tracker
-             {:entries [crystal-key-item-randomizer.tracker]
-              :depends-on #{:cljs-base}}
-             
-             :cljs-base
-             {:entries []}}
-   :output-dir "resources/public/assets/js"
-   :asset-path "/assets/js"}}}
+                          :tracker
+                          {:entries [crystal-key-item-randomizer.tracker]
+                           :depends-on #{:cljs-base}}
+                          
+                          :cljs-base
+                          {:entries []}}
+                :output-dir "resources/public/assets/js"
+                :asset-path "/assets/js"}}}
