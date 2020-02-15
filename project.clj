@@ -15,6 +15,7 @@
                  [reagent "0.9.0-rc1"]]
   :main ^:skip-aot crystal-key-item-randomizer.server
   :source-paths ["src/clj" "src/cljc"]
+  :test-paths ["test/clj"]
   :target-path "target/%s"
   
   :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]
