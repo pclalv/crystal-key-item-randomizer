@@ -120,8 +120,8 @@
                                       .-target
                                       .-result))
         body {:options {:endgame-condition @endgame-condition
-                        :swaps-options (let [always-options {:randomize-badges? @randomize-badges?}]
-                                         ;; this use of seq is a clojrue idiom; see the docs for clojure.code/empty?
+                        :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
+                                                             :randomize-copycat-item? @randomize-copycat-item}]
                                          ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?
                                          (if (seq @seed-id)
                                            always-options
@@ -132,8 +132,7 @@
                                                   ;; serialization error. investiagte what it would take to at least reset
                                                   ;; the form and render a reasonable error for the user.
                                                   :no-early-sabrina? @no-early-sabrina?
-                                                  :no-early-super-rod? @no-early-super-rod?
-                                                  :randomize-copycat-item? @randomize-copycat-item)))
+                                                  :no-early-super-rod? @no-early-super-rod?)))
                         :early-rockets? @early-rockets?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
