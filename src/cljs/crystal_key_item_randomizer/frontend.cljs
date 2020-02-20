@@ -126,7 +126,6 @@
                                                   :early-bicycle? @early-bicycle?
                                                   :no-early-sabrina? @no-early-sabrina?
                                                   :no-early-super-rod? @no-early-super-rod?)))
-                        
                         :early-rockets? @early-rockets?}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"

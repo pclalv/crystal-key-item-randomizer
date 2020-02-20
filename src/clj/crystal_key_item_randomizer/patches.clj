@@ -96,8 +96,8 @@
 (s/def ::speedchoice? boolean?)
 (s/def ::early-rockets? boolean?)
 (s/def ::generate-options
-  (s/keys :req-un [::early-rockets?]
-          :opt-un [::speedchoice?]))
+  (s/keys :req-un []
+          :opt-un [::early-rockets? ::speedchoice?]))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.progression/swaps
