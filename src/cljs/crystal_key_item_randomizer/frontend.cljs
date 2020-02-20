@@ -261,7 +261,6 @@
      (->> key-items/non-required-items
           (map name)
           (clojure.string/join ", "))]]
-
    [:br]
 
    [:select {:id "endgame-condition"
