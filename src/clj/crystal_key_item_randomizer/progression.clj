@@ -107,12 +107,21 @@
 
 (defn analyze-badge-count [{:keys [badges conditions-met] :as result}]
   (let [badge-count (count badges)]
-    (cond (= badge-count 16) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges :sixteen-badges}))
-          (>= badge-count 8) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges}))
-          (>= badge-count 7) (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges}))
+    (cond (= badge-count 16)
+          #_=> (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges :sixteen-badges}))
+
+          (>= badge-count 8)
+          #_=> (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges :eight-badges}))
+
+          (>= badge-count 7)
+          #_=> (assoc result :conditions-met (cset/union conditions-met #{:four-badges :seven-badges}))
+
           ;; for early-rockets
-          (>= badge-count 4) (assoc result :conditions-met (cset/union conditions-met #{:four-badges}))
-          :else result)))
+          (>= badge-count 4)
+          #_=>(assoc result :conditions-met (cset/union conditions-met #{:four-badges}))
+
+          :else
+          #_=> result)))
 
 ;;;;;;;;;;;;
 ;; HM use ;;
