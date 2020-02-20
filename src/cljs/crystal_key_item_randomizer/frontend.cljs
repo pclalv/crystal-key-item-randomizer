@@ -253,7 +253,13 @@
             :on-change (set-checkbox-value-on-atom randomize-copycat-item?)
             :checked @randomize-copycat-item?
             :disabled @handling-rom?}
-    [:label {:for "randomize-copycat-item"} "Randomize Copycat item (experimental) - Randomize which item the Copycat is looking for; the replacement will be a non-progression key item."]]
+    [:label {:for "randomize-copycat-item"}
+     "Randomize Copycat item (experimental) - Randomize which item the Copycat is looking for; "
+     "the replacement will be a non-progression key item. The item will be one of the following: "
+     (->> key-items/non-required-items
+          (map name)
+          (clojure.string/join ", "))]]
+
    [:br]
 
    [:select {:id "endgame-condition"
