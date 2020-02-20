@@ -237,9 +237,6 @@
    [:label {:for "no-early-sabrina"} "No early Sabrina (experimental) - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
    [:br]
 
-   ;; TODO: test all this code; mainly via frontend, just make sure
-   ;; things seem to work with both a random seed and a predetermined
-   ;; seed
    [:input {:id "early-rockets" :type "checkbox"
             :on-change (set-checkbox-value-on-atom early-rockets?)
             :checked @early-rockets?
