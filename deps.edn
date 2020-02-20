@@ -1,18 +1,23 @@
-{:paths ["resources" "src/clj" "src/cljc"]
+{:paths ["resources" "src/clj" "src/cljc", "src/cljs"]
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/clojurescript {:mvn/version "1.10.520"}
+        org.clojure/clojurescript {:mvn/version "1.10.597"}
         org.clojure/data.json {:mvn/version "0.2.6"}
         ring/ring-core {:mvn/version "1.7.1"}
+        ring/ring-json {:mvn/version "0.5.0"}
         ring/ring-jetty-adapter {:mvn/version "1.7.1"}
         ring/ring-defaults {:mvn/version "0.3.2"}
         compojure {:mvn/version "1.6.1"}
         reagent {:mvn/version "0.9.0-rc1"}}
  :aliases {:local {:extra-deps {ring/ring-devel {:mvn/version "1.7.1"}}
                    :main-opts ["-m" "crystal-key-item-randomizer.server"]}
-           :test {:extra-paths ["test"]
+           :test {:extra-paths ["test/clj" "test/cljc"]
                   :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
                                                           :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
                   :main-opts ["-m" "cognitect.test-runner"]}
+
+           :test-cljs {:extra-paths ["test/cljc" "test/cljs"]
+                       :extra-deps {olical/cljs-test-runner {:mvn/version "3.7.0"}}
+                       :main-opts ["-m" "cljs-test-runner.main" "--env" "phantom"]}
            :cljs {:extra-paths ["src/cljc" "src/cljs"]
                   :main-opts ["-m" "cljs.main"
                               "--verbose"
