@@ -7,3 +7,7 @@
     (clojure.java.io/copy (clojure.java.io/input-stream f) out)
     (->> out .toByteArray
          (mapv #(java.lang.Byte/toUnsignedInt %)))))
+
+(defmacro slurp-edn
+  [f]
+  (-> f clojure.java.io/resource slurp clojure.edn/read-string))
