@@ -218,7 +218,7 @@
                           (not (empty? @seed-id)))}]
    [:label {:for "no-early-super-rod"} "No early " [:tt "SUPER_ROD"] " - Ensure that " [:tt "SUPER_ROD"] " is not obtainable until after the player has left Goldenrod."]
    [:br]
-   
+
    [:input {:id "early-bicycle" :type "checkbox"
             :on-change (set-checkbox-value-on-atom early-bicycle?)
             :checked (and (empty? @seed-id)
