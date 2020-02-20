@@ -1,5 +1,15 @@
 (ns crystal-key-item-randomizer.key-items)
 
+(def non-required-items
+  "These items aren't required to make any progress, nor are they
+  required for any bingo goals, so we might as well use them for
+  something if we can."
+  [:BLUE_CARD
+   :GOOD_ROD
+   :ITEMFINDER
+   :LOST_ITEM
+   :OLD_ROD])
+
 (def ordering
   "Looks like this: {:MYSTERY_EGG {:order 0} ...}"
   (->> [:MYSTERY_EGG :HM_FLASH :OLD_ROD :HM_CUT

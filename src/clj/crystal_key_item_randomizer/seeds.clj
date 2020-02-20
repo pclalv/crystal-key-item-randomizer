@@ -1,5 +1,5 @@
 (ns crystal-key-item-randomizer.seeds
-  (:require 
+  (:require
    [crystal-key-item-randomizer.patches :as patches]
    [crystal-key-item-randomizer.key-items :as key-items]
    [crystal-key-item-randomizer.badges :as badges]
@@ -9,16 +9,6 @@
 
 (def all-items (vec (keys key-items/speedchoice)))
 (def badges (vec (keys badges/speedchoice)))
-
-(def non-required-items
-  "These items aren't required to make any progress, nor are they
-  required for any bingo goals, so we might as well use them for
-  something if we can."
-  [:BLUE_CARD
-   :GOOD_ROD
-   :ITEMFINDER
-   :LOST_ITEM
-   :OLD_ROD])
 
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
 
@@ -76,7 +66,7 @@
                         (zipmap badges (deterministic-shuffle badges seed-id))
                         (zipmap badges badges))
           copycat-item (if randomize-copycat-item?
-                         (deterministic-pick non-required-items seed-id)
+                         (deterministic-pick key-items/non-required-items seed-id)
                          :LOST_ITEM)]
       (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
             (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
@@ -141,7 +131,7 @@
                        (zipmap badges (deterministic-shuffle badges seed-id))
                        (zipmap badges badges))
          copycat-item (if (:randomize-copycat-item? swaps-options)
-                        (deterministic-pick non-required-items seed-id)
+                        (deterministic-pick key-items/non-required-items seed-id)
                         :LOST_ITEM)
          swaps {:item-swaps item-swaps
                 :badge-swaps badge-swaps
