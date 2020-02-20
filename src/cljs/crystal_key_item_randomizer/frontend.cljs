@@ -122,6 +122,7 @@
         body {:options {:endgame-condition @endgame-condition
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?}]
                                          ;; this use of seq is a clojrue idiom; see the docs for clojure.code/empty?
+                                         ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?
                                          (if (seq @seed-id)
                                            always-options
                                            (assoc always-options
