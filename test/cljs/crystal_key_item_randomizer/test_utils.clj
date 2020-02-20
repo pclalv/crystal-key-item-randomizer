@@ -10,4 +10,4 @@
 
 (defmacro slurp-edn
   [f]
-  (-> f clojure.java.io/resource slurp clojure.edn/read-string))
+  (-> f slurp clojure.edn/read-string))

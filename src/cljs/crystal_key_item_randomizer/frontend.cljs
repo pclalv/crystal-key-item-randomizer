@@ -121,7 +121,7 @@
                                       .-result))
         body {:options {:endgame-condition @endgame-condition
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
-                                                             :randomize-copycat-item? @randomize-copycat-item}]
+                                                             :randomize-copycat-item? @randomize-copycat-item?}]
                                          ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?
                                          (if (seq @seed-id)
                                            always-options
