@@ -80,8 +80,26 @@ in priority order:
 
 ### logic
 
+- options to improve the Radio Tower rocket section:
+  - reach out to ShockSlayer (on discord?) about adding level scaling
+    for the rocket sections?
+  - enable rocketless, but force that lance gives only one useful key
+    item, max
+  - figure out what level people are at after the 7th gym and buff
+    radio tower rocket levels to somewhere between their current
+    levels and the average player level.
+    - Snowbear: "I’d say no more than low 30s typical grunts. At most
+      executive at Sabrina level lol. Probably aim for level 45
+      highest for executives."
+
+
 ### binary patching
 
+- allow the player to escape from the Goldenrod Underground via the
+  Department Store
+  - there are map tiles that get repositioned if and only if the
+    player talks to the director in the basement. those tiles should
+    be reposition if the player beats the radio tower section.
 - randomize which janine is the real janine in fuchsia gym
 - QOL
   - currently the player has to surf from Cinnabar to Fuchsia to clear
