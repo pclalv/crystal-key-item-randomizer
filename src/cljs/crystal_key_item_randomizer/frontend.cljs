@@ -115,7 +115,8 @@
                :seed :crystal-key-item-randomizer.specs/seed))
 
 (defn randomize-rom [event]
-  (let [rom-bytes (js/Uint8Array. (-> event
+  (let [;; TODO: use https://clojuredocs.org/clojure.core/byte-array
+        rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))
         body {:options {:endgame-condition @endgame-condition
@@ -125,6 +126,10 @@
                                            always-options
                                            (assoc always-options
                                                   :early-bicycle? @early-bicycle?
+                                                  ;; TODO: the frontend totally broke and required a hard-reload when i had
+                                                  ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
+                                                  ;; serialization error. investiagte what it would take to at least reset
+                                                  ;; the form and render a reasonable error for the user.
                                                   :no-early-sabrina? @no-early-sabrina?
                                                   :no-early-super-rod? @no-early-super-rod?
                                                   :randomize-copycat-item? @randomize-copycat-item)))
