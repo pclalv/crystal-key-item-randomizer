@@ -15,4 +15,7 @@ pom.xml.asc
 /node_modules/
 /.cpcache/
 /out/
+
 /resources/public/assets/js/
+/test/resources/public/
+*.gbc

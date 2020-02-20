@@ -19,7 +19,7 @@
                           :tracker
                           {:entries [crystal-key-item-randomizer.tracker]
                            :depends-on #{:cljs-base}}
-                          
+
                           :cljs-base
                           {:entries []}}
                 :output-dir "resources/public/assets/js"
