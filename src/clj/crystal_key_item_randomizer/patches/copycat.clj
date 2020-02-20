@@ -34,7 +34,7 @@
 
 (defn generate
   "Change which item the Copycat is looking for."
-  [copycat-item]  
+  [copycat-item]
   (let [item-id (-> copycat-item
                     crystal-key-item-randomizer.key-items/speedchoice
                     :value)]
