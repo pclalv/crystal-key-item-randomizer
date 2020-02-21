@@ -130,4 +130,15 @@
                :GLACIERBADGE :GLACIERBADGE}}
              (-> (generate-random {:swaps-options {:randomize-badges? false}})
                  :seed
-                 (select-keys [:badge-swaps])))))))
+                 (select-keys [:badge-swaps]))))))
+
+  (testing "randomize-copycat-item?"
+    (testing "when true"
+      (is (= :ITEMFINDER (-> (generate-random {:swaps-options {:randomize-copycat-item? true
+                                                               :rng (new java.util.Random 1)}})
+                             :seed
+                             :copycat-item))))
+    (testing "when false"
+      (is (= :LOST_ITEM (-> (generate-random {:swaps-options {:randomize-badges? false}})
+                            :seed
+                            :copycat-item))))))
