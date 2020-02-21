@@ -245,9 +245,14 @@
              :disabled @handling-rom?}
     ;; TODO: verbose descriptions!
     [:option {:value "normal"} "Normal"]
-    [:option {:value "early"} "Early"] ;"Early Rocket sequence (experimental) - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."
+    [:option {:value "early"} "Early"]
     [:option {:value "rocketless"} "Rocketless"]]
    [:label {:for "rockets"} "Rockets"]
+   [:table
+    [:thead [:tr [:th "Rocket Option"] [:th "Description"]]]
+    [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
+    [:tbody [:tr [:td "Early"] [:td "(Experimental) Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]]]
+    [:tbody [:tr [:td "Rocketless"] [:td "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. Probably doesn't play well with Rocketless."]]]]
    [:br]
 
    [:input {:id "randomize-badges" :type "checkbox"
