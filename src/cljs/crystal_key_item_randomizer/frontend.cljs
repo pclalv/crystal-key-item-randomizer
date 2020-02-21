@@ -19,7 +19,7 @@
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
 (def endgame-condition (r/atom "defeat-elite-4"))
-(def early-rockets? (r/atom false))
+(def rockets (r/atom false))
 (def randomize-copycat-item? (r/atom false))
 
 (def wildcard "*")
@@ -134,7 +134,7 @@
                                                   ;; the form and render a reasonable error for the user.
                                                   :no-early-sabrina? @no-early-sabrina?
                                                   :no-early-super-rod? @no-early-super-rod?)))
-                        :early-rockets? @early-rockets?}}]
+                        :rockets @rockets}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}
@@ -238,11 +238,15 @@
    [:label {:for "no-early-sabrina"} "No early Sabrina (experimental) - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
    [:br]
 
-   [:input {:id "early-rockets" :type "checkbox"
-            :on-change (set-checkbox-value-on-atom early-rockets?)
-            :checked @early-rockets?
-            :disabled @handling-rom?}]
-   [:label {:for "early-rockets"} "Early Rocket sequence (experimental) - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]
+   [:select {:id "rockets"
+             :on-change (set-value-on-atom rockets)
+             :value @rockets
+             :disabled @handling-rom?}
+    ;; TODO: verbose descriptions!
+    [:option {:value "normal"} "Normal"]
+    [:option {:value "early"} "Early"] ;"Early Rocket sequence (experimental) - Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."
+    [:option {:value "rocketless"} "Rocketless"]]
+   [:label {:for "rockets"} "Rockets"]
    [:br]
 
    [:input {:id "randomize-badges" :type "checkbox"
