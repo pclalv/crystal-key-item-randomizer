@@ -69,7 +69,7 @@
 (defn analyze-items [result swaps copycat-item]
   (reduce (partial can-satisfy-item-prereqs? swaps)
           result
-          (item-prereqs {:copycat-item copycat-item})))
+          (item-prereqs {:copycat-item copycat-item :rockets :normal})))
 
 ;;;;;;;;;;;;;;;;
 ;; conditions ;;
