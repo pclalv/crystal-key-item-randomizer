@@ -240,25 +240,6 @@
    [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
    [:br]
 
-   [:select {:id "rockets"
-             :on-change (set-value-on-atom rockets)
-             :value @rockets
-             :disabled @handling-rom?}
-    ;; TODO: verbose descriptions!
-    [:option {:value "normal"} "Normal"]
-    [:option {:value "early"} "Early"]
-    [:option {:value "rocketless"} "Rocketless"]]
-   [:label {:for "rockets"} "Rockets"]
-   [:table
-    [:thead [:tr [:th "Rocket Option"] [:th "Description"]]]
-    [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
-    [:tbody [:tr [:td "Early"] [:td "(Experimental) Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]]]
-    [:tbody [:tr [:td "Rocketless"] [:td
-                                     "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
-                                     "Lance will " [:strong "not"] " give you anything useful. "
-                                     "Might not play well with Rocketless."]]]]
-   [:br]
-
    [:input {:id "randomize-badges" :type "checkbox"
             :on-change (set-checkbox-value-on-atom randomize-badges?)
             :checked @randomize-badges?
@@ -284,7 +265,26 @@
              :disabled @handling-rom?}
     [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
     [:option {:value "defeat-red"} "Defeat Red"]]
-   [:label {:for "endgame-condition"} "Endgame condition"]])
+   [:label {:for "endgame-condition"} "Endgame condition"]
+   [:br]
+
+   [:select {:id "rockets"
+             :on-change (set-value-on-atom rockets)
+             :value @rockets
+             :disabled @handling-rom?}
+    ;; TODO: verbose descriptions!
+    [:option {:value "normal"} "Normal"]
+    [:option {:value "early"} "Early"]
+    [:option {:value "rocketless"} "Rocketless"]]
+   [:label {:for "rockets"} "Rockets"]
+   [:table
+    [:thead [:tr [:th "Rockets Option"] [:th "Description"]]]
+    [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
+    [:tbody [:tr [:td "Early"] [:td "(Experimental) Trigger Team Rocket events after obtaining 4 badges instead of 7 badges."]]]
+    [:tbody [:tr [:td "Rocketless"] [:td
+                                     "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
+                                     "Lance will " [:strong "not"] " give you anything useful. "
+                                     "Might not play well with Rocketless."]]]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
