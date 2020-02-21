@@ -55,11 +55,12 @@
   (reduce apply-badge-swap rom-bytes (js->clj swaps)))
 
 (defn apply-item-swap [rom-bytes [original replacement]]
-  (let [original-address (-> (keyword original)
-                             (key-items/speedchoice)
+  (let [key-items (key-items/speedchoice)
+        original-address (-> (keyword original)
+                             key-items
                              :address)
         replacement-value (-> (keyword replacement)
-                              (key-items/speedchoice)
+                              key-items
                               :value)]
     (aset rom-bytes original-address replacement-value)
     rom-bytes))
