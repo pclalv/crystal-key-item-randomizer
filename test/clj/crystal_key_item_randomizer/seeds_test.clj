@@ -214,7 +214,7 @@
                :BASEMENT_KEY :SUPER_ROD},
               :id "155629808"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :rockets :normal})
+                                   :seed-options {:rockets :normal}})
                  :seed
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))
@@ -226,7 +226,7 @@
                :BASEMENT_KEY :SUPER_ROD},
               :id "155629808"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :rockets :early})
+                                   :seed-options {:rockets :early}})
                  :seed
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))
@@ -238,7 +238,7 @@
                :BASEMENT_KEY :COIN_CASE},
               :id "557256941"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :rockets :rocketless})
+                                   :seed-options {:rockets :rocketless}})
                  :seed
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))))

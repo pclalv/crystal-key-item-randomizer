@@ -14,5 +14,16 @@
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::no-blind-rock-tunnel? boolean?)
 (s/def ::seed-options
-  (s/keys :req-un []
-          :opt-un [::rockets ::speedchoice? ::endgame-condition ::no-blind-rock-tunnel?]))
+  (s/keys :opt-un [::rockets ::speedchoice? ::endgame-condition ::no-blind-rock-tunnel?]))
+
+(s/def ::early-bicycle? boolean?)
+(s/def ::no-early-sabrina? boolean?)
+(s/def ::no-early-super-rod? boolean?)
+(s/def ::randomize-badges? boolean?)
+(s/def ::randomize-copycat-item? boolean?)
+(s/def ::swaps-options
+  (s/keys :opt-un [::early-bicycle? 
+                   ::no-early-sabrina? 
+                   ::no-early-super-rod? 
+                   ::randomize-badges? 
+                   ::randomize-copycat-item?]))

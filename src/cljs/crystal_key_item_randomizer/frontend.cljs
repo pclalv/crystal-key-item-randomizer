@@ -121,7 +121,8 @@
         rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))
-        body {:options {:endgame-condition @endgame-condition
+        body {:options {:seed-options {:endgame-condition @endgame-condition
+                                       :rockets @rockets}                        
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
                                                              :randomize-copycat-item? @randomize-copycat-item?}]
                                          ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?
@@ -134,8 +135,7 @@
                                                   ;; serialization error. investiagte what it would take to at least reset
                                                   ;; the form and render a reasonable error for the user.
                                                   :no-early-sabrina? @no-early-sabrina?
-                                                  :no-early-super-rod? @no-early-super-rod?)))
-                        :rockets @rockets}}]
+                                                  :no-early-super-rod? @no-early-super-rod?)))}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"
                             :headers {"Content-Type" "application/json"}

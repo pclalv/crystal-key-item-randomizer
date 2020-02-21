@@ -102,53 +102,50 @@
 (def default-generate-options
   "Would be nice if we could use this variable in the generate-random
   and generate function signatures, namely in the arg list."
-  '{endgame-condition :defeat-elite-4
+  '{seed-options {:endgame-condition :defeat-elite-4
+                  :rockets :normal}
     swaps-options {:randomize-badges? false
                    :early-bicycle? false
                    :no-early-sabrina? false
                    :no-early-super-rod? false
-                   :randomize-copycat-item? false}
-    rockets :normal})
+                   :randomize-copycat-item? false}})
 
-(s/def ::endgame-condition #{:defeat-elite-4 :defeat-red})
-
-(defn generate-random [{:keys [endgame-condition swaps-options rockets]
-                        :or {endgame-condition :defeat-elite-4
-                             ;; TODO: accept seed-options and swap-options as separate args
-                             swaps-options {}
-                             rockets :normal}}]
-  (let [seed-options {:endgame-condition endgame-condition
-                      :rockets rockets}]
-    (loop [iterations 1]
-      (let [swaps (generate-swaps swaps-options {:rockets rockets})
-            progression-results (beatable? swaps seed-options)]
-        (if (progression-results :beatable?)
-          {:seed (-> progression-results
-                     (assoc :patches (patches/generate swaps seed-options))
-                     (assoc :id (str (:seed-id swaps)))
-                     (assoc :options seed-options))
-           :iterations iterations}
-          (recur (inc iterations)))))))
+(defn generate-random [{:keys [seed-options swaps-options]
+                        :or {swaps-options {}
+                             seed-options {:endgame-condition :defeat-elite-4
+                                           :rockets :normal}}}]
+  (loop [iterations 1]
+    (let [swaps (generate-swaps swaps-options seed-options)
+          progression-results (beatable? swaps seed-options)]
+      (if (progression-results :beatable?)
+        {:seed (-> progression-results
+                   (assoc :patches (patches/generate swaps seed-options))
+                   (assoc :id (str (:seed-id swaps)))
+                   (assoc :options seed-options))
+         :iterations iterations}
+        (recur (inc iterations))))))
 
 (s/def ::error string?)
 (s/def ::iterations int?)
 
 ;; is this wrapping useless? is this name bad?
 (s/def ::generate-result
-  (s/or :ok (s/keys :req-un [:crystal-key-item-randomizer.specs/seed])
+  (s/or :ok (s/keys :req-un [:crystal-key-item-randomizer.specs/seed]
+                    :opt-un [::iterations])
         :err (s/keys :req-un [::error])))
 
 (s/fdef generate-random
-  :args (s/cat :options :crystal-key-item-randomizer.specs/seed-options)
+  :args (s/cat :opts (s/keys :req-un [:crystal-key-item-randomizer.specs/swap-options
+                                      :crystal-key-item-randomizer.specs/seed-options]))
   :ret ::generate-result)
 
 (defn generate
   ([seed-id]
    (generate seed-id {}))
-  ([seed-id {:keys [swaps-options endgame-condition rockets]
-             :or {endgame-condition :defeat-elite-4
-                  swaps-options {}
-                  rockets :normal}}]
+  ([seed-id {:keys [swaps-options seed-options]
+             :or {swaps-options {}
+                  seed-options {:endgame-condition :defeat-elite-4
+                                :rockets :normal}}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
@@ -160,21 +157,18 @@
                 :badge-swaps badge-swaps
                 :copycat-item copycat-item
                 :seed-id seed-id}
-         progression-results (beatable? swaps {:endgame-condition endgame-condition
-                                               :rockets rockets})]
+         progression-results (beatable? swaps seed-options)]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :id (str seed-id))
-                  (assoc :patches (patches/generate swaps
-                                                    {:speedchoice? true
-                                                     :rockets rockets}))
-                  (assoc :options {:endgame-condition endgame-condition
-                                   :rockets rockets}))}
+                  (assoc :patches (patches/generate swaps seed-options))
+                  (assoc :options seed-options))}
        (assoc progression-results :error (str "Unbeatable seed: " seed-id))))))
 
 (s/fdef generate
   :args (s/alt :unary (s/cat :seed-id int?)
                :with-options (s/cat :seed-id int?
-                                    :options map?))
+                                    :options (s/keys :req-un [:crystal-key-item-randomizer.specs/swap-options
+                                                              :crystal-key-item-randomizer.specs/seed-options])))
 
   :ret ::generate-result)
