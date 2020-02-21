@@ -217,10 +217,9 @@
   (s/coll-of keyword? :kind set?))
 (s/def ::items-obtained
   (s/coll-of keyword? :kind set?))
-(s/def ::swaps (s/keys :req-in [::item-swaps ::badge-swaps]))
 (s/def ::beatable? boolean?)
 (s/def ::progression-result
-  (s/keys :req-un [::beatable? ::swaps ::items-obtained ::conditions-met ::badges]))
+  (s/keys :req-un [::beatable? :crystal-key-item-randomizer.specs/swaps ::items-obtained ::conditions-met ::badges]))
 
 (s/fdef beatable?
   ;; :args (s/cat :just-an-int int?)

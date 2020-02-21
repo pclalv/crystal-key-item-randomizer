@@ -139,7 +139,7 @@
         :err (s/keys :req-un [::error])))
 
 (s/fdef generate-random
-  :args (s/cat :options map?)
+  :args (s/cat :options :crystal-key-item-randomizer.specs/seed-options)
   :ret ::generate-result)
 
 (defn generate

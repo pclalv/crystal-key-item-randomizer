@@ -6,7 +6,8 @@
             [clojure.spec.alpha :as s]
             [crystal-key-item-randomizer.rom]
             [crystal-key-item-randomizer.patches.rockets]
-            [crystal-key-item-randomizer.patches.copycat :as copycat])
+            [crystal-key-item-randomizer.patches.copycat :as copycat]
+            [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
         [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
@@ -101,13 +102,7 @@
                   crystal-key-item-randomizer.patches.rockets/trigger-early
                   [])))))
 
-(s/def ::speedchoice? boolean?)
-(s/def ::rockets  #{:normal :early :rocketless})
-(s/def ::generate-options
-  (s/keys :req-un []
-          :opt-un [::rockets ::speedchoice?]))
-
 (s/fdef generate
-  :args (s/cat :swaps :crystal-key-item-randomizer.progression/swaps
-               :options ::generate-options)
+  :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps
+               :options :crystal-key-item-randomizer.specs/seed-options)
   :ret (s/coll-of ::patches :kind vector?))
