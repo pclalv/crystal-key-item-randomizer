@@ -54,19 +54,20 @@
 (defn apply-badge-swaps [rom-bytes swaps]
   (reduce apply-badge-swap rom-bytes (js->clj swaps)))
 
-(defn apply-item-swap [rom-bytes [original replacement]]
-  (let [key-items (key-items/speedchoice)
-        original-address (-> (keyword original)
-                             key-items
-                             :address)
-        replacement-value (-> (keyword replacement)
-                              key-items
-                              :value)]
-    (aset rom-bytes original-address replacement-value)
-    rom-bytes))
+(defn apply-item-swap [rockets]
+  (fn [rom-bytes [original replacement]]
+    (let [key-items (key-items/speedchoice :rockets rockets)
+          original-address (-> (keyword original)
+                               key-items
+                               :address)
+          replacement-value (-> (keyword replacement)
+                                key-items
+                                :value)]
+      (aset rom-bytes original-address replacement-value)
+      rom-bytes)))
 
-(defn apply-item-swaps [rom-bytes swaps]
-  (reduce apply-item-swap rom-bytes (js->clj swaps)))
+(defn apply-item-swaps [rom-bytes swaps {:keys [rockets] :as seed-options}]
+  (reduce (apply-item-swap rockets) rom-bytes (js->clj swaps)))
 
 (defn update-address [label]
   (fn [rom-bytes {:keys [address old-value new-value]}]
@@ -99,9 +100,9 @@
 (defn apply-patches [rom-bytes patches]
   (reduce apply-patch rom-bytes patches))
 
-(defn patch-rom [rom-bytes {:keys [item-swaps badge-swaps patches]}]
+(defn patch-rom [rom-bytes {:keys [item-swaps badge-swaps patches options]}]
   (-> rom-bytes
-      (apply-item-swaps item-swaps)
+      (apply-item-swaps item-swaps options)
       (apply-badge-swaps badge-swaps)
       (apply-patches patches)))
 
@@ -144,9 +145,9 @@
                  (if (.-error json)
                    (do (reset-form)
                        (render-error (.-error json)))
-                   (let [{:keys [item-swaps badge-swaps patches id] :as seed} (-> json
-                                                                                  (aget "seed")
-                                                                                  (js->clj :keywordize-keys true))
+                   (let [{:keys [item-swaps badge-swaps patches id options] :as seed} (-> json
+                                                                                          (aget "seed")
+                                                                                          (js->clj :keywordize-keys true))
                          ;; TODO: add other options to the filename
                          filename (str "pokecrystal-key-item-randomized-seed-"
                                        (if @randomize-badges?

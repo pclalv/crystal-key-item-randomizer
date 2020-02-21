@@ -16,9 +16,8 @@
     (is (= (generate 2092024379)
            (-> (generate-random {:swaps-options {:early-bicycle? true
                                                  :rng (new java.util.Random 1)}})
-               ;; :iterations and [:seed :options] are not crucial
-               (dissoc :iterations)
-               (update-in [:seed] dissoc :options)))))
+               ;; :iterations are not relevant when generating a specific seed
+               (dissoc :iterations)))))
 
   (testing "early-bicycle?"
     (testing "when true"

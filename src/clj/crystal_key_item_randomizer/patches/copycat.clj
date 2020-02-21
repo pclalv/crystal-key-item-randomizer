@@ -34,8 +34,8 @@
 
 (defn generate
   "Change which item the Copycat is looking for."
-  [copycat-item]
-  (let [item-id (-> (crystal-key-item-randomizer.key-items/speedchoice)
+  [copycat-item rockets]
+  (let [item-id (-> (crystal-key-item-randomizer.key-items/speedchoice :rockets rockets)
                     copycat-item
                     :value)]
     [(assoc-in check-item-lost-item-patch [:integer_values :new] [33 item-id])

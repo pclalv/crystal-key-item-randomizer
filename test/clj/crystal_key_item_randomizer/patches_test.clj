@@ -74,12 +74,12 @@
                            {}))))
 
   (testing "copycat-item"
-    (is (= true (subseq? (crystal-key-item-randomizer.patches.copycat/generate :MYSTERY_EGG)
+    (is (= true (subseq? (crystal-key-item-randomizer.patches.copycat/generate :MYSTERY_EGG :normal)
                          (generate {:item-swaps vanilla-item-swaps
                                     :badge-swaps vanilla-badge-swaps
                                     :copycat-item :MYSTERY_EGG}
                                    {}))))
-    (is (= #{} (clojure.set/intersection (set (crystal-key-item-randomizer.patches.copycat/generate :LOST_ITEM))
+    (is (= #{} (clojure.set/intersection (set (crystal-key-item-randomizer.patches.copycat/generate :LOST_ITEM :normal))
                                          (set (generate {:item-swaps vanilla-item-swaps
                                                          :badge-swaps vanilla-badge-swaps
                                                          :copycat-item :LOST_ITEM}

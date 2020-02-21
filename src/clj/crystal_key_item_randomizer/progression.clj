@@ -66,10 +66,10 @@
                                               (get-swaps swaps grants)))
       args)))
 
-(defn analyze-items [result swaps copycat-item]
+(defn analyze-items [result swaps copycat-item {:keys [rockets] :as seed-options}]
   (reduce (partial can-satisfy-item-prereqs? swaps)
           result
-          (item-prereqs {:copycat-item copycat-item :rockets :normal})))
+          (item-prereqs {:copycat-item copycat-item :rockets rockets})))
 
 ;;;;;;;;;;;;;;;;
 ;; conditions ;;
@@ -170,7 +170,7 @@
 
 (defn analyze [result {:keys [item-swaps badge-swaps copycat-item]} {:keys [condition-options]}]
   (-> result
-      (analyze-items item-swaps copycat-item)
+      (analyze-items item-swaps copycat-item condition-options)
       (analyze-conditions condition-options)
       (analyze-badges badge-swaps) 
       analyze-badge-count

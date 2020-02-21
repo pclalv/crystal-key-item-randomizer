@@ -21,7 +21,7 @@
                                     174 177 168 179 164 79 84 127 131 142 139 139 232],
                               :new [81 171 174 178 179 127 172 184 79 129 139 148 132 127
                                     130 128 145 131 232 80 0 0 0 0 0 0 0]}}]
-           (generate :BLUE_CARD))))
+           (generate :BLUE_CARD :normal))))
 
   (testing "LOST_ITEM"
     (is (= [{:label "Copycat.ckir_BEFORE_checkitem_LOST_ITEM",
@@ -41,4 +41,4 @@
                                     174 177 168 179 164 79 84 127 131 142 139 139 232],
                               :new [81 171 174 178 179 127 172 184 79 139 142 146 147 127
                                     136 147 132 140 232 80 0 0 0 0 0 0 0]}}]
-           (generate :LOST_ITEM)))))
+           (generate :LOST_ITEM :normal)))))

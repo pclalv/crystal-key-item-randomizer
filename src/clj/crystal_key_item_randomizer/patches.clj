@@ -66,24 +66,28 @@
       slurp
       (json/read-str :key-fn keyword)))
 
-(defn item-ball [key-item {:keys [speedchoice?]}]
-  (let [key-items' (if speedchoice? (key-items/speedchoice) key-items/vanilla)
+(defn item-ball [key-item {:keys [speedchoice? rockets]}]
+  (let [key-items' (if speedchoice?
+                     (key-items/speedchoice :rockets rockets)
+                     key-items/vanilla)
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
-(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [speedchoice?]}]
+(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [speedchoice? rockets]}]
   (assoc-in underground-warehouse-ultra-ball
                         [:integer_values :new]
-                        (item-ball card-key-replacement {:speedchoice? speedchoice?})))
+                        (item-ball card-key-replacement {:speedchoice? speedchoice?
+                                                         :rockets rockets})))
 
 (defn generate [{:keys [item-swaps badge-swaps copycat-item]}
                 {:keys [speedchoice? rockets] :or {speedchoice? true
-                                                   rockets :normal}}]
+                                                   rockets :normal}
+                 :as seed-options}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
     (-> patches
-        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps {:speedchoice? speedchoice?})
+        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps seed-options)
               (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
               (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
         (concat (fix-giveitems item-swaps)
@@ -92,7 +96,7 @@
                 post-defeat/post-badge-speech-patches
                 (if (or (= :LOST_ITEM copycat-item) (nil? copycat-item))
                   [] ;; don't bother
-                  (copycat/generate copycat-item))
+                  (copycat/generate copycat-item rockets))
                 (if (= :early rockets)
                   crystal-key-item-randomizer.patches.rockets/trigger-early
                   [])))))

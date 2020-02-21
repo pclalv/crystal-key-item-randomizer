@@ -103,7 +103,8 @@
         (if (progression-results :beatable?)
           {:seed (-> progression-results
                      (assoc :patches (patches/generate swaps seed-options))
-                     (assoc :id (str (:seed-id swaps))))
+                     (assoc :id (str (:seed-id swaps)))
+                     (assoc :options seed-options))
            :iterations iterations}
           (recur (inc iterations)))))))
 
@@ -144,7 +145,9 @@
                   (assoc :id (str seed-id))
                   (assoc :patches (patches/generate swaps
                                                     {:speedchoice? true
-                                                     :rockets rockets})))}
+                                                     :rockets rockets}))
+                  (assoc :options {:endgame-condition endgame-condition
+                                   :rockets rockets}))}
        (assoc progression-results :error (str "Unbeatable seed: " seed-id))))))
 
 (s/fdef generate
