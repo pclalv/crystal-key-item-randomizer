@@ -138,26 +138,23 @@
     (is (= false (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
                      (beatable? {:speedchoice? false})
                      :beatable?))))
-  (testing "when speedchoice, vanilla swaps are beatable to red"
-    (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                               {:endgame-condition :defeat-red})
-                    :beatable?))))
+  (testing "when speedchoice"
+    (testing "vanilla swaps are beatable to red"
+      (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
+                                 {:endgame-condition :defeat-red})
+                      :beatable?))))
 
-  (testing "when speedchoice, vanilla swaps are beatable to e4"
-    (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                               {:endgame-condition :defeat-elite-4})
-                    :beatable?))))
+    (testing "vanilla swaps are beatable to e4"
+      (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
+                                 {:endgame-condition :defeat-elite-4})
+                      :beatable?))))
 
-  (testing "When speedchoice, the player gets every item"
-    (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                               beatable?
-                               :item-swaps
-                               vals
-                               set))))
+    (testing "the player gets every item"
+      (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
+                                 beatable?
+                                 :items-obtained))))
 
-  (testing "When speedchoice, the player gets every badge"
-    (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                            beatable?
-                            :badge-swaps
-                            vals
-                            set)))))
+    (testing "the player gets every badge"
+      (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
+                              beatable?
+                              :badges))))))

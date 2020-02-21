@@ -51,7 +51,8 @@
                                   :as args}
                                  {:keys [badges conditions-met items-obtained grants] :or {badges #{}
                                                                                            conditions-met #{}
-                                                                                           items-obtained #{}}}]
+                                                                                           items-obtained #{}}
+                                  :as prereqs}]
   (let [badges-satisfied? (every? player-badges
                                   (or badges #{}))
         conditions-satisfied? (every? player-conditions-met
@@ -172,7 +173,9 @@
           result
           pokegear-card-prereqs))
 
-(defn analyze [result {:keys [item-swaps badge-swaps copycat-item]} {:keys [condition-options]}]
+(defn analyze [result {:keys [item-swaps badge-swaps copycat-item]
+                       :or {copycat-item :LOST_ITEM}}
+               {:keys [condition-options]}]
   (-> result
       (analyze-items item-swaps copycat-item condition-options)
       (analyze-conditions condition-options)
