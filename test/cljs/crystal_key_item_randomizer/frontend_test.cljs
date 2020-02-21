@@ -14,5 +14,7 @@
                                         :patches []}))))
 
   (testing "actually patching"
-    (is (= seed-1425133096-with-badges (frontend/patch-rom rom seed-1425133096-data)))))
-
+    (is (= seed-1425133096-with-badges
+         (-> (frontend/patch-rom (js/Uint8Array. rom) seed-1425133096-data)
+             array-seq
+             vec)))))
