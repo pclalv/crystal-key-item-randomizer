@@ -61,9 +61,7 @@
 
 (defn lance-gives-useful-items? [swaps]
   (let [lance-swaps (set (get-swaps swaps lance-items))]
-    (-> (cset/intersection useful-items lance-swaps)
-        empty?
-        not)))
+    (seq (cset/intersection useful-items lance-swaps))))
 
 (defn generate-swaps
   [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?] :as opts}
