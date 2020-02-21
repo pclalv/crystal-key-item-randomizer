@@ -14,11 +14,11 @@
 (deftest generate-random-test
   (testing "parity with generate"
     (is (= (generate 2092024379)
-           (as-> (generate-random {:swaps-options {:early-bicycle? true
-                                                   :rng (new java.util.Random 1)}}) result
-             ;; :iterations and [:seed :options] are not crucial
-             (dissoc result :iterations)
-             (update-in result [:seed] dissoc :options)))))
+           (-> (generate-random {:swaps-options {:early-bicycle? true
+                                                 :rng (new java.util.Random 1)}})
+               ;; :iterations and [:seed :options] are not crucial
+               (dissoc :iterations)
+               (update-in [:seed] dissoc :options)))))
 
   (testing "when early-bicycle? is true"
     (is (= {:item-swaps {:HM_FLASH :BICYCLE,
