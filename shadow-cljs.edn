@@ -24,7 +24,7 @@
                 :output-dir "resources/public/assets/js"
                 :asset-path "/assets/js"}
 
-          :test {:target    :browser-test
-                 :test-dir  "test/resources/public"
-                 :devtools  {:http-port          8021
-                             :http-root          "test/resources/public"}}}}
+          :test {:target :browser-test
+                 :test-dir "test/resources/public"
+                 :devtools {:http-port 8021
+                            :http-root "test/resources/public"}}}}
