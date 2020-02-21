@@ -80,15 +80,24 @@
           copycat-item (if randomize-copycat-item?
                          (deterministic-pick key-items/non-required-items seed-id)
                          :LOST_ITEM)]
-      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
-            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
-            (and no-early-sabrina? (early-sabrina? badge-swaps)) (recur rng)
-            (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps)) (recur rng)
-            :else {:item-swaps item-swaps
-                   :badge-swaps badge-swaps
-                   :copycat-item copycat-item
-                   :seed-id seed-id
-                   :options opts}))))
+      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts)))
+            #_=> (recur rng)
+
+            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts))
+            #_=> (recur rng)
+
+            (and no-early-sabrina? (early-sabrina? badge-swaps))
+            #_=> (recur rng)
+
+            (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps))
+            #_=> (recur rng)
+
+            :else
+            #_=> {:item-swaps item-swaps
+                  :badge-swaps badge-swaps
+                  :copycat-item copycat-item
+                  :seed-id seed-id
+                  :options opts}))))
 
 (def default-generate-options
   "Would be nice if we could use this variable in the generate-random
