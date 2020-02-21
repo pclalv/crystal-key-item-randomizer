@@ -85,12 +85,12 @@
                                                          :copycat-item :LOST_ITEM}
                                                         {}))))))
 
-  (testing "early-rockets"
+  (testing "early rockets"
     (is (= true (subseq? crystal-key-item-randomizer.patches.rockets/trigger-early
                          (generate {:item-swaps vanilla-item-swaps
                                     :badge-swaps vanilla-badge-swaps}
-                                   {:early-rockets? true}))))
+                                   {:rockets :early}))))
     (is (= #{} (clojure.set/intersection (set crystal-key-item-randomizer.patches.rockets/trigger-early)
                                          (set (generate {:item-swaps vanilla-item-swaps
                                                          :badge-swaps vanilla-badge-swaps}
-                                                        {:early-rockets? false})))))))
+                                                        {:rockets :normal})))))))

@@ -86,17 +86,17 @@
                    :no-early-sabrina? false
                    :no-early-super-rod? false
                    :randomize-copycat-item? false}
-    early-rockets? false})
+    rockets :normal})
 
 (s/def ::endgame-condition #{:defeat-elite-4 :defeat-red})
 
-(defn generate-random [{:keys [endgame-condition swaps-options early-rockets?]
+(defn generate-random [{:keys [endgame-condition swaps-options rockets]
                         :or {endgame-condition :defeat-elite-4
                              ;; TODO: accept seed-options and swap-options as separate args
                              swaps-options {}
-                             early-rockets? false}}]
+                             rockets :normal}}]
   (let [seed-options {:endgame-condition endgame-condition
-                      :early-rockets? early-rockets?}]
+                      :rockets rockets}]
     (loop [iterations 1]
       (let [swaps (generate-swaps swaps-options)
             progression-results (beatable? swaps seed-options)]
@@ -122,10 +122,10 @@
 (defn generate
   ([seed-id]
    (generate seed-id {}))
-  ([seed-id {:keys [swaps-options endgame-condition early-rockets?]
+  ([seed-id {:keys [swaps-options endgame-condition rockets]
              :or {endgame-condition :defeat-elite-4
                   swaps-options {}
-                  early-rockets? false}}]
+                  rockets :normal}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
@@ -138,13 +138,13 @@
                 :copycat-item copycat-item
                 :seed-id seed-id}
          progression-results (beatable? swaps {:endgame-condition endgame-condition
-                                               :early-rockets? early-rockets?})]
+                                               :rockets rockets})]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :id (str seed-id))
                   (assoc :patches (patches/generate swaps
                                                     {:speedchoice? true
-                                                     :early-rockets? early-rockets?})))}
+                                                     :rockets rockets})))}
        (assoc progression-results :error (str "Unbeatable seed: " seed-id))))))
 
 (s/fdef generate

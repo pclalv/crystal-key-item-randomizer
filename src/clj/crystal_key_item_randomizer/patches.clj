@@ -77,8 +77,8 @@
                         (item-ball card-key-replacement {:speedchoice? speedchoice?})))
 
 (defn generate [{:keys [item-swaps badge-swaps copycat-item]}
-                {:keys [speedchoice? early-rockets?] :or {speedchoice? true
-                                                          early-rockets? false}}]
+                {:keys [speedchoice? rockets] :or {speedchoice? true}
+                                                  rockets :normal}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
@@ -93,15 +93,15 @@
                 (if (or (= :LOST_ITEM copycat-item) (nil? copycat-item))
                   [] ;; don't bother
                   (copycat/generate copycat-item))
-                (if early-rockets?
+                (if (= :early rockets)
                   crystal-key-item-randomizer.patches.rockets/trigger-early
                   [])))))
 
 (s/def ::speedchoice? boolean?)
-(s/def ::early-rockets? boolean?)
+(s/def ::rockets  #{:normal :early :rocketless})
 (s/def ::generate-options
   (s/keys :req-un []
-          :opt-un [::early-rockets? ::speedchoice?]))
+          :opt-un [::rockets ::speedchoice?]))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.progression/swaps

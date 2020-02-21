@@ -87,9 +87,9 @@
 (defn condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
-  [{:keys [no-blind-rock-tunnel? early-rockets?]
+  [{:keys [no-blind-rock-tunnel? rockets]
     :or {nno-blind-rock-tunnel? true
-         early-rockets? false}}]
+         rockets :normal}}]
   [{:condition :goldenrod
     :prereqs {:conditions-met #{}
               :items-obtained #{}}}
@@ -108,7 +108,7 @@
 
    {:condition :trigger-radio-tower-takeover
     ;; TODO: is the PHONE_CARD a prereq here?
-    :prereqs {:conditions-met (if early-rockets?
+    :prereqs {:conditions-met (if (= :early rockets)
                                 #{:four-badges}
                                 #{:seven-badges})
               :items-obtained #{}}}

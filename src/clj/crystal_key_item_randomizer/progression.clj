@@ -180,10 +180,10 @@
 (defn beatable?
   ([swaps]
    (beatable? swaps {}))
-  ([swaps {:keys [endgame-condition speedchoice? early-rockets?]
+  ([swaps {:keys [endgame-condition speedchoice? rockets]
            :or {speedchoice? true
                 endgame-condition :defeat-red
-                early-rockets? false}}]
+                rockets :normal}}]
    (if (not speedchoice?)
      {:beatable? false
       :error "only speedchoice is currently supported."}
@@ -193,13 +193,13 @@
                                           :badges #{}
                                           :pokegear-cards #{}}
                                          swaps
-                                         {:condition-options {:early-rockets? early-rockets?
+                                         {:condition-options {:rockets rockets
                                                               :no-blind-rock-tunnel? true}})]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
                       (recur result
-                             (analyze result swaps {:condition-options {:early-rockets? early-rockets?
+                             (analyze result swaps {:condition-options {:rockets rockets
                                                                         :no-blind-rock-tunnel? true}}))))]
        (-> (conj result swaps)
            (assoc :beatable? (contains? (result :conditions-met) endgame-condition)))))))
