@@ -284,7 +284,7 @@
     [:tbody [:tr [:td "Rocketless"] [:td
                                      "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
-                                     "Might not play well with Rocketless."]]]]])
+                                     "Might not play well with 'Randomize Copycat item'."]]]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
