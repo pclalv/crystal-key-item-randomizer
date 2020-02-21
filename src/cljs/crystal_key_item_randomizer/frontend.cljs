@@ -256,7 +256,7 @@
     [:tbody [:tr [:td "Rocketless"] [:td
                                      "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
-                                     "Probably doesn't play well with Rocketless."]]]]
+                                     "Might not play well with Rocketless."]]]]
    [:br]
 
    [:input {:id "randomize-badges" :type "checkbox"
