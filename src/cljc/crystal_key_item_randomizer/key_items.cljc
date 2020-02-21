@@ -81,7 +81,7 @@
                        :value 244}})
 
 (defn speedchoice [& {:keys [rockets]}]
-  (let [rockets-items (if (= :purge rockets)
+  (let [rockets-items (if (= :rocketless rockets)
                         ;; lance gives the player all of these at Lake of Rage
                         {:BASEMENT_KEY {:address 458935 :value 133}
                          :CARD_KEY {:address 458941 :value 127}

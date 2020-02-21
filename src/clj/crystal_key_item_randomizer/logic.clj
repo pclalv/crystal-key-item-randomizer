@@ -172,7 +172,7 @@
 (defn item-prereqs
   [{:keys [copycat-item rockets] :or {copycat-item :LOST_ITEM
                                       rockets :normal}}]
-  (let [rockets-items (if (= :purge rockets)
+  (let [rockets-items (if (= :rocketless rockets)
                         ;; lance just gives you all of these in rocketless/purge rockets
                         [{:conditions-met #{:ecruteak :can-surf}
                           :items-obtained #{}
