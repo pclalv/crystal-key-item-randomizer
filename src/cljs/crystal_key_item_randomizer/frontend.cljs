@@ -19,7 +19,7 @@
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
 (def endgame-condition (r/atom "defeat-elite-4"))
-(def rockets (r/atom false))
+(def rockets (r/atom "normal"))
 (def randomize-copycat-item? (r/atom false))
 
 (def wildcard "*")
