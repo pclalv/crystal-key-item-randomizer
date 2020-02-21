@@ -56,10 +56,10 @@
 
 (defn apply-item-swap [rom-bytes [original replacement]]
   (let [original-address (-> (keyword original)
-                             key-items/speedchoice
+                             (key-items/speedchoice)
                              :address)
         replacement-value (-> (keyword replacement)
-                              key-items/speedchoice
+                              (key-items/speedchoice)
                               :value)]
     (aset rom-bytes original-address replacement-value)
     rom-bytes))

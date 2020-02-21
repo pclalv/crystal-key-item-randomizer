@@ -7,7 +7,7 @@
    [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
-(def all-items (vec (keys key-items/speedchoice)))
+(def all-items (vec (keys (key-items/speedchoice))))
 (def badges (vec (keys badges/speedchoice)))
 
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})

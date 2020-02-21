@@ -67,7 +67,7 @@
       (json/read-str :key-fn keyword)))
 
 (defn item-ball [key-item {:keys [speedchoice?]}]
-  (let [key-items' (if speedchoice? key-items/speedchoice key-items/vanilla)
+  (let [key-items' (if speedchoice? (key-items/speedchoice) key-items/vanilla)
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
