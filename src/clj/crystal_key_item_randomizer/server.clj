@@ -41,7 +41,7 @@
     (let [{:keys [swaps-options endgame-condition rockets]} (-> req :body :options)
           {:keys [seed error]} (seeds/generate-random {:endgame-condition (keyword endgame-condition)
                                                        :swaps-options swaps-options
-                                                       :rockets rockets})]
+                                                       :rockets (keyword rockets)})]
       (render-seed-or-error seed error))))
 
 (defn seed-handler [req]
