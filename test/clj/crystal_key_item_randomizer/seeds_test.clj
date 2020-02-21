@@ -104,11 +104,12 @@
                             :MINERALBADGE :FOGBADGE,
                             :BOULDERBADGE :PLAINBADGE,
                             :CASCADEBADGE :MARSHBADGE,
-                            :GLACIERBADGE :THUNDERBADGE}}
+                            :GLACIERBADGE :THUNDERBADGE}
+              :id "155629808"}
              (-> (generate-random {:swaps-options {:randomize-badges? true
                                                    :rng (new java.util.Random 1)}})
                  :seed
-                 (select-keys [:badge-swaps])))))
+                 (select-keys [:badge-swaps :id])))))
     (testing "when false"
       (is (= {:badge-swaps
               {:PLAINBADGE :PLAINBADGE,
@@ -126,18 +127,21 @@
                :MINERALBADGE :MINERALBADGE,
                :BOULDERBADGE :BOULDERBADGE,
                :CASCADEBADGE :CASCADEBADGE,
-               :GLACIERBADGE :GLACIERBADGE}}
-             (-> (generate-random {:swaps-options {:randomize-badges? false}})
+               :GLACIERBADGE :GLACIERBADGE}
+              :id "155629808"}
+             (-> (generate-random {:swaps-options {:randomize-badges? false
+                                                   :rng (new java.util.Random 1)}})
                  :seed
-                 (select-keys [:badge-swaps]))))))
+                 (select-keys [:badge-swaps :id]))))))
 
   (testing "randomize-copycat-item?"
     (testing "when true"
-      (is (= :ITEMFINDER (-> (generate-random {:swaps-options {:randomize-copycat-item? true
-                                                               :rng (new java.util.Random 1)}})
-                             :seed
-                             :copycat-item))))
+      (is (= {:copycat-item :ITEMFINDER, :id "155629808"} (-> (generate-random {:swaps-options {:randomize-copycat-item? true
+                                                                                                :rng (new java.util.Random 1)}})
+                                                              :seed
+                                                              (select-keys [:copycat-item :id])))))
     (testing "when false"
-      (is (= :LOST_ITEM (-> (generate-random {:swaps-options {:randomize-badges? false}})
-                            :seed
-                            :copycat-item))))))
+      (is (= {:copycat-item :LOST_ITEM :id "155629808"} (-> (generate-random {:swaps-options {:randomize-copycat-item? false
+                                                                                              :rng (new java.util.Random 1)}})
+                                                            :seed
+                                                            (select-keys [:copycat-item :id])))))))
