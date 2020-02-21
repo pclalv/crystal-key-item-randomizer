@@ -20,6 +20,39 @@
                (dissoc :iterations)))))
 
   (testing "early-bicycle?"
+    (testing "when false"
+      (is (= {:item-swaps          
+              {:HM_FLASH :HM_STRENGTH,
+               :SILVER_WING :S_S_TICKET,
+               :LOST_ITEM :HM_WATERFALL,
+               :ITEMFINDER :SECRETPOTION,
+               :GOOD_ROD :CLEAR_BELL,
+               :CARD_KEY :BICYCLE,
+               :COIN_CASE :COIN_CASE,
+               :BLUE_CARD :HM_SURF,
+               :CLEAR_BELL :HM_FLY,
+               :SQUIRTBOTTLE :GOOD_ROD,
+               :HM_WHIRLPOOL :BLUE_CARD,
+               :RED_SCALE :HM_FLASH,
+               :HM_WATERFALL :MACHINE_PART,
+               :SECRETPOTION :HM_CUT,
+               :BASEMENT_KEY :SUPER_ROD,
+               :MACHINE_PART :BASEMENT_KEY,
+               :MYSTERY_EGG :OLD_ROD,
+               :S_S_TICKET :LOST_ITEM,
+               :PASS :SILVER_WING,
+               :HM_CUT :ITEMFINDER,
+               :HM_FLY :MYSTERY_EGG,
+               :HM_STRENGTH :PASS,
+               :OLD_ROD :SQUIRTBOTTLE,
+               :BICYCLE :HM_WHIRLPOOL,
+               :HM_SURF :RED_SCALE,
+               :SUPER_ROD :CARD_KEY},
+              :id "155629808"}
+             (-> (generate-random {:swaps-options {:early-bicycle? false
+                                                   :rng (new java.util.Random 1)}})
+                 :seed
+                 (select-keys [:item-swaps :id])))))
     (testing "when true"
       (is (= {:item-swaps {:HM_FLASH :BICYCLE,
                            :SILVER_WING :COIN_CASE,
@@ -54,7 +87,7 @@
                  (select-keys [:item-swaps :id]))))))
 
   (testing "no-early-super-rod?"
-    (testing "when false"
+    (testing "when true"
       (is (= {:item-swaps {:HM_FLASH :HM_STRENGTH,
                            :SILVER_WING :S_S_TICKET,
                            :LOST_ITEM :HM_WATERFALL,
@@ -86,6 +119,32 @@
                                                    :rng (new java.util.Random 1)}})
                  :seed
                  (select-keys [:item-swaps :id]))))))
+
+  (testing "no-early-sabrina?"
+    (testing "when true"
+      (is (= {:badge-swaps          
+              {:PLAINBADGE :GLACIERBADGE,
+               :MARSHBADGE :RISINGBADGE,
+               :RISINGBADGE :VOLCANOBADGE,
+               :FOGBADGE :PLAINBADGE,
+               :ZEPHYRBADGE :FOGBADGE,
+               :RAINBOWBADGE :BOULDERBADGE,
+               :STORMBADGE :THUNDERBADGE,
+               :VOLCANOBADGE :EARTHBADGE,
+               :SOULBADGE :ZEPHYRBADGE,
+               :EARTHBADGE :SOULBADGE,
+               :THUNDERBADGE :MARSHBADGE,
+               :HIVEBADGE :STORMBADGE,
+               :MINERALBADGE :MINERALBADGE,
+               :BOULDERBADGE :CASCADEBADGE,
+               :CASCADEBADGE :HIVEBADGE,
+               :GLACIERBADGE :RAINBOWBADGE},
+              :id "323788111"}
+             (-> (generate-random {:swaps-options {:randomize-badges? true
+                                                   :no-early-sabrina? true
+                                                   :rng (new java.util.Random 1)}})
+                 :seed
+                 (select-keys [:badge-swaps :id]))))))
 
   (testing "randomize-badges?"
     (testing "when true"
@@ -144,4 +203,42 @@
       (is (= {:copycat-item :LOST_ITEM :id "155629808"} (-> (generate-random {:swaps-options {:randomize-copycat-item? false
                                                                                               :rng (new java.util.Random 1)}})
                                                             :seed
-                                                            (select-keys [:copycat-item :id])))))))
+                                                            (select-keys [:copycat-item :id]))))))
+
+  (testing "rockets"
+    (testing "when normal"
+      (is (= {:item-swaps
+              {:CARD_KEY :BICYCLE,
+               :CLEAR_BELL :HM_FLY,
+               :HM_WHIRLPOOL :BLUE_CARD,
+               :BASEMENT_KEY :SUPER_ROD},
+              :id "155629808"}
+             (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
+                                   :rockets :normal})
+                 :seed
+                 (select-keys [:item-swaps :id])
+                 (update :item-swaps select-keys lance-items)))))
+    (testing "when early"
+      (is (= {:item-swaps
+              {:CARD_KEY :BICYCLE,
+               :CLEAR_BELL :HM_FLY,
+               :HM_WHIRLPOOL :BLUE_CARD,
+               :BASEMENT_KEY :SUPER_ROD},
+              :id "155629808"}
+             (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
+                                   :rockets :early})
+                 :seed
+                 (select-keys [:item-swaps :id])
+                 (update :item-swaps select-keys lance-items)))))
+    (testing "when rocketless"
+      (is (= {:item-swaps
+              {:CARD_KEY :OLD_ROD,
+               :CLEAR_BELL :BLUE_CARD,
+               :HM_WHIRLPOOL :MYSTERY_EGG,
+               :BASEMENT_KEY :COIN_CASE},
+              :id "557256941"}
+             (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
+                                   :rockets :rocketless})
+                 :seed
+                 (select-keys [:item-swaps :id])
+                 (update :item-swaps select-keys lance-items)))))))
