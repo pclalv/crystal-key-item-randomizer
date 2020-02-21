@@ -83,8 +83,6 @@ in priority order:
 - options to improve the Radio Tower rocket section:
   - reach out to ShockSlayer (on discord?) about adding level scaling
     for the rocket sections?
-  - enable rocketless, but force that lance gives only one useful key
-    item, max
   - figure out what level people are at after the 7th gym and buff
     radio tower rocket levels to somewhere between their current
     levels and the average player level.
