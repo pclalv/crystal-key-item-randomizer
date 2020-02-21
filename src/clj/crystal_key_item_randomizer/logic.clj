@@ -171,84 +171,83 @@
 
 (defn item-prereqs
   [{:keys [copycat-item] :or {copycat-item :LOST_ITEM}}]
-  [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
-    ;; so goldenrod is always accessible
-    :conditions-met #{}
-    :items-obtained #{}
-    :grants #{:MYSTERY_EGG
-              :HM_FLASH 
-              :OLD_ROD
-              :HM_CUT}}
+  (let [rockets-items [{:conditions-met #{:seven-badges}
+                        :items-obtained #{}
+                        :grants #{:BASEMENT_KEY}}
 
-   {:conditions-met #{:goldenrod}
-    :items-obtained #{}
-    :grants #{:BICYCLE
-              :BLUE_CARD 
-              :COIN_CASE}}
+                       {:conditions-met #{:underground-warehouse}
+                        :items-obtained #{}
+                        :grants #{:CARD_KEY}}
 
-   {:conditions-met #{:goldenrod}
-    :items-obtained #{}
-    :badges #{:PLAINBADGE}
-    :grants #{:SQUIRTBOTTLE}}
+                       {:conditions-met #{:defeat-team-rocket}
+                        :items-obtained #{}
+                        :grants #{:CLEAR_BELL}}
 
-   {:conditions-met #{:ecruteak}
-    :items-obtained #{}
-    :grants #{:ITEMFINDER
-              :HM_SURF
-              :GOOD_ROD
-              :HM_STRENGTH}}
+                       {:conditions-met #{:ecruteak :can-surf}
+                        :items-obtained #{}
+                        :grants #{:HM_WHIRLPOOL}}]]
+    (vec (concat rockets-items [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
+                                 ;; so goldenrod is always accessible
+                                 :conditions-met #{}
+                                 :items-obtained #{}
+                                 :grants #{:MYSTERY_EGG
+                                           :HM_FLASH 
+                                           :OLD_ROD
+                                           :HM_CUT}}
 
-   {:conditions-met #{:ecruteak :can-surf}
-    :items-obtained #{}
-    :grants #{:RED_SCALE
-              :SECRETPOTION}}
+                                {:conditions-met #{:goldenrod}
+                                 :items-obtained #{}
+                                 :grants #{:BICYCLE
+                                           :BLUE_CARD 
+                                           :COIN_CASE}}
 
-   {:conditions-met #{:ecruteak :can-surf :can-strength}
-    :items-obtained #{}
-    :grants #{:HM_FLY}}
+                                {:conditions-met #{:goldenrod}
+                                 :items-obtained #{}
+                                 :badges #{:PLAINBADGE}
+                                 :grants #{:SQUIRTBOTTLE}}
 
-   {:conditions-met #{:seven-badges}
-    :items-obtained #{}
-    :grants #{:BASEMENT_KEY}}
+                                {:conditions-met #{:ecruteak}
+                                 :items-obtained #{}
+                                 :grants #{:ITEMFINDER
+                                           :HM_SURF
+                                           :GOOD_ROD
+                                           :HM_STRENGTH}}
 
-   {:conditions-met #{:underground-warehouse}
-    :items-obtained #{}
-    :grants #{:CARD_KEY}}
+                                {:conditions-met #{:ecruteak :can-surf}
+                                 :items-obtained #{}
+                                 :grants #{:RED_SCALE
+                                           :SECRETPOTION}}
 
-   {:conditions-met #{:defeat-team-rocket}
-    :items-obtained #{}
-    :grants #{:CLEAR_BELL}}
+                                {:conditions-met #{:ecruteak :can-surf :can-strength}
+                                 :items-obtained #{}
+                                 :grants #{:HM_FLY}}
 
-   {:conditions-met #{:ecruteak :can-surf}
-    :items-obtained #{}
-    :grants #{:HM_WHIRLPOOL}}
+                                {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
+                                 :items-obtained #{}
+                                 :grants #{:HM_WATERFALL}}
 
-   {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
-    :items-obtained #{}
-    :grants #{:HM_WATERFALL}}
+                                {:conditions-met #{:defeat-elite-4}
+                                 :items-obtained #{}
+                                 :grants #{:S_S_TICKET}}
+                                {:conditions-met #{:kanto}
+                                 :items-obtained #{}
+                                 :grants #{:SUPER_ROD}}
 
-   {:conditions-met #{:defeat-elite-4}
-    :items-obtained #{}
-    :grants #{:S_S_TICKET}}
-   {:conditions-met #{:kanto}
-    :items-obtained #{}
-    :grants #{:SUPER_ROD}}
+                                {:conditions-met #{:talk-to-power-plant-manager}
+                                 :items-obtained #{}
+                                 :grants #{:MACHINE_PART}}
 
-   {:conditions-met #{:talk-to-power-plant-manager}
-    :items-obtained #{}
-    :grants #{:MACHINE_PART}}
+                                {:conditions-met #{:kanto}
+                                 :items-obtained #{copycat-item}
+                                 :grants #{:PASS}}
 
-   {:conditions-met #{:kanto}
-    :items-obtained #{copycat-item}
-    :grants #{:PASS}}
+                                {:conditions-met #{:fix-power-plant}
+                                 :items-obtained #{}
+                                 :grants #{:LOST_ITEM}}
 
-   {:conditions-met #{:fix-power-plant}
-    :items-obtained #{}
-    :grants #{:LOST_ITEM}}
-
-   {:conditions-met #{:pewter}
-    :items-obtained #{}
-    :grants #{:SILVER_WING}}])
+                                {:conditions-met #{:pewter}
+                                 :items-obtained #{}
+                                 :grants #{:SILVER_WING}}]))))
 
 ;; wip - eventually, pokegear cards should count as items
 
