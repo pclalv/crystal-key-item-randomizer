@@ -187,20 +187,20 @@
    (if (not speedchoice?)
      {:beatable? false
       :error "only speedchoice is currently supported."}
-     (let [result (loop [previous-result {}
+     (let [condition-options {:rockets rockets
+                              :no-blind-rock-tunnel? true}
+           result (loop [previous-result {}
                          result (analyze {:items-obtained #{}
                                           :conditions-met #{}
                                           :badges #{}
                                           :pokegear-cards #{}}
                                          swaps
-                                         {:condition-options {:rockets rockets
-                                                              :no-blind-rock-tunnel? true}})]
+                                         {:condition-options condition-options})]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
                       (recur result
-                             (analyze result swaps {:condition-options {:rockets rockets
-                                                                        :no-blind-rock-tunnel? true}}))))]
+                             (analyze result swaps {:condition-options condition-options}))))]
        (-> (conj result swaps)
            (assoc :beatable? (contains? (result :conditions-met) endgame-condition)))))))
 
