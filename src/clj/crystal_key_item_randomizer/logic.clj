@@ -201,8 +201,11 @@
    {:conditions-met #{:ecruteak :can-surf}
     :items-obtained #{}
     :grants #{:RED_SCALE
-              :HM_WHIRLPOOL
               :SECRETPOTION}}
+
+   {:conditions-met #{:ecruteak :can-surf}
+    :items-obtained #{}
+    :grants #{:HM_WHIRLPOOL}}
 
    {:conditions-met #{:ecruteak :can-surf :can-strength}
     :items-obtained #{}
