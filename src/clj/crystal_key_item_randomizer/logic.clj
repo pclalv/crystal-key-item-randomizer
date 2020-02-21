@@ -203,10 +203,6 @@
     :grants #{:RED_SCALE
               :SECRETPOTION}}
 
-   {:conditions-met #{:ecruteak :can-surf}
-    :items-obtained #{}
-    :grants #{:HM_WHIRLPOOL}}
-
    {:conditions-met #{:ecruteak :can-surf :can-strength}
     :items-obtained #{}
     :grants #{:HM_FLY}}
@@ -214,14 +210,6 @@
    {:conditions-met #{:seven-badges}
     :items-obtained #{}
     :grants #{:BASEMENT_KEY}}
-
-   {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
-    :items-obtained #{}
-    :grants #{:HM_WATERFALL}}
-
-   {:conditions-met #{:defeat-elite-4}
-    :items-obtained #{}
-    :grants #{:S_S_TICKET}}
 
    {:conditions-met #{:underground-warehouse}
     :items-obtained #{}
@@ -231,6 +219,17 @@
     :items-obtained #{}
     :grants #{:CLEAR_BELL}}
 
+   {:conditions-met #{:ecruteak :can-surf}
+    :items-obtained #{}
+    :grants #{:HM_WHIRLPOOL}}
+
+   {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
+    :items-obtained #{}
+    :grants #{:HM_WATERFALL}}
+
+   {:conditions-met #{:defeat-elite-4}
+    :items-obtained #{}
+    :grants #{:S_S_TICKET}}
    {:conditions-met #{:kanto}
     :items-obtained #{}
     :grants #{:SUPER_ROD}}
