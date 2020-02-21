@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.patches.badges
-  (:require [crystal-key-item-randomizer.badges :as badges]))
+  (:require [crystal-key-item-randomizer.badges :as badges]
+            [clojure.spec.alpha :as s]))            
 
 (def standalone-checkflag-badges
   {:PLAINBADGE {:label "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE"
@@ -27,7 +28,7 @@
   checks are easily replaced with `checkevent` calls to see if the
   player has actually beaten the gym leader or not.
 
-  There are two additional problemation `checkflag` calls around
+  There are two additional problematic `checkflag` calls around
   interactions with Whitney and Clair in their respective gyms, owing
   to the fact that the vanilla game does not immediately grant either
   badge. Instead, we need to acutally check if the player has received
@@ -37,3 +38,9 @@
     (-> standalone-checkflag-badges
         original-badge
         (assoc-in [:integer_values :new] (checkflag replacement-badge)))))
+
+(s/def ::patchable-badge #{:RISINGBADGE :PLAINBADGE})
+
+(s/fdef replace-checkflag-for-badge
+  :args (s/cat :original-badge ::patchable-badge
+               :badge-swaps map?))
