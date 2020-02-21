@@ -4,13 +4,20 @@
    [crystal-key-item-randomizer.key-items :as key-items]
    [crystal-key-item-randomizer.badges :as badges]
    [clojure.spec.alpha :as s]
-   [crystal-key-item-randomizer.specs])
+   [crystal-key-item-randomizer.specs]
+   [clojure.set :as cset])
   (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
 
 (def all-items (-> (key-items/speedchoice) keys vec))
 (def badges (-> badges/speedchoice keys vec))
 
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
+
+(def lance-items #{:BASEMENT_KEY :CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL})
+(def useful-items (cset/difference (set all-items)
+                                   #{:BLUE_CARD :CLEAR_BELL :OLD_ROD :HM_WHIRLPOOL :RED_SCALE :COIN_CASE :ITEMFINDER
+                                     :SILVER_WING :MYSTERY_EGG}))
+                                   ;(cset/union key-items/non-required-items)))
 
 (defn early-items
   "All items that the player is guaranteed to get early on."
@@ -50,10 +57,17 @@
 (defn early-sabrina? [badge-swaps]
   (contains? early-badges (badge-swaps :MARSHBADGE)))
 
-; (defrecord swaps-options [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?])
+;; (defrecord swaps-options [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?])
+
+(defn lance-gives-useful-items? [swaps]
+  (let [lance-swaps (set (get-swaps swaps lance-items))]
+    (-> (cset/intersection useful-items lance-swaps)
+        empty?
+        not)))
 
 (defn generate-swaps
-  [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?] :as opts}]
+  [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?] :as opts}
+   {:keys [rockets] :as seed-options}]
   (loop [rng (or (:rng opts)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
@@ -71,6 +85,7 @@
       (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts))) (recur rng)
             (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts)) (recur rng)
             (and no-early-sabrina? (early-sabrina? badge-swaps)) (recur rng)
+            (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps)) (recur rng)
             :else {:item-swaps item-swaps
                    :badge-swaps badge-swaps
                    :copycat-item copycat-item
@@ -98,7 +113,7 @@
   (let [seed-options {:endgame-condition endgame-condition
                       :rockets rockets}]
     (loop [iterations 1]
-      (let [swaps (generate-swaps swaps-options)
+      (let [swaps (generate-swaps swaps-options {:rockets rockets})
             progression-results (beatable? swaps seed-options)]
         (if (progression-results :beatable?)
           {:seed (-> progression-results
