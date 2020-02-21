@@ -235,8 +235,9 @@
             :checked (and (empty? @seed-id)
                           @no-early-sabrina?)
             :disabled (or @handling-rom?
+                          (not @randomize-badges?)
                           (not (empty? @seed-id)))}]
-   [:label {:for "no-early-sabrina"} "No early Sabrina (experimental) - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
+   [:label {:for "no-early-sabrina"} "No early Sabrina - (Badge randomization only) Ensure that Sabrina does not have any of the first four Johto badges (Zephy, Hive, Plain, Fog)"]
    [:br]
 
    [:select {:id "rockets"
