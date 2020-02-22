@@ -14,10 +14,10 @@
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
 
 (def lance-items #{:BASEMENT_KEY :CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL})
-(def useful-items (cset/difference (set all-items)
-                                   #{:BLUE_CARD :CLEAR_BELL :OLD_ROD :HM_WHIRLPOOL :RED_SCALE :COIN_CASE :ITEMFINDER
-                                     :SILVER_WING :MYSTERY_EGG}))
-                                   ;(cset/union key-items/non-required-items)))
+(def useless-items #{:BLUE_CARD :CLEAR_BELL :COIN_CASE :GOOD_ROD
+                     :HM_WHIRLPOOL :ITEMFINDER :MYSTERY_EGG :OLD_ROD
+                     :RED_SCALE :SILVER_WING})
+(def useful-items (cset/difference (set all-items) useless-items))
 
 (defn early-items
   "All items that the player is guaranteed to get early on."
