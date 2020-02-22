@@ -220,8 +220,7 @@
     [:thead [:tr [:th "Rockets Option"] [:th "Description"]]]
     [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
     [:tbody [:tr [:td "Early"] [:td "Trigger Team Rocket Radio Tower takeover after obtaining 4 badges instead of 7 badges."]]]
-    [:tbody [:tr [:td "Rocketless"] [:td
-                                     "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
+    [:tbody [:tr [:td "Rocketless"] [:td "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
                                      "Might not play well with 'Randomize Copycat item'."]]]]])
 
