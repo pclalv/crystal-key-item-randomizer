@@ -39,10 +39,6 @@
 (defn random-seed-handler [req]
   (let [req (json-body-request req {:keywords? true})]
     (let [{:keys [swaps-options seed-options]} (-> req :body :options)
-            _ (do (println)(println)(println)(println)
-                  (prn swaps-options)
-                  (prn seed-options)
-                  (println)(println)(println)(println))
           {:keys [seed error]} (seeds/generate-random {:seed-options (-> seed-options
                                                                          (update :endgame-condition keyword)
                                                                          (update :rockets keyword))
