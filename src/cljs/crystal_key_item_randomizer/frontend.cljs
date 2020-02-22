@@ -5,11 +5,12 @@
             [cljs.spec.test.alpha :as st])
   (:use [crystal-key-item-randomizer.patching :only [patch-rom]]))
 
+;; TODO: use cursors https://cljdoc.org/d/reagent/reagent/0.9.1/doc/tutorials/-wip-managing-state-atoms-cursors-reactions-and-tracking#cursors
 (def state (r/atom {:ui {:error nil
                          :handling-rom? false
                          :randomized-rom nil
-                         :table {:item-swaps {}
-                                 :badge-swaps {}}}
+                         :spoilers {:item-swaps {}
+                                    :badge-swaps {}}}
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
                                    :rockets "normal"}
@@ -24,8 +25,8 @@
 (def handling-rom? (r/cursor state [:ui :handling-rom?]))
 (def randomized-rom (r/cursor state [:ui :randomized-rom]))
 
-(def item-swaps-table (r/cursor state [:ui :table :item-swaps]))
-(def badge-swaps-table (r/cursor state [:ui :table :badge-swaps]))
+(def item-swaps-table (r/cursor state [:ui :spoilers :item-swaps]))
+(def badge-swaps-table (r/cursor state [:ui :spoilers :badge-swaps]))
 
 ;; these atoms are inputs to the randomizer.
 (def seed-id (r/cursor state [:seed-id]))
