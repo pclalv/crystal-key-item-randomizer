@@ -1,6 +1,6 @@
-(ns crystal-key-item-randomizer.frontend-test
+(ns crystal-key-item-randomizer.patching-test
   (:require [cljs.test :refer (deftest testing is)]
-            [crystal-key-item-randomizer.frontend :as frontend])
+            [crystal-key-item-randomizer.patching :as patching])
   (:require-macros [crystal-key-item-randomizer.test-utils :as test-utils]))
 
 (def rom (test-utils/slurp-bytes-at-compile-time "test/fixtures/crystal-speedchoice-v6.gbc"))
@@ -9,12 +9,12 @@
 
 (deftest patch-rom-test
   (testing "idempotency"
-    (is (= rom (frontend/patch-rom rom {:item-swaps {}
+    (is (= rom (patching/patch-rom rom {:item-swaps {}
                                         :badge-swaps {}
                                         :patches []}))))
 
   (testing "actually patching"
     (is (= seed-1425133096-with-badges
-         (-> (frontend/patch-rom (js/Uint8Array. rom) seed-1425133096-data)
+         (-> (patching/patch-rom (js/Uint8Array. rom) seed-1425133096-data)
              array-seq
              vec)))))
