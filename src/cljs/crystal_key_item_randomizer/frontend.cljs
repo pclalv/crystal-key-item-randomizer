@@ -18,7 +18,7 @@
 (def early-bicycle? (r/atom true))
 (def randomize-badges? (r/atom false))
 (def seed-id (r/atom ""))
-(def endgame-condition (r/atom "defeat-elite-4"))
+(def endgame-condition (r/atom "defeat-red"))
 (def rockets (r/atom "normal"))
 (def randomize-copycat-item? (r/atom false))
 
@@ -263,8 +263,8 @@
              :on-change (set-value-on-atom endgame-condition)
              :value @endgame-condition
              :disabled @handling-rom?}
-    [:option {:value "defeat-elite-4"} "Defeat Elite 4"]
-    [:option {:value "defeat-red"} "Defeat Red"]]
+    [:option {:value "defeat-red"} "Defeat Red"]
+    [:option {:value "defeat-elite-4"} "Defeat Elite 4"]]
    [:label {:for "endgame-condition"} "Endgame condition"]
    [:br]
 
