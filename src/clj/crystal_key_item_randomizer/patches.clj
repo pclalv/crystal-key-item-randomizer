@@ -19,7 +19,7 @@
    player doesn't get softlocked). integer_values.new doesn't exist so
    that things will fail hard if the patches aren't update properly"
 
-   ;; there's a wildcard here because item randomiztion might've
+   ;; there's a wildcard here because item randomization might've
    ;; turned this ultra ball into some other item; CKIR should be
    ;; compatible with that, so we can't guarantee the value of this
    ;; byte.

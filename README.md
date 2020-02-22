@@ -90,7 +90,6 @@ in priority order:
       executive at Sabrina level lol. Probably aim for level 45
       highest for executives."
 
-
 ### binary patching
 
 - allow the player to escape from the Goldenrod Underground via the
