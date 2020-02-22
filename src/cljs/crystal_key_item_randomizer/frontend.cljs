@@ -6,21 +6,26 @@
             [cljs.spec.test.alpha :as st]
             [crystal-key-item-randomizer.specs]))
 
-(def handling-rom? (r/atom false))
+;; UI
 (def error (r/atom nil))
+(def handling-rom? (r/atom false))
 (def item-swaps-table (r/atom {}))
 (def badge-swaps-table (r/atom {}))
 (def randomized-rom (r/atom nil))
 
 ;; these atoms are inputs to the randomizer.
-(def no-early-super-rod? (r/atom true))
-(def no-early-sabrina? (r/atom true))
+(def seed-id (r/atom ""))
+
+;; swaps-options
 (def early-bicycle? (r/atom true))
 (def randomize-badges? (r/atom false))
-(def seed-id (r/atom ""))
+(def no-early-sabrina? (r/atom true))
+(def no-early-super-rod? (r/atom true))
+(def randomize-copycat-item? (r/atom false))
+
+;; seed-options
 (def endgame-condition (r/atom "defeat-red"))
 (def rockets (r/atom "normal"))
-(def randomize-copycat-item? (r/atom false))
 
 (def wildcard "*")
 
