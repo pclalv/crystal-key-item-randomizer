@@ -5,26 +5,41 @@
             [cljs.spec.test.alpha :as st])
   (:use [crystal-key-item-randomizer.patching :only [patch-rom]]))
 
+(def state (r/atom {:ui {:error nil
+                         :handling-rom? false
+                         :randomized-rom nil
+                         :table {:item-swaps {}
+                                 :badge-swaps {}}}
+                    :seed-id ""
+                    :seed-options {:endgame-condition "defeat-red"
+                                   :rockets "normal"}
+                    :swaps-options {:early-bicycle? true
+                                    :no-early-super-rod? true
+                                    :no-early-sabrina? true
+                                    :randomize-badges? false
+                                    :randomize-copycat-item? false}}))
+
 ;; UI
-(def error (r/atom nil))
-(def handling-rom? (r/atom false))
-(def item-swaps-table (r/atom {}))
-(def badge-swaps-table (r/atom {}))
-(def randomized-rom (r/atom nil))
+(def error (r/cursor state [:ui :error]))
+(def handling-rom? (r/cursor state [:ui :handling-rom?]))
+(def randomized-rom (r/cursor state [:ui :randomized-rom]))
+
+(def item-swaps-table (r/cursor state [:ui :table :item-swaps]))
+(def badge-swaps-table (r/cursor state [:ui :table :badge-swaps]))
 
 ;; these atoms are inputs to the randomizer.
-(def seed-id (r/atom ""))
+(def seed-id (r/cursor state [:seed-id]))
 
 ;; swaps-options
-(def early-bicycle? (r/atom true))
-(def randomize-badges? (r/atom false))
-(def no-early-sabrina? (r/atom true))
-(def no-early-super-rod? (r/atom true))
-(def randomize-copycat-item? (r/atom false))
+(def early-bicycle? (r/cursor state [:swaps-options :early-bicycle?]))
+(def randomize-badges? (r/cursor state [:swaps-options :randomize-badges?]))
+(def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
+(def no-early-super-rod? (r/cursor state [:swaps-options :no-early-super-rod?]))
+(def randomize-copycat-item? (r/cursor state [:swaps-options :randomize-copycat-item?]))
 
 ;; seed-options
-(def endgame-condition (r/atom "defeat-red"))
-(def rockets (r/atom "normal"))
+(def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
+(def rockets (r/cursor state [:seed-options :rockets]))
 
 (defn render-error [text]
   (reset! error text))
