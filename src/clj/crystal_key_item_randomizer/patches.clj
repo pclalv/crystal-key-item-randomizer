@@ -105,4 +105,4 @@
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps
                :options :crystal-key-item-randomizer.specs/seed-options)
-  :ret (s/coll-of ::patches :kind vector?))
+  :ret ::patches)

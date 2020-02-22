@@ -99,6 +99,10 @@
                   :seed-id seed-id
                   :options opts}))))
 
+(s/fdef generate-swaps
+  :args (s/cat :crystal-key-item-randomizer.specs/swaps-options
+               :crystal-key-item-randomizer.specs/seed-options))
+
 (def default-generate-options
   "Would be nice if we could use this variable in the generate-random
   and generate function signatures, namely in the arg list."
@@ -125,6 +129,10 @@
          :iterations iterations}
         (recur (inc iterations))))))
 
+(s/def ::generate-options
+  (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
+                   :crystal-key-item-randomizer.specs/seed-options]))
+
 (s/def ::error string?)
 (s/def ::iterations int?)
 
@@ -135,8 +143,7 @@
         :err (s/keys :req-un [::error])))
 
 (s/fdef generate-random
-  :args (s/cat :opts (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
-                                      :crystal-key-item-randomizer.specs/seed-options]))
+  :args (s/cat :opts ::generate-options)
   :ret ::generate-result)
 
 (defn generate
@@ -168,7 +175,6 @@
 (s/fdef generate
   :args (s/alt :unary (s/cat :seed-id int?)
                :with-options (s/cat :seed-id int?
-                                    :options (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
-                                                              :crystal-key-item-randomizer.specs/seed-options])))
+                                    :options ::generate-options))
 
   :ret ::generate-result)
