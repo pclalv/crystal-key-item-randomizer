@@ -135,7 +135,7 @@
         :err (s/keys :req-un [::error])))
 
 (s/fdef generate-random
-  :args (s/cat :opts (s/keys :req-un [:crystal-key-item-randomizer.specs/swap-options
+  :args (s/cat :opts (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
                                       :crystal-key-item-randomizer.specs/seed-options]))
   :ret ::generate-result)
 
@@ -168,7 +168,7 @@
 (s/fdef generate
   :args (s/alt :unary (s/cat :seed-id int?)
                :with-options (s/cat :seed-id int?
-                                    :options (s/keys :req-un [:crystal-key-item-randomizer.specs/swap-options
+                                    :options (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
                                                               :crystal-key-item-randomizer.specs/seed-options])))
 
   :ret ::generate-result)
