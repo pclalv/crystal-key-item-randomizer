@@ -14,9 +14,9 @@
 (def early-badges #{:ZEPHYRBADGE :HIVEBADGE :PLAINBADGE :FOGBADGE})
 
 (def lance-items #{:BASEMENT_KEY :CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL})
-(def useless-items #{:BLUE_CARD :CLEAR_BELL :COIN_CASE :GOOD_ROD
-                     :HM_WHIRLPOOL :ITEMFINDER :MYSTERY_EGG :OLD_ROD
-                     :RED_SCALE :SILVER_WING})
+(def useless-items #{:BASEMENT_KEY :BLUE_CARD :CARD_KEY :CLEAR_BELL
+                     :COIN_CASE :GOOD_ROD :HM_WHIRLPOOL :ITEMFINDER
+                     :MYSTERY_EGG :OLD_ROD :RED_SCALE :SILVER_WING})
 (def useful-items (cset/difference (set all-items) useless-items))
 
 (defn early-items
