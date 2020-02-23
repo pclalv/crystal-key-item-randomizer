@@ -20,7 +20,11 @@
 (def useful-items (cset/difference (set all-items) useless-items))
 
 (defn early-items
-  "All items that the player is guaranteed to get early on."
+  "All items that the player is guaranteed to get early on.
+
+  If badges are randomized, then we cannot guarantee that the
+  SQUIRTBOTTLE will be an early item; in other words, we don't want to
+  the BICYCLE to be locked behind the PLAINBADGE in badge rando."
   [{:keys [include-squirtbottle?]}]
   (->> #{:MYSTERY_EGG :HM_FLASH :OLD_ROD :HM_CUT
          :BICYCLE :BLUE_CARD :COIN_CASE (when include-squirtbottle?
@@ -39,12 +43,6 @@
 
 (defn gives-early? [item swaps {:keys [randomize-badges?] :as opts}]
   (let [early-swaps (get-swaps swaps
-                               ;; if badges are randomized, then we
-                               ;; cannot guarantee that the
-                               ;; SQUIRTBOTTLE will be an early item;
-                               ;; in other words, we don't want to the
-                               ;; BICYCLE to be locked behind the
-                               ;; PLAINBADGE in badge rando.
                                (early-items {:include-squirtbottle? (not (and randomize-badges?
                                                                               (= item :BICYCLE)))}))]
     (-> early-swaps
