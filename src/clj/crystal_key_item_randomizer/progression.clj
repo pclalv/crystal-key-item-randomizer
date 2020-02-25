@@ -222,5 +222,6 @@
   (s/keys :req-un [::beatable? :crystal-key-item-randomizer.specs/swaps ::items-obtained ::conditions-met ::badges]))
 
 (s/fdef beatable?
-  ;; :args (s/cat :just-an-int int?)
+  :args (s/cat :swaps map?
+               :seed-options ::crystal-key-item-randomizer.specs/seed-options)
   :ret ::progression-result)
