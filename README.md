@@ -20,10 +20,7 @@ See the [homepage](https://crystal-key-item-randomizer.herokuapp.com/).
 1. **Build the uberjar**: `lein with-profile production uberjar`
 1. **Run the uberjar**: 
    ```
-   java \
-     -cp target/uberjar/crystal-key-item-randomizer.jar \
-     clojure.main \
-     -m crystal-key-item-randomizer.server
+   java -jar target/uberjar/crystal-key-item-randomizer.jar
    ```
 
 You should be able to see the randomizer home page in your browser at
