@@ -212,7 +212,6 @@
              :on-change (set-value-on-atom rockets)
              :value @rockets
              :disabled @handling-rom?}
-    ;; TODO: verbose descriptions!
     [:option {:value "normal"} "Normal"]
     [:option {:value "early"} "Early"]
     [:option {:value "rocketless"} "Rocketless"]]
