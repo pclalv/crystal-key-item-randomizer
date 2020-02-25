@@ -196,7 +196,7 @@
     "the replacement will be a non-progression key item. The item will be one of the following: "
     (->> key-items/non-required-items
          (map name)
-         (clojure.string/join ", "))]
+         (map #([:tt %])))]
    [:br]
 
    [:select {:id "endgame-condition"
