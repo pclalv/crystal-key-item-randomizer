@@ -249,6 +249,7 @@
                    new (-> swap .-val)]
                ^{:key orig} [:tr [:td orig] [:td new]]))]])
 
+;; TODO: add copycat item swap to spoiler
 (defn spoilers-display []
   (let [show-spoilers? (r/atom false)]
     (fn spoilers-display* []
