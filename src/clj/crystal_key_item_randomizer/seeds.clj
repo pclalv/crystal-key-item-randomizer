@@ -105,6 +105,7 @@
   "Would be nice if we could use this variable in the generate-random
   and generate function signatures, namely in the arg list."
   '{seed-options {:endgame-condition :defeat-elite-4
+                  :randomize-janine? false
                   :rockets :normal}
     swaps-options {:randomize-badges? false
                    :early-bicycle? false

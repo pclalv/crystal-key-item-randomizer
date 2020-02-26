@@ -1,0 +1,15 @@
+[{:label "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_1_at_7_5"
+  :address_range {:begin 1664421 :end 1664423}
+  :integer_values [11 9]}
+ {:label "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_2_at_11_5"
+  :address_range {:begin 1664434 :end 1664436}
+  :integer_values [15 9]}
+ {:label "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_3_at_4_9"
+  :address_range {:begin 1664447 :end 1664449}
+  :integer_values [8 13]}
+ {:label "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_4_at_2_4"
+  :address_range {:begin 1664460 :end 1664462}
+  :integer_values [6 8]}
+ {:label "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_JANINE_at_10_1"
+  :address_range {:begin 1664408 :end 1664410}
+  :integer_values [14 5]}]

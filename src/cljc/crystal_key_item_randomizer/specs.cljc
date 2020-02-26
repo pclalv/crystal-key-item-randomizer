@@ -10,11 +10,12 @@
 (s/def ::swaps (s/keys :req-un [::item-swaps ::badge-swaps]))
 
 (s/def ::speedchoice? boolean?)
+(s/def ::randomize-janine? boolean?)
 (s/def ::rockets  #{:normal :early :rocketless})
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::no-blind-rock-tunnel? boolean?)
 (s/def ::seed-options
-  (s/keys :opt-un [::rockets ::speedchoice? ::endgame-condition ::no-blind-rock-tunnel?]))
+  (s/keys :opt-un [::randomize-janine? ::rockets ::speedchoice? ::endgame-condition ::no-blind-rock-tunnel?]))
 
 (s/def ::early-bicycle? boolean?)
 (s/def ::no-early-sabrina? boolean?)

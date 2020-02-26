@@ -7,6 +7,7 @@
             [crystal-key-item-randomizer.rom]
             [crystal-key-item-randomizer.patches.rockets]
             [crystal-key-item-randomizer.patches.copycat :as copycat]
+            [crystal-key-item-randomizer.patches.randomize-janine :as randomize-janine]
             [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
@@ -100,7 +101,8 @@
                   (copycat/generate copycat-item rockets))
                 (if (= :early rockets)
                   crystal-key-item-randomizer.patches.rockets/trigger-early
-                  [])))))
+                  [])
+                (randomize-janine/generate seed-options)))))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps

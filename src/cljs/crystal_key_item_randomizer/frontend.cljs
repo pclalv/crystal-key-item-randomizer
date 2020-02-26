@@ -13,6 +13,7 @@
                                     :badge-swaps {}}}
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
+                                   :randomize-janine? false
                                    :rockets "normal"}
                     :swaps-options {:early-bicycle? true
                                     :no-early-super-rod? true
@@ -40,6 +41,7 @@
 
 ;; seed-options
 (def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
+(def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
 (def rockets (r/cursor state [:seed-options :rockets]))
 
 (defn render-error [text]
@@ -62,7 +64,8 @@
                                       .-target
                                       .-result))
         body {:options {:seed-options {:endgame-condition @endgame-condition
-                                       :rockets @rockets}                        
+                                       :randomize-janine? @randomize-janine?
+                                       :rockets @rockets}
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
                                                              :randomize-copycat-item? @randomize-copycat-item?}]
                                          ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?
@@ -197,6 +200,13 @@
     (->> key-items/non-required-items
          (map name)
          (map #([:tt %])))]
+   [:br]
+
+   [:input {:id "randomize-janine" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom randomize-janine?)
+            :checked @randomize-janine?
+            :disabled @handling-rom?}]
+   [:label {:for "randomize-janine"} "Randomize Janine (Experimental) - Randomize which Janine is the real Janine in Fuchsia Gym."]
    [:br]
 
    [:select {:id "endgame-condition"
