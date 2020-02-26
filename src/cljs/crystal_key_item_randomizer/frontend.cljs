@@ -199,7 +199,8 @@
     "the replacement will be a non-progression key item. The item will be one of the following: "
     (->> key-items/non-required-items
          (map name)
-         (map #([:tt %])))]
+         (map (fn [item] ^{:key item} [:tt item]))
+         (interpose ", "))]
    [:br]
 
    [:input {:id "randomize-janine" :type "checkbox"
