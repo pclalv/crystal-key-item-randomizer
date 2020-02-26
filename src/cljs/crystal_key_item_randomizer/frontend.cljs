@@ -10,7 +10,8 @@
                          :handling-rom? false
                          :randomized-rom nil
                          :spoilers {:item-swaps {}
-                                    :badge-swaps {}}}
+                                    :badge-swaps {}
+                                    :copycat-item nil}}
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
                                    :randomize-janine? false
@@ -28,6 +29,7 @@
 
 (def item-swaps-table (r/cursor state [:ui :spoilers :item-swaps]))
 (def badge-swaps-table (r/cursor state [:ui :spoilers :badge-swaps]))
+(def copycat-item-spoiler (r/cursor state [:ui :spoilers :copycat-item]))
 
 ;; these atoms are inputs to the randomizer.
 (def seed-id (r/cursor state [:seed-id]))
@@ -88,9 +90,10 @@
                  (if (.-error json)
                    (do (reset-form)
                        (render-error (.-error json)))
-                   (let [{:keys [item-swaps badge-swaps patches id options] :as seed} (-> json
-                                                                                          (aget "seed")
-                                                                                          (js->clj :keywordize-keys true))
+                   (let [{:keys [item-swaps badge-swaps
+                                 copycat-item patches id options] :as seed} (-> json
+                                                                                (aget "seed")
+                                                                                (js->clj :keywordize-keys true))
                          ;; TODO: add other options to the filename
                          filename (str "pokecrystal-key-item-randomized-seed-"
                                        (if @randomize-badges?
@@ -99,6 +102,7 @@
                                        ".gbc")]
                      (reset! item-swaps-table item-swaps)
                      (reset! badge-swaps-table badge-swaps)
+                     (reset! copycat-item-spoiler copycat-item)
                      (reset! randomized-rom {:rom (patch-rom rom-bytes seed)
                                              :filename filename})))))
         ;; the arg name 'resp' is not accurate in all cases but i'm
@@ -250,7 +254,6 @@
                    new (-> swap .-val)]
                ^{:key orig} [:tr [:td orig] [:td new]]))]])
 
-;; TODO: add copycat item swap to spoiler
 (defn spoilers-display []
   (let [show-spoilers? (r/atom false)]
     (fn spoilers-display* []
@@ -263,7 +266,10 @@
        (when (and @show-spoilers? @randomize-badges?)
          [spoilers-table @badge-swaps-table {:swap-type "badge"}])
        (when @show-spoilers?
-         [spoilers-table @item-swaps-table {:swap-type "item"}])])))
+         [spoilers-table @item-swaps-table {:swap-type "item"}])
+       ;; TODO; make this prettier in the UI
+       (when (and @show-spoilers? @randomize-copycat-item?)
+         [:<> [:strong "Copycat item: "] @copycat-item-spoiler])])))
 
 (defn reset []
   (when @randomized-rom
