@@ -23,8 +23,8 @@
 (s/def ::randomize-badges? boolean?)
 (s/def ::randomize-copycat-item? boolean?)
 (s/def ::swaps-options
-  (s/keys :opt-un [::early-bicycle? 
-                   ::no-early-sabrina? 
-                   ::no-early-super-rod? 
-                   ::randomize-badges? 
+  (s/keys :opt-un [::early-bicycle?
+                   ::no-early-sabrina?
+                   ::no-early-super-rod?
+                   ::randomize-badges?
                    ::randomize-copycat-item?]))
