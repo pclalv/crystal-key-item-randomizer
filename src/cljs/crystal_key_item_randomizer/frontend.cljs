@@ -246,7 +246,7 @@
      [:label {:for "rom-file"} "Select Pokemon Crystal Speedchoice ROM file"]]))
 
 (defn spoilers-table [swaps {swap-type :swap-type}]
-  [:table {:id "swaps"}
+  [:table {:id (str swap-type "-swaps")}
    [:thead [:tr
             [:th (str "Vanilla " swap-type)] [:th (str "New " swap-type)]]]
    [:tbody (for [swap swaps]
