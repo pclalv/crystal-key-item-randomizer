@@ -5,7 +5,6 @@
             [cljs.spec.test.alpha :as st])
   (:use [crystal-key-item-randomizer.patching :only [patch-rom]]))
 
-;; TODO: use cursors https://cljdoc.org/d/reagent/reagent/0.9.1/doc/tutorials/-wip-managing-state-atoms-cursors-reactions-and-tracking#cursors
 (def state (r/atom {:ui {:error nil
                          :handling-rom? false
                          :randomized-rom nil
