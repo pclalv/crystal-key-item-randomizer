@@ -179,7 +179,8 @@
                           :grants #{:BASEMENT_KEY
                                     :CARD_KEY
                                     :CLEAR_BELL
-                                    :HM_WHIRLPOOL}}]
+                                    :HM_WHIRLPOOL
+                                    :HM_WATERFALL}}]
                         [{:conditions-met #{:seven-badges}
                           :items-obtained #{}
                           :grants #{:BASEMENT_KEY}}
@@ -194,7 +195,11 @@
 
                          {:conditions-met #{:ecruteak :can-surf}
                           :items-obtained #{}
-                          :grants #{:HM_WHIRLPOOL}}])]
+                          :grants #{:HM_WHIRLPOOL}}
+
+                         {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
+                          :items-obtained #{}
+                          :grants #{:HM_WATERFALL}}])]
     (vec (concat rockets-items [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
                                  ;; so goldenrod is always accessible
                                  :conditions-met #{}
@@ -230,10 +235,6 @@
                                 {:conditions-met #{:ecruteak :can-surf :can-strength}
                                  :items-obtained #{}
                                  :grants #{:HM_FLY}}
-
-                                {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
-                                 :items-obtained #{}
-                                 :grants #{:HM_WATERFALL}}
 
                                 {:conditions-met #{:defeat-elite-4}
                                  :items-obtained #{}
