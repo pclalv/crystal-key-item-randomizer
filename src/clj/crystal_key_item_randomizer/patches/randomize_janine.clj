@@ -3,7 +3,7 @@
             [clojure.edn :as edn]
             [clojure.spec.alpha :as s]
             [crystal-key-item-randomizer.specs])
-  (:use [crystal-key-item-randomizer.seeds :only [deterministic-pick]]))
+  (:use [crystal-key-item-randomizer.prng :only [deterministic-pick]]))
 
 (def speedchoice-fuchsia-gym-trainers
   "These patches aren't the full person_events, but rather just the positions. "

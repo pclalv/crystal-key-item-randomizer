@@ -6,7 +6,8 @@
    [clojure.spec.alpha :as s]
    [crystal-key-item-randomizer.specs]
    [clojure.set :as cset])
-  (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]))
+  (:use [crystal-key-item-randomizer.progression :only [beatable? get-swaps]]
+        [crystal-key-item-randomizer.prng]))
 
 (def all-items (-> (key-items/speedchoice) keys vec))
 (def badges (-> badges/speedchoice keys vec))
@@ -31,17 +32,6 @@
                                           :SQUIRTBOTTLE)}
        (remove nil?)
        (into #{})))
-
-;; TODO: reverse the argument order
-(defn deterministic-shuffle [^java.util.Collection coll seed]
-  (let [al (java.util.ArrayList. coll)
-        rng (java.util.Random. seed)]
-    (java.util.Collections/shuffle al rng)
-    (clojure.lang.RT/vector (.toArray al))))
-
-;; TODO: reverse the argument order
-(defn deterministic-pick [coll seed]
-  (first (deterministic-shuffle coll seed)))
 
 (defn gives-early? [item swaps {:keys [randomize-badges?] :as opts}]
   (let [early-swaps (get-swaps swaps
