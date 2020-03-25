@@ -11,7 +11,7 @@
 
 (s/def ::speedchoice? boolean?)
 (s/def ::randomize-janine? boolean?)
-(s/def ::rockets  #{:normal :early :rocketless})
+(s/def ::rockets #{:normal :early :rocketless})
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::no-blind-rock-tunnel? boolean?)
 (s/def ::seed-options
@@ -22,9 +22,11 @@
 (s/def ::no-early-super-rod? boolean?)
 (s/def ::randomize-badges? boolean?)
 (s/def ::randomize-copycat-item? boolean?)
+(s/def ::rng (partial instance? java.util.Random))
 (s/def ::swaps-options
   (s/keys :opt-un [::early-bicycle?
                    ::no-early-sabrina?
                    ::no-early-super-rod?
                    ::randomize-badges?
-                   ::randomize-copycat-item?]))
+                   ::randomize-copycat-item?
+                   ::rng]))

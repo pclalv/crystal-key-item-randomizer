@@ -68,6 +68,8 @@
                         (zipmap badges (deterministic-shuffle badges seed-id))
                         (zipmap badges badges))
           copycat-item (if randomize-copycat-item?
+                         ;; FIXME: there are even more useless,
+                         ;; non-required items in the rocketless mode
                          (deterministic-pick key-items/non-required-items seed-id)
                          :LOST_ITEM)]
       (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts)))

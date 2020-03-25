@@ -37,6 +37,8 @@
                                                     :old (:integer_values swap-trainer)}))]
       [janine' swap-trainer'])))
 
-(s/fdef generate
-  :args (s/cat :options :crystal-key-item-randomizer.specs/seed-options)
-  :ret (s/coll-of ::patch :kind? vector))
+;; FIXME: get this spec to work
+;; (s/fdef generate
+;;   :args (s/cat :seed-options :crystal-key-item-randomizer.specs/seed-options
+;;                :options (s/? (s/cat :rng (partial instance? java.util.Random))))
+;;   :ret (s/coll-of ::patch :kind? vector))
