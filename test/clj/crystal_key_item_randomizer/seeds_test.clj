@@ -222,12 +222,12 @@
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))
     (testing "when rocketless"
-      (is (= {:item-swaps
-              {:CARD_KEY :OLD_ROD,
-               :CLEAR_BELL :BLUE_CARD,
-               :HM_WHIRLPOOL :MYSTERY_EGG,
-               :BASEMENT_KEY :COIN_CASE},
-              :id "557256941"}
+      (is (= {:item-swaps          
+              {:CARD_KEY :MYSTERY_EGG,
+               :CLEAR_BELL :CARD_KEY,
+               :HM_WHIRLPOOL :ITEMFINDER,
+               :BASEMENT_KEY :BLUE_CARD},
+              :id "587682406"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
                                    :seed-options {:rockets :rocketless}})
                  :seed
