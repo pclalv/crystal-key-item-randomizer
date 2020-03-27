@@ -92,8 +92,8 @@
                   :options opts}))))
 
 (s/fdef generate-swaps
-  :args (s/cat :crystal-key-item-randomizer.specs/swaps-options
-               :crystal-key-item-randomizer.specs/seed-options))
+  :args (s/cat :swaps-options :crystal-key-item-randomizer.specs/swaps-options
+               :seed-options :crystal-key-item-randomizer.specs/seed-options))
 
 (def default-generate-options
   "Would be nice if we could use this variable in the generate-random
@@ -123,7 +123,7 @@
         (recur (inc iterations))))))
 
 (s/def ::generate-options
-  (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
+  (s/keys :opt-un [:crystal-key-item-randomizer.specs/swaps-options
                    :crystal-key-item-randomizer.specs/seed-options]))
 
 (s/def ::error string?)
