@@ -22,7 +22,8 @@
 (s/def ::no-early-super-rod? boolean?)
 (s/def ::randomize-badges? boolean?)
 (s/def ::randomize-copycat-item? boolean?)
-(s/def ::rng (partial instance? java.util.Random))
+(s/def ::rng #?(:clj (partial instance? java.util.Random)
+                :cljs #(throw "rng not currently supported in cljs")))               
 (s/def ::swaps-options
   (s/keys :opt-un [::early-bicycle?
                    ::no-early-sabrina?
