@@ -57,7 +57,8 @@
   (testing "can collect STORMBADGE"
     (is (= #{:STORMBADGE}
            (:badges (can-satisfy-badge-prereq? vanilla-badge-swaps
-                                               {:conditions-met #{:can-surf
+                                               {:conditions-met #{:ecruteak
+                                                                  :can-surf
                                                                   :can-strength}
                                                 :badges #{}}
                                                (get-badge-prereqs :STORMBADGE))))))

@@ -17,7 +17,7 @@
     :conditions-met #{:ecruteak}}
 
    {:badge :STORMBADGE
-    :conditions-met #{:can-surf :can-strength}}
+    :conditions-met #{:ecruteak :can-surf :can-strength}}
 
    {:badge :MINERALBADGE
     :conditions-met #{:ecruteak}
