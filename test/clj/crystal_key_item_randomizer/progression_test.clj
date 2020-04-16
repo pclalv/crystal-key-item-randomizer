@@ -71,7 +71,7 @@
   (testing "can collect GLACIERBADGE"
     (is (= #{:GLACIERBADGE}
            (:badges (can-satisfy-badge-prereq? vanilla-badge-swaps
-                                               {:conditions-met #{:can-surf}
+                                               {:conditions-met #{:ecruteak :can-surf}
                                                 :badges #{}}
                                                (get-badge-prereqs :GLACIERBADGE))))))
   (testing "can collect RISINGBADGE"

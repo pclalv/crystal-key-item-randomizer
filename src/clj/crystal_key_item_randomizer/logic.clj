@@ -24,7 +24,7 @@
     :items-obtained #{:SECRETPOTION}}
 
    {:badge :GLACIERBADGE
-    :conditions-met #{:can-surf}}
+    :conditions-met #{:ecruteak :can-surf}}
 
    {:badge :RISINGBADGE
     :conditions-met (if speedchoice?
