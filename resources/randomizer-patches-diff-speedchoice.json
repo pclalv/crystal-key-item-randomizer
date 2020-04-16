@@ -313,17 +313,17 @@
     },
     {
         "integer_values": {
-            "old": [ 49, 201, 0 ],
-            "new": [ 49, 200, 6 ]
+            "old": [ 33, 128, 9, 167, 78, 49, 202, 0, 9, 161, 78, 76, 120, 82, 84, 73, 51, 202, 0, 50, 109, 7, 50, 251, 0, 18, 7, 6, 1, 20, 1 ],
+            "new": [ 49, 202, 0, 9, 161, 78, 76, 120, 82, 14, 0, 24, 48, 50, 109, 7, 50, 251, 0, 18, 7, 6, 1, 20, 1, 33, 128, 9, 167, 78, 145 ]
         },
         "address_range": {
-            "begin": 1609339,
-            "end": 1609342
+            "begin": 1609345,
+            "end": 1609376
         },
-        "label": "PowerPlantManager.ckir_BEFORE_CHECKEVENT_EVENT_RETURNED_MACHINE_PART",
-        "description": "Ensure Cerulean Gym item is obtainable even if the player has already given the real MACHINE PART to the Power Plant manager"
+        "label": "PowerPlantManager.ckir_BEFORE_checkitem_MACHINE_PART",
+        "description": "Talking to the Power Plant manager should just work"
     },
-    
+
     {
         "integer_values": {
             "old": [ 49, 205, 0 ],
