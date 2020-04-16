@@ -88,7 +88,7 @@
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
   [{:keys [no-blind-rock-tunnel? rockets]
-    :or {nno-blind-rock-tunnel? true
+    :or {no-blind-rock-tunnel? true
          rockets :normal}}]
   [{:condition :goldenrod
     :prereqs {:conditions-met #{}
