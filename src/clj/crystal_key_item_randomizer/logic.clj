@@ -205,14 +205,14 @@
                                  :conditions-met #{}
                                  :items-obtained #{}
                                  :grants #{:MYSTERY_EGG
-                                           :HM_FLASH 
+                                           :HM_FLASH
                                            :OLD_ROD
                                            :HM_CUT}}
 
                                 {:conditions-met #{:goldenrod}
                                  :items-obtained #{}
                                  :grants #{:BICYCLE
-                                           :BLUE_CARD 
+                                           :BLUE_CARD
                                            :COIN_CASE}}
 
                                 {:conditions-met #{:goldenrod}
