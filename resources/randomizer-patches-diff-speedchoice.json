@@ -37,6 +37,18 @@
     },
     {
         "integer_values": {
+            "old": [ 52,  27, 0 ],
+            "new": [ 49, 189, 4 ]
+        },
+        "address_range": {
+            "begin": 1639546,
+            "end": 1639549
+        },
+        "label": "Route32CooltrainerMTrigger.ckir_BEFORE_checkflag_ENGINE_ZEPHYRBADGE",
+        "description": "Assert on having beaten Falkner instead of having gotten the ZEPHYRBADGE"
+    },
+    {
+        "integer_values": {
             "old": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86,  21,   7 ],
             "new": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 255, 255 ]
         },
