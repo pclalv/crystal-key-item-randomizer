@@ -2,6 +2,11 @@
   (:require [clojure.test :refer :all]
             [crystal-key-item-randomizer.seeds :refer :all]))
 
+;; TODO: get this to work
+;; (deftest generate-test
+;;   (testing "spec"
+;;     (is (= {} (-> (stest/check `generate))))))
+
 (deftest generate-random-test
   (testing "parity with generate"
     (is (= (generate 2092024379)
