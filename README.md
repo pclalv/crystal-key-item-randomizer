@@ -47,7 +47,16 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 in priority order:
 
+- make it easy to generate all of the patch/label data that CKIR needs
+  with a script in crystal-speedchoice
+  - mainly for if/when crystal-speedchoice gets updated and patches
+    break because code got moved around
+  - refactor all code that references patches to pull the patch out of
+    a data file, instead of inlining patches in files
 - key item zones; see `key-item-zones.md`
+- when copycat item is randomized, copycat should tell the player what
+  item she's looking for immediately, i.e. without the player having
+  fixed the power plant
 - make all pokemon level 100 in order to mitigate how broken the
   level-up system is.
   - what about moves? maybe this should only be a feature for roms
