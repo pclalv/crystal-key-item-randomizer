@@ -74,6 +74,18 @@
     },
     {
         "integer_values": {
+            "old": [ 49, 185, 0 ],
+            "new": [ 49, 26, 0 ]
+        },
+        "address_range": {
+            "begin": 349038,
+            "end": 349041
+        },
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_checkevent_EVENT_MET_FLORIA",
+        "description": "Allow the player to skip talking to Floria at the tree"
+    },
+    {
+        "integer_values": {
             "old": [ 49, 186, 0 ],
             "new": [ 49,  26, 0 ]
         },
