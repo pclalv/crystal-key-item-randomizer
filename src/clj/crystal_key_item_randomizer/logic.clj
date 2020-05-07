@@ -28,11 +28,8 @@
 
    {:badge :RISINGBADGE
     :conditions-met (if speedchoice?
-                      #{:defeat-team-rocket
-                        :blackthorn}
-                      #{:can-whirlpool
-                        :defeat-team-rocket
-                        :blackthorn})}
+                      #{:defeat-team-rocket :blackthorn}
+                      #{:defeat-team-rocket :blackthorn :can-whirlpool})}
 
    {:badge :BOULDERBADGE
     :conditions-met #{:pewter}}
