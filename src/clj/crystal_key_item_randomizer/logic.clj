@@ -175,34 +175,33 @@
 (defn item-prereqs
   [{:keys [copycat-item rockets] :or {copycat-item :LOST_ITEM
                                       rockets :normal}}]
-  (let [rockets-items (if (= :rocketless rockets)
-                        ;; lance just gives you all of these in rocketless/purge rockets
-                        [{:conditions-met #{:ecruteak :can-surf}
-                          :items-obtained #{}
-                          :grants #{:BASEMENT_KEY
-                                    :CARD_KEY
-                                    :CLEAR_BELL
-                                    :HM_WHIRLPOOL
-                                    :HM_WATERFALL}}]
-                        [{:conditions-met #{:seven-badges}
-                          :items-obtained #{}
-                          :grants #{:BASEMENT_KEY}}
+  (let [;; lance just gives you all of these in rocketless/purge rockets
+        rockets-items (if (= :rocketless rockets) [{:conditions-met #{:ecruteak :can-surf}
+                                                    :items-obtained #{}
+                                                    :grants #{:BASEMENT_KEY
+                                                              :CARD_KEY
+                                                              :CLEAR_BELL
+                                                              :HM_WHIRLPOOL
+                                                              :HM_WATERFALL}}]
+                          [{:conditions-met #{:seven-badges}
+                            :items-obtained #{}
+                            :grants #{:BASEMENT_KEY}}
 
-                         {:conditions-met #{:underground-warehouse}
-                          :items-obtained #{}
-                          :grants #{:CARD_KEY}}
+                           {:conditions-met #{:underground-warehouse}
+                            :items-obtained #{}
+                            :grants #{:CARD_KEY}}
 
-                         {:conditions-met #{:defeat-team-rocket}
-                          :items-obtained #{}
-                          :grants #{:CLEAR_BELL}}
+                           {:conditions-met #{:defeat-team-rocket}
+                            :items-obtained #{}
+                            :grants #{:CLEAR_BELL}}
 
-                         {:conditions-met #{:ecruteak :can-surf}
-                          :items-obtained #{}
-                          :grants #{:HM_WHIRLPOOL}}
+                           {:conditions-met #{:ecruteak :can-surf}
+                            :items-obtained #{}
+                            :grants #{:HM_WHIRLPOOL}}
 
-                         {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
-                          :items-obtained #{}
-                          :grants #{:HM_WATERFALL}}])]
+                           {:conditions-met #{:ecruteak :trigger-radio-tower-takeover}
+                            :items-obtained #{}
+                            :grants #{:HM_WATERFALL}}])]
     (vec (concat rockets-items [{;; the cuttable tree in Ilex Forest is removed by the randomizer,
                                  ;; so goldenrod is always accessible
                                  :conditions-met #{}
