@@ -43,6 +43,9 @@
    {:badge :THUNDERBADGE
     :conditions-met #{:kanto :can-cut}}
 
+   {:badge :THUNDERBADGE
+    :conditions-met #{:kanto :can-surf}}
+
    {:badge :RAINBOWBADGE
     :conditions-met #{:kanto :can-cut}}
 
