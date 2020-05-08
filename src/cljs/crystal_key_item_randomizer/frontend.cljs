@@ -13,11 +13,11 @@
                                     :copycat-item nil}}
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
+                                   :no-early-sabrina? true
                                    :randomize-janine? false
                                    :rockets "normal"}
                     :swaps-options {:early-bicycle? true
                                     :no-early-super-rod? true
-                                    :no-early-sabrina? true
                                     :randomize-badges? false
                                     :randomize-copycat-item? false}}))
 
@@ -36,12 +36,12 @@
 ;; swaps-options
 (def early-bicycle? (r/cursor state [:swaps-options :early-bicycle?]))
 (def randomize-badges? (r/cursor state [:swaps-options :randomize-badges?]))
-(def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
 (def no-early-super-rod? (r/cursor state [:swaps-options :no-early-super-rod?]))
 (def randomize-copycat-item? (r/cursor state [:swaps-options :randomize-copycat-item?]))
 
 ;; seed-options
 (def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
+(def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
 (def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
 (def rockets (r/cursor state [:seed-options :rockets]))
 
@@ -65,6 +65,11 @@
                                       .-target
                                       .-result))
         body {:options {:seed-options {:endgame-condition @endgame-condition
+                                       ;; TODO: the frontend totally broke and required a hard-reload when i had
+                                       ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
+                                       ;; serialization error. investiagte what it would take to at least reset
+                                       ;; the form and render a reasonable error for the user.
+                                       :no-early-sabrina? @no-early-sabrina?
                                        :randomize-janine? @randomize-janine?
                                        :rockets @rockets}
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
@@ -74,11 +79,6 @@
                                            always-options
                                            (assoc always-options
                                                   :early-bicycle? @early-bicycle?
-                                                  ;; TODO: the frontend totally broke and required a hard-reload when i had
-                                                  ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
-                                                  ;; serialization error. investiagte what it would take to at least reset
-                                                  ;; the form and render a reasonable error for the user.
-                                                  :no-early-sabrina? @no-early-sabrina?
                                                   :no-early-super-rod? @no-early-super-rod?)))}}]
     (-> (js/fetch (str "/seed/" @seed-id)
                   (clj->js {:method "POST"

@@ -118,29 +118,54 @@
 
   (testing "no-early-sabrina?"
     (testing "when true"
-      (is (= {:badge-swaps          
-              {:PLAINBADGE :GLACIERBADGE,
-               :MARSHBADGE :RISINGBADGE,
-               :RISINGBADGE :VOLCANOBADGE,
-               :FOGBADGE :PLAINBADGE,
-               :ZEPHYRBADGE :FOGBADGE,
-               :RAINBOWBADGE :BOULDERBADGE,
-               :STORMBADGE :THUNDERBADGE,
-               :VOLCANOBADGE :EARTHBADGE,
-               :SOULBADGE :ZEPHYRBADGE,
-               :EARTHBADGE :SOULBADGE,
-               :THUNDERBADGE :MARSHBADGE,
-               :HIVEBADGE :STORMBADGE,
-               :MINERALBADGE :MINERALBADGE,
-               :BOULDERBADGE :CASCADEBADGE,
-               :CASCADEBADGE :HIVEBADGE,
-               :GLACIERBADGE :RAINBOWBADGE},
-              :id "323788111"}
+      (is (= {:item-swaps {:HM_FLASH :HM_STRENGTH,
+                           :SILVER_WING :S_S_TICKET,
+                           :LOST_ITEM :HM_WATERFALL,
+                           :ITEMFINDER :SECRETPOTION,
+                           :GOOD_ROD :CLEAR_BELL,
+                           :CARD_KEY :BICYCLE,
+                           :COIN_CASE :COIN_CASE,
+                           :BLUE_CARD :HM_SURF,
+                           :CLEAR_BELL :HM_FLY,
+                           :SQUIRTBOTTLE :GOOD_ROD,
+                           :HM_WHIRLPOOL :BLUE_CARD,
+                           :RED_SCALE :HM_FLASH,
+                           :HM_WATERFALL :MACHINE_PART,
+                           :SECRETPOTION :HM_CUT,
+                           :BASEMENT_KEY :SUPER_ROD,
+                           :MACHINE_PART :BASEMENT_KEY,
+                           :MYSTERY_EGG :OLD_ROD,
+                           :S_S_TICKET :LOST_ITEM,
+                           :PASS :SILVER_WING,
+                           :HM_CUT :ITEMFINDER,
+                           :HM_FLY :MYSTERY_EGG,
+                           :HM_STRENGTH :PASS,
+                           :OLD_ROD :SQUIRTBOTTLE,
+                           :BICYCLE :HM_WHIRLPOOL,
+                           :HM_SURF :RED_SCALE,
+                           :SUPER_ROD :CARD_KEY},
+              :badge-swaps {:PLAINBADGE :GLACIERBADGE,
+                            :MARSHBADGE :HIVEBADGE,
+                            :RISINGBADGE :SOULBADGE,
+                            :FOGBADGE :EARTHBADGE,
+                            :ZEPHYRBADGE :RAINBOWBADGE,
+                            :RAINBOWBADGE :BOULDERBADGE,
+                            :STORMBADGE :CASCADEBADGE,
+                            :VOLCANOBADGE :RISINGBADGE,
+                            :SOULBADGE :STORMBADGE,
+                            :EARTHBADGE :MINERALBADGE,
+                            :THUNDERBADGE :VOLCANOBADGE,
+                            :HIVEBADGE :ZEPHYRBADGE,
+                            :MINERALBADGE :FOGBADGE,
+                            :BOULDERBADGE :PLAINBADGE,
+                            :CASCADEBADGE :MARSHBADGE,
+                            :GLACIERBADGE :THUNDERBADGE},
+              :id "155629808"}
              (-> (generate-random {:swaps-options {:randomize-badges? true
-                                                   :no-early-sabrina? true
-                                                   :rng (new java.util.Random 1)}})
+                                                   :rng (new java.util.Random 1)}
+                                   :seed-options {:no-early-sabrina? true}})
                  :seed
-                 (select-keys [:badge-swaps :id]))))))
+                 (select-keys [:item-swaps :badge-swaps :id]))))))
 
   (testing "randomize-badges?"
     (testing "when true"

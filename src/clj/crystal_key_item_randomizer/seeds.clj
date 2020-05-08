@@ -40,21 +40,14 @@
     (-> early-swaps
         (contains? item))))
 
-;; alternatively, is there some way of telling if the player would
-;; have access to a high level pokemon before facing down high-level
-;; gym leaders like Sabrina? maybe Super Rod, or Ecruteak access (for)
-;; roamers) would have to be a requirement for those leaders.
-(defn early-sabrina? [badge-swaps]
-  (contains? early-badges (badge-swaps :MARSHBADGE)))
-
-;; (defrecord swaps-options [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?])
+;; (defrecord swaps-options [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?])
 
 (defn lance-gives-useful-items? [swaps]
   (let [lance-swaps (set (get-swaps swaps lance-items))]
     (seq (cset/intersection useful-items lance-swaps))))
 
 (defn generate-swaps
-  [{:keys [randomize-badges? early-bicycle? no-early-sabrina? no-early-super-rod? randomize-copycat-item?] :as opts}
+  [{:keys [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?] :as opts}
    {:keys [rockets] :as seed-options}]
   (loop [rng (or (:rng opts)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
@@ -78,9 +71,6 @@
             (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts))
             #_=> (recur rng)
 
-            (and no-early-sabrina? (early-sabrina? badge-swaps))
-            #_=> (recur rng)
-
             (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps))
             #_=> (recur rng)
 
@@ -100,10 +90,10 @@
   and generate function signatures, namely in the arg list."
   '{seed-options {:endgame-condition :defeat-elite-4
                   :randomize-janine? false
+                  :no-early-sabrina? false
                   :rockets :normal}
     swaps-options {:randomize-badges? false
                    :early-bicycle? false
-                   :no-early-sabrina? false
                    :no-early-super-rod? false
                    :randomize-copycat-item? false}})
 

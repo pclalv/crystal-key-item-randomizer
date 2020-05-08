@@ -35,10 +35,10 @@
           (assoc args :badges (conj player-badges badge-to-grant))
           args)))))
 
-(defn analyze-badges [result badge-swaps]
+(defn analyze-badges [result badge-swaps condition-options]
   (reduce (partial can-satisfy-badge-prereq? badge-swaps)
           result
-          (badge-prereqs {})))
+          (badge-prereqs condition-options)))
 
 ;;;;;;;;;;;
 ;; items ;;
@@ -179,7 +179,7 @@
   (-> result
       (analyze-items item-swaps copycat-item condition-options)
       (analyze-conditions condition-options)
-      (analyze-badges badge-swaps) 
+      (analyze-badges badge-swaps condition-options) 
       analyze-badge-count
       analyze-hm-use
       analyze-pokegear-cards))
@@ -187,29 +187,31 @@
 (defn beatable?
   ([swaps]
    (beatable? swaps {}))
-  ([swaps {:keys [endgame-condition speedchoice? rockets]
-           :or {speedchoice? true
-                endgame-condition :defeat-red
-                rockets :normal}}]
-   (if (not speedchoice?)
-     {:beatable? false
-      :error "only speedchoice is currently supported."}
-     (let [condition-options {:rockets rockets
-                              :no-blind-rock-tunnel? true}
-           result (loop [previous-result {}
-                         result (analyze {:items-obtained #{}
-                                          :conditions-met #{}
-                                          :badges #{}
-                                          :pokegear-cards #{}}
-                                         swaps
-                                         {:condition-options condition-options})]
-                    (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
-                           (select-keys result [:items-obtained :conditions-met :badges]))
-                      result
-                      (recur result
-                             (analyze result swaps {:condition-options condition-options}))))]
-       (-> (conj result swaps)
-           (assoc :beatable? (contains? (result :conditions-met) endgame-condition)))))))
+  ([swaps seed-options]
+   (let [condition-options (merge {:speedchoice? true
+                                   :endgame-condition :defeat-red
+                                   :no-blind-rock-tunnel? true
+                                   :no-early-sabrina? false
+                                   :rockets :normal}
+                                  seed-options)]
+     (if (not (:speedchoice? condition-options))
+       {:beatable? false
+        :error "only speedchoice is currently supported."}
+       (let [result (loop [previous-result {}
+                           result (analyze {:items-obtained #{}
+                                            :conditions-met #{}
+                                            :badges #{}
+                                            :pokegear-cards #{}}
+                                           swaps
+                                           {:condition-options condition-options})]
+                      (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
+                             (select-keys result [:items-obtained :conditions-met :badges]))
+                        result
+                        (recur result
+                               (analyze result swaps {:condition-options condition-options}))))]
+         (-> (conj result swaps)
+             (assoc :beatable? (contains? (result :conditions-met)
+                                          (:endgame-condition condition-options)))))))))
 
 (s/def ::conditions-met
   (s/coll-of keyword? :kind set?))

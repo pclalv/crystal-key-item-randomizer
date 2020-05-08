@@ -6,8 +6,9 @@
 (defn badge-prereqs
   "A list detailing the various conditions that must be met to acquire a
   particular badge."
-  [{:keys [speedchoice?]
-    :or {speedchoice? true}}]
+  [{:keys [speedchoice? no-early-sabrina?]
+    :or {speedchoice? true
+         no-early-sabrina? false}}]
   [{:badge :ZEPHYRBADGE}
    {:badge :HIVEBADGE}
    {:badge :PLAINBADGE
@@ -49,8 +50,30 @@
    {:badge :SOULBADGE
     :conditions-met #{:kanto}}
 
+   ;; TODO: decide which of these no-early-sabrina approaches is best.
+
+   ;; they both seem to afford equal variety, with around 14% of seeds
+   ;; being beatable in both cases (down from around 19% before this
+   ;; change.)
+
+   ;; {:badge :MARSHBADGE
+   ;;  :conditions-met (if no-early-sabrina?
+   ;;                    ;; Sabrina can't have any important badge.
+   ;;                    #{:kanto :can-cut :can-surf :can-strength}
+   ;;                    #{:kanto})}
+
    {:badge :MARSHBADGE
-    :conditions-met #{:kanto}}
+    :conditions-met (if no-early-sabrina?
+                      ;; Sabrina isn't required to be beaten until the player
+                      ;; has seven badges.
+                      ;; * Sabrina isn't battleable until the player
+                      ;;   has seven badges.
+                      ;; * Sabrina will be optionally battleable.
+                      ;; * Sabrina may still have an "important" badge,
+                      ;;   but the player will be able to progress by
+                      ;;   other means.
+                      #{:kanto :seven-badges}
+                      #{:kanto})}
 
    {:badge :VOLCANOBADGE
     :conditions-met #{:pewter}}
