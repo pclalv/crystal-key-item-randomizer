@@ -53,10 +53,6 @@
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
       (let [{:keys [swaps-options seed-options]} (-> req :body :options)
-            _ (do (println)(println)(println)(println)
-                  (prn swaps-options)
-                  (prn seed-options)
-                  (println)(println)(println)(println))
             {:keys [seed error]} (seeds/generate seed-id {:seed-options (-> seed-options
                                                                             (update :endgame-condition keyword)
                                                                             (update :rockets keyword))
