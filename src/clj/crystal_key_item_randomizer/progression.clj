@@ -137,12 +137,15 @@
                                    player-badges :badges
                                    :as result}
                                   {condition :condition
-                                   {:keys [badges items-obtained]} :prereqs}]
+                                   {:keys [badges items-obtained conditions-met]} :prereqs}]
   (let [badges-satisfied? (every? player-badges
                                   (or badges #{}))
         items-satisfied? (every? player-items-obtained
                                  (or items-obtained #{}))
+        conditions-satisfied? (every? player-conditions-met
+                                        (or conditions-met #{}))
         satisfied? (and badges-satisfied?
+                        conditions-satisfied?
                         items-satisfied?)]
     (if satisfied?
       (assoc result :conditions-met (conj player-conditions-met condition))

@@ -101,11 +101,13 @@
    ;; speedchoice-specific
    {:condition :can-whirlpool
     :prereqs {:badges #{:HM_WHIRLPOOL}
-              :items-obtained #{:GLACIERBADGE}}}
+              :items-obtained #{:GLACIERBADGE}
+              :conditions-met #{:can-surf}}}
 
    {:condition :can-waterfall
     :prereqs {:badges #{:RISINGBADGE}
-              :items-obtained #{:HM_WATERFALL}}}])
+              :items-obtained #{:HM_WATERFALL}
+              :conditions-met #{:can-surf}}}])
 
 (defn condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
@@ -185,7 +187,7 @@
     :prereqs {:conditions-met #{:pewter}
               :items-obtained #{}}}
    {:condition :defeat-elite-4
-    :prereqs {:conditions-met #{:eight-badges :can-surf :can-waterfall}
+    :prereqs {:conditions-met #{:eight-badges :can-waterfall}
               :items-obtained #{}}}
 
    {:condition :defeat-red
