@@ -99,9 +99,10 @@
                                                                                 (js->clj :keywordize-keys true))
                          ;; TODO: add other options to the filename
                          filename (str "pokecrystal-key-item-randomized-seed-"
-                                       (if @randomize-badges?
-                                         (str id "-badges")
-                                         id)
+                                       id
+                                       (when @randomize-badges? "-badges")
+                                       (when @randomize-copycat-item? "-copycat")
+                                       (when @randomize-janine? "-janine")
                                        ".gbc")]
                      (reset! item-swaps-table item-swaps)
                      (reset! badge-swaps-table badge-swaps)
