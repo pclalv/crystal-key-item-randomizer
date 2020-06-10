@@ -9,16 +9,18 @@
 (s/def ::badge-swaps map?)
 (s/def ::swaps (s/keys :req-un [::item-swaps ::badge-swaps]))
 
-(s/def ::speedchoice? boolean?)
-(s/def ::randomize-janine? boolean?)
-(s/def ::rockets #{:normal :early :rocketless})
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::no-blind-rock-tunnel? boolean?)
+(s/def ::no-early-sabrina? boolean?)
+(s/def ::randomize-janine? boolean?)
+(s/def ::rockets #{:normal :early :rocketless})
+(s/def ::speedchoice? boolean?)
 (s/def ::seed-options
-  (s/keys :opt-un [::randomize-janine? ::rockets ::speedchoice? ::endgame-condition ::no-blind-rock-tunnel?]))
+  (s/keys :opt-un [::endgame-condition
+                   ::no-blind-rock-tunnel? ::no-early-sabrina?
+                   ::randomize-janine? ::rockets ::speedchoice?]))
 
 (s/def ::early-bicycle? boolean?)
-(s/def ::no-early-sabrina? boolean?)
 (s/def ::no-early-super-rod? boolean?)
 (s/def ::randomize-badges? boolean?)
 (s/def ::randomize-copycat-item? boolean?)
@@ -26,7 +28,6 @@
                 :cljs #(throw "rng not currently supported in cljs")))               
 (s/def ::swaps-options
   (s/keys :opt-un [::early-bicycle?
-                   ::no-early-sabrina?
                    ::no-early-super-rod?
                    ::randomize-badges?
                    ::randomize-copycat-item?
