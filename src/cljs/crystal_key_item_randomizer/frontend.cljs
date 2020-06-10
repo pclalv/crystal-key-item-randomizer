@@ -14,6 +14,7 @@
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
                                    :expanded-logic? false
+                                   :no-blind-rock-tunnel? true
                                    :no-early-sabrina? true
                                    :randomize-janine? false
                                    :rockets "normal"}
@@ -43,6 +44,7 @@
 ;; seed-options
 (def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
 (def expanded-logic? (r/cursor state [:seed-options :expanded-logic?]))
+(def no-blind-rock-tunnel? (r/cursor state [:swaps-options :no-blind-rock-tunnel?]))
 (def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
 (def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
 (def rockets (r/cursor state [:seed-options :rockets]))
@@ -246,7 +248,15 @@
             :on-change (set-checkbox-value-on-atom expanded-logic?)
             :checked @expanded-logic?
             :disabled @handling-rom?}]
-   [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]])
+   [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]
+   [:br]
+
+   [:input {:id "no-blind-rock-tunnel" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom no-blind-rock-tunnel?)
+            :checked (and (empty? @seed-id)
+                          @no-blind-rock-tunnel?)
+            :disabled @handling-rom?}]
+   [:label {:for "no-blind-rock-tunnel"} "No blind Rock Tunnel - Ensure that the player has " [:tt "HM05"] " before the player is forced to do Rock Tunnel"]])
 
 (defn rom-input []
   (when (not @handling-rom?)
