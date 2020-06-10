@@ -13,6 +13,7 @@
                                     :copycat-item nil}}
                     :seed-id ""
                     :seed-options {:endgame-condition "defeat-red"
+                                   :expanded-logic? false
                                    :no-early-sabrina? true
                                    :randomize-janine? false
                                    :rockets "normal"}
@@ -41,6 +42,7 @@
 
 ;; seed-options
 (def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
+(def expanded-logic? (r/cursor state [:seed-options :expanded-logic?]))
 (def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
 (def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
 (def rockets (r/cursor state [:seed-options :rockets]))
@@ -237,7 +239,14 @@
     [:tbody [:tr [:td "Early"] [:td "Trigger Team Rocket Radio Tower takeover after obtaining 4 badges instead of 7 badges."]]]
     [:tbody [:tr [:td "Rocketless"] [:td "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
-                                     "Might not play well with 'Randomize Copycat item'."]]]]])
+                                     "Might not play well with 'Randomize Copycat item'."]]]]
+   [:br]
+
+   [:input {:id "expanded-logic" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom expanded-logic?)
+            :checked @expanded-logic?
+            :disabled @handling-rom?}]
+   [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]])
 
 (defn rom-input []
   (when (not @handling-rom?)

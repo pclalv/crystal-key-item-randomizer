@@ -112,8 +112,9 @@
 (defn condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
-  [{:keys [no-blind-rock-tunnel? rockets]
-    :or {no-blind-rock-tunnel? true
+  [{:keys [expanded-logic? no-blind-rock-tunnel? rockets]
+    :or {expanded-logic? false
+         no-blind-rock-tunnel? true
          rockets :normal}}]
   [{:condition :goldenrod
     :prereqs {:conditions-met #{}
@@ -177,6 +178,15 @@
     :prereqs {:conditions-met #{:talk-to-power-plant-manager}
               :items-obtained #{:MACHINE_PART}}}
 
+   ;; there are TWO ways of getting to pewter
+   (when expanded-logic? {:condition :pewter
+                          :prereqs {;; can reach Pokemon League Gate and get past the
+                                    ;; Officer who performs the badge check
+                                    :conditions-met #{:eight-badges :can-waterfall}
+                                    ;; can defeat Snorlax, which causes the Blackbelt
+                                    ;; guarding the eastern exit to disappear
+                                    :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
+                                    :items-obtained #{}}})
    {:condition :pewter
     :prereqs {:conditions-met #{:can-cut}
               :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
