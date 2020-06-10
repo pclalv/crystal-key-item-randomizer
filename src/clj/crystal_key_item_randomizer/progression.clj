@@ -191,6 +191,8 @@
   ([swaps]
    (beatable? swaps {}))
   ([swaps seed-options]
+   ;; seed-options are propagated all the way from the frontend's
+   ;; request to the backend.
    (if (not (:speedchoice? seed-options))
      {:beatable? false
       :error "only speedchoice is currently supported."}
