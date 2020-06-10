@@ -137,25 +137,35 @@
     ;; TODO: eventually fix the code so that it supports vanilla and
     ;; not just speedchoice.
     (is (= false (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
-                     (beatable? {:speedchoice? false})
+                     (beatable? {:endgame-condition :defeat-red
+                                 :rockets :normal
+                                 :speedchoice? false})
                      :beatable?))))
   (testing "when speedchoice"
     (testing "vanilla swaps are beatable to red"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                                 {:endgame-condition :defeat-red})
+                                 {:endgame-condition :defeat-red
+                                  :rockets :normal
+                                  :speedchoice? true})
                       :beatable?))))
 
     (testing "vanilla swaps are beatable to e4"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                                 {:endgame-condition :defeat-elite-4})
+                                 {:endgame-condition :defeat-red
+                                  :rockets :normal
+                                  :speedchoice? true})
                       :beatable?))))
 
     (testing "the player gets every item"
       (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                                 beatable?
+                                 (beatable? {:endgame-condition :defeat-red
+                                             :rockets :normal
+                                             :speedchoice? true}) 
                                  :items-obtained))))
 
     (testing "the player gets every badge"
       (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
-                              beatable?
+                              (beatable? {:endgame-condition :defeat-red
+                                          :rockets :normal
+                                          :speedchoice? true})
                               :badges))))))
