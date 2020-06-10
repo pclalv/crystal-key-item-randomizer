@@ -16,9 +16,8 @@
 (s/def ::rockets #{:normal :early :rocketless})
 (s/def ::speedchoice? boolean?)
 (s/def ::seed-options
-  (s/keys :opt-un [::endgame-condition
-                   ::no-blind-rock-tunnel? ::no-early-sabrina?
-                   ::randomize-janine? ::rockets ::speedchoice?]))
+  (s/keys :req-un [::endgame-condition ::rockets]
+          :opt-un [::no-blind-rock-tunnel? ::no-early-sabrina? ::randomize-janine? ::speedchoice?]))
 
 (s/def ::early-bicycle? boolean?)
 (s/def ::no-early-super-rod? boolean?)
