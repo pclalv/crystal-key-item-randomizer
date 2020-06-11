@@ -108,6 +108,9 @@
 
 (defn analyze-badge-count [{:keys [badges conditions-met] :as result}]
   (let [badge-count (count badges)]
+    ;; conditions are duplicated below because none of these cond
+    ;; branches fallthrough, and there are cases where a single
+    ;; analyze pass may spike the badge count from 4 to 8.
     (cond (= badge-count 16)
           #_=> (assoc result :conditions-met (cset/union conditions-met
                                                          #{:four-badges :seven-badges :eight-badges :sixteen-badges}))
