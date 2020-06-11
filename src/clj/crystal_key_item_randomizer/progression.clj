@@ -196,24 +196,21 @@
   ([swaps logic-options]
    ;; logic-options are propagated all the way from the frontend's
    ;; request to the backend.
-   (if (not (:speedchoice? logic-options))
-     {:beatable? false
-      :error "only speedchoice is currently supported."}
-     (let [result (loop [previous-result {}
-                         result (analyze {:items-obtained #{}
-                                          :conditions-met #{}
-                                          :badges #{}
-                                          :pokegear-cards #{}}
-                                         swaps
-                                         {:logic-options logic-options})]
-                    (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
-                           (select-keys result [:items-obtained :conditions-met :badges]))
-                      result
-                      (recur result
-                             (analyze result swaps {:logic-options logic-options}))))]
-       (-> (conj result swaps)
-           (assoc :beatable? (contains? (result :conditions-met)
-                                        (:endgame-condition logic-options))))))))
+   (let [result (loop [previous-result {}
+                       result (analyze {:items-obtained #{}
+                                        :conditions-met #{}
+                                        :badges #{}
+                                        :pokegear-cards #{}}
+                                       swaps
+                                       {:logic-options logic-options})]
+                  (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
+                         (select-keys result [:items-obtained :conditions-met :badges]))
+                    result
+                    (recur result
+                           (analyze result swaps {:logic-options logic-options}))))]
+     (-> (conj result swaps)
+         (assoc :beatable? (contains? (result :conditions-met)
+                                      (:endgame-condition logic-options)))))))
 
 (s/def ::conditions-met
   (s/coll-of keyword? :kind set?))

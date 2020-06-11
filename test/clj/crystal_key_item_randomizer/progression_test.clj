@@ -133,39 +133,27 @@
                                                (get-badge-prereqs :EARTHBADGE)))))))
 
 (deftest beatable?-test
-  (testing "when not speedchoice, vanilla swaps aren't beatable"
-    ;; TODO: eventually fix the code so that it supports vanilla and
-    ;; not just speedchoice.
-    (is (= false (-> {:item-swaps vanilla-item-swaps :badge-swaps {}}
-                     (beatable? {:endgame-condition :defeat-red
-                                 :rockets :normal
-                                 :speedchoice? false})
-                     :beatable?))))
-  (testing "when speedchoice"
+  (testing "return value"
     (testing "vanilla swaps are beatable to red"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  {:endgame-condition :defeat-red
-                                  :rockets :normal
-                                  :speedchoice? true})
+                                  :rockets :normal})
                       :beatable?))))
 
     (testing "vanilla swaps are beatable to e4"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  {:endgame-condition :defeat-red
-                                  :rockets :normal
-                                  :speedchoice? true})
+                                  :rockets :normal})
                       :beatable?))))
 
     (testing "the player gets every item"
       (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  (beatable? {:endgame-condition :defeat-red
-                                             :rockets :normal
-                                             :speedchoice? true}) 
+                                             :rockets :normal})
                                  :items-obtained))))
 
     (testing "the player gets every badge"
       (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                               (beatable? {:endgame-condition :defeat-red
-                                          :rockets :normal
-                                          :speedchoice? true})
+                                          :rockets :normal})
                               :badges))))))

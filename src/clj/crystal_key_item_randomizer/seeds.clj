@@ -100,8 +100,7 @@
 (defn generate-random [{:keys [logic-options swaps-options]
                         :or {swaps-options {}
                              logic-options {:endgame-condition :defeat-red
-                                            :rockets :normal
-                                            :speedchoice? true}}}]
+                                            :rockets :normal}}}]
   (loop [iterations 1]
     (let [swaps (generate-swaps swaps-options logic-options)
           progression-results (beatable? swaps logic-options)]
@@ -133,8 +132,7 @@
 (defn generate
   ([seed-id]
    (generate seed-id {:logic-options {:endgame-condition :defeat-red
-                                      :rockets :normal
-                                      :speedchoice? true}
+                                      :rockets :normal}
                       :swaps-options {}}))
   ([seed-id {:keys [swaps-options logic-options]
              :or {swaps-options {}
