@@ -38,11 +38,11 @@
 
 (defn random-seed-handler [req]
   (let [req (json-body-request req {:keywords? true})]
-    (let [{:keys [swaps-options seed-options]} (-> req :body :options)
-          {:keys [seed error]} (seeds/generate-random {:seed-options (-> seed-options
-                                                                         (update :endgame-condition keyword)
-                                                                         (update :rockets keyword)
-                                                                         (assoc :speedchoice? true))
+    (let [{:keys [swaps-options logic-options]} (-> req :body :options)
+          {:keys [seed error]} (seeds/generate-random {:logic-options (-> logic-options
+                                                                          (update :endgame-condition keyword)
+                                                                          (update :rockets keyword)
+                                                                          (assoc :speedchoice? true))
                                                        :swaps-options swaps-options})]
       (render-seed-or-error seed error))))
 
@@ -53,11 +53,11 @@
       {:status 400
        :headers {"Content-Type" "text/json"}
        :body (json/write-str {:error error})}
-      (let [{:keys [swaps-options seed-options]} (-> req :body :options)
-            {:keys [seed error]} (seeds/generate seed-id {:seed-options (-> seed-options
-                                                                            (update :endgame-condition keyword)
-                                                                            (update :rockets keyword)
-                                                                            (assoc :speedchoice? true))
+      (let [{:keys [swaps-options logic-options]} (-> req :body :options)
+            {:keys [seed error]} (seeds/generate seed-id {:logic-options (-> logic-options
+                                                                             (update :endgame-condition keyword)
+                                                                             (update :rockets keyword)
+                                                                             (assoc :speedchoice? true))
                                                           :swaps-options (select-keys swaps-options [:randomize-badges?
                                                                                                      :randomize-copycat-item?])})]
         (render-seed-or-error seed error)))))

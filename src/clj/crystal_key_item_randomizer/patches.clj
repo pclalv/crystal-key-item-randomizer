@@ -84,12 +84,12 @@
 (defn generate [{:keys [item-swaps badge-swaps copycat-item]}
                 {:keys [speedchoice? rockets] :or {speedchoice? true
                                                    rockets :normal}
-                 :as seed-options}]
+                 :as logic-options}]
   (let [patches (if speedchoice?
                   speedchoice-patches
                   vanilla-patches)]
     (-> patches
-        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps seed-options)
+        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps logic-options)
               (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
               (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
         (concat (fix-giveitems item-swaps)
@@ -102,9 +102,9 @@
                 (if (= :early rockets)
                   crystal-key-item-randomizer.patches.rockets/trigger-early
                   [])
-                (randomize-janine/generate seed-options)))))
+                (randomize-janine/generate logic-options)))))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps
-               :options :crystal-key-item-randomizer.specs/seed-options)
+               :options :crystal-key-item-randomizer.specs/logic-options)
   :ret ::patches)

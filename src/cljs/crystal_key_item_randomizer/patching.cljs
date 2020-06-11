@@ -65,7 +65,7 @@
       (aset rom-bytes original-address replacement-value)
       rom-bytes)))
 
-(defn apply-item-swaps [rom-bytes swaps {:keys [rockets] :as seed-options}]
+(defn apply-item-swaps [rom-bytes swaps {:keys [rockets] :as logic-options}]
   (reduce (apply-item-swap rockets) rom-bytes (js->clj swaps)))
 
 (defn patch-rom [rom-bytes {:keys [item-swaps badge-swaps patches options]}]

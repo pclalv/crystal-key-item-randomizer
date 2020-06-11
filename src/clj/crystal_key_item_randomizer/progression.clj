@@ -35,10 +35,10 @@
           (assoc args :badges (conj player-badges badge-to-grant))
           args)))))
 
-(defn analyze-badges [result badge-swaps seed-options]
+(defn analyze-badges [result badge-swaps logic-options]
   (reduce (partial can-satisfy-badge-prereq? badge-swaps)
           result
-          (badge-prereqs seed-options)))
+          (badge-prereqs logic-options)))
 
 ;;;;;;;;;;;
 ;; items ;;
@@ -67,7 +67,7 @@
                                               (get-swaps swaps grants)))
       args)))
 
-(defn analyze-items [result swaps copycat-item {:keys [rockets] :as seed-options}]
+(defn analyze-items [result swaps copycat-item {:keys [rockets] :as logic-options}]
   (reduce (partial can-satisfy-item-prereqs? swaps)
           result
           (item-prereqs {:copycat-item copycat-item :rockets rockets})))
@@ -97,10 +97,10 @@
         (assoc result :conditions-met (conj player-conditions-met condition))
         result))))
 
-(defn analyze-conditions [result seed-options]
+(defn analyze-conditions [result logic-options]
   (reduce can-satisfy-condition-prereqs?
           result
-          (condition-prereqs seed-options)))
+          (condition-prereqs logic-options)))
 
 ;;;;;;;;;;;;;;;;;
 ;; badge count ;;
@@ -178,11 +178,11 @@
 
 (defn analyze [result {:keys [item-swaps badge-swaps copycat-item]
                        :or {copycat-item :LOST_ITEM}}
-               {:keys [seed-options]}]
+               {:keys [logic-options]}]
   (-> result
-      (analyze-items item-swaps copycat-item seed-options)
-      (analyze-conditions seed-options)
-      (analyze-badges badge-swaps seed-options) 
+      (analyze-items item-swaps copycat-item logic-options)
+      (analyze-conditions logic-options)
+      (analyze-badges badge-swaps logic-options) 
       analyze-badge-count
       analyze-hm-use
       analyze-pokegear-cards))
@@ -190,10 +190,10 @@
 (defn beatable?
   ([swaps]
    (beatable? swaps {}))
-  ([swaps seed-options]
-   ;; seed-options are propagated all the way from the frontend's
+  ([swaps logic-options]
+   ;; logic-options are propagated all the way from the frontend's
    ;; request to the backend.
-   (if (not (:speedchoice? seed-options))
+   (if (not (:speedchoice? logic-options))
      {:beatable? false
       :error "only speedchoice is currently supported."}
      (let [result (loop [previous-result {}
@@ -202,15 +202,15 @@
                                           :badges #{}
                                           :pokegear-cards #{}}
                                          swaps
-                                         {:seed-options seed-options})]
+                                         {:logic-options logic-options})]
                     (if (= (select-keys previous-result [:items-obtained :conditions-met :badges])
                            (select-keys result [:items-obtained :conditions-met :badges]))
                       result
                       (recur result
-                             (analyze result swaps {:seed-options seed-options}))))]
+                             (analyze result swaps {:logic-options logic-options}))))]
        (-> (conj result swaps)
            (assoc :beatable? (contains? (result :conditions-met)
-                                        (:endgame-condition seed-options))))))))
+                                        (:endgame-condition logic-options))))))))
 
 (s/def ::conditions-met
   (s/coll-of keyword? :kind set?))
@@ -225,5 +225,5 @@
 (s/fdef beatable?
   :args (s/alt :unary (s/cat :swaps map?)
                :with-options (s/cat :swaps map?
-                                    :seed-options :crystal-key-item-randomizer.specs/seed-options))
+                                    :logic-options :crystal-key-item-randomizer.specs/logic-options))
   :ret ::progression-result)

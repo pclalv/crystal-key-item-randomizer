@@ -48,7 +48,7 @@
 
 (defn generate-swaps
   [{:keys [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?] :as opts}
-   {:keys [rockets] :as seed-options}]
+   {:keys [rockets] :as logic-options}]
   (loop [rng (or (:rng opts)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
@@ -83,39 +83,39 @@
 
 (s/fdef generate-swaps
   :args (s/cat :swaps-options :crystal-key-item-randomizer.specs/swaps-options
-               :seed-options :crystal-key-item-randomizer.specs/seed-options))
+               :logic-options :crystal-key-item-randomizer.specs/logic-options))
 
 (def default-generate-options
   "Would be nice if we could use this variable in the generate-random
   and generate function signatures, namely in the arg list."
-  '{seed-options {:endgame-condition :defeat-elite-4
-                  :randomize-janine? false
-                  :no-early-sabrina? false
-                  :rockets :normal}
+  '{logic-options {:endgame-condition :defeat-elite-4
+                   :randomize-janine? false
+                   :no-early-sabrina? false
+                   :rockets :normal}
     swaps-options {:randomize-badges? false
                    :early-bicycle? false
                    :no-early-super-rod? false
                    :randomize-copycat-item? false}})
 
-(defn generate-random [{:keys [seed-options swaps-options]
+(defn generate-random [{:keys [logic-options swaps-options]
                         :or {swaps-options {}
-                             seed-options {:endgame-condition :defeat-red
-                                           :rockets :normal
-                                           :speedchoice? true}}}]
+                             logic-options {:endgame-condition :defeat-red
+                                            :rockets :normal
+                                            :speedchoice? true}}}]
   (loop [iterations 1]
-    (let [swaps (generate-swaps swaps-options seed-options)
-          progression-results (beatable? swaps seed-options)]
+    (let [swaps (generate-swaps swaps-options logic-options)
+          progression-results (beatable? swaps logic-options)]
       (if (progression-results :beatable?)
         {:seed (-> progression-results
-                   (assoc :patches (patches/generate swaps seed-options))
+                   (assoc :patches (patches/generate swaps logic-options))
                    (assoc :id (str (:seed-id swaps)))
-                   (assoc :options seed-options))
+                   (assoc :options logic-options))
          :iterations iterations}
         (recur (inc iterations))))))
 
 (s/def ::generate-options
   (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
-                   :crystal-key-item-randomizer.specs/seed-options]))
+                   :crystal-key-item-randomizer.specs/logic-options]))
 
 (s/def ::error string?)
 (s/def ::iterations int?)
@@ -133,11 +133,11 @@
 (defn generate
   ([seed-id]
    (generate seed-id {}))
-  ([seed-id {:keys [swaps-options seed-options]
+  ([seed-id {:keys [swaps-options logic-options]
              :or {swaps-options {}
-                  seed-options {:endgame-condition :defeat-red
-                                :rockets :normal
-                                :speedchoice? true}}}]
+                  logic-options {:endgame-condition :defeat-red
+                                 :rockets :normal
+                                 :speedchoice? true}}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
@@ -149,12 +149,12 @@
                 :badge-swaps badge-swaps
                 :copycat-item copycat-item
                 :seed-id seed-id}
-         progression-results (beatable? swaps seed-options)]
+         progression-results (beatable? swaps logic-options)]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
                   (assoc :id (str seed-id))
-                  (assoc :patches (patches/generate swaps seed-options))
-                  (assoc :options seed-options))}
+                  (assoc :patches (patches/generate swaps logic-options))
+                  (assoc :options logic-options))}
        (assoc progression-results :error (str "Unbeatable seed: " seed-id))))))
 
 (s/fdef generate

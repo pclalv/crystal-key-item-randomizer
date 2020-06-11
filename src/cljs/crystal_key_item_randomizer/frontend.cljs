@@ -12,12 +12,13 @@
                                     :badge-swaps {}
                                     :copycat-item nil}}
                     :seed-id ""
-                    :seed-options {:endgame-condition "defeat-red"
-                                   :expanded-logic? false
-                                   :no-blind-rock-tunnel? true
-                                   :no-early-sabrina? true
-                                   :randomize-janine? false
-                                   :rockets "normal"}
+                    ;; are seed-options logic-options?
+                    :logic-options {:endgame-condition "defeat-red"}
+                                    :expanded-logic? false
+                                    :no-blind-rock-tunnel? true
+                                    :no-early-sabrina? true
+                                    :randomize-janine? false
+                                    :rockets "normal"
                     :swaps-options {:early-bicycle? true
                                     :no-early-super-rod? true
                                     :randomize-badges? false
@@ -41,13 +42,13 @@
 (def no-early-super-rod? (r/cursor state [:swaps-options :no-early-super-rod?]))
 (def randomize-copycat-item? (r/cursor state [:swaps-options :randomize-copycat-item?]))
 
-;; seed-options
-(def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
-(def expanded-logic? (r/cursor state [:seed-options :expanded-logic?]))
-(def no-blind-rock-tunnel? (r/cursor state [:seed-options :no-blind-rock-tunnel?]))
-(def no-early-sabrina? (r/cursor state [:seed-options :no-early-sabrina?]))
-(def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
-(def rockets (r/cursor state [:seed-options :rockets]))
+;; logic-options
+(def endgame-condition (r/cursor state [:logic-options :endgame-condition]))
+(def expanded-logic? (r/cursor state [:logic-options :expanded-logic?]))
+(def no-blind-rock-tunnel? (r/cursor state [:logic-options :no-blind-rock-tunnel?]))
+(def no-early-sabrina? (r/cursor state [:logic-options :no-early-sabrina?]))
+(def randomize-janine? (r/cursor state [:logic-options :randomize-janine?]))
+(def rockets (r/cursor state [:logic-options :rockets]))
 
 (defn render-error [text]
   (reset! error text))
@@ -68,16 +69,16 @@
         rom-bytes (js/Uint8Array. (-> event
                                       .-target
                                       .-result))
-        body {:options {:seed-options {:endgame-condition @endgame-condition
-                                       ;; TODO: the frontend totally broke and required a hard-reload when i had
-                                       ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
-                                       ;; serialization error. investiagte what it would take to at least reset
-                                       ;; the form and render a reasonable error for the user.
-                                       :expanded-logic? @expanded-logic?
-                                       :no-blind-rock-tunnel? @no-blind-rock-tunnel?
-                                       :no-early-sabrina? @no-early-sabrina?
-                                       :randomize-janine? @randomize-janine?
-                                       :rockets @rockets}
+        body {:options {:logic-options {:endgame-condition @endgame-condition
+                                        ;; TODO: the frontend totally broke and required a hard-reload when i had
+                                        ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
+                                        ;; serialization error. investiagte what it would take to at least reset
+                                        ;; the form and render a reasonable error for the user.
+                                        :expanded-logic? @expanded-logic?
+                                        :no-blind-rock-tunnel? @no-blind-rock-tunnel?
+                                        :no-early-sabrina? @no-early-sabrina?
+                                        :randomize-janine? @randomize-janine?
+                                        :rockets @rockets}
                         :swaps-options (let [always-options {:randomize-badges? @randomize-badges?
                                                              :randomize-copycat-item? @randomize-copycat-item?}]
                                          ;; this use of seq is a clojure idiom; see the docs for clojure.code/empty?

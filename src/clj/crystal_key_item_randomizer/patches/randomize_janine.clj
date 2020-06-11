@@ -39,6 +39,6 @@
 
 ;; FIXME: get this spec to work
 ;; (s/fdef generate
-;;   :args (s/cat :seed-options :crystal-key-item-randomizer.specs/seed-options
+;;   :args (s/cat :logic-options :crystal-key-item-randomizer.specs/logic-options
 ;;                :options (s/? (s/cat :rng (partial instance? java.util.Random))))
 ;;   :ret (s/coll-of ::patch :kind? vector))

@@ -16,7 +16,7 @@
 (s/def ::randomize-janine? boolean?)
 (s/def ::rockets #{:normal :early :rocketless})
 (s/def ::speedchoice? boolean?)
-(s/def ::seed-options
+(s/def ::logic-options
   (s/keys :req-un [::endgame-condition ::rockets]
           :opt-un [::expanded-logic? ::no-blind-rock-tunnel? ::no-early-sabrina? ::randomize-janine? ::speedchoice?]))
 
