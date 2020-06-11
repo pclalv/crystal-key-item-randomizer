@@ -6,9 +6,8 @@
 (defn badge-prereqs
   "A list detailing the various conditions that must be met to acquire a
   particular badge."
-  [{:keys [speedchoice? no-early-sabrina?]
-    :or {speedchoice? true
-         no-early-sabrina? false}}]
+  [{:keys [no-early-sabrina?]
+    :or {no-early-sabrina? false}}]
   [{:badge :ZEPHYRBADGE}
    {:badge :HIVEBADGE}
    {:badge :PLAINBADGE
@@ -28,9 +27,8 @@
     :conditions-met #{:ecruteak :can-surf}}
 
    {:badge :RISINGBADGE
-    :conditions-met (if speedchoice?
-                      #{:defeat-team-rocket :blackthorn}
-                      #{:defeat-team-rocket :blackthorn :can-whirlpool})}
+    ;; whirlpool is not required in speedchoice.
+    :conditions-met #{:defeat-team-rocket :blackthorn}}
 
    {:badge :BOULDERBADGE
     :conditions-met #{:pewter}}
@@ -98,7 +96,6 @@
     :prereqs {:badges #{:FOGBADGE}
               :items-obtained #{:HM_SURF}}}
 
-   ;; speedchoice-specific
    {:condition :can-whirlpool
     :prereqs {:badges #{:HM_WHIRLPOOL}
               :items-obtained #{:GLACIERBADGE}
