@@ -51,15 +51,7 @@
 (s/def ::patches (s/coll-of ::patch
                             :kind? vector))
 
-(def vanilla-patches
-  "Contains data that the frontend can use to modify the ROM file with
-  changes beyond the usual key item swaps."
-  (-> "randomizer-patches-diff.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
-
-(def speedchoice-patches
+(def patches
   "Contains data specific to crystal-speedchoice.gbc that the frontend
   can use to modify the ROM file with changes beyond the usual key
   item swaps."
@@ -68,41 +60,34 @@
       slurp
       (json/read-str :key-fn keyword)))
 
-(defn item-ball [key-item {:keys [speedchoice? rockets]}]
-  (let [key-items' (if speedchoice?
-                     (key-items/speedchoice :rockets rockets)
-                     key-items/vanilla)
+(defn item-ball [key-item {:keys [rockets]}]
+  (let [key-items' (key-items/speedchoice :rockets rockets)
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
-(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [speedchoice? rockets]}]
+(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [rockets]}]
   (assoc-in underground-warehouse-ultra-ball
-                        [:integer_values :new]
-                        (item-ball card-key-replacement {:speedchoice? speedchoice?
-                                                         :rockets rockets})))
+            [:integer_values :new]
+            (item-ball card-key-replacement {:rockets rockets})))
 
 (defn generate [{:keys [item-swaps badge-swaps copycat-item]}
-                {:keys [speedchoice? rockets] :or {speedchoice? true
-                                                   rockets :normal}
+                {:keys [rockets] :or {rockets :normal}
                  :as logic-options}]
-  (let [patches (if speedchoice?
-                  speedchoice-patches
-                  vanilla-patches)]
-    (-> patches
-        (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps logic-options)
-              (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
-              (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
-        (concat (fix-giveitems item-swaps)
-                (fix-received-badge-texts badge-swaps)
-                post-defeat/pre-badge-blurb-patches
-                post-defeat/post-badge-speech-patches
-                (if (or (= :LOST_ITEM copycat-item) (nil? copycat-item))
-                  [] ;; don't bother
-                  (copycat/generate copycat-item rockets))
-                (if (= :early rockets)
-                  crystal-key-item-randomizer.patches.rockets/trigger-early
-                  [])
-                (randomize-janine/generate logic-options)))))
+  (-> patches
+      (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps logic-options)
+            (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
+            (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
+      (concat (fix-giveitems item-swaps)
+              (fix-received-badge-texts badge-swaps)
+              post-defeat/pre-badge-blurb-patches
+              post-defeat/post-badge-speech-patches
+              (if (or (= :LOST_ITEM copycat-item) (nil? copycat-item))
+                [] ;; don't bother
+                (copycat/generate copycat-item rockets))
+              (if (= :early rockets)
+                crystal-key-item-randomizer.patches.rockets/trigger-early
+                [])
+              (randomize-janine/generate logic-options))))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps
