@@ -44,8 +44,8 @@
 ;; seed-options
 (def endgame-condition (r/cursor state [:seed-options :endgame-condition]))
 (def expanded-logic? (r/cursor state [:seed-options :expanded-logic?]))
-(def no-blind-rock-tunnel? (r/cursor state [:swaps-options :no-blind-rock-tunnel?]))
-(def no-early-sabrina? (r/cursor state [:swaps-options :no-early-sabrina?]))
+(def no-blind-rock-tunnel? (r/cursor state [:seed-options :no-blind-rock-tunnel?]))
+(def no-early-sabrina? (r/cursor state [:seed-options :no-early-sabrina?]))
 (def randomize-janine? (r/cursor state [:seed-options :randomize-janine?]))
 (def rockets (r/cursor state [:seed-options :rockets]))
 
