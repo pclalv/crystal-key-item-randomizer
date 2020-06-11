@@ -132,12 +132,13 @@
 
 (defn generate
   ([seed-id]
-   (generate seed-id {}))
+   (generate seed-id {:logic-options {:endgame-condition :defeat-red
+                                      :rockets :normal
+                                      :speedchoice? true}
+                      :swaps-options {}}))
   ([seed-id {:keys [swaps-options logic-options]
              :or {swaps-options {}
-                  logic-options {:endgame-condition :defeat-red
-                                 :rockets :normal
-                                 :speedchoice? true}}}]
+                  logic-options {}}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
