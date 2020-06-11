@@ -99,8 +99,9 @@
 
 (defn generate-random [{:keys [seed-options swaps-options]
                         :or {swaps-options {}
-                             seed-options {:endgame-condition :defeat-elite-4
-                                           :rockets :normal}}}]
+                             seed-options {:endgame-condition :defeat-red
+                                           :rockets :normal
+                                           :speedchoice? true}}}]
   (loop [iterations 1]
     (let [swaps (generate-swaps swaps-options seed-options)
           progression-results (beatable? swaps seed-options)]
@@ -113,7 +114,7 @@
         (recur (inc iterations))))))
 
 (s/def ::generate-options
-  (s/keys :opt-un [:crystal-key-item-randomizer.specs/swaps-options
+  (s/keys :req-un [:crystal-key-item-randomizer.specs/swaps-options
                    :crystal-key-item-randomizer.specs/seed-options]))
 
 (s/def ::error string?)
@@ -134,8 +135,9 @@
    (generate seed-id {}))
   ([seed-id {:keys [swaps-options seed-options]
              :or {swaps-options {}
-                  seed-options {:endgame-condition :defeat-elite-4
-                                :rockets :normal}}}]
+                  seed-options {:endgame-condition :defeat-red
+                                :rockets :normal
+                                :speedchoice? true}}}]
    (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
          badge-swaps (if (:randomize-badges? swaps-options)
                        (zipmap badges (deterministic-shuffle badges seed-id))
