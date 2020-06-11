@@ -13,12 +13,12 @@
                                     :copycat-item nil}}
                     :seed-id ""
                     ;; are seed-options logic-options?
-                    :logic-options {:endgame-condition "defeat-red"}
+                    :logic-options {:endgame-condition "defeat-red"
                                     :expanded-logic? false
                                     :no-blind-rock-tunnel? true
                                     :no-early-sabrina? true
                                     :randomize-janine? false
-                                    :rockets "normal"
+                                    :rockets "normal"}
                     :swaps-options {:early-bicycle? true
                                     :no-early-super-rod? true
                                     :randomize-badges? false
