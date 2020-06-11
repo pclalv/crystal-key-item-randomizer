@@ -105,7 +105,6 @@ in priority order:
   - there are map tiles that get repositioned if and only if the
     player talks to the director in the basement. those tiles should
     be reposition if the player beats the radio tower section.
-- randomize which janine is the real janine in fuchsia gym
 - QOL
   - currently the player has to surf from Cinnabar to Fuchsia to clear
     the barricades in Fuchsia - can we improve this for players?
