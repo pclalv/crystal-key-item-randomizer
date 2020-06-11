@@ -73,6 +73,8 @@
                                        ;; no-early-sabrina? instead of @no-early-sabrina?, probably some kind of
                                        ;; serialization error. investiagte what it would take to at least reset
                                        ;; the form and render a reasonable error for the user.
+                                       :expanded-logic? @expanded-logic?
+                                       :no-blind-rock-tunnel? @no-blind-rock-tunnel?
                                        :no-early-sabrina? @no-early-sabrina?
                                        :randomize-janine? @randomize-janine?
                                        :rockets @rockets}
