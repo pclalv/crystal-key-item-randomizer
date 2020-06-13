@@ -1,7 +1,5 @@
 (ns crystal-key-item-randomizer.patches
-  (:require [clojure.data.json :as json]
-            [clojure.java.io :as io]
-            [crystal-key-item-randomizer.key-items :as key-items]
+  (:require [crystal-key-item-randomizer.key-items :as key-items]
             [crystal-key-item-randomizer.patches.text.gym-leader-post-defeat :as post-defeat]
             [clojure.spec.alpha :as s]
             [crystal-key-item-randomizer.rom]
@@ -11,22 +9,16 @@
             [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
-        [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]))
+        [crystal-key-item-randomizer.patches.text.received-badge :only [fix-received-badge-texts]]
+        [crystal-key-item-randomizer.patches.data :only [get-patch essential-patches]]))
 
 (def underground-warehouse-ultra-ball
-  {:label "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL"
-   :description "Change the contents of the item ball from ULTRA_BALL
-   to whatever replaces the CARD_KEY (a backup key item so that the
-   player doesn't get softlocked). integer_values.new doesn't exist so
-   that things will fail hard if the patches aren't update properly"
-
-   ;; there's a wildcard here because item randomization might've
-   ;; turned this ultra ball into some other item; CKIR should be
-   ;; compatible with that, so we can't guarantee the value of this
-   ;; byte.
-   :integer_values {:old ["*", 1]}
-   :address_range {:begin 514536
-                   :end 514538}})
+  ;; there's a wildcard ("*") here because item randomization might've
+  ;; turned this ultra ball into some other item; CKIR should be
+  ;; compatible with that, so we can't guarantee the value of this
+  ;; byte.
+  (-> (get-patch "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL")
+      (assoc-in [:integer_values :old 0] "*")))
 
 (s/def ::rom-address int?) ;; less than 2MiB, tbh
 (s/def ::begin ::rom-address)
@@ -51,21 +43,17 @@
 (s/def ::patches (s/coll-of ::patch
                             :kind? vector))
 
-(def patches
-  "Contains data specific to crystal-speedchoice.gbc that the frontend
-  can use to modify the ROM file with changes beyond the usual key
-  item swaps."
-  (-> "randomizer-patches-diff-speedchoice.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
-
 (defn item-ball [key-item {:keys [rockets]}]
   (let [key-items' (key-items/speedchoice :rockets rockets)
         key-item-value (get-in key-items' [key-item :value])]
     [key-item-value 1]))
 
-(defn replace-underground-warehouse-ultra-ball-with-key-item [{card-key-replacement :CARD_KEY} {:keys [rockets]}]
+(defn replace-underground-warehouse-ultra-ball-with-key-item
+  "Change the contents of the item ball from ULTRA_BALL to whatever
+  replaces the CARD_KEY (a backup key item so that the player doesn't
+  get softlocked). The key integer_values.new doesn't exist in the raw
+  patch; things will fail hard if the patches aren't update properly"
+  [{card-key-replacement :CARD_KEY} {:keys [rockets]}]
   (assoc-in underground-warehouse-ultra-ball
             [:integer_values :new]
             (item-ball card-key-replacement {:rockets rockets})))
@@ -73,7 +61,7 @@
 (defn generate [{:keys [item-swaps badge-swaps copycat-item]}
                 {:keys [rockets] :or {rockets :normal}
                  :as logic-options}]
-  (-> patches
+  (-> essential-patches
       (conj (replace-underground-warehouse-ultra-ball-with-key-item item-swaps logic-options)
             (replace-checkflag-for-badge :PLAINBADGE badge-swaps)
             (replace-checkflag-for-badge :RISINGBADGE badge-swaps))
