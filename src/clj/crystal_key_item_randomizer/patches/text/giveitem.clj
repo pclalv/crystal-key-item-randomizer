@@ -1,5 +1,6 @@
 (ns crystal-key-item-randomizer.patches.text.giveitem
-  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-to-original-length]]))
+  (:use [crystal-key-item-randomizer.text-encoding :only [gsc-encode-to-original-length]]
+        [crystal-key-item-randomizer.patches.data :only [get-patch]]))
 
 (def replacement-text-template
   "For the giveitem key items, this replacement text is guaranteed to be
@@ -24,40 +25,18 @@
           (clojure.string/replace "_" " ")))))
 
 (def giveitem-key-item-text-locations
-  [{:key-item :MYSTERY_EGG
-    :label "ckir_BEFORE_giveitem_text_MrPokemonsHouse_GotEggText",
-    :address_range {:begin 1667591, :end 1667616},
-    :integer_values [0 82 127 177 164 162 164 168
-                     181 164 163 79 140 152 146
-                     147 132 145 152 127 132 134
-                     134 232 87]}
-   {:key-item :SECRETPOTION
-    :label "ckir_BEFORE_giveitem_text_ReceivedSecretpotionText",
-    :address_range {:begin 647257, :end 647283},
-    :integer_values [0 82 127 177 164 162 164 168
-                     181 164 163 79 146 132 130
-                     145 132 147 143 142 147 136
-                     142 141 232 87]}
-   {:key-item :LOST_ITEM
-    :label "ckir_BEFORE_giveitem_text_UnknownText_0x191d0a",
-    :address_range {:begin 1645842, :end 1645862},
-    :integer_values [0 82 127 177 164 162 164 168
-                     181 164 163 79 84 127 131 142
-                     139 139 232 87]}
-   {:key-item :BICYCLE
-    :label "ckir_BEFORE_giveitem_text_UnknownText_0x54848",
-    :address_range {:begin 346184, :end 346207},
-    :integer_values [0 82 127 161 174 177 177 174
-                     182 164 163 127 160 79 129
-                     136 130 152 130 139 132 232
-                     87]}
-   {:key-item :RED_SCALE
-    :label "ckir_BEFORE_giveitem_text_UnknownText_0x703df",
-    :address_range {:begin 460315, :end 460340},
-    :integer_values [0 82 127 174 161 179 160 168
-                     173 164 163 127 160 79 145
-                     132 131 127 146 130 128 139
-                     132 232 87]}])
+  (->> {:MYSTERY_EGG "ckir_BEFORE_giveitem_text_MrPokemonsHouse_GotEggText"
+        :SECRETPOTION "ckir_BEFORE_giveitem_text_ReceivedSecretpotionText"
+        :LOST_ITEM "ckir_BEFORE_giveitem_text_UnknownText_0x191d0a"
+        :BICYCLE "ckir_BEFORE_giveitem_text_UnknownText_0x54848"
+        :RED_SCALE "ckir_BEFORE_giveitem_text_UnknownText_0x703df"}
+       (map (fn [[key-item label]]
+              (-> (get-patch label)
+                  (assoc :key-item key-item))))
+       (map #(assoc %
+                    :integer_values
+                    (get-in % [:integer_values :old])))
+       (into #{})))
 
 (defn giveitem-patch [swaps {key-item :key-item
                              old-integer-values :integer_values

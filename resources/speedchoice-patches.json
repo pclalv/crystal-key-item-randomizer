@@ -704,5 +704,179 @@
             "begin": 344138
         },
         "label": "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                140,
+                152,
+                146,
+                147,
+                132,
+                145,
+                152,
+                127,
+                132,
+                134,
+                134,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1667616,
+            "begin": 1667591
+        },
+        "label": "ckir_BEFORE_giveitem_text_MrPokemonsHouse_GotEggText"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                146,
+                132,
+                130,
+                145,
+                132,
+                147,
+                143,
+                142,
+                147,
+                136,
+                142,
+                141,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 647283,
+            "begin": 647257
+        },
+        "label": "ckir_BEFORE_giveitem_text_ReceivedSecretpotionText"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                84,
+                127,
+                131,
+                142,
+                139,
+                139,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1645862,
+            "begin": 1645842
+        },
+        "label": "ckir_BEFORE_giveitem_text_UnknownText_0x191d0a"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                161,
+                174,
+                177,
+                177,
+                174,
+                182,
+                164,
+                163,
+                127,
+                160,
+                79,
+                129,
+                136,
+                130,
+                152,
+                130,
+                139,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 346207,
+            "begin": 346184
+        },
+        "label": "ckir_BEFORE_giveitem_text_UnknownText_0x54848"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                174,
+                161,
+                179,
+                160,
+                168,
+                173,
+                164,
+                163,
+                127,
+                160,
+                79,
+                145,
+                132,
+                131,
+                127,
+                146,
+                130,
+                128,
+                139,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 460340,
+            "begin": 460315
+        },
+        "label": "ckir_BEFORE_giveitem_text_UnknownText_0x703df"
     }
 ]
