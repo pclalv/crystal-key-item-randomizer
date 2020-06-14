@@ -9,14 +9,18 @@
                      :rng (new java.util.Random 1)))))
 
   (testing "when you want it"
-    (is (= [{:label          
-             "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_JANINE_at_10_1",
-             :address_range {:begin 1664408, :end 1664410},
-             :integer_values {:new [6 8], :old [14 5]}}
-            {:label
-             "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_4_at_2_4",
-             :address_range {:begin 1664460, :end 1664462},
-             :integer_values {:new [14 5], :old [6 8]}}]
+    (is (= [{:integer_values          
+             {:old [10 14 5 3 0 255 255 144 0 207 95 255 255],
+              :new [10 11 9 3 0 255 255 144 0 207 95 255 255]},
+             :address_range {:end 1664420, :begin 1664407},
+             :label
+             "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_JANINE_at_10_1"}
+            {:integer_values
+             {:old [247 11 9 10 0 255 255 144 0 69 96 255 255],
+              :new [247 14 5 10 0 255 255 144 0 69 96 255 255]},
+             :address_range {:end 1664433, :begin 1664420},
+             :label
+             "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_1_at_7_5"}]
            (generate {:randomize-janine? true}
                      :rng (new java.util.Random 1)))))
 

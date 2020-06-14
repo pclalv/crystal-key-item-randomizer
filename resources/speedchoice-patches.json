@@ -253,6 +253,126 @@
     {
         "integer_values": {
             "old": [
+                247,
+                11,
+                9,
+                10,
+                0,
+                255,
+                255,
+                144,
+                0,
+                69,
+                96,
+                255,
+                255
+            ]
+        },
+        "address_range": {
+            "end": 1664433,
+            "begin": 1664420
+        },
+        "label": "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_1_at_7_5"
+    },
+    {
+        "integer_values": {
+            "old": [
+                248,
+                15,
+                9,
+                10,
+                0,
+                255,
+                255,
+                144,
+                0,
+                127,
+                96,
+                255,
+                255
+            ]
+        },
+        "address_range": {
+            "end": 1664446,
+            "begin": 1664433
+        },
+        "label": "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_2_at_11_5"
+    },
+    {
+        "integer_values": {
+            "old": [
+                249,
+                8,
+                13,
+                10,
+                0,
+                255,
+                255,
+                144,
+                0,
+                185,
+                96,
+                255,
+                255
+            ]
+        },
+        "address_range": {
+            "end": 1664459,
+            "begin": 1664446
+        },
+        "label": "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_3_at_4_9"
+    },
+    {
+        "integer_values": {
+            "old": [
+                250,
+                6,
+                8,
+                10,
+                0,
+                255,
+                255,
+                144,
+                0,
+                243,
+                96,
+                255,
+                255
+            ]
+        },
+        "address_range": {
+            "end": 1664472,
+            "begin": 1664459
+        },
+        "label": "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_FUCHSIA_GYM_4_at_2_4"
+    },
+    {
+        "integer_values": {
+            "old": [
+                10,
+                14,
+                5,
+                3,
+                0,
+                255,
+                255,
+                144,
+                0,
+                207,
+                95,
+                255,
+                255
+            ]
+        },
+        "address_range": {
+            "end": 1664420,
+            "begin": 1664407
+        },
+        "label": "FuchsiaGym_MapEventHeader.ckir_BEFORE_person_event_SPRITE_JANINE_at_10_1"
+    },
+    {
+        "integer_values": {
+            "old": [
                 6,
                 6,
                 134,
