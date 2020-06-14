@@ -534,6 +534,20 @@
     {
         "integer_values": {
             "old": [
+                251,
+                0,
+                128
+            ]
+        },
+        "address_range": {
+            "end": 1606861,
+            "begin": 1606858
+        },
+        "label": "CeruleanGymHiddenMachinePart.ckir_BEFORE_dwb_EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM_MACHINE_PART"
+    },
+    {
+        "integer_values": {
+            "old": [
                 6,
                 6,
                 116,
@@ -590,6 +604,20 @@
             "begin": 644740
         },
         "label": "CianwoodGymTriggerRockets.ckir_BEFORE_RadioTowerRockets"
+    },
+    {
+        "integer_values": {
+            "old": [
+                31,
+                67,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 647094,
+            "begin": 647091
+        },
+        "label": "CianwoodPharmacist.ckir_BEFORE_giveitem_SECRETPOTION"
     },
     {
         "integer_values": {
@@ -680,6 +708,34 @@
     {
         "integer_values": {
             "old": [
+                31,
+                7,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 345959,
+            "begin": 345956
+        },
+        "label": "ClerkScript_0x54750.ckir_BEFORE_giveitem_BICYCLE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                55,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 632337,
+            "begin": 632334
+        },
+        "label": "CooltrainerMScript_0x9a5fb.ckir_BEFORE_verbosegiveitem_ITEMFINDER"
+    },
+    {
+        "integer_values": {
+            "old": [
                 33,
                 130
             ]
@@ -703,6 +759,20 @@
             "begin": 1617793
         },
         "label": "Copycat.ckir_BEFORE_takeitem_LOST_ITEM"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                134,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1617813,
+            "begin": 1617810
+        },
+        "label": "Copycat.ckir_BEFORE_verbosegiveitem_PASS"
     },
     {
         "integer_values": {
@@ -733,6 +803,76 @@
             "begin": 630199
         },
         "label": "EcruteakGymTriggerRockets.ckir_BEFORE_RadioTowerRockets"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                68,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 495158,
+            "begin": 495155
+        },
+        "label": "ElmGiveTicketScript.ckir_BEFORE_verbosegiveitem_S_S_TICKET"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                133,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 393279,
+            "begin": 393276
+        },
+        "label": "FakeDirectorScript.ckir_BEFORE_verbosegiveitem_BASEMENT_KEY"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                58,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 433014,
+            "begin": 433011
+        },
+        "label": "FishingGuruScript_0x69b55.ckir_BEFORE_verbosegiveitem_OLD_ROD"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                61,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 521370,
+            "begin": 521367
+        },
+        "label": "FishingGuruScript_0x7f484.ckir_BEFORE_verbosegiveitem_SUPER_ROD"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                175,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 349065,
+            "begin": 349062
+        },
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_verbosegiveitem_SQUIRTBOTTLE"
     },
     {
         "integer_values": {
@@ -887,6 +1027,20 @@
     {
         "integer_values": {
             "old": [
+                158,
+                127,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 514510,
+            "begin": 514507
+        },
+        "label": "GentlemanScript_0x7d9bf.ckir_BEFORE_verbosegiveitem_CARD_KEY"
+    },
+    {
+        "integer_values": {
+            "old": [
                 6,
                 6,
                 134,
@@ -913,6 +1067,61 @@
             "begin": 344189
         },
         "label": "GoldenrodGymTriggerRockets.ckir_BEFORE_RadioTowerRockets"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                59,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 640817,
+            "begin": 640814
+        },
+        "label": "GoodRodGuru.ckir_BEFORE_verbosegiveitem_GOOD_ROD"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                71,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1622046,
+            "begin": 1622043
+        },
+        "label": "GrampsScript_0x18c00f.ckir_BEFORE_verbosegiveitem_SILVER_WING"
+    },
+    {
+        "integer_values": {
+            "old": [
+                249,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 517236,
+            "begin": 517234
+        },
+        "label": "IcePath1FHMWaterfall.ckir_BEFORE_itemball_HM_WATERFALL"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                243,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 454092,
+            "begin": 454089
+        },
+        "label": "IlexForestCharcoalMasterScript.ckir_BEFORE_verbosegiveitem_HM_CUT"
     },
     {
         "integer_values": {
@@ -1009,6 +1218,20 @@
     {
         "integer_values": {
             "old": [
+                31,
+                69,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1667237,
+            "begin": 1667234
+        },
+        "label": "MrPokemonsHouse_MapScriptHeader.ckir_BEFORE_giveitem_MYSTERY_EGG"
+    },
+    {
+        "integer_values": {
+            "old": [
                 6,
                 6,
                 129,
@@ -1069,6 +1292,76 @@
     {
         "integer_values": {
             "old": [
+                158,
+                70,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 393437,
+            "begin": 393434
+        },
+        "label": "RadioTower5FRocketBossTrigger.ckir_BEFORE_verbosegiveitem_CLEAR_BELL"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                133,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 458937,
+            "begin": 458934
+        },
+        "label": "RocketlessLoRLanceScript2.ckir_BEFORE_verbosegiveitem_BASEMENT_KEY"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                127,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 458943,
+            "begin": 458940
+        },
+        "label": "RocketlessLoRLanceScript2.ckir_BEFORE_verbosegiveitem_CARD_KEY"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                70,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 458994,
+            "begin": 458991
+        },
+        "label": "RocketlessLoRLanceScript2.ckir_BEFORE_verbosegiveitem_CLEAR_BELL"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                248,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 458878,
+            "begin": 458875
+        },
+        "label": "RocketlessLoRLanceScript2.ckir_BEFORE_verbosegiveitem_HM_WHIRLPOOL"
+    },
+    {
+        "integer_values": {
+            "old": [
                 6,
                 6,
                 141,
@@ -1095,6 +1388,34 @@
             "begin": 1612932
         },
         "label": "SaffronGymTriggerRockets.ckir_BEFORE_RadioTowerRockets"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                247,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1591749,
+            "begin": 1591746
+        },
+        "label": "SageLiScript.ckir_BEFORE_verbosegiveitem_HM_FLASH"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                246,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 641232,
+            "begin": 641229
+        },
+        "label": "SailorScript_0x9c8c1.ckir_BEFORE_verbosegiveitem_HM_STRENGTH"
     },
     {
         "integer_values": {
@@ -1207,6 +1528,90 @@
             "begin": 514536
         },
         "label": "UndergroundWarehouseUltraBall.ckir_BEFORE_ITEMBALL_ULTRABALL"
+    },
+    {
+        "integer_values": {
+            "old": [
+                31,
+                130,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1644629,
+            "begin": 1644626
+        },
+        "label": "UnknownScript_0x191844.ckir_BEFORE_giveitem_LOST_ITEM"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                244,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 1704099,
+            "begin": 1704096
+        },
+        "label": "UnknownScript_0x1a009c.ckir_BEFORE_verbosegiveitem_HM_FLY"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                116,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 382986,
+            "begin": 382983
+        },
+        "label": "UnknownScript_0x5d800.ckir_BEFORE_verbosegiveitem_BLUE_CARD"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                248,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 446888,
+            "begin": 446885
+        },
+        "label": "UnknownScript_0x6d184.ckir_BEFORE_verbosegiveitem_HM_WHIRLPOOL"
+    },
+    {
+        "integer_values": {
+            "old": [
+                31,
+                66,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 459114,
+            "begin": 459111
+        },
+        "label": "UnknownScript_0x7007a.ckir_BEFORE_giveitem_RED_SCALE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                158,
+                245,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 627980,
+            "begin": 627977
+        },
+        "label": "UnknownScript_0x99505.ckir_BEFORE_verbosegiveitem_HM_SURF"
     },
     {
         "integer_values": {
@@ -3513,6 +3918,19 @@
             "begin": 633436
         },
         "label": "ViridianGymTriggerRockets.ckir_BEFORE_RadioTowerRockets"
+    },
+    {
+        "integer_values": {
+            "old": [
+                54,
+                1
+            ]
+        },
+        "address_range": {
+            "end": 508680,
+            "begin": 508678
+        },
+        "label": "WarehouseEntranceCoinCase.ckir_BEFORE_itemball_COIN_CASE"
     },
     {
         "integer_values": {
