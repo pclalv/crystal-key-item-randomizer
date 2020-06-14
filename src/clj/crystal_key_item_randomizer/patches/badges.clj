@@ -1,18 +1,12 @@
 (ns crystal-key-item-randomizer.patches.badges
   (:require [crystal-key-item-randomizer.badges :as badges]
-            [clojure.spec.alpha :as s]))            
+            [clojure.spec.alpha :as s])
+  (:use [crystal-key-item-randomizer.patches.data :only [get-patch]]))
 
 (def standalone-checkflag-badges
-  {:PLAINBADGE {:label "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE"
-                :description "Check whatever badge is actually given by Whitney, even in badge rando"
-                :address_range {:begin 344138
-                                :end 344141}
-                :integer_values {:old [52 29 0]}}
-   :RISINGBADGE {:label "BlackthornGymClairScript.ckir_BEFORE_checkflag_ENGINE_RISINGBADGE"
-                 :description "Check whatever badge is actually given by Clair, even in badge rando"
-                 :address_range {:begin 1658406
-                                 :end 1658409}
-                 :integer_values {:old [52 34 0]}}})
+  "For badge randomization; check whatever badge is actually given by the gym leader instead of their vanilla badge"
+  {:PLAINBADGE (get-patch "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE")
+   :RISINGBADGE (get-patch "BlackthornGymClairScript.ckir_BEFORE_checkflag_ENGINE_RISINGBADGE")})
 
 (defn checkflag [badge]
   (let [badge-flag-value (-> badges/speedchoice badge :value)]

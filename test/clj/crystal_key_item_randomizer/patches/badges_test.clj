@@ -5,7 +5,6 @@
 (deftest replace-checkflag-for-badge-test
   (testing "RISINGBADGE"
     (is (= {:label "BlackthornGymClairScript.ckir_BEFORE_checkflag_ENGINE_RISINGBADGE",
-            :description "Check whatever badge is actually given by Clair, even in badge rando",
             :address_range {:begin 1658406
                             :end 1658409}
             :integer_values {:old [52 34 0]
@@ -14,7 +13,6 @@
 
   (testing "PLAINBADGE"
     (is (= {:label "WhitneyScript_0x5400c.ckir_BEFORE_checkflag_ENGINE_PLAINBADGE",
-            :description "Check whatever badge is actually given by Whitney, even in badge rando",
             :address_range {:begin 344138
                             :end 344141}
             :integer_values {:old [52 29 0]
