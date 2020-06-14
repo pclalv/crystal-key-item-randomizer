@@ -9,7 +9,6 @@
   "These patches aren't the full person_events, but rather just the positions. "
   (-> "fuchsia-gym-trainers.edn" io/resource slurp edn/read-string))
 
-;; TODO: write a test
 (defn generate
   "Randomize which Janine is the real Janine in Fuchsia Gym."
   [{:keys [randomize-janine?]
