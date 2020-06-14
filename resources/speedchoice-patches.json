@@ -644,6 +644,42 @@
     {
         "integer_values": {
             "old": [
+                81,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                145,
+                136,
+                146,
+                136,
+                141,
+                134,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1659569,
+            "begin": 1659544
+        },
+        "label": "ClairText_Lazy.ckir_BEFORE_text_RISINGBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
                 33,
                 130
             ]
@@ -1093,6 +1129,75 @@
     {
         "integer_values": {
             "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                132,
+                128,
+                145,
+                147,
+                135,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 633915,
+            "begin": 633891
+        },
+        "label": "Text_ReceivedEarthBadge.ckir_BEFORE_text_EARTHBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                135,
+                136,
+                149,
+                132,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1633690,
+            "begin": 1633667
+        },
+        "label": "Text_ReceivedHiveBadge.ckir_BEFORE_text_HIVEBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
                 2,
                 1
             ]
@@ -1145,6 +1250,43 @@
             "begin": 1607516
         },
         "label": "UnknownText_0x18870c.ckir_BEFORE_text_CASCADEBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                130,
+                128,
+                146,
+                130,
+                128,
+                131,
+                132,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1607574,
+            "begin": 1607548
+        },
+        "label": "UnknownText_0x188768.ckir_BEFORE_text_CASCADEBADGE_received"
     },
     {
         "integer_values": {
@@ -1202,6 +1344,41 @@
             "begin": 1613455
         },
         "label": "UnknownText_0x189df4.ckir_BEFORE_text_MARSHBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                140,
+                128,
+                145,
+                146,
+                135,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1613525,
+            "begin": 1613501
+        },
+        "label": "UnknownText_0x189e95.ckir_BEFORE_text_MARSHBADGE_received"
     },
     {
         "integer_values": {
@@ -1490,6 +1667,43 @@
         "integer_values": {
             "old": [
                 0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                147,
+                135,
+                148,
+                141,
+                131,
+                132,
+                145,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1647277,
+            "begin": 1647251
+        },
+        "label": "UnknownText_0x192277.ckir_BEFORE_text_THUNDERBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
                 146,
                 148,
                 145,
@@ -1648,6 +1862,77 @@
             "begin": 1663482
         },
         "label": "UnknownText_0x195fa1.ckir_BEFORE_text_SOULBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                146,
+                142,
+                148,
+                139,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1663532,
+            "begin": 1663509
+        },
+        "label": "UnknownText_0x195feb.ckir_BEFORE_text_SOULBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                134,
+                139,
+                128,
+                130,
+                136,
+                132,
+                145,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1678933,
+            "begin": 1678907
+        },
+        "label": "UnknownText_0x199d3b.ckir_BEFORE_text_GLACIERBADGE_received"
     },
     {
         "integer_values": {
@@ -1813,6 +2098,43 @@
             "begin": 1678933
         },
         "label": "UnknownText_0x199d55.ckir_BEFORE_text_GLACIERBADGE_unimportant"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                129,
+                142,
+                148,
+                139,
+                131,
+                132,
+                145,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1714795,
+            "begin": 1714769
+        },
+        "label": "UnknownText_0x1a2a3d.ckir_BEFORE_text_BOULDERBADGE_received"
     },
     {
         "integer_values": {
@@ -1998,6 +2320,43 @@
     {
         "integer_values": {
             "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                149,
+                142,
+                139,
+                130,
+                128,
+                141,
+                142,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 1750705,
+            "begin": 1750679
+        },
+        "label": "UnknownText_0x1ab683.ckir_BEFORE_text_VOLCANOBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
                 81,
                 142,
                 167,
@@ -2045,6 +2404,41 @@
             "begin": 344651
         },
         "label": "UnknownText_0x54222.ckir_BEFORE_text_PLAINBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                143,
+                139,
+                128,
+                136,
+                141,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 344715,
+            "begin": 344691
+        },
+        "label": "UnknownText_0x54273.ckir_BEFORE_text_PLAINBADGE_received"
     },
     {
         "integer_values": {
@@ -2234,6 +2628,42 @@
         "integer_values": {
             "old": [
                 0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                153,
+                132,
+                143,
+                135,
+                152,
+                145,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 427475,
+            "begin": 427450
+        },
+        "label": "UnknownText_0x685af.ckir_BEFORE_text_ZEPHYRBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
                 153,
                 132,
                 143,
@@ -2416,6 +2846,76 @@
         "integer_values": {
             "old": [
                 0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                145,
+                128,
+                136,
+                141,
+                129,
+                142,
+                150,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 470787,
+            "begin": 470761
+        },
+        "label": "UnknownText_0x72c96.ckir_BEFORE_text_RAINBOWBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                133,
+                142,
+                134,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 630873,
+            "begin": 630851
+        },
+        "label": "UnknownText_0x9a043.ckir_BEFORE_text_FOGBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
                 129,
                 184,
                 127,
@@ -2574,6 +3074,43 @@
         "integer_values": {
             "old": [
                 0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                140,
+                136,
+                141,
+                132,
+                145,
+                128,
+                139,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 639828,
+            "begin": 639802
+        },
+        "label": "UnknownText_0x9c33a.ckir_BEFORE_text_MINERALBADGE_received"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
                 140,
                 136,
                 141,
@@ -2699,6 +3236,41 @@
             "begin": 645131
         },
         "label": "UnknownText_0x9d7f6.ckir_BEFORE_text_STORMBADGE"
+    },
+    {
+        "integer_values": {
+            "old": [
+                0,
+                82,
+                127,
+                177,
+                164,
+                162,
+                164,
+                168,
+                181,
+                164,
+                163,
+                79,
+                146,
+                147,
+                142,
+                145,
+                140,
+                129,
+                128,
+                131,
+                134,
+                132,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 645200,
+            "begin": 645176
+        },
+        "label": "UnknownText_0x9d835.ckir_BEFORE_text_STORMBADGE_received"
     },
     {
         "integer_values": {
