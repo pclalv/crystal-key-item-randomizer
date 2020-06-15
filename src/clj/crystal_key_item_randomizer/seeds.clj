@@ -46,40 +46,58 @@
   (let [lance-swaps (set (get-swaps swaps lance-items))]
     (seq (cset/intersection useful-items lance-swaps))))
 
+(defn generate-swaps*
+  "Generate any set of swaps using the provided RNG."
+  [seed-id {:keys [randomize-badges? randomize-copycat-item?] :as swaps-options}]
+  (let [rng (new java.util.Random seed-id)
+        item-swaps (zipmap all-items
+                           (deterministic-shuffle all-items (-> rng
+                                                                .nextLong
+                                                                java.lang.Math/abs)))
+        badge-swaps (zipmap badges (if randomize-badges?
+                                     (deterministic-shuffle badges (-> rng
+                                                                       .nextLong
+                                                                       java.lang.Math/abs))
+                                     badges))
+        copycat-item (if randomize-copycat-item?
+                       ;; FIXME: there are even more useless,
+                       ;; non-required items in the rocketless mode
+                       (deterministic-pick key-items/non-required-items (-> rng
+                                                                            .nextLong
+                                                                            java.lang.Math/abs))
+                       :LOST_ITEM)]
+    {:item-swaps item-swaps
+     :badge-swaps badge-swaps
+     :copycat-item copycat-item
+     :seed-id seed-id
+     :options swaps-options}))
+
 (defn generate-swaps
-  [{:keys [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?] :as swaps-options}
+  "Generate a set of swaps that fit the criteria; if the generated swaps
+  don't meet the criteria, then try again."
+  [{:keys [early-bicycle? no-early-super-rod?] :as swaps-options}
    {:keys [rockets] :as logic-options}]
-  (loop [rng (or (:rng swaps-options)
-                 ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
-                 (new java.util.Random))]
-    (let [seed-id (-> rng
-                      .nextLong
-                      java.lang.Math/abs)
-          item-swaps (zipmap all-items
-                             (deterministic-shuffle all-items seed-id))
-          badge-swaps (if randomize-badges?
-                        (zipmap badges (deterministic-shuffle badges seed-id))
-                        (zipmap badges badges))
-          copycat-item (if randomize-copycat-item?
-                         ;; FIXME: there are even more useless,
-                         ;; non-required items in the rocketless mode
-                         (deterministic-pick key-items/non-required-items seed-id)
-                         :LOST_ITEM)]
-      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps swaps-options)))
-            #_=> (recur rng)
+  (let [rng (or (:rng swaps-options)
+                ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
+                (new java.util.Random))]
+    (loop [seed-id (-> rng
+                       .nextLong
+                       java.lang.Math/abs)]
+      (let [{:keys [item-swaps] :as swaps} (generate-swaps* seed-id swaps-options)
+            next-seed-id (-> rng
+                             .nextLong
+                             java.lang.Math/abs)]
+        (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps swaps-options)))
+              #_=> (recur next-seed-id)
 
-            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps swaps-options))
-            #_=> (recur rng)
+              (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps swaps-options))
+              #_=> (recur next-seed-id)
 
-            (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps))
-            #_=> (recur rng)
+              (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps))
+              #_=> (recur next-seed-id)
 
-            :else
-            #_=> {:item-swaps item-swaps
-                  :badge-swaps badge-swaps
-                  :copycat-item copycat-item
-                  :seed-id seed-id
-                  :options swaps-options}))))
+              :else
+              #_=> swaps)))))
 
 (s/fdef generate-swaps
   :args (s/cat :swaps-options :crystal-key-item-randomizer.specs/swaps-options
@@ -125,17 +143,16 @@
   ([seed-id {:keys [swaps-options logic-options]
              :or {swaps-options {}
                   logic-options {}}}]
-   (let [item-swaps (zipmap all-items (deterministic-shuffle all-items seed-id))
-         badge-swaps (if (:randomize-badges? swaps-options)
-                       (zipmap badges (deterministic-shuffle badges seed-id))
-                       (zipmap badges badges))
-         copycat-item (if (:randomize-copycat-item? swaps-options)
-                        (deterministic-pick key-items/non-required-items seed-id)
-                        :LOST_ITEM)
-         swaps {:item-swaps item-swaps
-                :badge-swaps badge-swaps
-                :copycat-item copycat-item
-                :seed-id seed-id}
+   (let [swaps-options (-> swaps-options
+                           ;; disable these options; we're generating a particular seed,
+                           ;; so there's no sense in attempting to control these aspects.
+                           (assoc :early-bicycle? false
+                                  :no-early-super-rod? false))
+         logic-options (-> logic-options
+                           ;; likewise, and for lack of any better idea of how to handle this,
+                           ;; we don't care about whatever rockets settings the user picked.
+                           (assoc :rockets :normal))
+         swaps (generate-swaps* seed-id swaps-options)
          progression-results (beatable? swaps logic-options)]
      (if (progression-results :beatable?)
        {:seed (-> progression-results
