@@ -221,7 +221,7 @@
             :on-change (set-checkbox-value-on-atom randomize-janine?)
             :checked @randomize-janine?
             :disabled @handling-rom?}]
-   [:label {:for "randomize-janine"} "Randomize Janine (Experimental) - Randomize which Janine is the real Janine in Fuchsia Gym."]
+   [:label {:for "randomize-janine"} "Randomize Janine - Randomize which Janine is the real Janine in Fuchsia Gym."]
    [:br]
 
    [:select {:id "endgame-condition"
