@@ -47,9 +47,9 @@
     (seq (cset/intersection useful-items lance-swaps))))
 
 (defn generate-swaps
-  [{:keys [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?] :as opts}
+  [{:keys [randomize-badges? early-bicycle? no-early-super-rod? randomize-copycat-item?] :as swaps-options}
    {:keys [rockets] :as logic-options}]
-  (loop [rng (or (:rng opts)
+  (loop [rng (or (:rng swaps-options)
                  ;; TODO: use CSPRG? https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
                  (new java.util.Random))]
     (let [seed-id (-> rng
@@ -65,10 +65,10 @@
                          ;; non-required items in the rocketless mode
                          (deterministic-pick key-items/non-required-items seed-id)
                          :LOST_ITEM)]
-      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps opts)))
+      (cond (and early-bicycle? (not (gives-early? :BICYCLE item-swaps swaps-options)))
             #_=> (recur rng)
 
-            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps opts))
+            (and no-early-super-rod? (gives-early? :SUPER_ROD item-swaps swaps-options))
             #_=> (recur rng)
 
             (and (= :rocketless rockets) (lance-gives-useful-items? item-swaps))
@@ -79,7 +79,7 @@
                   :badge-swaps badge-swaps
                   :copycat-item copycat-item
                   :seed-id seed-id
-                  :options opts}))))
+                  :options swaps-options}))))
 
 (s/fdef generate-swaps
   :args (s/cat :swaps-options :crystal-key-item-randomizer.specs/swaps-options
@@ -162,3 +162,17 @@
                                     :options ::generate-options))
 
   :ret ::generate-result)
+
+;; (defn beatability-stats [n]
+;;   (let [{:keys [beatable not-beatable]} (->> (take n (repeatedly #(-> java.util.Random
+;;                                                                       new
+;;                                                                       .nextLong
+;;                                                                       java.lang.Math/abs)))
+;;                                              (map #(crystal-key-item-randomizer.seeds/generate % {:logic-options {:no-early-sabrina? true}}))
+;;                                              (group-by #(if (-> % :seed :beatable?)
+;;                                                           :beatable
+;;                                                           :not-beatable)))]
+;;     {:beatable (count beatable)
+;;      :not-beatable (count not-beatable)
+;;      :ratio (float (/ (count beatable)
+;;                       n))}))
