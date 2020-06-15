@@ -85,18 +85,6 @@
   :args (s/cat :swaps-options :crystal-key-item-randomizer.specs/swaps-options
                :logic-options :crystal-key-item-randomizer.specs/logic-options))
 
-(def default-generate-options
-  "Would be nice if we could use this variable in the generate-random
-  and generate function signatures, namely in the arg list."
-  '{logic-options {:endgame-condition :defeat-elite-4
-                   :randomize-janine? false
-                   :no-early-sabrina? false
-                   :rockets :normal}
-    swaps-options {:randomize-badges? false
-                   :early-bicycle? false
-                   :no-early-super-rod? false
-                   :randomize-copycat-item? false}})
-
 (defn generate-random [{:keys [logic-options swaps-options]
                         :or {swaps-options {}
                              logic-options {:endgame-condition :defeat-red
