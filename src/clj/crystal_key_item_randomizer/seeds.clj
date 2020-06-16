@@ -142,7 +142,8 @@
                   (assoc :id (str seed-id))
                   (assoc :patches (patches/generate swaps logic-options))
                   (assoc :options logic-options))}
-       (assoc progression-results :error (str "Unbeatable seed: " seed-id))))))
+       {:error (str "Unbeatable seed: " seed-id)
+        :seed progression-results}))))
 
 (s/fdef generate
   :args (s/alt :unary (s/cat :seed-id int?)
