@@ -47,7 +47,6 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 in priority order:
 
-- option for early fly
 - make it easy to generate all of the patch/label data that CKIR needs
   with a script in crystal-speedchoice
   - mainly for if/when crystal-speedchoice gets updated and patches
