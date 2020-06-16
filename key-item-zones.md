@@ -21,33 +21,42 @@ area, which can be further rolled up into key item zones. it's not
 clear to me yet whether areas are good enough, or if this
 randomization should instead be done at the level of zones.
 
-| key item       | area                  | zone      |
-|----------------|-----------------------|-----------|
-| `MYSTERY_EGG`  | Route 30              |           |
-| `HM_FLASH`     | Sprout Tower          | Violet    |
-| `OLD_ROD`      | Route 32              |           |
-| `HM_CUT`       | Ilex Forest           | Azalea    |
-| `BICYCLE`      |                       | Goldenrod |
-| `BLUE_CARD`    |                       | Goldenrod |
-| `COIN_CASE`    |                       | Goldenrod |
-| `SQUIRTBOTTLE` |                       | Goldenrod |
-| `HM_SURF`      |                       | Ecruteak  |
-| `ITEMFINDER`   |                       | Ecruteak  |
-| `GOOD_ROD`     |                       | Olivine   |
-| `HM_STRENGTH`  |                       | Olivine   |
-| `HM_FLY`       |                       | Cianwood  |
-| `RED_SCALE`    | Lake of Rage          | Mahogany  |
-| `HM_WHIRLPOOL` | Rocket Hideout        | Mahogany  |
-| `BASEMENT_KEY` | Radio Tower           | Goldenrod |
-| `CARD_KEY`     | Goldenrod Underground | Goldenrod |
-| `CLEAR_BELL`   | Radio Tower           | Goldenrod |
-| `HM_WATERFALL` | Ice Path              | Mahogany  |
-| `S_S_TICKET`   |                       | Newbark   |
-| `SUPER_ROD`    | Route 12              |           |
-| `MACHINE_PART` |                       | Cerulean  |
-| `LOST_ITEM`    |                       | Vermilion |
-| `PASS`         |                       | Saffron   |
-| `SILVER_WING`  |                       | Pewter    |
+|----------------|----------------|-----------|
+| key item       | area           | city      |
+|----------------|----------------|-----------|
+| `MYSTERY_EGG`  | Route 30       |           |
+| `HM_FLASH`     | Sprout Tower   | Violet    |
+| `OLD_ROD`      | Route 32       |           |
+| `HM_CUT`       | Ilex Forest    |           |
+| `BICYCLE`      |                | Goldenrod |
+| `BLUE_CARD`    | Radio Tower    | Goldenrod |
+| `COIN_CASE`    | Underground    | Goldenrod |
+| `SQUIRTBOTTLE` |                | Goldenrod |
+| `HM_SURF`      |                | Ecruteak  |
+| `ITEMFINDER`   |                | Ecruteak  |
+| `GOOD_ROD`     |                | Olivine   |
+| `HM_STRENGTH`  |                | Olivine   |
+| `HM_FLY`       |                | Cianwood  |
+| `SECRETPOTION` |                | Cianwood  |
+| `RED_SCALE`    | Lake of Rage   | Mahogany  |
+| `HM_WHIRLPOOL` | Rocket Hideout | Mahogany  |
+| `BASEMENT_KEY` | Radio Tower    | Goldenrod |
+| `CARD_KEY`     | Underground    | Goldenrod |
+| `CLEAR_BELL`   | Radio Tower    | Goldenrod |
+| `HM_WATERFALL` | Ice Path       | Mahogany  |
+| `S_S_TICKET`   |                | Newbark   |
+| `SUPER_ROD`    | Route 12       |           |
+| `MACHINE_PART` |                | Cerulean  |
+| `LOST_ITEM`    |                | Vermilion |
+| `PASS`         |                | Saffron   |
+| `SILVER_WING`  |                | Pewter    |
+|----------------|----------------|-----------|
 
 i think that implementating this in CKIR would probably require a
-low-level abstraction like 'rooms'.
+low-level abstraction like 'rooms'. 
+
+# where to put items?
+
+while ultimately it would be cool to have optional dungeons like Whirl
+Islands and Mt Mortar be required for some item, by putting some
+important item there, it's best to start with what we've got.
