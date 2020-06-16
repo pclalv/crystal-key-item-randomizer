@@ -55,7 +55,7 @@
             {:condition :talk-to-power-plant-manager, :prereqs {:conditions-met #{:can-cut :kanto :can-surf},
                                                                 :items-obtained #{}}}
             {:condition :fix-power-plant, :prereqs {:conditions-met #{:talk-to-power-plant-manager},
-                                                    :items-obtained #{:MACHINE_PART}}} nil
+                                                    :items-obtained #{:MACHINE_PART}}}
             {:condition :pewter, :prereqs {:conditions-met #{:can-cut}, :pokegear-cards #{:RADIO_CARD :EXPN_CARD},
                                            :items-obtained #{}}}
             {:condition :defeat-elite-4, :prereqs {:conditions-met #{:pewter},

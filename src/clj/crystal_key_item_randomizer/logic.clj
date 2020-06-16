@@ -118,97 +118,100 @@
          fly-by :whenever
          no-blind-rock-tunnel? true
          rockets :normal}}]
-  [{:condition :goldenrod
-    :prereqs {:conditions-met #{}
-              :items-obtained #{}}}
+  (->> [{:condition :goldenrod
+         :prereqs {:conditions-met #{}
+                   :items-obtained #{}}}
 
-   ;; there are TWO ways of getting to ecruteak
-   {:condition :ecruteak
-    :prereqs {:conditions-met #{}
-              :items-obtained #{:SQUIRTBOTTLE}}}
-   {:condition :ecruteak
-    :prereqs {:conditions-met #{}
-              :items-obtained #{:PASS :S_S_TICKET}}}
+        ;; there are TWO ways of getting to ecruteak
+        {:condition :ecruteak
+         :prereqs {:conditions-met #{}
+                   :items-obtained #{:SQUIRTBOTTLE}}}
+        {:condition :ecruteak
+         :prereqs {:conditions-met #{}
+                   :items-obtained #{:PASS :S_S_TICKET}}}
 
-   {:condition :defeat-red-gyarados
-    :prereqs {:conditions-met #{:can-surf :ecruteak}
-              :items-obtained #{}}}
+        {:condition :defeat-red-gyarados
+         :prereqs {:conditions-met #{:can-surf :ecruteak}
+                   :items-obtained #{}}}
 
-   {:condition :trigger-radio-tower-takeover
-    ;; TODO: is the PHONE_CARD a prereq here?
-    :prereqs {:conditions-met (->> #{(when (= fly-by :mid-game)
-                                       :can-fly)
-                                     (if (= :early rockets)
-                                       :four-badges
-                                       :seven-badges)}
-                                   (filter (complement nil?))
-                                   (into #{}))
-              :items-obtained #{}}}
+        {:condition :trigger-radio-tower-takeover
+         ;; TODO: is the PHONE_CARD a prereq here?
+         :prereqs {:conditions-met (->> #{(when (= fly-by :mid-game)
+                                            :can-fly)
+                                          (if (= :early rockets)
+                                            :four-badges
+                                            :seven-badges)}
+                                        (filter (complement nil?))
+                                        (into #{}))
+                   :items-obtained #{}}}
 
-   {:condition :underground-warehouse
-    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
-              :items-obtained #{:BASEMENT_KEY}}}
+        {:condition :underground-warehouse
+         :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+                   :items-obtained #{:BASEMENT_KEY}}}
 
-   {:condition :defeat-team-rocket
-    :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
-              :items-obtained #{:CARD_KEY}}}
+        {:condition :defeat-team-rocket
+         :prereqs {:conditions-met #{:trigger-radio-tower-takeover}
+                   :items-obtained #{:CARD_KEY}}}
 
-   {:condition :blackthorn
-    :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
-              :items-obtained #{}}}
+        {:condition :blackthorn
+         :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
+                   :items-obtained #{}}}
 
-   ;; there are TWO ways of getting to kanto
-   {:condition :kanto
-    :prereqs {:conditions-met #{:ecruteak}
-              :items-obtained #{:S_S_TICKET}}}
-   {:condition :kanto
-    :prereqs {:conditions-met #{:goldenrod}
-              :items-obtained #{:PASS}}}
+        ;; there are TWO ways of getting to kanto
+        {:condition :kanto
+         :prereqs {:conditions-met #{:ecruteak}
+                   :items-obtained #{:S_S_TICKET}}}
+        {:condition :kanto
+         :prereqs {:conditions-met #{:goldenrod}
+                   :items-obtained #{:PASS}}}
 
-   ;; if the player doesn't want to do blind rock tunnel, the they
-   ;; need to use either Cut or Flash.
-   ;; otherwise, there's only one way; it doesn't matter that it's
-   ;; listed twice.
-   {:condition :talk-to-power-plant-manager
-    :prereqs {:conditions-met (if no-blind-rock-tunnel?
-                                #{:can-flash :can-surf :kanto}
-                                #{:can-surf :kanto})
-              :items-obtained #{}}}
-   {:condition :talk-to-power-plant-manager
-    :prereqs {:conditions-met (if no-blind-rock-tunnel?
-                                #{:can-cut :can-surf :kanto}
-                                #{:can-surf :kanto})
-              :items-obtained #{}}}
+        ;; if the player doesn't want to do blind rock tunnel, the they
+        ;; need to use either Cut or Flash.
+        ;; otherwise, there's only one way; it doesn't matter that it's
+        ;; listed twice.
+        {:condition :talk-to-power-plant-manager
+         :prereqs {:conditions-met (if no-blind-rock-tunnel?
+                                     #{:can-flash :can-surf :kanto}
+                                     #{:can-surf :kanto})
+                   :items-obtained #{}}}
+        {:condition :talk-to-power-plant-manager
+         :prereqs {:conditions-met (if no-blind-rock-tunnel?
+                                     #{:can-cut :can-surf :kanto}
+                                     #{:can-surf :kanto})
+                   :items-obtained #{}}}
 
-   {:condition :fix-power-plant
-    :prereqs {:conditions-met #{:talk-to-power-plant-manager}
-              :items-obtained #{:MACHINE_PART}}}
+        {:condition :fix-power-plant
+         :prereqs {:conditions-met #{:talk-to-power-plant-manager}
+                   :items-obtained #{:MACHINE_PART}}}
 
-   ;; there are TWO ways of getting to pewter
-   (when expanded-logic? {:condition :pewter
-                          :prereqs {;; can reach Pokemon League Gate and get past the
-                                    ;; Officer who performs the badge check
-                                    :conditions-met #{:eight-badges :can-waterfall}
-                                    ;; can defeat Snorlax, which causes the Blackbelt
-                                    ;; guarding the eastern exit to disappear
-                                    :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
-                                    :items-obtained #{}}})
-   {:condition :pewter
-    :prereqs {:conditions-met #{:can-cut}
-              :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
-              :items-obtained #{}}}
+        ;; there are TWO ways of getting to pewter
+        (when expanded-logic? {:condition :pewter
+                               :prereqs {;; can reach Pokemon League Gate and get past the
+                                         ;; Officer who performs the badge check
+                                         :conditions-met #{:eight-badges :can-waterfall}
+                                         ;; can defeat Snorlax, which causes the Blackbelt
+                                         ;; guarding the eastern exit to disappear
+                                         :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
+                                         :items-obtained #{}}})
+        {:condition :pewter
+         :prereqs {:conditions-met #{:can-cut}
+                   :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
+                   :items-obtained #{}}}
 
-   ;; there are TWO ways of getting to the E4
-   {:condition :defeat-elite-4
-    :prereqs {:conditions-met #{:pewter}
-              :items-obtained #{}}}
-   {:condition :defeat-elite-4
-    :prereqs {:conditions-met #{:eight-badges :can-waterfall}
-              :items-obtained #{}}}
+        ;; there are TWO ways of getting to the E4
+        {:condition :defeat-elite-4
+         :prereqs {:conditions-met #{:pewter}
+                   :items-obtained #{}}}
+        {:condition :defeat-elite-4
+         :prereqs {:conditions-met #{:eight-badges :can-waterfall}
+                   :items-obtained #{}}}
 
-   {:condition :defeat-red
-    :prereqs {:conditions-met #{:sixteen-badges}
-              :items-obtained #{}}}])
+        {:condition :defeat-red
+         :prereqs {:conditions-met #{:sixteen-badges}
+                   :items-obtained #{}}}]
+       ;; because we're using when above, there can be some nils in
+       ;; this vector; get rid of them.
+       (remove nil?)))
 
 (defn item-prereqs
   [{:keys [copycat-item rockets] :or {copycat-item :LOST_ITEM
