@@ -7,6 +7,11 @@
 ;;   (testing "spec"
 ;;     (is (= {} (-> (stest/check `generate))))))
 
+(deftest generate-test
+  (testing "some seeds are unbeatable"
+    (is (= false
+           (-> (generate 1) :seed :beatable?)))))
+
 (deftest generate-random-test
   (testing "parity with generate"
     (is (= (generate 1359243304)
