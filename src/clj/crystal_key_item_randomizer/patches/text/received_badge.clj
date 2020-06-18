@@ -63,7 +63,7 @@
                                    :as received-badge-text-location}]
   (let [orig-num-bytes (count old-integer-values)
         new-badge (-> badge swaps name)
-        template (if (= badge :RISINGBADGE)                   
+        template (if (= badge :RISINGBADGE)
                    received-risingbadge-replacement-text-template
                    received-badge-replacement-text-template)
         new-text (clojure.string/replace template "{{badge}}" new-badge)
@@ -73,7 +73,6 @@
         new-integer-values (gsc-encode-to-original-length new-text orig-num-bytes)]
     (assoc received-badge-text-location :integer_values {:old old-integer-values
                                                          :new new-integer-values})))
-        
 
 (defn fix-received-badge-texts [swaps]
   (map #(received-badge-patch swaps %) received-badge-text-locations))

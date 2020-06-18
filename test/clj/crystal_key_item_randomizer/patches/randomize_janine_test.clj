@@ -9,7 +9,7 @@
                      :rng (new java.util.Random 1)))))
 
   (testing "when you want it"
-    (is (= [{:integer_values          
+    (is (= [{:integer_values
              {:old [10 14 5 3 0 255 255 144 0 207 95 255 255],
               :new [10 11 9 3 0 255 255 144 0 207 95 255 255]},
              :address_range {:end 1664420, :begin 1664407},

@@ -18,7 +18,7 @@ See the [homepage](https://crystal-key-item-randomizer.herokuapp.com/).
 ### production
 
 1. **Build the uberjar**: `lein with-profile production uberjar`
-1. **Run the uberjar**: 
+1. **Run the uberjar**:
    ```
    java -jar target/uberjar/crystal-key-item-randomizer.jar
    ```
