@@ -3,8 +3,12 @@
             [crystal-key-item-randomizer.logic :refer :all]))
 
 (deftest badge-prereqs-test
+  (testing "no-early-sabrina?"
+    (is (= '({:badge :MARSHBADGE, :conditions-met #{:seven-badges :kanto}})
+           (->> (badge-prereqs {:no-early-sabrina? true})
+                (filter #(= :MARSHBADGE (:badge %)))))))
   (testing "default value"
-    (is (= [{:badge :ZEPHYRBADGE}          
+    (is (= [{:badge :ZEPHYRBADGE}
             {:badge :HIVEBADGE}
             {:badge :PLAINBADGE, :conditions-met #{:goldenrod}}
             {:badge :FOGBADGE, :conditions-met #{:ecruteak}}
@@ -64,11 +68,52 @@
                                                    :items-obtained #{}}}
             {:condition :defeat-red, :prereqs {:conditions-met #{:sixteen-badges},
                                                :items-obtained #{}}}]
-           (condition-prereqs {})))))
+           (condition-prereqs {}))))
+  (testing "mid-game fly"
+    (is (= '({:condition :trigger-radio-tower-takeover,
+              :prereqs {:conditions-met #{:can-fly :seven-badges}, :items-obtained #{}}})
+           (->> (condition-prereqs {:fly-by :mid-game})
+                (filter #(= :trigger-radio-tower-takeover (:condition %)))))))
+  (testing "blind-rock-tunnel"
+    (is (= '({:condition :talk-to-power-plant-manager,
+              :prereqs {:conditions-met #{:kanto :can-surf}, :items-obtained #{}}}
+             {:condition :talk-to-power-plant-manager,
+              :prereqs {:conditions-met #{:kanto :can-surf}, :items-obtained #{}}})
+           (->> (condition-prereqs {:no-blind-rock-tunnel? false})
+                (filter #(= :talk-to-power-plant-manager (:condition %)))))))
+  (testing "expanded-logic"
+    (is (= '({:condition :pewter,
+              :prereqs {:conditions-met #{:eight-badges :can-waterfall},
+                        :pokegear-cards #{:RADIO_CARD :EXPN_CARD},
+                        :items-obtained #{}}}
+             {:condition :pewter,
+              :prereqs {:conditions-met #{:can-cut},
+                        :pokegear-cards #{:RADIO_CARD :EXPN_CARD},
+                        :items-obtained #{}}})
+           (->> (condition-prereqs {:expanded-logic? true})
+                (filter #(= :pewter (:condition %))))))))
 
 (deftest item-prereqs-test
+  (testing "rocketless"
+    (is (= '({:conditions-met #{:ecruteak :can-surf},
+              :items-obtained #{},
+              :grants #{:CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL :HM_WATERFALL :BASEMENT_KEY}})
+           (->> (item-prereqs {:rockets :rocketless})
+                (filter #(= #{:BASEMENT_KEY :CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL :HM_WATERFALL}
+                            (% :grants)))))))
+  (testing "early rockets"
+    (is (= '()
+           (->> (item-prereqs {:rockets :early})
+                (filter #(= #{:BASEMENT_KEY :CARD_KEY :CLEAR_BELL :HM_WHIRLPOOL :HM_WATERFALL}
+                            (% :grants)))))))
+  (testing "copycat-item"
+    (is (= '({:conditions-met #{:kanto},
+              :items-obtained #{:RED_SCALE},
+              :grants #{:PASS}})
+           (->> (item-prereqs {:copycat-item :RED_SCALE})
+                (filter #(-> % :grants :PASS))))))
   (testing "default value"
-    (is (= [{:conditions-met #{:seven-badges},          
+    (is (= [{:conditions-met #{:seven-badges},
              :items-obtained #{},
              :grants #{:BASEMENT_KEY}}
             {:conditions-met #{:underground-warehouse},
