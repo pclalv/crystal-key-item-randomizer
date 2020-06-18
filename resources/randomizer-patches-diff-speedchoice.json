@@ -1,647 +1,2868 @@
 [
     {
         "integer_values": {
-            "old": [ 76, 28, 9, 6, 0, 255, 255, 128, 0, 222, 39, 20, 7 ],
-            "new": [ 76, 28, 9, 6, 0, 255, 255, 128, 0, 222, 39, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 1711294,
-            "end": 1711307
-        },
-        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0",
-        "description": "Disable the important battle"
-    },
-    {
-        "integer_values": {
-            "old": [ 76, 29, 9, 7, 0, 255, 255, 144, 0, 222, 39, 20, 7 ],
-            "new": [ 76, 29, 9, 7, 0, 255, 255, 144, 0, 222, 39, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 1711307,
-            "end": 1711320
-        },
-        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1",
-        "description": "Disable the important battle"
-    },
-    {
-        "integer_values": {
-            "old": [ 39, 30, 9, 7, 0, 255, 255, 144, 0, 115, 86, 20, 7 ],
-            "new": [ 39, 30, 9, 7, 0, 255, 255, 144, 0, 115, 86, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 1711229,
-            "end": 1711242
-        },
-        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_YOUNGSTER_EVENT_ROUTE_30_BATTLE",
-        "description": "Disable the important battle"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  27, 0 ],
-            "new": [ 49, 189, 4 ]
-        },
-        "address_range": {
-            "begin": 1639546,
-            "end": 1639549
-        },
-        "label": "Route32CooltrainerMTrigger.ckir_BEFORE_checkflag_ENGINE_ZEPHYRBADGE",
-        "description": "Assert on having beaten Falkner instead of having gotten the ZEPHYRBADGE"
-    },
-    {
-        "integer_values": {
-            "old": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86,  21,   7 ],
-            "new": [ 39, 32, 6, 9, 0, 255, 255, 146, 3, 154, 86, 255, 255 ]
-        },
-        "address_range": {
-            "begin": 1711242,
-            "end": 1711255
-        },
-        "label": "Route30_MapEventHeader.ckir_BEFORE_EVENT_ROUTE_30_YOUNGSTER_JOEY",
-        "description": "NOTE THAT THESE VALUES DIFFER FROM VANILLA - WHY? Make the battleable Youngster Joey appear"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 49,  42, 0 ],
-            "new": [ 49, 200, 6 ]
-        },
-        "address_range": {
-            "begin": 349026,
-            "end": 349029
-        },
-        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_FOUGHT_SUDOWOODO",
-        "description": "Ensure that the player can still get the Flower Shop item even, if they've already defeated/caught the Sudowoodo"
-    },
-    {
-        "integer_values": {
-            "old": [ 49, 185, 0 ],
-            "new": [ 49, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 349038,
-            "end": 349041
-        },
-        "label": "FlowerShopTeacherScript.ckir_BEFORE_checkevent_EVENT_MET_FLORIA",
-        "description": "Allow the player to skip talking to Floria at the tree"
-    },
-    {
-        "integer_values": {
-            "old": [ 49, 186, 0 ],
-            "new": [ 49,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 349044,
-            "end": 349047
-        },
-        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_TALKED_TO_FLORIA_AT_FLOWER_SHOP",
-        "description": "Allow the player to skip talking to Floria back at the Flower Shop"
-    },
-    {
-        "integer_values": {
-            "old": [ 49, 205, 0 ],
-            "new": [ 49,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 348398,
-            "end": 348401
-        },
-        "label": "OfficerScript_0x550ec.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
-        "description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 6, 6, 242, 73 ],
-            "new": [ 6, 6, 192, 73 ]
-        },
-        "address_range": {
-            "begin": 477616,
-            "end": 477620
-        },
-        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_SATURDAY",
-        "description": "Allow player to ride the SS Aqua on any day"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 3, 248, 73 ],
-            "new": [ 6, 3, 192, 73 ]
-        },
-        "address_range": {
-            "begin": 477624,
-            "end": 477628
-        },
-        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_WEDNESDAY",
-        "description": "Allow player to ride the SS Aqua on any day"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 0, 242, 73 ],
-            "new": [ 6, 0, 192, 73 ]
-        },
-        "address_range": {
-            "begin": 477612,
-            "end": 477616
-        },
-        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_SUNDAY",
-        "description": "Allow player to ride the SS Aqua on any day"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 4, 248, 73 ],
-            "new": [ 6, 4, 192, 73 ]
-        },
-        "address_range": {
-            "begin": 477628,
-            "end": 477632
-        },
-        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_THURSDAY",
-        "description": "Allow player to ride the SS Aqua on any day"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 2, 248, 73 ],
-            "new": [ 6, 2, 192, 73 ]
-        },
-        "address_range": {
-            "begin": 477620,
-            "end": 477624
-        },
-        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_TUESDAY",
-        "description": "Allow player to ride the SS Aqua on any day"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 6, 6, 119, 73 ],
-            "new": [ 6, 6,  78, 73 ]
-        },
-        "address_range": {
-            "begin": 477502,
-            "end": 477506
-        },
-        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_SATURDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 0, 119, 73 ],
-            "new": [ 6, 0,  78, 73 ]
-        },
-        "address_range": {
-            "begin": 477498,
-            "end": 477502
-        },
-        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_SUNDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 4, 129, 73 ],
-            "new": [ 6, 4,  78, 73 ]
-        },
-        "address_range": {
-            "begin": 477514,
-            "end": 477518
-        },
-        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_THURSDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 2, 129, 73 ],
-            "new": [ 6, 2,  78, 73 ]
-        },
-        "address_range": {
-            "begin": 477506,
-            "end": 477510
-        },
-        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_TUESDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 3, 129, 73 ],
-            "new": [ 6, 3,  78, 73 ]
-        },
-        "address_range": {
-            "begin": 477510,
-            "end": 477514
-        },
-        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_WEDNESDAY"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 73, 19, 11, 7, 0, 255, 255, 0, 0, 254, 73, 55, 7 ],
-            "new": [ 73, 19, 11, 7, 0, 255, 255, 0, 0, 254, 73, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 478530,
-            "end": 478543
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_0",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-    {
-        "integer_values": {
-            "old": [ 59, 18, 8, 7, 0, 255, 255, 0, 0, 1, 74, 55, 7 ],
-            "new": [ 59, 18, 8, 7, 0, 255, 255, 0, 0, 1, 74, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 478556,
-            "end": 478569
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_1",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-    {
-        "integer_values": {
-            "old": [ 59, 18, 17, 7, 0, 255, 255, 0, 0, 12, 74, 55, 7 ],
-            "new": [ 59, 18, 17, 7, 0, 255, 255, 0, 0, 12, 74, 26, 0 ]
-        },
-        "address_range": {
-            "begin": 478569,
-            "end": 478582
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_2",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-    {
-        "integer_values": {
-            "old": [ 36, 19, 15, 6, 0, 255, 255, 0, 0, 34, 74,  56, 7 ],
-            "new": [ 36, 19, 15, 6, 0, 255, 255, 0, 0, 34, 74, 200, 6 ]
-        },
-        "address_range": {
-            "begin": 478595,
-            "end": 478608
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_3",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-    {
-        "integer_values": {
-            "old": [ 73, 19, 10, 9, 0, 255, 255, 0, 0, 156, 73,  56, 7 ],
-            "new": [ 73, 19, 10, 9, 0, 255, 255, 0, 0, 156, 73, 200, 6 ]
-        },
-        "address_range": {
-            "begin": 478543,
-            "end": 478556
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_0",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-    {
-        "integer_values": {
-            "old": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74,  56, 7 ],
-            "new": [ 39, 19, 8, 6, 0, 255, 255, 0, 0, 23, 74, 200, 6 ]
-        },
-        "address_range": {
-            "begin": 478582,
-            "end": 478595
-        },
-        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1",
-        "description": "Make Olivine Port always appear in its post-Hall-of-Fame state"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 49, 207, 0 ],
-            "new": [ 49, 205, 0 ]
-        },
-        "address_range": {
-            "begin": 1644611,
-            "end": 1644614
-        },
-        "label": "UnknownScript_0x191838.ckir_BEFORE_CHECKEVENT_EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM",
-        "description": "Ensure Pokemon Fan Club item is obtainable even if the player has already given the real LOST ITEM  to the Copycat"
-    },
-    {
-        "integer_values": {
-            "old": [ 51, 32, 0 ],
-            "new": [ 51, 55, 0 ]
-        },
-        "address_range": {
-            "begin": 396302,
-            "end": 396305
-        },
-        "label": "UnknownScript_0x60bab.ckir_BEFORE_setevent_EVENT_JASMINE_RETURNED_TO_GYM",
-        "description": "Ensure that the player can get the Cianwood Pharmacy item even if they've already returned the SECRETPOTION to Jasmine"
-    },
-    {
-        "integer_values": {
-            "old": [ 49, 201, 0, 9, 192, 78, 33, 128,  9, 167,  78, 49, 202,   0, 9, 161,  78, 76, 120, 82, 84, 73, 51, 202,  0, 50, 109, 7, 50, 251,  0,  18,  7,   6, 1,  20,  1, 145, 76, 28, 83, 84,  73, 145 ],
-            "new": [ 49, 202, 0, 9, 155, 78, 76, 120, 82,  51, 202,  0,  50, 109, 7,  50, 251,  0,  18,  7,  6,  1, 20,   1, 84, 33, 128, 9, 167, 78, 73, 145, 33, 128, 9, 167, 78,  76, 28, 83, 84, 73, 145, 145 ]
-        },
-        "address_range": {
-            "begin": 1609339,
-            "end": 1609383
-        },
-        "label": "PowerPlantManager.ckir_BEFORE_checkitem_MACHINE_PART",
-        "description": "Talking to the Power Plant manager should just work"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 49, 205, 0 ],
-            "new": [ 49,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 1615944,
-            "end": 1615947
-        },
-        "label": "OfficerScript_0x18a81e.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO",
-        "description": "All the player to take the train from Goldenrod to Saffrom before fixing the Power Plant"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 15 ],
-            "new": [  1 ]
-        },
-        "address_range": {
-            "begin": 721295,
-            "end": 721296
-        },
-        "label": "Remove cuttable tree in Ilex Forest",
-        "description": "For variety :) otherwise we'd have to force HM_CUT (or SQUIRTBOTTLE) to appear within the first four items"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 84,  5,  6, 1, 0, 255, 255, 1, 0, 232, 89,  85, 6 ],
-            "new": [ 84, 12, 17, 1, 0, 255, 255, 1, 0, 232, 89, 228, 6 ]
-        },
-        "address_range": {
-            "begin": 515559,
-            "end": 515572
-        },
-        "label": "UndergroundWarehouse_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_ULTRABALL",
-        "description": "Move the ULTRA_BALL item ball and make ita appear after Team Rocket is defeated"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 6, 5, 224, 78 ],
-            "new": [ 6, 5, 188, 78 ]
-        },
-        "address_range": {
-            "begin": 478893,
-            "end": 478897
-        },
-        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_FRIDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 1, 218, 78 ],
-            "new": [ 6, 1, 188, 78 ]
-        },
-        "address_range": {
-            "begin": 478881,
-            "end": 478885
-        },
-        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_MONDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 6, 224, 78 ],
-            "new": [ 6, 6, 188, 78 ]
-        },
-        "address_range": {
-            "begin": 478897,
-            "end": 478901
-        },
-        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_SATURDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 4, 224, 78 ],
-            "new": [ 6, 4, 188, 78 ]
-        },
-        "address_range": {
-            "begin": 478889,
-            "end": 478893
-        },
-        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_THURSDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 2, 218, 78 ],
-            "new": [ 6, 2, 188, 78 ]
-        },
-        "address_range": {
-            "begin": 478885,
-            "end": 478889
-        },
-        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_TUESDAY"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 6, 5, 124, 78 ],
-            "new": [ 6, 5,  80, 78 ]
-        },
-        "address_range": {
-            "begin": 478785,
-            "end": 478789
-        },
-        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_FRIDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 1, 114, 78 ],
-            "new": [ 6, 1,  80, 78 ]
-        },
-        "address_range": {
-            "begin": 478773,
-            "end": 478777
-        },
-        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_MONDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 6, 124, 78 ],
-            "new": [ 6, 6,  80, 78 ]
-        },
-        "address_range": {
-            "begin": 478789,
-            "end": 478793
-        },
-        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_SATURDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 4, 124, 78 ],
-            "new": [ 6, 4,  80, 78 ]
-        },
-        "address_range": {
-            "begin": 478781,
-            "end": 478785
-        },
-        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_THURSDAY"
-    },
-    {
-        "integer_values": {
-            "old": [ 6, 2, 114, 78 ],
-            "new": [ 6, 2,  80, 78 ]
-        },
-        "address_range": {
-            "begin": 478777,
-            "end": 478781
-        },
-        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_TUESDAY"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 52, 19, 0 ],
-            "new": [ 49, 61, 3 ]
-        },
-        "address_range": {
-            "begin": 382839,
-            "end": 382842
-        },
-        "label": "Buena.ckir_BEFORE_checkflag_ENGINE_ROCKETS_IN_RADIO_TOWER",
-        "description": "Permit player to get Buena's item even during the Radio Tower takeover"
-    },
-
-    {
-        "integer_values": {
-            "old": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75, 206, 6 ],
-            "new": [ 53, 24, 33, 7, 0, 255, 255, 0, 0, 50, 75,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 1676269,
-            "end": 1676282
-        },
-        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_1",
-        "description": "Permit player to get the Bike Shop item even during the Radio Tower takeover"
-    },
-    {
-        "integer_values": {
-            "old": [ 53, 11, 33, 6, 0, 255, 255, 0, 0, 53, 75, 206, 6 ],
-            "new": [ 53, 11, 33, 6, 0, 255, 255, 0, 0, 53, 75,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 1676282,
-            "end": 1676295
-        },
-        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_2",
-        "description": "Permit player to get the Flower Shop item even during the Radio Tower takeover"
-    },
-    {
-        "integer_values": {
-            "old": [ 53, 24, 32, 7, 0, 255, 255, 0, 0, 41, 75, 205, 6 ],
-            "new": [ 53, 24, 32, 7, 0, 255, 255, 0, 0, 41, 75,  26, 0 ]
-        },
-        "address_range": {
-            "begin": 1676230,
-            "end": 1676243
-        },
-        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_3",
-        "description": "Permit player to get the Bike Shop item even during the Radio Tower takeover"
-    },
-    {
-        "integer_values": {
-            "old": [ 36, 10, 16, 7, 0, 255, 255, 160, 0, 213, 77, 207,   6 ],
-            "new": [ 36, 10, 16, 7, 0, 255, 255, 160, 0, 213, 77, 255, 255 ]
-        },
-        "address_range": {
-            "begin": 382702,
-            "end": 382715
-        },
-        "label": "RadioTower1F_MapEventHeader.ckir_BEFORE_person_event_SPRITE_COOLTRAINER_F",
-        "description": "Permit player to get Radio Card even during the Radio Tower takeover"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  35, 0 ],
-            "new": [ 49, 197, 4 ]
-        },
-        "address_range": {
-            "end": 1714281,
-            "begin": 1714278
-        },
-        "label": "BrockScript_0x1a2864.ckir_BEFORE_checkflag_ENGINE_BOULDERBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  36, 0 ],
-            "new": [ 49, 198, 4 ]
-        },
-        "address_range": {
-            "end": 1606711,
-            "begin": 1606708
-        },
-        "label": "MistyScript_0x188432.ckir_BEFORE_checkflag_ENGINE_CASCADEBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  37, 0 ],
-            "new": [ 49, 199, 4 ]
-        },
-        "address_range": {
-            "end": 1646770,
-            "begin": 1646767
-        },
-        "label": "SurgeScript_0x1920a5.ckir_BEFORE_checkflag_ENGINE_THUNDERBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  38, 0 ],
-            "new": [ 49, 200, 4 ]
-        },
-        "address_range": {
-            "end": 470190,
-            "begin": 470187
-        },
-        "label": "ErikaScript_0x72a6a.ckir_BEFORE_checkflag_ENGINE_RAINBOWBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  39, 0 ],
-            "new": [ 49, 201, 4 ]
-        },
-        "address_range": {
-            "end": 1662930,
-            "begin": 1662927
-        },
-        "label": "JanineScript_0x195db9.ckir_BEFORE_checkflag_ENGINE_SOULBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  40, 0 ],
-            "new": [ 49, 202, 4 ]
-        },
-        "address_range": {
-            "end": 1612871,
-            "begin": 1612868
-        },
-        "label": "SabrinaScript_0x189c2e.ckir_BEFORE_checkflag_ENGINE_MARSHBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
-    },
-    {
-        "integer_values": {
-            "old": [ 52,  41, 0 ],
-            "new": [ 49, 203, 4 ]
+            "new": [
+                49,
+                203,
+                4
+            ],
+            "old": [
+                52,
+                41,
+                0
+            ]
         },
         "address_range": {
             "end": 1750272,
             "begin": 1750269
         },
-        "label": "BlaineScript_0x1ab4fb.ckir_BEFORE_checkflag_ENGINE_VOLCANOBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+        "label": "BlaineScript_0x1ab4fb.ckir_BEFORE_checkflag_ENGINE_VOLCANOBADGE"
     },
     {
         "integer_values": {
-            "old": [ 52,  42, 0 ],
-            "new": [ 49, 204, 4 ]
+            "new": [
+                49,
+                204,
+                4
+            ],
+            "old": [
+                52,
+                42,
+                0
+            ]
         },
         "address_range": {
             "end": 633387,
             "begin": 633384
         },
-        "label": "BlueScript_0x9aa26.ckir_BEFORE_checkflag_ENGINE_EARTHBADGE",
-        "description": "For badge randomization, enable the player to battle the gym leader even if the player already has their vanilla badge"
+        "label": "BlueScript_0x9aa26.ckir_BEFORE_checkflag_ENGINE_EARTHBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                197,
+                4
+            ],
+            "old": [
+                52,
+                35,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1714281,
+            "begin": 1714278
+        },
+        "label": "BrockScript_0x1a2864.ckir_BEFORE_checkflag_ENGINE_BOULDERBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                61,
+                3
+            ],
+            "old": [
+                52,
+                19,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 382842,
+            "begin": 382839
+        },
+        "label": "Buena.ckir_BEFORE_checkflag_ENGINE_ROCKETS_IN_RADIO_TOWER"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                200,
+                4
+            ],
+            "old": [
+                52,
+                38,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 470190,
+            "begin": 470187
+        },
+        "label": "ErikaScript_0x72a6a.ckir_BEFORE_checkflag_ENGINE_RAINBOWBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                200,
+                6
+            ],
+            "old": [
+                49,
+                42,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 349029,
+            "begin": 349026
+        },
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_FOUGHT_SUDOWOODO"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                26,
+                0
+            ],
+            "old": [
+                49,
+                186,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 349047,
+            "begin": 349044
+        },
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_CHECKEVENT_EVENT_TALKED_TO_FLORIA_AT_FLOWER_SHOP"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                26,
+                0
+            ],
+            "old": [
+                49,
+                185,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 349041,
+            "begin": 349038
+        },
+        "label": "FlowerShopTeacherScript.ckir_BEFORE_checkevent_EVENT_MET_FLORIA"
+    },
+    {
+        "integer_values": {
+            "new": [
+                53,
+                24,
+                33,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                50,
+                75,
+                26,
+                0
+            ],
+            "old": [
+                53,
+                24,
+                33,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                50,
+                75,
+                206,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 1676282,
+            "begin": 1676269
+        },
+        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_1"
+    },
+    {
+        "integer_values": {
+            "new": [
+                53,
+                11,
+                33,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                53,
+                75,
+                26,
+                0
+            ],
+            "old": [
+                53,
+                11,
+                33,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                53,
+                75,
+                206,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 1676295,
+            "begin": 1676282
+        },
+        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_2"
+    },
+    {
+        "integer_values": {
+            "new": [
+                53,
+                24,
+                32,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                41,
+                75,
+                26,
+                0
+            ],
+            "old": [
+                53,
+                24,
+                32,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                41,
+                75,
+                205,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 1676243,
+            "begin": 1676230
+        },
+        "label": "GoldenrodCity_MapEventHeader.ckir_BEFORE_person_event_SPRITE_ROCKET_3"
+    },
+    {
+        "integer_values": {
+            "new": [
+                29,
+                30,
+                31,
+                5,
+                5,
+                5,
+                9,
+                20,
+                17,
+                17,
+                17,
+                1,
+                4,
+                9,
+                5,
+                33,
+                34,
+                35,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                5,
+                28,
+                26,
+                5,
+                5,
+                36,
+                38,
+                39,
+                5,
+                5,
+                1,
+                17,
+                18,
+                5,
+                5,
+                5,
+                1,
+                17,
+                17,
+                21,
+                1,
+                1,
+                9,
+                9,
+                1,
+                1,
+                5,
+                5,
+                8,
+                5,
+                5,
+                14,
+                5,
+                5,
+                12,
+                4,
+                4,
+                7,
+                3,
+                13,
+                5,
+                5,
+                5,
+                16,
+                4,
+                9,
+                14,
+                5,
+                5,
+                12,
+                5,
+                5,
+                10,
+                2,
+                11,
+                1,
+                1,
+                23,
+                17,
+                17,
+                18,
+                5,
+                5,
+                5,
+                20,
+                5,
+                5,
+                10,
+                11,
+                1,
+                18,
+                12,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                20,
+                14,
+                5,
+                20,
+                1,
+                1,
+                18,
+                5,
+                12,
+                24,
+                20,
+                5,
+                5,
+                1,
+                17,
+                17,
+                5,
+                8,
+                19,
+                5,
+                4,
+                9,
+                5,
+                5,
+                5,
+                16,
+                17,
+                17,
+                18,
+                5,
+                5,
+                5,
+                1,
+                23,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                12,
+                32,
+                5,
+                5,
+                8,
+                9,
+                9,
+                1,
+                25,
+                28,
+                27,
+                1,
+                17,
+                17,
+                17,
+                17,
+                1,
+                5,
+                5,
+                12,
+                5,
+                5,
+                17,
+                17,
+                17,
+                17,
+                22,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                4,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                12,
+                5,
+                1,
+                4,
+                4,
+                14,
+                5,
+                5,
+                4,
+                4,
+                1,
+                1,
+                14,
+                5,
+                5,
+                1,
+                5,
+                1,
+                5,
+                5,
+                14,
+                5,
+                5,
+                1,
+                5,
+                5,
+                5,
+                1,
+                9,
+                9,
+                1,
+                9,
+                1,
+                5,
+                5,
+                14,
+                5,
+                5,
+                14,
+                5,
+                5,
+                1,
+                14,
+                5,
+                5,
+                1,
+                1,
+                5,
+                5,
+                5,
+                1,
+                1,
+                1,
+                14,
+                5,
+                5,
+                1,
+                9,
+                9,
+                9,
+                14,
+                1,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                5,
+                29,
+                30,
+                31,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                4,
+                33,
+                34,
+                35,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                6,
+                37,
+                38,
+                39,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+            ],
+            "old": [
+                29,
+                30,
+                31,
+                5,
+                5,
+                5,
+                9,
+                20,
+                17,
+                17,
+                17,
+                1,
+                4,
+                9,
+                5,
+                33,
+                34,
+                35,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                5,
+                28,
+                26,
+                5,
+                5,
+                36,
+                38,
+                39,
+                5,
+                5,
+                1,
+                17,
+                18,
+                5,
+                5,
+                5,
+                1,
+                17,
+                17,
+                21,
+                1,
+                1,
+                9,
+                9,
+                1,
+                1,
+                5,
+                5,
+                8,
+                5,
+                5,
+                14,
+                5,
+                5,
+                12,
+                4,
+                4,
+                7,
+                3,
+                13,
+                5,
+                5,
+                5,
+                16,
+                4,
+                9,
+                14,
+                5,
+                5,
+                12,
+                5,
+                5,
+                10,
+                2,
+                11,
+                1,
+                1,
+                23,
+                17,
+                17,
+                18,
+                5,
+                5,
+                5,
+                20,
+                5,
+                5,
+                10,
+                11,
+                1,
+                18,
+                12,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                20,
+                14,
+                5,
+                20,
+                1,
+                1,
+                18,
+                5,
+                12,
+                24,
+                20,
+                5,
+                5,
+                1,
+                17,
+                17,
+                5,
+                8,
+                19,
+                5,
+                4,
+                9,
+                5,
+                5,
+                5,
+                16,
+                17,
+                17,
+                18,
+                5,
+                5,
+                5,
+                1,
+                23,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                12,
+                32,
+                5,
+                5,
+                8,
+                9,
+                9,
+                1,
+                25,
+                28,
+                27,
+                1,
+                17,
+                17,
+                17,
+                17,
+                15,
+                5,
+                5,
+                12,
+                5,
+                5,
+                17,
+                17,
+                17,
+                17,
+                22,
+                5,
+                5,
+                5,
+                5,
+                14,
+                5,
+                5,
+                4,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                12,
+                5,
+                1,
+                4,
+                4,
+                14,
+                5,
+                5,
+                4,
+                4,
+                1,
+                1,
+                14,
+                5,
+                5,
+                1,
+                5,
+                1,
+                5,
+                5,
+                14,
+                5,
+                5,
+                1,
+                5,
+                5,
+                5,
+                1,
+                9,
+                9,
+                1,
+                9,
+                1,
+                5,
+                5,
+                14,
+                5,
+                5,
+                14,
+                5,
+                5,
+                1,
+                14,
+                5,
+                5,
+                1,
+                1,
+                5,
+                5,
+                5,
+                1,
+                1,
+                1,
+                14,
+                5,
+                5,
+                1,
+                9,
+                9,
+                9,
+                14,
+                1,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                5,
+                29,
+                30,
+                31,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                4,
+                33,
+                34,
+                35,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                1,
+                6,
+                37,
+                38,
+                39,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+            ]
+        },
+        "address_range": {
+            "end": 721516,
+            "begin": 721111
+        },
+        "label": "IlexForest_BlockData.ckir_BEFORE_IlexForest_BlockData"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                201,
+                4
+            ],
+            "old": [
+                52,
+                39,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1662930,
+            "begin": 1662927
+        },
+        "label": "JanineScript_0x195db9.ckir_BEFORE_checkflag_ENGINE_SOULBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                198,
+                4
+            ],
+            "old": [
+                52,
+                36,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1606711,
+            "begin": 1606708
+        },
+        "label": "MistyScript_0x188432.ckir_BEFORE_checkflag_ENGINE_CASCADEBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                26,
+                0
+            ],
+            "old": [
+                49,
+                205,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1615947,
+            "begin": 1615944
+        },
+        "label": "OfficerScript_0x18a81e.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                26,
+                0
+            ],
+            "old": [
+                49,
+                205,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 348401,
+            "begin": 348398
+        },
+        "label": "OfficerScript_0x550ec.ckir_BEFORE_CHECKEVENT_EVENT_RESTORED_POWER_TO_KANTO"
+    },
+    {
+        "integer_values": {
+            "new": [
+                73,
+                19,
+                10,
+                9,
+                0,
+                255,
+                255,
+                0,
+                0,
+                156,
+                73,
+                200,
+                6
+            ],
+            "old": [
+                73,
+                19,
+                10,
+                9,
+                0,
+                255,
+                255,
+                0,
+                0,
+                156,
+                73,
+                56,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478556,
+            "begin": 478543
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_0"
+    },
+    {
+        "integer_values": {
+            "new": [
+                39,
+                19,
+                8,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                23,
+                74,
+                200,
+                6
+            ],
+            "old": [
+                39,
+                19,
+                8,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                23,
+                74,
+                56,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478595,
+            "begin": 478582
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME_1"
+    },
+    {
+        "integer_values": {
+            "new": [
+                73,
+                19,
+                11,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                254,
+                73,
+                26,
+                0
+            ],
+            "old": [
+                73,
+                19,
+                11,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                254,
+                73,
+                55,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478543,
+            "begin": 478530
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_0"
+    },
+    {
+        "integer_values": {
+            "new": [
+                59,
+                18,
+                8,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                1,
+                74,
+                26,
+                0
+            ],
+            "old": [
+                59,
+                18,
+                8,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                1,
+                74,
+                55,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478569,
+            "begin": 478556
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_1"
+    },
+    {
+        "integer_values": {
+            "new": [
+                59,
+                18,
+                17,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                12,
+                74,
+                26,
+                0
+            ],
+            "old": [
+                59,
+                18,
+                17,
+                7,
+                0,
+                255,
+                255,
+                0,
+                0,
+                12,
+                74,
+                55,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478582,
+            "begin": 478569
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_2"
+    },
+    {
+        "integer_values": {
+            "new": [
+                36,
+                19,
+                15,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                34,
+                74,
+                200,
+                6
+            ],
+            "old": [
+                36,
+                19,
+                15,
+                6,
+                0,
+                255,
+                255,
+                0,
+                0,
+                34,
+                74,
+                56,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 478608,
+            "begin": 478595
+        },
+        "label": "OlivinePort_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME_3"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                202,
+                0,
+                9,
+                155,
+                78,
+                76,
+                120,
+                82,
+                51,
+                202,
+                0,
+                50,
+                109,
+                7,
+                50,
+                251,
+                0,
+                18,
+                7,
+                6,
+                1,
+                20,
+                1,
+                84,
+                33,
+                128,
+                9,
+                167,
+                78,
+                73,
+                145,
+                33,
+                128,
+                9,
+                167,
+                78,
+                76,
+                28,
+                83,
+                84,
+                73,
+                145,
+                145
+            ],
+            "old": [
+                49,
+                201,
+                0,
+                9,
+                192,
+                78,
+                33,
+                128,
+                9,
+                167,
+                78,
+                49,
+                202,
+                0,
+                9,
+                161,
+                78,
+                76,
+                120,
+                82,
+                84,
+                73,
+                51,
+                202,
+                0,
+                50,
+                109,
+                7,
+                50,
+                251,
+                0,
+                18,
+                7,
+                6,
+                1,
+                20,
+                1,
+                145,
+                76,
+                28,
+                83,
+                84,
+                73,
+                145
+            ]
+        },
+        "address_range": {
+            "end": 1609383,
+            "begin": 1609339
+        },
+        "label": "PowerPlantManager.ckir_BEFORE_checkitem_MACHINE_PART"
+    },
+    {
+        "integer_values": {
+            "new": [
+                36,
+                10,
+                16,
+                7,
+                0,
+                255,
+                255,
+                160,
+                0,
+                213,
+                77,
+                255,
+                255
+            ],
+            "old": [
+                36,
+                10,
+                16,
+                7,
+                0,
+                255,
+                255,
+                160,
+                0,
+                213,
+                77,
+                207,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 382715,
+            "begin": 382702
+        },
+        "label": "RadioTower1F_MapEventHeader.ckir_BEFORE_person_event_SPRITE_COOLTRAINER_F"
+    },
+    {
+        "integer_values": {
+            "new": [
+                0,
+                135,
+                180,
+                167,
+                230,
+                127,
+                147,
+                167,
+                164,
+                127,
+                161,
+                174,
+                178,
+                178,
+                127,
+                172,
+                180,
+                178,
+                179,
+                79,
+                167,
+                160,
+                181,
+                164,
+                127,
+                163,
+                177,
+                174,
+                175,
+                175,
+                164,
+                163,
+                127,
+                179,
+                167,
+                168,
+                178,
+                232,
+                87,
+                0,
+                79,
+                160,
+                162,
+                179,
+                168,
+                174,
+                173,
+                178,
+                127,
+                167,
+                160,
+                181,
+                164,
+                127,
+                178,
+                160,
+                181,
+                164,
+                163,
+                81,
+                84,
+                140,
+                142,
+                141,
+                127,
+                173,
+                160,
+                179,
+                168,
+                174,
+                173,
+                227,
+                79,
+                182,
+                168,
+                163,
+                164,
+                232,
+                81,
+                136,
+                127,
+                170,
+                173,
+                174,
+                182,
+                127,
+                168,
+                179,
+                212,
+                127,
+                173,
+                174,
+                179,
+                79,
+                172,
+                180,
+                162,
+                167,
+                244,
+                127,
+                161,
+                180,
+                179,
+                127,
+                175,
+                171,
+                164,
+                160,
+                178,
+                164,
+                85,
+                179,
+                160,
+                170,
+                164,
+                127,
+                179,
+                167,
+                168,
+                178,
+                232,
+                87
+            ],
+            "old": [
+                0,
+                131,
+                136,
+                145,
+                132,
+                130,
+                147,
+                142,
+                145,
+                156,
+                127,
+                20,
+                244,
+                79,
+                179,
+                167,
+                160,
+                173,
+                170,
+                127,
+                184,
+                174,
+                180,
+                231,
+                81,
+                152,
+                174,
+                180,
+                177,
+                127,
+                162,
+                174,
+                180,
+                177,
+                160,
+                166,
+                164,
+                174,
+                180,
+                178,
+                79,
+                160,
+                162,
+                179,
+                168,
+                174,
+                173,
+                178,
+                127,
+                167,
+                160,
+                181,
+                164,
+                127,
+                178,
+                160,
+                181,
+                164,
+                163,
+                81,
+                84,
+                140,
+                142,
+                141,
+                127,
+                173,
+                160,
+                179,
+                168,
+                174,
+                173,
+                227,
+                79,
+                182,
+                168,
+                163,
+                164,
+                232,
+                81,
+                136,
+                127,
+                170,
+                173,
+                174,
+                182,
+                127,
+                168,
+                179,
+                212,
+                127,
+                173,
+                174,
+                179,
+                79,
+                172,
+                180,
+                162,
+                167,
+                244,
+                127,
+                161,
+                180,
+                179,
+                127,
+                175,
+                171,
+                164,
+                160,
+                178,
+                164,
+                85,
+                179,
+                160,
+                170,
+                164,
+                127,
+                179,
+                167,
+                168,
+                178,
+                232,
+                87
+            ]
+        },
+        "address_range": {
+            "end": 394810,
+            "begin": 394688
+        },
+        "label": "RadioTower5FDirectorThankYouText.ckir_BEFORE_RadioTower5FDirectorThankYouText"
+    },
+    {
+        "integer_values": {
+            "new": [
+                145,
+                145,
+                145,
+                145
+            ],
+            "old": [
+                105,
+                0,
+                51,
+                65
+            ]
+        },
+        "address_range": {
+            "end": 393330,
+            "begin": 393326
+        },
+        "label": "RadioTower5FRocketBossTrigger.ckir_BEFORE_applymovement_PLAYER_RadioTower5FPlayerTwoStepsLeftMovement"
+    },
+    {
+        "integer_values": {
+            "new": [
+                84,
+                9,
+                12,
+                1,
+                0,
+                255,
+                255,
+                1,
+                0,
+                12,
+                65,
+                228,
+                6
+            ],
+            "old": [
+                84,
+                9,
+                12,
+                1,
+                0,
+                255,
+                255,
+                1,
+                0,
+                12,
+                65,
+                205,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 395662,
+            "begin": 395649
+        },
+        "label": "RadioTower5F_MapEventHeader.ckir_BEFORE_object_event_EVENT_RADIO_TOWER_5F_ULTRA_BALL"
+    },
+    {
+        "integer_values": {
+            "new": [
+                53,
+                9,
+                17,
+                8,
+                0,
+                255,
+                255,
+                0,
+                0,
+                114,
+                64,
+                206,
+                6
+            ],
+            "old": [
+                53,
+                9,
+                17,
+                8,
+                0,
+                255,
+                255,
+                0,
+                0,
+                222,
+                39,
+                206,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 395623,
+            "begin": 395610
+        },
+        "label": "RadioTower5F_MapEventHeader.ckir_BEFORE_object_event_ObjectEvent_RocketBoss"
+    },
+    {
+        "integer_values": {
+            "new": [
+                39,
+                32,
+                6,
+                9,
+                0,
+                255,
+                255,
+                146,
+                3,
+                154,
+                86,
+                255,
+                255
+            ],
+            "old": [
+                39,
+                32,
+                6,
+                9,
+                0,
+                255,
+                255,
+                146,
+                3,
+                154,
+                86,
+                21,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 1711255,
+            "begin": 1711242
+        },
+        "label": "Route30_MapEventHeader.ckir_BEFORE_EVENT_ROUTE_30_YOUNGSTER_JOEY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                76,
+                28,
+                9,
+                6,
+                0,
+                255,
+                255,
+                128,
+                0,
+                222,
+                39,
+                26,
+                0
+            ],
+            "old": [
+                76,
+                28,
+                9,
+                6,
+                0,
+                255,
+                255,
+                128,
+                0,
+                222,
+                39,
+                20,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 1711307,
+            "begin": 1711294
+        },
+        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_0"
+    },
+    {
+        "integer_values": {
+            "new": [
+                76,
+                29,
+                9,
+                7,
+                0,
+                255,
+                255,
+                144,
+                0,
+                222,
+                39,
+                26,
+                0
+            ],
+            "old": [
+                76,
+                29,
+                9,
+                7,
+                0,
+                255,
+                255,
+                144,
+                0,
+                222,
+                39,
+                20,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 1711320,
+            "begin": 1711307
+        },
+        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_MONSTER_EVENT_ROUTE_30_BATTLE_1"
+    },
+    {
+        "integer_values": {
+            "new": [
+                39,
+                30,
+                9,
+                7,
+                0,
+                255,
+                255,
+                144,
+                0,
+                115,
+                86,
+                26,
+                0
+            ],
+            "old": [
+                39,
+                30,
+                9,
+                7,
+                0,
+                255,
+                255,
+                144,
+                0,
+                115,
+                86,
+                20,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 1711242,
+            "begin": 1711229
+        },
+        "label": "Route30_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_YOUNGSTER_EVENT_ROUTE_30_BATTLE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                189,
+                4
+            ],
+            "old": [
+                52,
+                27,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1639549,
+            "begin": 1639546
+        },
+        "label": "Route32CooltrainerMTrigger.ckir_BEFORE_checkflag_ENGINE_ZEPHYRBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                202,
+                4
+            ],
+            "old": [
+                52,
+                40,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1612871,
+            "begin": 1612868
+        },
+        "label": "SabrinaScript_0x189c2e.ckir_BEFORE_checkflag_ENGINE_MARSHBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                6,
+                192,
+                73
+            ],
+            "old": [
+                6,
+                6,
+                242,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477620,
+            "begin": 477616
+        },
+        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                0,
+                192,
+                73
+            ],
+            "old": [
+                6,
+                0,
+                242,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477616,
+            "begin": 477612
+        },
+        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_SUNDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                4,
+                192,
+                73
+            ],
+            "old": [
+                6,
+                4,
+                248,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477632,
+            "begin": 477628
+        },
+        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_THURSDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                2,
+                192,
+                73
+            ],
+            "old": [
+                6,
+                2,
+                248,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477624,
+            "begin": 477620
+        },
+        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_TUESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                3,
+                192,
+                73
+            ],
+            "old": [
+                6,
+                3,
+                248,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477628,
+            "begin": 477624
+        },
+        "label": "SailorScript_0x7499c.ckir_BEFORE_ifequal_WEDNESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                5,
+                188,
+                78
+            ],
+            "old": [
+                6,
+                5,
+                224,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478897,
+            "begin": 478893
+        },
+        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_FRIDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                1,
+                188,
+                78
+            ],
+            "old": [
+                6,
+                1,
+                218,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478885,
+            "begin": 478881
+        },
+        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_MONDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                6,
+                188,
+                78
+            ],
+            "old": [
+                6,
+                6,
+                224,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478901,
+            "begin": 478897
+        },
+        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                4,
+                188,
+                78
+            ],
+            "old": [
+                6,
+                4,
+                224,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478893,
+            "begin": 478889
+        },
+        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_THURSDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                2,
+                188,
+                78
+            ],
+            "old": [
+                6,
+                2,
+                218,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478889,
+            "begin": 478885
+        },
+        "label": "SailorScript_0x74e97.ckir_BEFORE_ifequal_TUESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                199,
+                4
+            ],
+            "old": [
+                52,
+                37,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1646770,
+            "begin": 1646767
+        },
+        "label": "SurgeScript_0x1920a5.ckir_BEFORE_checkflag_ENGINE_THUNDERBADGE"
+    },
+    {
+        "integer_values": {
+            "new": [
+                84,
+                12,
+                17,
+                1,
+                0,
+                255,
+                255,
+                1,
+                0,
+                232,
+                89,
+                228,
+                6
+            ],
+            "old": [
+                84,
+                5,
+                6,
+                1,
+                0,
+                255,
+                255,
+                1,
+                0,
+                232,
+                89,
+                85,
+                6
+            ]
+        },
+        "address_range": {
+            "end": 515572,
+            "begin": 515559
+        },
+        "label": "UndergroundWarehouse_MapEventHeader.ckir_BEFORE_OBJECT_EVENT_ULTRABALL"
+    },
+    {
+        "integer_values": {
+            "new": [
+                49,
+                205,
+                0
+            ],
+            "old": [
+                49,
+                207,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 1644614,
+            "begin": 1644611
+        },
+        "label": "UnknownScript_0x191838.ckir_BEFORE_CHECKEVENT_EVENT_MET_COPYCAT_FOUND_OUT_ABOUT_LOST_ITEM"
+    },
+    {
+        "integer_values": {
+            "new": [
+                51,
+                55,
+                0
+            ],
+            "old": [
+                51,
+                32,
+                0
+            ]
+        },
+        "address_range": {
+            "end": 396305,
+            "begin": 396302
+        },
+        "label": "UnknownScript_0x60bab.ckir_BEFORE_setevent_EVENT_JASMINE_RETURNED_TO_GYM"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                6,
+                78,
+                73
+            ],
+            "old": [
+                6,
+                6,
+                119,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477506,
+            "begin": 477502
+        },
+        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                0,
+                78,
+                73
+            ],
+            "old": [
+                6,
+                0,
+                119,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477502,
+            "begin": 477498
+        },
+        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_SUNDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                4,
+                78,
+                73
+            ],
+            "old": [
+                6,
+                4,
+                129,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477518,
+            "begin": 477514
+        },
+        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_THURSDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                2,
+                78,
+                73
+            ],
+            "old": [
+                6,
+                2,
+                129,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477510,
+            "begin": 477506
+        },
+        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_TUESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                3,
+                78,
+                73
+            ],
+            "old": [
+                6,
+                3,
+                129,
+                73
+            ]
+        },
+        "address_range": {
+            "end": 477514,
+            "begin": 477510
+        },
+        "label": "UnknownScript_0x7491f.ckir_BEFORE_ifequal_WEDNESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                5,
+                80,
+                78
+            ],
+            "old": [
+                6,
+                5,
+                124,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478789,
+            "begin": 478785
+        },
+        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_FRIDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                1,
+                80,
+                78
+            ],
+            "old": [
+                6,
+                1,
+                114,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478777,
+            "begin": 478773
+        },
+        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_MONDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                6,
+                80,
+                78
+            ],
+            "old": [
+                6,
+                6,
+                124,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478793,
+            "begin": 478789
+        },
+        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_SATURDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                4,
+                80,
+                78
+            ],
+            "old": [
+                6,
+                4,
+                124,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478785,
+            "begin": 478781
+        },
+        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_THURSDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                6,
+                2,
+                80,
+                78
+            ],
+            "old": [
+                6,
+                2,
+                114,
+                78
+            ]
+        },
+        "address_range": {
+            "end": 478781,
+            "begin": 478777
+        },
+        "label": "UnknownScript_0x74e20.ckir_BEFORE_ifequal_TUESDAY"
+    },
+    {
+        "integer_values": {
+            "new": [
+                127,
+                57,
+                0,
+                71,
+                76,
+                223,
+                67,
+                84,
+                73,
+                100,
+                1,
+                69,
+                0,
+                0,
+                104,
+                3,
+                94,
+                51,
+                1,
+                95,
+                96,
+                71,
+                76,
+                28,
+                69,
+                84,
+                73,
+                15,
+                48,
+                0,
+                15,
+                51,
+                0,
+                110,
+                3,
+                110,
+                4,
+                139,
+                15,
+                15,
+                50,
+                0,
+                51,
+                113,
+                5,
+                51,
+                33,
+                0,
+                53,
+                19,
+                0,
+                51,
+                204,
+                6,
+                51,
+                205,
+                6,
+                51,
+                206,
+                6,
+                50,
+                54,
+                7,
+                53,
+                23,
+                0,
+                50,
+                207,
+                6,
+                50,
+                208,
+                6,
+                51,
+                227,
+                6,
+                50,
+                228,
+                6,
+                15,
+                60,
+                0,
+                14,
+                0,
+                24,
+                48,
+                14,
+                0,
+                24,
+                48,
+                14,
+                0,
+                24,
+                48,
+                14,
+                0,
+                24,
+                48,
+                111,
+                6
+            ],
+            "old": [
+                127,
+                57,
+                0,
+                118,
+                3,
+                3,
+                71,
+                76,
+                223,
+                67,
+                84,
+                73,
+                100,
+                1,
+                69,
+                0,
+                0,
+                104,
+                3,
+                94,
+                51,
+                1,
+                95,
+                96,
+                71,
+                76,
+                28,
+                69,
+                84,
+                73,
+                15,
+                48,
+                0,
+                15,
+                51,
+                0,
+                110,
+                3,
+                110,
+                4,
+                139,
+                15,
+                15,
+                50,
+                0,
+                51,
+                113,
+                5,
+                51,
+                33,
+                0,
+                53,
+                19,
+                0,
+                51,
+                204,
+                6,
+                51,
+                205,
+                6,
+                51,
+                206,
+                6,
+                50,
+                54,
+                7,
+                53,
+                23,
+                0,
+                50,
+                207,
+                6,
+                50,
+                208,
+                6,
+                51,
+                227,
+                6,
+                50,
+                228,
+                6,
+                15,
+                60,
+                0,
+                110,
+                2,
+                114,
+                2,
+                12,
+                0,
+                111,
+                2,
+                105,
+                2,
+                29,
+                65,
+                118,
+                0,
+                3
+            ]
+        },
+        "address_range": {
+            "end": 393429,
+            "begin": 393330
+        },
+        "label": "ckir_BEFORE_RadioTower5FRocketBossScene_NPC_0"
+    },
+    {
+        "integer_values": {
+            "new": [
+                73,
+                20,
+                2,
+                18,
+                4,
+                1,
+                0,
+                51,
+                120,
+                0,
+                51,
+                97,
+                7,
+                145,
+                145,
+                145,
+                145
+            ],
+            "old": [
+                76,
+                58,
+                70,
+                84,
+                73,
+                20,
+                2,
+                18,
+                4,
+                1,
+                0,
+                51,
+                120,
+                0,
+                51,
+                97,
+                7
+            ]
+        },
+        "address_range": {
+            "end": 393454,
+            "begin": 393437
+        },
+        "label": "ckir_BEFORE_RadioTower5FRocketBossScene_NPC_1"
     }
 ]
