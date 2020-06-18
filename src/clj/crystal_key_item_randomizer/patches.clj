@@ -6,6 +6,7 @@
             [crystal-key-item-randomizer.patches.rockets]
             [crystal-key-item-randomizer.patches.copycat :as copycat]
             [crystal-key-item-randomizer.patches.randomize-janine :as randomize-janine]
+            [crystal-key-item-randomizer.patches.fix-radio-tower-boss :as fix-radio-tower-boss]
             [crystal-key-item-randomizer.specs])
   (:use [crystal-key-item-randomizer.patches.badges :only [replace-checkflag-for-badge]]
         [crystal-key-item-randomizer.patches.text.giveitem :only [fix-giveitems]]
@@ -75,7 +76,8 @@
               (if (= :early rockets)
                 crystal-key-item-randomizer.patches.rockets/trigger-early
                 [])
-              (randomize-janine/generate logic-options))))
+              (randomize-janine/generate logic-options))
+      (fix-radio-tower-boss/apply logic-options)))
 
 (s/fdef generate
   :args (s/cat :swaps :crystal-key-item-randomizer.specs/swaps

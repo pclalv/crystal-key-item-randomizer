@@ -15,6 +15,7 @@
                     ;; are seed-options logic-options?
                     :logic-options {:endgame-condition "defeat-red"
                                     :expanded-logic? false
+                                    :fix-radio-tower-boss? true
                                     :fly-by "whenever"
                                     :no-blind-rock-tunnel? true
                                     :no-early-sabrina? true
@@ -45,8 +46,9 @@
 
 ;; logic-options
 (def endgame-condition (r/cursor state [:logic-options :endgame-condition]))
-(def fly-by (r/cursor state [:logic-options :fly-by]))
 (def expanded-logic? (r/cursor state [:logic-options :expanded-logic?]))
+(def fix-radio-tower-boss? (r/cursor state [:logic-options :fix-radio-tower-boss?]))
+(def fly-by (r/cursor state [:logic-options :fly-by]))
 (def no-blind-rock-tunnel? (r/cursor state [:logic-options :no-blind-rock-tunnel?]))
 (def no-early-sabrina? (r/cursor state [:logic-options :no-early-sabrina?]))
 (def randomize-janine? (r/cursor state [:logic-options :randomize-janine?]))
@@ -248,6 +250,13 @@
     [:tbody [:tr [:td "Rocketless"] [:td "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
                                      "Might not play well with 'Randomize Copycat item'."]]]]
+   [:br]
+
+   [:input {:id "fix-radio-tower-boss" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom fix-radio-tower-boss?)
+            :checked @fix-radio-tower-boss?
+            :disabled @handling-rom?}]
+   [:label {:for "fix-radio-tower-boss"} "Fix Radio Tower Boss - Allow the player to battle the Radio Tower boss without beating the Fake Director; see " [:a {:href "#fix-radio-tower-boss-details"} "below"]]
    [:br]
 
    [:input {:id "expanded-logic" :type "checkbox"

@@ -11,6 +11,7 @@
 
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::expanded-logic? boolean?)
+(s/def ::fix-radio-tower-boss? boolean?)
 (s/def ::no-blind-rock-tunnel? boolean?)
 (s/def ::no-early-sabrina? boolean?)
 (s/def ::randomize-janine? boolean?)
@@ -19,7 +20,7 @@
 ;; set of swaps are beatable.
 (s/def ::logic-options
   (s/keys :req-un [::endgame-condition ::rockets]
-          :opt-un [::expanded-logic? ::no-blind-rock-tunnel? ::no-early-sabrina? ::randomize-janine?]))
+          :opt-un [::expanded-logic? ::fix-radio-tower-boss? ::no-blind-rock-tunnel? ::no-early-sabrina? ::randomize-janine?]))
 
 ;; TODO: implement early-bicycle and no-early-super-rod as logic options
 ;; no-early-super-rod can be like, 4 badges are required to get it, or something.
