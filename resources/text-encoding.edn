@@ -52,7 +52,7 @@
  79 "\\n", ; '(new)line' in pokecrystal
  81 "\\p", ; 'para' in pokecrystal
  82 "<PLAYER>",
- 84 "<POKé>"
+ 84 "<POKé>" ; '#MON' in pokecrystal
  85 "\\l", ; 'cont' in pokecrystal
  87 "\\e", ; 'done' in pokecrystal
  88 "\\r",
