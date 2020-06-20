@@ -84,6 +84,10 @@
     :prereqs {:badges #{:ZEPHYRBADGE}
               :items-obtained #{:HM_FLASH}}}
 
+   {:condition :can-fly
+    :prereqs {:badges #{:STORMBADGE}
+              :items-obtained #{:HM_FLY}}}
+
    {:condition :can-cut
     :prereqs {:badges #{:HIVEBADGE}
               :items-obtained #{:HM_CUT}}}
@@ -109,8 +113,9 @@
 (defn condition-prereqs
   ":prereqs is a vector that specifies one or more set of prereqs, each
   one of which is sufficient for the player to meet the :condition."
-  [{:keys [expanded-logic? no-blind-rock-tunnel? rockets]
+  [{:keys [expanded-logic? fly-by no-blind-rock-tunnel? rockets]
     :or {expanded-logic? false
+         fly-by :whenever
          no-blind-rock-tunnel? true
          rockets :normal}}]
   [{:condition :goldenrod
@@ -131,9 +136,13 @@
 
    {:condition :trigger-radio-tower-takeover
     ;; TODO: is the PHONE_CARD a prereq here?
-    :prereqs {:conditions-met (if (= :early rockets)
-                                #{:four-badges}
-                                #{:seven-badges})
+    :prereqs {:conditions-met (->> #{(when (= fly-by :mid-game)
+                                       :can-fly)
+                                     (if (= :early rockets)
+                                       :four-badges
+                                       :seven-badges)}
+                                   (filter (complement nil?))
+                                   (into #{}))
               :items-obtained #{}}}
 
    {:condition :underground-warehouse

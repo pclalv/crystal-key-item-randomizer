@@ -15,6 +15,7 @@
                     ;; are seed-options logic-options?
                     :logic-options {:endgame-condition "defeat-red"
                                     :expanded-logic? false
+                                    :fly-by "whenever"
                                     :no-blind-rock-tunnel? true
                                     :no-early-sabrina? true
                                     :randomize-janine? false
@@ -44,6 +45,7 @@
 
 ;; logic-options
 (def endgame-condition (r/cursor state [:logic-options :endgame-condition]))
+(def fly-by (r/cursor state [:logic-options :fly-by]))
 (def expanded-logic? (r/cursor state [:logic-options :expanded-logic?]))
 (def no-blind-rock-tunnel? (r/cursor state [:logic-options :no-blind-rock-tunnel?]))
 (def no-early-sabrina? (r/cursor state [:logic-options :no-early-sabrina?]))
@@ -253,6 +255,15 @@
             :checked @expanded-logic?
             :disabled @handling-rom?}]
    [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]
+   [:br]
+
+   [:select {:id "fly-by"
+             :on-change (set-value-on-atom fly-by)
+             :value @fly-by
+             :disabled @handling-rom?}
+    [:option {:value "none"} "Whenever"]
+    [:option {:value "mid-game"} "Mid-game (Radio Tower takeover)"]]
+   [:label {:for "fly-by"} "Fly by - Specify the point by which the player should be able to use Fly"]
    [:br]
 
    [:input {:id "no-blind-rock-tunnel" :type "checkbox"
