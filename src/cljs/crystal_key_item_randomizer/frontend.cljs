@@ -226,6 +226,28 @@
    [:label {:for "randomize-janine"} "Randomize Janine - Randomize which Janine is the real Janine in Fuchsia Gym."]
    [:br]
 
+   [:input {:id "fix-radio-tower-boss" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom fix-radio-tower-boss?)
+            :checked @fix-radio-tower-boss?
+            :disabled @handling-rom?}]
+   [:label {:for "fix-radio-tower-boss"} "Fix Radio Tower Boss - Allow the player to battle the Radio Tower boss without beating the Fake Director; see " [:a {:href "#fix-radio-tower-boss-details"} "below"]]
+   [:br]
+
+   [:input {:id "expanded-logic" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom expanded-logic?)
+            :checked @expanded-logic?
+            :disabled @handling-rom?}]
+   [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]
+   [:br]
+
+   [:input {:id "no-blind-rock-tunnel" :type "checkbox"
+            :on-change (set-checkbox-value-on-atom no-blind-rock-tunnel?)
+            :checked (and (empty? @seed-id)
+                          @no-blind-rock-tunnel?)
+            :disabled @handling-rom?}]
+   [:label {:for "no-blind-rock-tunnel"} "No blind Rock Tunnel - Ensure that the player has " [:tt "HM05"] " before the player is forced to do Rock Tunnel"]
+   [:br]
+
    [:select {:id "endgame-condition"
              :on-change (set-value-on-atom endgame-condition)
              :value @endgame-condition
@@ -252,35 +274,17 @@
                                      "Might not play well with 'Randomize Copycat item'."]]]]
    [:br]
 
-   [:input {:id "fix-radio-tower-boss" :type "checkbox"
-            :on-change (set-checkbox-value-on-atom fix-radio-tower-boss?)
-            :checked @fix-radio-tower-boss?
-            :disabled @handling-rom?}]
-   [:label {:for "fix-radio-tower-boss"} "Fix Radio Tower Boss - Allow the player to battle the Radio Tower boss without beating the Fake Director; see " [:a {:href "#fix-radio-tower-boss-details"} "below"]]
-   [:br]
-
-   [:input {:id "expanded-logic" :type "checkbox"
-            :on-change (set-checkbox-value-on-atom expanded-logic?)
-            :checked @expanded-logic?
-            :disabled @handling-rom?}]
-   [:label {:for "expanded-logic"} "Expanded logic - See " [:a {:href "#expanded-logic-details"} "below"]]
-   [:br]
-
    [:select {:id "fly-by"
              :on-change (set-value-on-atom fly-by)
              :value @fly-by
              :disabled @handling-rom?}
-    [:option {:value "none"} "Whenever"]
-    [:option {:value "mid-game"} "Mid-game (Radio Tower takeover)"]]
-   [:label {:for "fly-by"} "Fly by - Specify the point by which the player should be able to use Fly"]
-   [:br]
-
-   [:input {:id "no-blind-rock-tunnel" :type "checkbox"
-            :on-change (set-checkbox-value-on-atom no-blind-rock-tunnel?)
-            :checked (and (empty? @seed-id)
-                          @no-blind-rock-tunnel?)
-            :disabled @handling-rom?}]
-   [:label {:for "no-blind-rock-tunnel"} "No blind Rock Tunnel - Ensure that the player has " [:tt "HM05"] " before the player is forced to do Rock Tunnel"]])
+    [:option {:value "none"} "None"]
+    [:option {:value "mid-game"} "Mid-game"]]
+   [:label {:for "fly-by"} "Fly by - Ensure that the player can use Fly by some point in the game"]
+   [:table
+    [:thead [:tr [:th "Fly by Option"] [:th "Description"]]]
+    [:tbody [:tr [:td "None"] [:td "Whatever happens, happens"]]]
+    [:tbody [:tr [:td "Mid-game"] [:td "Fly by the time the player can trigger the Radio Tower takeover"]]]]])
 
 (defn rom-input []
   (when (not @handling-rom?)
