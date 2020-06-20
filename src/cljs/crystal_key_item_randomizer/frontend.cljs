@@ -271,20 +271,21 @@
     [:tbody [:tr [:td "Early"] [:td "Trigger Team Rocket Radio Tower takeover after obtaining 4 badges instead of 7 badges."]]]
     [:tbody [:tr [:td "Rocketless"] [:td "Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
-                                     "Might not play well with 'Randomize Copycat item'."]]]]
-   [:br]
+                                     "Might not play well with 'Randomize Copycat item'."]]]]])
+   ;; TOOD: figure out how do this without sounding confusing
+   ;; [:br]
 
-   [:select {:id "fly-by"
-             :on-change (set-value-on-atom fly-by)
-             :value @fly-by
-             :disabled @handling-rom?}
-    [:option {:value "none"} "None"]
-    [:option {:value "mid-game"} "Mid-game"]]
-   [:label {:for "fly-by"} "Fly by - Ensure that the player can use Fly by some point in the game"]
-   [:table
-    [:thead [:tr [:th "Option name"] [:th "Description"]]]
-    [:tbody [:tr [:td "None"] [:td "Whatever happens, happens"]]]
-    [:tbody [:tr [:td "Mid-game"] [:td "Fly by the time the player can trigger the Radio Tower takeover"]]]]])
+   ;; [:select {:id "fly-by"
+   ;;           :on-change (set-value-on-atom fly-by)
+   ;;           :value @fly-by
+   ;;           :disabled @handling-rom?}
+   ;;  [:option {:value "none"} "None"]
+   ;;  [:option {:value "mid-game"} "Mid-game"]]
+   ;; [:label {:for "fly-by"} "Fly by - Ensure that the player can use Fly by the point specifid"]
+   ;; [:table
+   ;;  [:thead [:tr [:th "Option name"] [:th "Description"]]]
+   ;;  [:tbody [:tr [:td "None"] [:td "Whatever happens, happens"]]]
+   ;;  [:tbody [:tr [:td "Mid-game"] [:td "Fly by the time the player can trigger the Radio Tower takeover"]]]]
 
 (defn rom-input []
   (when (not @handling-rom?)
