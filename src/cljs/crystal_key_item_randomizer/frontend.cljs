@@ -210,7 +210,7 @@
             :checked @randomize-copycat-item?
             :disabled @handling-rom?}]
    [:label {:for "randomize-copycat-item"}
-    "Randomize Copycat item (Experimental) - Randomize which item the Copycat is looking for; "
+    "Randomize Copycat item - Randomize which item the Copycat is looking for; "
     "the replacement will be a non-progression key item. As in vanilla, she'll only reveal "
     "which item she's looking for after the Power Plant is fixed. The item will be one of the following: "
     (->> key-items/non-required-items
@@ -269,7 +269,7 @@
     [:thead [:tr [:th "Rockets Option"] [:th "Description"]]]
     [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
     [:tbody [:tr [:td "Early"] [:td "Trigger Team Rocket Radio Tower takeover after obtaining 4 badges instead of 7 badges."]]]
-    [:tbody [:tr [:td "Rocketless"] [:td "(Experimental) Select this if you want to use the 'Rocketless' Speedchoice option. "
+    [:tbody [:tr [:td "Rocketless"] [:td "Select this if you want to use the 'Rocketless' Speedchoice option. "
                                      "Lance will " [:strong "not"] " give you anything useful. "
                                      "Might not play well with 'Randomize Copycat item'."]]]]
    [:br]
