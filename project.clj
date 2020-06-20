@@ -17,7 +17,7 @@
   :source-paths ["src/clj" "src/cljc"]
   :test-paths ["test/clj"]
   :target-path "target/%s"
-  
+
   :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]
                                   [ring/ring-devel "1.4.0"]]
                    :plugins [[lein-ring "0.12.5"]]
