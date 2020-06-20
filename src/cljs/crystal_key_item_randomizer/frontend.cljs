@@ -266,7 +266,7 @@
     [:option {:value "rocketless"} "Rocketless"]]
    [:label {:for "rockets"} "Rockets"]
    [:table
-    [:thead [:tr [:th "Rockets Option"] [:th "Description"]]]
+    [:thead [:tr [:th "Option name"] [:th "Description"]]]
     [:tbody [:tr [:td "Normal"] [:td "Rocket sequence plays out normally."]]]
     [:tbody [:tr [:td "Early"] [:td "Trigger Team Rocket Radio Tower takeover after obtaining 4 badges instead of 7 badges."]]]
     [:tbody [:tr [:td "Rocketless"] [:td "Select this if you want to use the 'Rocketless' Speedchoice option. "
@@ -282,7 +282,7 @@
     [:option {:value "mid-game"} "Mid-game"]]
    [:label {:for "fly-by"} "Fly by - Ensure that the player can use Fly by some point in the game"]
    [:table
-    [:thead [:tr [:th "Fly by Option"] [:th "Description"]]]
+    [:thead [:tr [:th "Option name"] [:th "Description"]]]
     [:tbody [:tr [:td "None"] [:td "Whatever happens, happens"]]]
     [:tbody [:tr [:td "Mid-game"] [:td "Fly by the time the player can trigger the Radio Tower takeover"]]]]])
 
