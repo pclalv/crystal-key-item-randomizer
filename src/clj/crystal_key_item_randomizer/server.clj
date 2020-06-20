@@ -41,6 +41,7 @@
     (let [{:keys [swaps-options logic-options]} (-> req :body :options)
           {:keys [seed error]} (seeds/generate-random {:logic-options (-> logic-options
                                                                           (update :endgame-condition keyword)
+                                                                          (update :fly-by keyword)
                                                                           (update :rockets keyword))
                                                        :swaps-options swaps-options})]
       (render-seed-or-error seed error))))
@@ -55,6 +56,7 @@
       (let [{:keys [swaps-options logic-options]} (-> req :body :options)
             {:keys [seed error]} (seeds/generate seed-id {:logic-options (-> logic-options
                                                                              (update :endgame-condition keyword)
+                                                                             (update :fly-by keyword)
                                                                              (update :rockets keyword))
                                                           :swaps-options (select-keys swaps-options [:randomize-badges?
                                                                                                      :randomize-copycat-item?])})]
