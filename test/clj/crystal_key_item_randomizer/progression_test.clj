@@ -137,23 +137,27 @@
     (testing "vanilla swaps are beatable to red"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  {:endgame-condition :defeat-red
+                                  :fly-by :none
                                   :rockets :normal})
                       :beatable?))))
 
     (testing "vanilla swaps are beatable to e4"
       (is (= true (-> (beatable? {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  {:endgame-condition :defeat-red
+                                  :fly-by :none
                                   :rockets :normal})
                       :beatable?))))
 
     (testing "the player gets every item"
       (is (= (set all-items) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                                  (beatable? {:endgame-condition :defeat-red
+                                             :fly-by :none
                                              :rockets :normal})
                                  :items-obtained))))
 
     (testing "the player gets every badge"
       (is (= (set badges) (-> {:item-swaps vanilla-item-swaps :badge-swaps vanilla-badge-swaps}
                               (beatable? {:endgame-condition :defeat-red
+                                          :fly-by :none
                                           :rockets :normal})
                               :badges))))))

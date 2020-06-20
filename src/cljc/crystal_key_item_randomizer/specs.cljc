@@ -11,6 +11,7 @@
 
 (s/def ::endgame-condition #{:defeat-red :defeat-elite-4})
 (s/def ::expanded-logic? boolean?)
+(s/def ::fly-by #{:none :mid-game})
 (s/def ::fix-radio-tower-boss? boolean?)
 (s/def ::no-blind-rock-tunnel? boolean?)
 (s/def ::no-early-sabrina? boolean?)
@@ -19,7 +20,7 @@
 ;; options that come into play at the time when we decide if a given
 ;; set of swaps are beatable.
 (s/def ::logic-options
-  (s/keys :req-un [::endgame-condition ::rockets]
+  (s/keys :req-un [::endgame-condition ::fly-by ::rockets]
           :opt-un [::expanded-logic? ::fix-radio-tower-boss? ::no-blind-rock-tunnel? ::no-early-sabrina? ::randomize-janine?]))
 
 ;; TODO: implement early-bicycle and no-early-super-rod as logic options

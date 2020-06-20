@@ -32,6 +32,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "includes patches for badge checkflag occurrences"
@@ -40,6 +41,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "includes giveitem patches"
@@ -47,6 +49,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "includes received badge text patches"
@@ -54,6 +57,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "includes pre-badge blurb patches"
@@ -61,6 +65,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "includes post-defeat speech patches"
@@ -68,6 +73,7 @@
                  (generate {:item-swaps vanilla-item-swaps
                             :badge-swaps vanilla-badge-swaps}
                            {:endgame-condition :defeat-red
+                            :fly-by :none
                             :rockets :normal}))))
 
   (testing "copycat-item"
@@ -76,12 +82,14 @@
                                     :badge-swaps vanilla-badge-swaps
                                     :copycat-item :MYSTERY_EGG}
                                    {:endgame-condition :defeat-red
+                                    :fly-by :none
                                     :rockets :normal}))))
     (is (= #{} (clojure.set/intersection (set (crystal-key-item-randomizer.patches.copycat/generate :LOST_ITEM :normal))
                                          (set (generate {:item-swaps vanilla-item-swaps
                                                          :badge-swaps vanilla-badge-swaps
                                                          :copycat-item :LOST_ITEM}
                                                         {:endgame-condition :defeat-red
+                                                         :fly-by :none
                                                          :rockets :normal}))))))
 
   (testing "early rockets"
@@ -89,9 +97,11 @@
                          (generate {:item-swaps vanilla-item-swaps
                                     :badge-swaps vanilla-badge-swaps}
                                    {:endgame-condition :defeat-red
+                                    :fly-by :none
                                     :rockets :early}))))
     (is (= #{} (clojure.set/intersection (set crystal-key-item-randomizer.patches.rockets/trigger-early)
                                          (set (generate {:item-swaps vanilla-item-swaps
                                                          :badge-swaps vanilla-badge-swaps}
                                                         {:endgame-condition :defeat-red
+                                                         :fly-by :none
                                                          :rockets :normal})))))))

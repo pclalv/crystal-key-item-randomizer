@@ -82,16 +82,17 @@
            (->> (condition-prereqs {:no-blind-rock-tunnel? false})
                 (filter #(= :talk-to-power-plant-manager (:condition %)))))))
   (testing "expanded-logic"
-    (is (= '({:condition :pewter,
-              :prereqs {:conditions-met #{:eight-badges :can-waterfall},
+    (is (= #{{:condition :pewter,
+              :prereqs {:conditions-met #{:eight-badges :kanto :can-waterfall},
                         :pokegear-cards #{:RADIO_CARD :EXPN_CARD},
                         :items-obtained #{}}}
              {:condition :pewter,
               :prereqs {:conditions-met #{:can-cut},
                         :pokegear-cards #{:RADIO_CARD :EXPN_CARD},
-                        :items-obtained #{}}})
+                        :items-obtained #{}}}}
            (->> (condition-prereqs {:expanded-logic? true})
-                (filter #(= :pewter (:condition %))))))))
+                (filter #(= :pewter (:condition %)))
+                set)))))
 
 (deftest item-prereqs-test
   (testing "rocketless"

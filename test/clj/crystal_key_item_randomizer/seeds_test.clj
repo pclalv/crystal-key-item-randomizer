@@ -18,6 +18,7 @@
            (-> (generate-random {:swaps-options {:early-bicycle? true
                                                  :rng (new java.util.Random 1)}
                                  :logic-options {:endgame-condition :defeat-red
+                                                 :fly-by :none
                                                  :rockets :normal}})
                ;; :iterations are not relevant when generating a specific seed
                (dissoc :iterations)))))
@@ -54,6 +55,7 @@
              (-> (generate-random {:swaps-options {:early-bicycle? false
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:item-swaps :id])))))
@@ -88,6 +90,7 @@
              (-> (generate-random {:swaps-options {:early-bicycle? true
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:item-swaps :id]))))))
@@ -124,6 +127,7 @@
              (-> (generate-random {:swaps-options {:no-early-super-rod? true
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:item-swaps :id]))))))
@@ -175,8 +179,8 @@
               :id "1546424057"}
              (-> (generate-random {:swaps-options {:randomize-badges? true
                                                    :rng (new java.util.Random 1)}
-                                   
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal
                                                    :no-early-sabrina? true}})
                  :seed
@@ -204,6 +208,7 @@
              (-> (generate-random {:swaps-options {:randomize-badges? true
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:badge-swaps :id])))))
@@ -228,6 +233,7 @@
              (-> (generate-random {:swaps-options {:randomize-badges? false
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:badge-swaps :id]))))))
@@ -238,6 +244,7 @@
              (-> (generate-random {:swaps-options {:randomize-copycat-item? true
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:copycat-item :id])))))
@@ -246,6 +253,7 @@
              (-> (generate-random {:swaps-options {:randomize-copycat-item? false
                                                    :rng (new java.util.Random 1)}
                                    :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
                                                    :rockets :normal}})
                  :seed
                  (select-keys [:copycat-item :id]))))))
@@ -258,8 +266,9 @@
                            :BASEMENT_KEY :MACHINE_PART},
               :id "431529176"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :logic-options {:rockets :normal
-                                                   :endgame-condition :defeat-red}})
+                                   :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
+                                                   :rockets :normal}})
                  :seed
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))
@@ -270,8 +279,9 @@
                            :BASEMENT_KEY :MACHINE_PART},
               :id "431529176"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :logic-options {:rockets :early
-                                                   :endgame-condition :defeat-red}})
+                                   :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
+                                                   :rockets :early}})
                  :seed
                  (select-keys [:item-swaps :id])
                  (update :item-swaps select-keys lance-items)))))
@@ -282,8 +292,45 @@
                            :BASEMENT_KEY :OLD_ROD},
               :id "907914391"}
              (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
-                                   :logic-options {:rockets :rocketless
-                                                   :endgame-condition :defeat-red}})
+                                   :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
+                                                   :rockets :rocketless}})
                  :seed
                  (select-keys [:item-swaps :id])
-                 (update :item-swaps select-keys lance-items)))))))
+                 (update :item-swaps select-keys lance-items)))))
+
+    (testing "expanded-logic"
+      (is (= {:item-swaps {:HM_FLASH :SQUIRTBOTTLE,
+                           :SILVER_WING :BICYCLE,
+                           :LOST_ITEM :SECRETPOTION,
+                           :ITEMFINDER :HM_FLY,
+                           :GOOD_ROD :HM_STRENGTH,
+                           :CARD_KEY :ITEMFINDER,
+                           :COIN_CASE :MACHINE_PART,
+                           :BLUE_CARD :HM_SURF,
+                           :CLEAR_BELL :RED_SCALE,
+                           :SQUIRTBOTTLE :SILVER_WING,
+                           :HM_WHIRLPOOL :MYSTERY_EGG,
+                           :RED_SCALE :CLEAR_BELL,
+                           :HM_WATERFALL :GOOD_ROD,
+                           :SECRETPOTION :HM_FLASH,
+                           :BASEMENT_KEY :OLD_ROD,
+                           :MACHINE_PART :S_S_TICKET,
+                           :MYSTERY_EGG :CARD_KEY,
+                           :S_S_TICKET :BASEMENT_KEY,
+                           :PASS :LOST_ITEM,
+                           :HM_CUT :HM_WATERFALL,
+                           :HM_FLY :HM_WHIRLPOOL,
+                           :HM_STRENGTH :SUPER_ROD,
+                           :OLD_ROD :COIN_CASE,
+                           :BICYCLE :HM_CUT,
+                           :HM_SURF :PASS,
+                           :SUPER_ROD :BLUE_CARD},
+              :id "907914391"}
+             (-> (generate-random {:swaps-options {:rng (new java.util.Random 1)}
+                                   :logic-options {:endgame-condition :defeat-red
+                                                   :fly-by :none
+                                                   :rockets :rocketless
+                                                   :expanded-logic? true}})
+                 :seed
+                 (select-keys [:item-swaps :id])))))))

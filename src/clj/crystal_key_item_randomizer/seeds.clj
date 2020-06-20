@@ -138,6 +138,7 @@
 (defn generate
   ([seed-id]
    (generate seed-id {:logic-options {:endgame-condition :defeat-red
+                                      :fly-by :none
                                       :rockets :normal}
                       :swaps-options {}}))
   ([seed-id {:keys [swaps-options logic-options]
@@ -174,7 +175,7 @@
 ;;                                                                       new
 ;;                                                                       .nextLong
 ;;                                                                       java.lang.Math/abs)))
-;;                                              (map #(crystal-key-item-randomizer.seeds/generate % {:logic-options {:no-early-sabrina? true}}))
+;;                                              (map #(crystal-key-item-randomizer.seeds/generate %))
 ;;                                              (group-by #(if (-> % :seed :beatable?)
 ;;                                                           :beatable
 ;;                                                           :not-beatable)))]
