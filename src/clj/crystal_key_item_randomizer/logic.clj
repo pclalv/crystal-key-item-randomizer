@@ -157,6 +157,7 @@
          :prereqs {:conditions-met #{:ecruteak :can-strength :trigger-radio-tower-takeover}
                    :items-obtained #{}}}
 
+        ;; TODO: rename this to eastern-kanto?
         ;; there are TWO ways of getting to kanto
         {:condition :kanto
          :prereqs {:conditions-met #{:ecruteak}
@@ -184,11 +185,14 @@
          :prereqs {:conditions-met #{:talk-to-power-plant-manager}
                    :items-obtained #{:MACHINE_PART}}}
 
+        ;; TODO: rename this to western-kanto?
         ;; there are TWO ways of getting to pewter
         (when expanded-logic? {:condition :pewter
-                               :prereqs {;; can reach Pokemon League Gate and get past the
-                                         ;; Officer who performs the badge check
-                                         :conditions-met #{:eight-badges :can-waterfall}
+                               :prereqs {:conditions-met #{;; can reach Pokemon League Gate and get past the
+                                                           ;; Officer who performs the badge check
+                                                           :eight-badges :can-waterfall
+                                                           ;; can get to the Snorlax
+                                                           :kanto}
                                          ;; can defeat Snorlax, which causes the Blackbelt
                                          ;; guarding the eastern exit to disappear
                                          :pokegear-cards #{:EXPN_CARD :RADIO_CARD}
