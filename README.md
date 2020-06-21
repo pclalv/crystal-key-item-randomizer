@@ -45,8 +45,24 @@ Currently, only the Clojure code is tested. To run the tests, run
 
 ## to do
 
-in priority order:
+- _don't_ randomize the blue card? because it's useless, and
+  free. maybe same with similarly free and useless items, like
+  itemfinder.
+- decide how to support v7
+  - wholesale move to v7?
+  - support both v6 and v7?
+    - could detect which version we've got:
 
+      [~/code/pokecrystal] (speedchoice-changes-v7 0c1e521d4)
+      # rg -F VersionNumberText ./crystal-speedchoice.sym
+      43191:7a:4000 VersionNumberText
+
+      [~/code/pokecrystal] (speedchoice-labels 170cbae60)
+      # rg -F VersionNumberText ./crystal-speedchoice.sym
+      6252:05:750a VersionNumberText
+
+- randomize which Mahogany base rockets know the password
+  - probably can work similar to randomizing janine
 - make it easy to generate all of the patch/label data that CKIR needs
   with a script in crystal-speedchoice
   - mainly for if/when crystal-speedchoice gets updated and patches
@@ -74,7 +90,7 @@ in priority order:
   - whirl islands
   - mt mortar
   - dark cave
-- patch vanilla crystal roms into the speedchoice rom 
+- patch vanilla crystal roms into the speedchoice rom
   - i believe we can determine this by reading some header
   - low priority because people will wanna use other randomizations
     first; it's unlikely people will be submitting vanilla ROMs
@@ -114,18 +130,7 @@ in priority order:
   defeating Team Rocket in Mahogany Town; even if the player gets the
   `BASEMENT_KEY` early, nobody will be in the Underground Warehouse
   until after defeating Team Rocket in Mahogany Town. (won't fix?)
-- **Randomizer pokegear cards among items**. `giveitem` and
-  `verbosegiveitem` are 3-byte instructions; `setflag` and `itemball`
-  are (pokegear cards are flags) are 2-byte instructions. how to
-  reconcile this? i think this would require custom ASM that acts like
-  an itemball on the overworld but instead sets a game flag.
-  - problem: fit instructions that behave like `{,verbose}giveitem`
-    into 2 bytes
-  - problem: fit instructions that behave like `setflag` and
-    `itemball` into 3 bytes
-  - itemballs can also be `person_event`s - see electrodes in
-    `TeamRocketBaseB2F.asm`
-- try to create a person_event itemball that grants a pokegear card
+- **Randomizer pokegear cards among items**
 
 [pclalv/randomizer-labels]: https://github.com/pclalv/pokecrystal/tree/randomizer-labels
 [pclalv/speedchoice]: https://github.com/pclalv/pokecrystal/tree/speedchoice
