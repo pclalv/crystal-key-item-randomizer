@@ -2,14 +2,21 @@
 
 # from https://github.com/BrunoBonacci/graalvm-clojure/blob/master/doc/clojure-graalvm-native-binary.md
 
-export GRAALVM_HOME="$HOME/code/graalvm-ce-19.2.1/Contents/Home"
+export GRAALVM_HOME="/Users/paulalvarez/bin/graalvm-ce-java11-20.1.0/Contents/Home"
 export PATH="$GRAALVM_HOME/bin:$PATH"
 
-lein do clean, uberjar
+# lein do clean, uberjar
 # fails, see https://clojure.atlassian.net/browse/CLJ-1472#icft=CLJ-1472
 native-image \
   --no-fallback \
   --report-unsupported-elements-at-runtime \
   --initialize-at-build-time \
   -jar ./target/uberjar/crystal-key-item-randomizer.jar \
+  -H:+ReportExceptionStackTraces \
+  -J-Dclojure.spec.skip-macros=true \
+  -J-Dclojure.compiler.direct-linking=true \
+  -H:Log=registerResource: \
+  --verbose \
+  --no-fallback \
+  --no-server \
   -H:Name=./target/ckir

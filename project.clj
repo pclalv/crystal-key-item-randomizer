@@ -5,7 +5,6 @@
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.597"]
                  [org.clojure/data.json "0.2.6"]
                  [ring/ring-core "1.7.1"]
                  [ring/ring-json "0.5.0"]
@@ -18,7 +17,8 @@
   :test-paths ["test/clj"]
   :target-path "target/%s"
 
-  :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]
+  :profiles {:provided {:dependencies [[org.clojure/clojurescript "1.10.597"]]}
+             :dev {:dependencies [[org.clojure/test.check "0.9.0"]
                                   [ring/ring-devel "1.4.0"]]
                    :plugins [[lein-ring "0.12.5"]]
                    :ring {:handler crystal-key-item-randomizer.server/app}
