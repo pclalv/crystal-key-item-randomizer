@@ -3,6 +3,12 @@
 A Clojure + ClojureScript application for randomizing the key items
 (including HMs) in the speedchoice fork of Pokemon Crystal.
 
+## warning
+
+I no longer work on this project. If you're looking for a great
+Pokemon Crystal randomizer experience, please check out [ERC's
+randomizer](https://github.com/erudnick-cohen/Pokemon-Crystal-Item-Randomizer/releases/).
+
 ## changes, known issues
 
 See the [homepage](https://crystal-key-item-randomizer.herokuapp.com/).
